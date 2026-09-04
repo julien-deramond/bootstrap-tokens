@@ -10,6 +10,7 @@ import { ext, index, walk, NS } from './tokens.mjs'
 import { expandColorScales } from './color-scale.mjs'
 import { emitUseWith } from './emit-scss.mjs'
 import { SCALARS, COMPONENTS } from './sass-targets.mjs'
+import { FIXED_DARK_SELECTORS } from './curation.mjs'
 
 const scalarByPath = new Map(SCALARS.map((s) => [s.path, s.sassVar]))
 const selectorByMap = new Map(COMPONENTS.map((c) => [c.sassMap, c.selector]))
@@ -66,7 +67,15 @@ export function diffResolved(base, next) {
     } catch {
       continue
     }
-    if (after !== before) changes.push({ path, cssVar: meta.cssVar, sassMap: meta.sassMap, value: after })
+    if (after !== before) {
+      changes.push({
+        path,
+        cssVar: meta.cssVar,
+        sassMap: meta.sassMap,
+        value: after,
+        fixedDark: meta.fixedDark ?? null
+      })
+    }
   }
   return changes
 }
@@ -91,8 +100,32 @@ export function themeCss(changes) {
     const body = declarations.map(([name, value]) => `  ${name}: ${value};`).join('\n')
     blocks.push(`${selector} {\n${body}\n}`)
   }
+
+  blocks.push(...reassertFixedDark(changes))
   return `${blocks.join('\n\n')}\n`
 }
+
+/**
+ * Some tokens are re-declared for dark mode by rules that sit *after* `:root` in Bootstrap's
+ * own stylesheet, so overriding the token only moves the light value. Re-assert those fixed
+ * values here; without this the preview would show a dark mode the compiled CSS never
+ * produces. See FIXED_DARK in curation.mjs.
+ */
+function reassertFixedDark(changes) {
+  const blocks = []
+
+  for (const change of changes) {
+    if (!change.fixedDark) continue
+    for (const { media, selector } of FIXED_DARK_SELECTORS) {
+      const rule = `${selector} {\n  ${change.cssVar}: ${change.fixedDark};\n}`
+      blocks.push(media ? `@media ${media} {\n${indent(rule)}\n}` : rule)
+    }
+  }
+
+  return blocks
+}
+
+const indent = (text) => text.split('\n').map((line) => `  ${line}`).join('\n')
 
 /**
  * The Sass maps an export has to carry. Derived from what the user *edited*, not from what

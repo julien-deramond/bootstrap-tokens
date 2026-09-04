@@ -340,3 +340,110 @@ body {
 .contrast.is-pass { background: color-mix(in oklab, #16a34a 18%, transparent); color: light-dark(#14532d, #86efac); }
 .contrast.is-warn { background: color-mix(in oklab, #d97706 20%, transparent); color: light-dark(#78350f, #fcd34d); }
 .contrast.is-fail { background: color-mix(in oklab, #dc2626 20%, transparent); color: light-dark(#7f1d1d, #fca5a5); }
+
+/* --- simple mode -------------------------------------------------------- */
+
+body[data-mode="simple"] .layout { grid-template-columns: minmax(24rem, 1fr) minmax(22rem, 1.05fr); }
+body[data-mode="simple"] .rail { display: none; }
+
+#simple { padding: .25rem 0 3rem; }
+
+.presets {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .375rem;
+  align-items: center;
+  padding: .875rem 1rem;
+  border-block-end: 1px solid var(--line);
+}
+
+.presets-label { font-size: .75rem; color: var(--ink-faint); margin-inline-end: .125rem; }
+
+.chip-button {
+  font: inherit;
+  font-size: .75rem;
+  padding: .3125rem .625rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+
+.chip-button:hover { background: var(--surface-sunken); border-color: var(--accent); }
+
+.dial-section {
+  margin: 1.25rem 0 0;
+  padding: 0 1rem .375rem;
+  font-size: .6875rem;
+  font-weight: 650;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
+}
+
+.dial { padding: .75rem 1rem 1rem; border-block-end: 1px solid var(--line); }
+.dial-head { display: flex; gap: .5rem; align-items: baseline; }
+.dial-label { font-size: .8125rem; font-weight: 600; }
+
+.dial-custom {
+  font: .625rem/1 var(--mono);
+  padding: .1875rem .375rem;
+  border-radius: 4px;
+  background: color-mix(in oklab, var(--accent) 16%, transparent);
+  color: var(--ink);
+}
+
+.dial-help { margin: .1875rem 0 .625rem; font-size: .75rem; color: var(--ink-faint); max-width: 58ch; }
+.dial-options { flex-wrap: wrap; }
+.dial-options button { padding: .375rem .6875rem; font-size: .75rem; }
+
+.hue-grid { display: flex; flex-wrap: wrap; gap: .375rem; }
+
+.hue {
+  inline-size: 1.875rem;
+  block-size: 1.875rem;
+  padding: 0;
+  border: 2px solid transparent;
+  border-radius: 7px;
+  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 12%);
+  cursor: pointer;
+}
+
+.hue[aria-pressed="true"] { border-color: var(--ink); outline: 2px solid var(--surface); outline-offset: -4px; }
+.hue:hover { transform: scale(1.08); }
+
+.hue-custom { display: flex; gap: .5rem; align-items: center; margin-block-start: .625rem; }
+.hue-note { font-size: .6875rem; color: var(--ink-faint); }
+
+.simple-footer { padding: 1.25rem 1rem; display: grid; gap: .25rem; justify-items: start; }
+.simple-footer p { margin: 0; font-size: .75rem; color: var(--ink-muted); }
+.simple-notice { color: var(--ink-faint); }
+
+.link-button {
+  margin-block-start: .375rem;
+  font: inherit;
+  font-size: .75rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--accent);
+  cursor: pointer;
+}
+
+.link-button:hover { text-decoration: underline; }
+
+@media (width < 60rem) {
+  body[data-mode="simple"] .layout { grid-template-columns: 1fr; }
+}
+
+.dial-contrast {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .375rem .75rem;
+  align-items: center;
+  margin-block-start: .625rem;
+}
+
+.dial-contrast-item { display: flex; gap: .375rem; align-items: center; font-size: .6875rem; color: var(--ink-faint); }
+.dial-contrast-warning { flex-basis: 100%; font-size: .6875rem; color: light-dark(#b91c1c, #fca5a5); }

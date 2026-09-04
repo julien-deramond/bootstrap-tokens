@@ -47,11 +47,36 @@ npm run vendor   # compile upstream Bootstrap into web/vendor/bootstrap.css (onc
 npm run web      # http://localhost:4000
 ```
 
-Pick a token, change it, watch real Bootstrap components re-theme in the panel beside you,
-then export. There is no Sass in the browser and no compile step in the loop: v6 drives
-everything through CSS custom properties, so re-declaring them is the whole mechanism.
+Watch real Bootstrap components re-theme in the panel beside you, then export. There is no
+Sass in the browser and no compile step in the loop: v6 drives everything through CSS custom
+properties, so re-declaring them is the whole mechanism.
 
-Three things worth knowing:
+### Two modes over one model
+
+**Simple** (the default) is eight dials that each move a lot of the system — brand and accent
+colour, corner radius, density, border weight, typeface, text size, shadow depth — plus four
+presets to start from. Most themes are a few of these and nothing else.
+
+**Advanced** is the token browser: all 1197 tokens, grouped by layer, searchable, with a
+light and a dark field each.
+
+They are two *views*, not two models. Every dial writes ordinary token overrides into the
+same state Advanced edits, so switching is lossless and the export comes from one source of
+truth. A dial reads its position back out of those overrides and says **Custom** when the
+tokens hold something it cannot represent, rather than snapping your work back to a preset.
+
+Two decisions inside Simple mode are worth knowing about:
+
+* **Changing the brand colour repoints the role, it doesn't recolour a scale.** Bootstrap
+  builds `primary` out of the blue scale, so picking green rewrites all nine sub-keys to
+  `{color.green.*}` — which is exactly what a handwritten `$theme-colors` override looks like.
+  The custom colour picker is the other path, and it says plainly that it redefines that
+  scale and so also recolours `--blue-*` elsewhere.
+* **`contrast` is chosen, not substituted.** That sub-key is the text placed *on* the fill.
+  Substituting it would give white-on-yellow; Simple mode measures the contrast and picks
+  white or `gray-900`, then shows the resulting ratios and warns when a choice fails WCAG AA.
+
+### Other things worth knowing
 
 * **Editing a hue moves everything downstream.** `color.blue.base` regenerates 13 scale
   steps, which move `theme-color.primary.*`, which move every component that uses them.

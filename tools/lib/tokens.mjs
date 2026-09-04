@@ -14,6 +14,19 @@ export const ext = (node) => node?.$extensions?.[NS] ?? {}
 export const isToken = (node) => node !== null && typeof node === 'object' && node.$value !== undefined
 export const isGroup = (node) => node !== null && typeof node === 'object' && node.$value === undefined
 
+/**
+ * The string a human edits for this token — its authored value, not its resolved CSS.
+ *
+ * Typed values (`{ value: 0.5, unit: "rem" }`) have to be rendered before they can be
+ * compared against or shown in a text field. Defined once here so the editor, the Simple-mode
+ * dials and the tests all agree on what "unchanged" means.
+ */
+export function authoredValue(token, side = 'value') {
+  if (!token) return ''
+  if (side === 'dark') return ext(token).dark ?? ''
+  return typeof token.$value === 'string' ? token.$value : typedToCss(token)
+}
+
 /** Child keys of a group, honouring an explicit `order` extension. */
 export function childKeys(node) {
   const keys = Object.keys(node).filter((key) => !key.startsWith('$'))

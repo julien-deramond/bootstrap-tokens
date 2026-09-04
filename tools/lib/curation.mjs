@@ -103,13 +103,33 @@ export const ROOT_TOKEN_PATHS = [
  */
 export const ALIAS_REWRITES = new Map()
 
+/**
+ * Tokens that upstream re-declares for dark mode *outside* any token map.
+ *
+ * `--shadow-strength` is a plain number, so it cannot use `light-dark()`. `scss/_root.scss`
+ * instead re-declares it in a `prefers-color-scheme` media query and under
+ * `[data-bs-theme="dark"]`, both after the `:root` block — which means overriding the token
+ * changes the light value only. Recording that here keeps the preview honest: it re-asserts
+ * the fixed dark value exactly as the compiled stylesheet does, instead of showing a dark
+ * mode that no build would ever produce.
+ */
+export const FIXED_DARK = {
+  'elevation.strength': '2.4'
+}
+
+/** Where upstream re-declares a `FIXED_DARK` token. */
+export const FIXED_DARK_SELECTORS = [
+  { media: '(prefers-color-scheme: dark)', selector: ':root' },
+  { media: null, selector: '[data-bs-theme="dark"]' }
+]
+
 /** Per-token notes, surfaced in the chooser and in the resolved JSON. */
 export const TOKEN_DESCRIPTIONS = {
   'spacing.root':
     'Upstream hardcodes this rather than deriving it from $spacer, so changing the base spacer does not move it.',
   'radius.pill': 'A fixed 50rem, set on $root-tokens after the $radii loop.',
   'elevation.strength':
-    'Multiplies every shadow layer’s alpha. Bumped to 2.4 in dark mode, which a light-dark() pair cannot express because it is a number, not a colour.',
+    'Multiplies every shadow layer’s alpha. Light mode only: dark mode is pinned to 2.4 by a media query in scss/_root.scss, which no token map can reach.',
   'color-mix.space': 'The interpolation space every generated colour step is mixed in.'
 }
 

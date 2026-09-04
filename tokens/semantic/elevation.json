@@ -87,10 +87,11 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--shadow-strength",
           "sassMap": "$root-tokens",
-          "sassKey": "--shadow-strength"
+          "sassKey": "--shadow-strength",
+          "fixedDark": "2.4"
         }
       },
-      "$description": "Multiplies every shadow layer’s alpha. Bumped to 2.4 in dark mode, which a light-dark() pair cannot express because it is a number, not a colour."
+      "$description": "Multiplies every shadow layer’s alpha. Light mode only: dark mode is pinned to 2.4 by a media query in scss/_root.scss, which no token map can reach."
     },
     "$description": "Shadow scale plus the colour and strength every layer is tinted by."
   }

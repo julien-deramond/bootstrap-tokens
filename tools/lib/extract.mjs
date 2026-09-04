@@ -19,7 +19,8 @@ import {
   ALIAS_REWRITES,
   FILE_FOR_GROUP,
   GROUP_DESCRIPTIONS,
-  TOKEN_DESCRIPTIONS
+  TOKEN_DESCRIPTIONS,
+  FIXED_DARK
 } from './curation.mjs'
 import { splitLightDark, cssToRefs, isPureAlias, typeLiteral } from './value.mjs'
 import { hintFor, GROUP_HINTS } from './hints.mjs'
@@ -357,6 +358,7 @@ function toToken(record, lookup) {
   if (record.sassSubKey) extensions.sassSubKey = record.sassSubKey
   if (record.sassQuoted) extensions.sassQuoted = true
   if (record.readonly) extensions.readonly = record.readonly
+  if (FIXED_DARK[record.path]) extensions.fixedDark = FIXED_DARK[record.path]
 
   const raw = evaluateSassFunctions(record.raw)
   const sassExpression = rewriteSassExpression(raw)

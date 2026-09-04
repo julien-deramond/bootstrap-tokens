@@ -18,7 +18,11 @@
       </div>
 
       <div class="topbar-actions">
-        <div class="segmented" role="group" aria-label="Preview colour scheme">
+        <div class="segmented" id="mode" role="group" aria-label="Editing mode">
+          <button type="button" data-mode="simple">Simple</button>
+          <button type="button" data-mode="advanced">Advanced</button>
+        </div>
+        <div class="segmented" id="scheme" role="group" aria-label="Preview colour scheme">
           <button type="button" data-scheme="light">Light</button>
           <button type="button" data-scheme="dark">Dark</button>
         </div>
@@ -41,6 +45,7 @@
           <p id="section-note"></p>
         </div>
         <div class="editor-body" id="editor"></div>
+        <div class="editor-body" id="simple" hidden></div>
       </section>
 
       <section class="preview" aria-label="Live preview">

@@ -6,9 +6,8 @@
  * you see here and what you compile are the same thing by construction.
  */
 
-import { ext, index, walk, childKeys } from '../tools/lib/tokens.mjs'
+import { ext, index, walk, childKeys, authoredValue } from '../tools/lib/tokens.mjs'
 import { expandColorScales } from '../tools/lib/color-scale.mjs'
-import { typedToCss } from '../tools/lib/value.mjs'
 import { COMPONENTS } from '../tools/lib/sass-targets.mjs'
 import { FILE_FOR_GROUP, GROUP_DESCRIPTIONS } from '../tools/lib/curation.mjs'
 import {
@@ -21,9 +20,11 @@ import {
   mapsTouched
 } from '../tools/lib/overrides.mjs'
 import { sourceEdits } from '../tools/lib/source-value.mjs'
+import { DIALS, PRESETS, HUES, hueOfRole, repointRole, selectedOption } from './easy.js'
 import { parseComputedColor, formatColor, hexToRgb, rgbToHex, contrastRatio, contrastGrade } from './color.js'
 
 const STORAGE_KEY = 'bootstrap-tokens.chooser.v1'
+const MODE_KEY = 'bootstrap-tokens.chooser.mode'
 
 /** The handful of tokens that move the most for the least effort. */
 const BASICS = [
@@ -106,6 +107,7 @@ const state = {
   doc: null,
   meta: { bootstrap: 'unknown' },
   overrides: load(),
+  mode: loadMode(),
   section: 'basics',
   scheme: globalThis.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
   query: '',
@@ -127,6 +129,25 @@ function save() {
   } catch {
     /* private browsing — the session still works, it just won't persist */
   }
+}
+
+/** Simple is the default: most people want a theme, not a token browser. */
+function loadMode() {
+  try {
+    return localStorage.getItem(MODE_KEY) === 'advanced' ? 'advanced' : 'simple'
+  } catch {
+    return 'simple'
+  }
+}
+
+function setMode(mode) {
+  state.mode = mode
+  try {
+    localStorage.setItem(MODE_KEY, mode)
+  } catch {
+    /* ignore */
+  }
+  render()
 }
 
 /* ---------------------------------------------------------------- sections */
@@ -198,33 +219,43 @@ function editableValue(path, side = 'value') {
   const override = state.overrides[path]
   if (override && override[side] !== undefined && override[side] !== null) return override[side]
 
-  const token = state.baseDoc.tokens.get(path)
-  if (!token) return ''
-  if (side === 'dark') return ext(token).dark ?? ''
-  return typeof token.$value === 'string' ? token.$value : typedToCss(token)
+  return authoredValue(state.baseDoc.tokens.get(path), side)
 }
 
 const isChanged = (path) => Object.hasOwn(state.overrides, path)
 
-function setOverride(path, side, value) {
+/** Record one edit without touching the DOM, so batches apply as a single update. */
+function writeOverride(path, side, value) {
   const base = editableBase(path, side)
   const next = { ...(state.overrides[path] ?? {}) }
 
-  if (value === base) delete next[side]
+  if (value === base || value === undefined) delete next[side]
   else next[side] = value
 
   if (Object.keys(next).length === 0) delete state.overrides[path]
   else state.overrides[path] = next
+}
 
+function setOverride(path, side, value) {
+  writeOverride(path, side, value)
   save()
   recompute()
 }
 
+/** Apply a `{ path: value | { value, dark } }` batch — how every Simple-mode dial writes. */
+function applyValues(values) {
+  for (const [path, entry] of Object.entries(values)) {
+    const override = typeof entry === 'string' ? { value: entry } : entry
+    if ('value' in override) writeOverride(path, 'value', override.value)
+    if ('dark' in override) writeOverride(path, 'dark', override.dark)
+  }
+  save()
+  recompute()
+  render()
+}
+
 function editableBase(path, side) {
-  const token = state.baseDoc.tokens.get(path)
-  if (!token) return ''
-  if (side === 'dark') return ext(token).dark ?? ''
-  return typeof token.$value === 'string' ? token.$value : typedToCss(token)
+  return authoredValue(state.baseDoc.tokens.get(path), side)
 }
 
 function clearOverride(path) {
@@ -307,8 +338,7 @@ function renderRail() {
       button.append(name, count)
       button.addEventListener('click', () => {
         state.section = item.id
-        renderRail()
-        renderEditor()
+        render()
       })
       rail.append(button)
     }
@@ -398,8 +428,7 @@ function renderToken(path) {
     reset.textContent = 'Reset to default'
     reset.addEventListener('click', () => {
       clearOverride(path)
-      renderEditor()
-      renderRail()
+      render()
     })
     controls.append(reset)
   }
@@ -440,8 +469,7 @@ function renderField(path, side, modeLabel, token) {
   input.setAttribute('aria-label', `${path} ${side === 'dark' ? 'dark value' : 'value'}`)
   input.addEventListener('change', () => {
     setOverride(path, side, input.value.trim())
-    renderEditor()
-    renderRail()
+    render()
   })
   field.append(input)
 
@@ -454,8 +482,7 @@ function renderField(path, side, modeLabel, token) {
     picker.setAttribute('aria-label', `${path} colour picker`)
     picker.addEventListener('input', () => {
       setOverride(path, side, formatColor(hexToRgb(picker.value), input.value))
-      renderEditor()
-      renderRail()
+      render()
     })
     field.append(picker)
   }
@@ -526,7 +553,325 @@ function splitTop(value) {
   return [value, value]
 }
 
+/* ------------------------------------------------------------- simple mode */
+
+const read = (path, side = 'value') => editableValue(path, side)
+
+/** The token paths every dial owns, so we can tell "edited elsewhere" from "edited here". */
+function dialTokens() {
+  const paths = new Set()
+  for (const dial of DIALS) {
+    if (dial.kind === 'choice') {
+      for (const option of dial.options) for (const path of Object.keys(option.values)) paths.add(path)
+      continue
+    }
+    for (const key of ['base', 'fg', 'fg-emphasis', 'bg', 'bg-subtle', 'bg-muted', 'border', 'focus-ring', 'contrast']) {
+      paths.add(`theme-color.${dial.role}.${key}`)
+    }
+    const hue = hueOfRole(state.doc, dial.role, read)
+    if (hue) paths.add(`color.${hue}.base`)
+  }
+  return paths
+}
+
+/** Resolve a hue's 500 step to an actual colour, for swatches and contrast decisions. */
+function hueColor(hue, scheme = 'light') {
+  try {
+    return resolveColor(state.doc.cssValueOf(`color.${hue}.500`), scheme)
+  } catch {
+    return null
+  }
+}
+
+/**
+ * Pick the text colour that sits on a role's fill. White on yellow is the default a naive
+ * substitution would produce, and it is unreadable — so choose by measured contrast.
+ */
+function contrastTokenFor(hue) {
+  const fill = hueColor(hue)
+  if (!fill) return '{color.white}'
+
+  const onWhite = contrastRatio(fill, [255, 255, 255])
+  const dark = resolveColor(state.doc.cssValueOf('color.gray.900'), 'light') ?? [17, 17, 17]
+  return onWhite >= contrastRatio(fill, dark) ? '{color.white}' : '{color.gray.900}'
+}
+
+function renderSimple() {
+  const container = $('#simple')
+  container.textContent = ''
+  container.append(renderPresets())
+
+  let section = null
+  for (const dial of DIALS) {
+    if (dial.section !== section) {
+      section = dial.section
+      const heading = document.createElement('h3')
+      heading.className = 'dial-section'
+      heading.textContent = section
+      container.append(heading)
+    }
+    container.append(dial.kind === 'hue' ? renderHueDial(dial) : renderChoiceDial(dial))
+  }
+
+  container.append(renderSimpleFooter())
+}
+
+function renderPresets() {
+  const row = document.createElement('div')
+  row.className = 'presets'
+
+  const label = document.createElement('span')
+  label.className = 'presets-label'
+  label.textContent = 'Start from'
+  row.append(label)
+
+  for (const preset of PRESETS) {
+    const button = document.createElement('button')
+    button.type = 'button'
+    button.className = 'chip-button'
+    button.textContent = preset.label
+    button.addEventListener('click', () => applyPreset(preset))
+    row.append(button)
+  }
+
+  return row
+}
+
+/** A preset resets every dial first, so applying one is never a partial merge. */
+function applyPreset(preset) {
+  const values = {}
+  for (const path of dialTokens()) values[path] = { value: undefined, dark: undefined }
+  applyValues(values)
+
+  const next = {}
+  for (const dial of DIALS) {
+    const choice = preset.dials[dial.id]
+    if (!choice) continue
+
+    if (dial.kind === 'hue') {
+      Object.assign(next, hueValues(dial, choice))
+      continue
+    }
+    const option = dial.options.find((candidate) => candidate.label === choice)
+    if (option) Object.assign(next, option.values)
+  }
+
+  if (Object.keys(next).length > 0) applyValues(next)
+}
+
+function hueValues(dial, toHue) {
+  // Repointing always starts from Bootstrap's own definition, not the current one, so
+  // switching hue twice does not compound substitutions.
+  const readBase = (path, side = 'value') => authoredValue(state.baseDoc.tokens.get(path), side)
+
+  const fromHue = hueOfRole(state.baseDoc, dial.role, readBase)
+  if (!fromHue) return {}
+
+  return repointRole(state.baseDoc, dial.role, fromHue, toHue, {
+    read: readBase,
+    contrastFor: contrastTokenFor
+  })
+}
+
+function dialShell(dial, current) {
+  const row = document.createElement('div')
+  row.className = `dial${current === null ? ' is-custom' : ''}`
+
+  const head = document.createElement('div')
+  head.className = 'dial-head'
+
+  const label = document.createElement('label')
+  label.className = 'dial-label'
+  label.textContent = dial.label
+  head.append(label)
+
+  if (current === null) {
+    const custom = document.createElement('span')
+    custom.className = 'dial-custom'
+    custom.textContent = 'Custom'
+    custom.title = 'These tokens hold a value none of these options represents. Advanced mode shows it.'
+    head.append(custom)
+  }
+
+  row.append(head)
+
+  const help = document.createElement('p')
+  help.className = 'dial-help'
+  help.textContent = dial.help
+  row.append(help)
+
+  return row
+}
+
+function renderChoiceDial(dial) {
+  const current = selectedOption(dial, read)
+  const row = dialShell(dial, current)
+
+  const group = document.createElement('div')
+  group.className = 'segmented dial-options'
+  group.setAttribute('role', 'group')
+  group.setAttribute('aria-label', dial.label)
+
+  for (const option of dial.options) {
+    const button = document.createElement('button')
+    button.type = 'button'
+    button.textContent = option.label
+    button.setAttribute('aria-pressed', String(current === option))
+    button.addEventListener('click', () => applyValues(option.values))
+    group.append(button)
+  }
+
+  row.append(group)
+  return row
+}
+
+function renderHueDial(dial) {
+  const activeHue = hueOfRole(state.doc, dial.role, read)
+  const row = dialShell(dial, activeHue ?? null)
+
+  const grid = document.createElement('div')
+  grid.className = 'hue-grid'
+
+  for (const hue of HUES) {
+    const button = document.createElement('button')
+    button.type = 'button'
+    button.className = 'hue'
+    button.title = hue
+    button.setAttribute('aria-label', hue)
+    button.setAttribute('aria-pressed', String(hue === activeHue))
+
+    const rgb = hueColor(hue)
+    button.style.background = rgb ? rgbToHex(rgb) : 'transparent'
+    button.addEventListener('click', () => applyValues(hueValues(dial, hue)))
+    grid.append(button)
+  }
+
+  row.append(grid)
+  if (activeHue) row.append(renderRoleContrast(dial))
+  if (activeHue) row.append(renderCustomHue(dial, activeHue))
+  return row
+}
+
+/**
+ * The point of an easy mode is not to hide the consequences. Picking yellow as a brand
+ * colour is a legitimate choice that makes the role's text unreadable on the page, so say
+ * so here rather than letting it ship.
+ */
+function renderRoleContrast(dial) {
+  const side = state.scheme === 'dark' ? 'dark' : 'value'
+  const row = document.createElement('div')
+  row.className = 'dial-contrast'
+
+  for (const [key, caption] of [['contrast', 'label on fill'], ['fg', 'text on page']]) {
+    const badge = renderContrast(`theme-color.${dial.role}.${key}`, side)
+    if (!badge) continue
+
+    const item = document.createElement('span')
+    item.className = 'dial-contrast-item'
+
+    const text = document.createElement('span')
+    text.textContent = caption
+    item.append(text, badge)
+    row.append(item)
+  }
+
+  if (row.querySelector('.is-fail')) {
+    const warning = document.createElement('span')
+    warning.className = 'dial-contrast-warning'
+    warning.textContent = `Fails WCAG AA in ${state.scheme} mode. Try a darker step, or a different hue.`
+    row.append(warning)
+  }
+
+  return row
+}
+
+/**
+ * A custom brand colour has to land somewhere. Bootstrap builds `primary` out of a named
+ * scale, so the honest place is that scale's base — and the note says so, because it also
+ * recolours the `--blue-*` utilities.
+ */
+function renderCustomHue(dial, hue) {
+  const wrap = document.createElement('div')
+  wrap.className = 'hue-custom'
+
+  const path = `color.${hue}.base`
+  const rgb = resolveColor(state.doc.cssValueOf(path), 'light')
+
+  const picker = document.createElement('input')
+  picker.type = 'color'
+  picker.value = rgb ? rgbToHex(rgb) : '#000000'
+  picker.setAttribute('aria-label', `Custom ${dial.role} colour`)
+  picker.addEventListener('input', () => {
+    applyValues({
+      [path]: formatColor(hexToRgb(picker.value), read(path)),
+      [`theme-color.${dial.role}.contrast`]: contrastTokenFor(hue)
+    })
+  })
+
+  const note = document.createElement('span')
+  note.className = 'hue-note'
+  note.textContent = `Custom — redefines the ${hue} scale, which also recolours --${hue}-* elsewhere.`
+
+  wrap.append(picker, note)
+  return wrap
+}
+
+function renderSimpleFooter() {
+  const footer = document.createElement('div')
+  footer.className = 'simple-footer'
+
+  const owned = dialTokens()
+  const elsewhere = Object.keys(state.overrides).filter((path) => !owned.has(path))
+  const total = Object.keys(state.overrides).length
+
+  const summary = document.createElement('p')
+  summary.textContent = total === 0
+    ? 'Nothing changed yet — the preview is stock Bootstrap.'
+    : `${total} token${total === 1 ? '' : 's'} changed. Export writes only what you touched.`
+  footer.append(summary)
+
+  if (elsewhere.length > 0) {
+    const notice = document.createElement('p')
+    notice.className = 'simple-notice'
+    notice.textContent = `${elsewhere.length} of them are outside these controls (${elsewhere.slice(0, 3).join(', ')}${elsewhere.length > 3 ? ', …' : ''}).`
+    footer.append(notice)
+  }
+
+  const link = document.createElement('button')
+  link.type = 'button'
+  link.className = 'link-button'
+  link.textContent = 'Open Advanced mode to edit any of the 1197 tokens →'
+  link.addEventListener('click', () => setMode('advanced'))
+  footer.append(link)
+
+  return footer
+}
+
 /* ------------------------------------------------------------------ update */
+
+/** Draw whichever mode is active. Both read the same override state. */
+function render() {
+  const simple = state.mode === 'simple'
+  document.body.dataset.mode = state.mode
+
+  $('#simple').hidden = !simple
+  $('#editor').hidden = simple
+  $('#section-title').textContent = simple ? 'Theme' : (state.section === 'basics' ? 'Basics' : label(state.section))
+
+  for (const button of document.querySelectorAll('#mode button')) {
+    button.setAttribute('aria-pressed', String(button.dataset.mode === state.mode))
+  }
+
+  if (simple) {
+    $('#section-note').textContent =
+      'A few controls that each move a lot of the system. Everything you change here is an ordinary token override — switch to Advanced any time to see exactly which.'
+    renderSimple()
+    return
+  }
+
+  renderRail()
+  renderEditor()
+}
 
 function recompute() {
   try {
@@ -655,20 +1000,23 @@ function renderExport() {
 function wire() {
   $('#search').addEventListener('input', (event) => {
     state.query = event.target.value.trim()
-    renderRail()
-    renderEditor()
+    render()
   })
 
-  for (const button of document.querySelectorAll('.segmented button')) {
+  for (const button of document.querySelectorAll('#scheme button')) {
     button.setAttribute('aria-pressed', String(button.dataset.scheme === state.scheme))
     button.addEventListener('click', () => {
       state.scheme = button.dataset.scheme
-      for (const other of document.querySelectorAll('.segmented button')) {
+      for (const other of document.querySelectorAll('#scheme button')) {
         other.setAttribute('aria-pressed', String(other === button))
       }
       postToPreview({ scheme: state.scheme })
-      renderEditor()
+      render()
     })
+  }
+
+  for (const button of document.querySelectorAll('#mode button')) {
+    button.addEventListener('click', () => setMode(button.dataset.mode))
   }
 
   $('#reset').addEventListener('click', () => {
@@ -676,8 +1024,7 @@ function wire() {
     state.overrides = {}
     save()
     recompute()
-    renderEditor()
-    renderRail()
+    render()
   })
 
   $('#open-export').addEventListener('click', () => {
@@ -718,8 +1065,7 @@ function wire() {
       state.overrides = parsed.overrides
       save()
       recompute()
-      renderEditor()
-      renderRail()
+      render()
       renderExport()
     } catch (error) {
       alert(`That doesn't look like a theme.json: ${error.message}`)
@@ -743,7 +1089,7 @@ function markPreviewReady() {
   postToPreview({ scheme: state.scheme })
   if (state.doc) {
     recompute()
-    renderEditor()
+    render()
   }
 }
 
@@ -769,8 +1115,7 @@ async function start() {
   $('#brand-sub').textContent = `Bootstrap ${meta.bootstrap} · ${state.baseDoc.tokens.size} tokens`
 
   wire()
-  renderRail()
-  renderEditor()
+  render()
   recompute()
 }
 

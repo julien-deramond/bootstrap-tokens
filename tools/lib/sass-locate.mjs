@@ -10,6 +10,38 @@
 
 import { scan, unquote } from './sass-parser.mjs'
 
+/**
+ * Advance past whitespace and comments.
+ *
+ * Upstream writes explanatory comments *inside* its token maps, immediately before the entry
+ * they describe. Trimming only whitespace would fold those lines into the key, so
+ * `--body-font-family` would never be found and an eject would append a duplicate entry
+ * instead of editing the real one.
+ */
+function skipTrivia(src, from, to) {
+  let i = from
+
+  while (i < to) {
+    if (/\s/.test(src[i])) {
+      i++
+      continue
+    }
+    if (src[i] === '/' && src[i + 1] === '/') {
+      while (i < to && src[i] !== '\n') i++
+      continue
+    }
+    if (src[i] === '/' && src[i + 1] === '*') {
+      i += 2
+      while (i < to && !(src[i] === '*' && src[i + 1] === '/')) i++
+      i += 2
+      continue
+    }
+    break
+  }
+
+  return i
+}
+
 /** Trim whitespace from a range, returning the tightened `[start, end)`. */
 function tighten(src, start, end) {
   let from = start
@@ -121,8 +153,10 @@ function describeEntry(src, start, end) {
   const colon = scan(src, start, ':')
   if (colon >= end || src[colon] !== ':') return null
 
-  const [keyStart, keyEnd] = tighten(src, start, colon)
-  const [valueStart, valueEnd] = tighten(src, colon + 1, end)
+  const [rawKeyStart, keyEnd] = tighten(src, start, colon)
+  const keyStart = skipTrivia(src, rawKeyStart, keyEnd)
+  const [rawValueStart, valueEnd] = tighten(src, colon + 1, end)
+  const valueStart = skipTrivia(src, rawValueStart, valueEnd)
   const rawKey = src.slice(keyStart, keyEnd)
   const value = src.slice(valueStart, valueEnd)
 

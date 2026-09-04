@@ -210,8 +210,7 @@ function insertion(target, text) {
   const last = entries.at(-1)
   const indent = last ? indentAt(source.text, last.entryStart) : `${indentAt(source.text, body.start)}  `
 
-  const key = target.key ?? target.entryKey
-  const line = `${indent}${key}: ${text},\n`
+  const line = `${indent}${target.label}: ${text},\n`
 
   // Insert just after the final entry so the trailing comma style is preserved.
   const at = last ? last.entryEnd : body.start

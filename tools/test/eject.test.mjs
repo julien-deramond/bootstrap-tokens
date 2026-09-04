@@ -54,7 +54,9 @@ const OVERRIDES = {
   'color.blue.base': { value: 'oklch(58% 0.19 28)' },
   'spacing.base': { value: '1.25rem' },
   'alert.border-radius': { value: '{radius.9}' },
-  'theme-color.warning.fg': { value: '{color.amber.700}', dark: '{color.amber.300}' }
+  'theme-color.warning.fg': { value: '{color.amber.700}', dark: '{color.amber.300}' },
+  // Preceded by three comment lines in _root.scss — the case that broke entry lookup.
+  'type.body.font-family': { value: '"Georgia, Cambria, serif"' }
 }
 
 test('an eject edits the declaration a maintainer would expect', { skip: !source }, () => {
@@ -71,6 +73,10 @@ test('an eject edits the declaration a maintainer would expect', { skip: !source
   assert.equal(byKey.get('$spacer').file, 'scss/_config.scss')
   assert.equal(byKey.get('--alert-border-radius').file, 'scss/_alert.scss')
   assert.equal(byKey.get('warning.fg').to, 'light-dark(var(--amber-700), var(--amber-300))')
+
+  // A comment-preceded entry must be edited in place, never appended as a duplicate.
+  assert.equal(byKey.get('--body-font-family').file, 'scss/_root.scss')
+  assert.equal(byKey.get('--body-font-family').inserted, false)
 
   // Changing the base spacer must not rewrite the scale that derives from it.
   assert.ok(!changes.some((change) => change.file === 'scss/_config.scss' && change.key === '1'))
@@ -90,7 +96,13 @@ test('an eject preserves !default and everything it did not change', { skip: !so
   assert.match(colors, /^\$indigo: oklch\(56% 0\.26 288\) !default;$/m)
 
   // Every patched file differs from upstream by exactly the lines we changed.
-  const expected = { 'scss/_colors.scss': 1, 'scss/_config.scss': 1, 'scss/_alert.scss': 1, 'scss/_theme.scss': 1 }
+  const expected = {
+    'scss/_colors.scss': 1,
+    'scss/_config.scss': 1,
+    'scss/_alert.scss': 1,
+    'scss/_theme.scss': 1,
+    'scss/_root.scss': 1
+  }
   for (const [file, text] of patched) {
     const before = files.get(file).text.split('\n')
     const after = text.split('\n')

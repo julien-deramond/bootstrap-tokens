@@ -46,12 +46,16 @@ A static page with no build step and no dependencies. `npm run web`.
 * ✅ Data pipeline: `build/json/tokens.tree.json`, loaded straight into the browser.
 * ✅ Shared code, not a second implementation: the page imports `tools/lib/*.mjs`, so
   preview and export run the resolver that `verify` proves correct.
-* ✅ UI: layer/group navigation with search, per-token light and dark fields, an OKLCH-aware
-  colour picker, and change indicators down the rail.
+* ✅ Two modes over one override model. **Simple** (the default) is eight high-leverage dials
+  plus presets; **Advanced** is the full token browser — layer/group navigation with search,
+  per-token light and dark fields, an OKLCH-aware colour picker, and change indicators down
+  the rail. A dial reports "Custom" rather than overwriting work it cannot represent.
 * ✅ Live preview: real Bootstrap markup in an iframe over vendored `bootstrap.css`;
   overrides are applied as custom properties, so nothing recompiles.
 * ✅ Swatches resolved by the browser inside the preview, so `color-mix()` and `light-dark()`
   show their true colours in both schemes.
+* ✅ Simple mode picks each role's `contrast` sub-key by measured contrast instead of
+  substituting it, and warns when a brand choice fails WCAG AA in either scheme.
 * ✅ Export: `custom.scss` (only the maps you touched), runtime `theme.css`, and a
   `theme.json` that imports back into the chooser. Edits persist in `localStorage`.
 * ✅ Maintainer export: `bstokens eject` patches v6-dev's own Sass sources in place, and the
