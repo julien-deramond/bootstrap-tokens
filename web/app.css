@@ -326,3 +326,17 @@ body {
   .editor { border-inline-end: 0; border-block-end: 1px solid var(--line); }
   .editor-body { max-height: 24rem; }
 }
+
+.contrast {
+  flex: none;
+  font: .625rem/1 var(--mono);
+  padding: .25rem .375rem;
+  border-radius: 4px;
+  white-space: nowrap;
+  background: var(--surface-sunken);
+  color: var(--ink-muted);
+}
+
+.contrast.is-pass { background: color-mix(in oklab, #16a34a 18%, transparent); color: light-dark(#14532d, #86efac); }
+.contrast.is-warn { background: color-mix(in oklab, #d97706 20%, transparent); color: light-dark(#78350f, #fcd34d); }
+.contrast.is-fail { background: color-mix(in oklab, #dc2626 20%, transparent); color: light-dark(#7f1d1d, #fca5a5); }

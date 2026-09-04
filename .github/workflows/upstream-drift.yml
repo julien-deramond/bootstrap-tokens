@@ -1,0 +1,82 @@
+name: Upstream drift
+
+# twbs/bootstrap@v6-dev is a moving alpha. Re-extract nightly and open an issue when the
+# committed token document no longer matches it, rather than discovering it months later.
+on:
+  schedule:
+    - cron: '17 5 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+jobs:
+  drift:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check out Bootstrap v6-dev
+        uses: actions/checkout@v4
+        with:
+          repository: twbs/bootstrap
+          ref: v6-dev
+          path: bootstrap-v6-dev
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Compare tokens/ against upstream
+        id: drift
+        run: |
+          set +e
+          node tools/cli.mjs sync --check --src "$GITHUB_WORKSPACE/bootstrap-v6-dev" > drift.txt 2>&1
+          echo "status=$?" >> "$GITHUB_OUTPUT"
+          cat drift.txt
+
+      - name: Open or update the drift issue
+        if: steps.drift.outputs.status != '0'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs')
+            const body = [
+              'The token document no longer matches `twbs/bootstrap@v6-dev`.',
+              '',
+              'Run `npm run sync`, review the diff, then `npm run build` and `npm run verify`.',
+              '',
+              '```',
+              fs.readFileSync('drift.txt', 'utf8').trim(),
+              '```'
+            ].join('\n')
+
+            const title = 'Upstream token drift detected'
+            const { data: open } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              labels: 'upstream-drift'
+            })
+
+            if (open.length > 0) {
+              await github.rest.issues.update({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: open[0].number,
+                body
+              })
+              return
+            }
+
+            await github.rest.issues.create({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              title,
+              body,
+              labels: ['upstream-drift']
+            })

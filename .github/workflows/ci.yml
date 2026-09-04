@@ -1,0 +1,54 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  check:
+    name: Validate, test, verify
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check out Bootstrap v6-dev
+        uses: actions/checkout@v4
+        with:
+          repository: twbs/bootstrap
+          ref: v6-dev
+          path: bootstrap-v6-dev
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Validate the token document
+        run: node tools/cli.mjs validate
+
+      - run: npm test
+        env:
+          BOOTSTRAP_SRC: ${{ github.workspace }}/bootstrap-v6-dev
+
+      - name: Build
+        run: node tools/cli.mjs build
+
+      - name: Fail if build output is stale
+        run: |
+          if ! git diff --quiet -- build docs/token-inventory.md; then
+            echo "::error::build/ is out of date. Run 'npm run build' and commit the result."
+            git --no-pager diff --stat -- build docs/token-inventory.md
+            exit 1
+          fi
+
+      # The point of the whole pipeline: our export must compile to the same CSS
+      # as upstream's own entrypoint.
+      - name: Verify byte-identical CSS
+        run: node tools/cli.mjs verify --src "$GITHUB_WORKSPACE/bootstrap-v6-dev"

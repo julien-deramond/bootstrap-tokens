@@ -20,7 +20,7 @@ import {
   themeJson,
   mapsTouched
 } from '../tools/lib/overrides.mjs'
-import { parseComputedColor, formatColor, hexToRgb, rgbToHex } from './color.js'
+import { parseComputedColor, formatColor, hexToRgb, rgbToHex, contrastRatio, contrastGrade } from './color.js'
 
 const STORAGE_KEY = 'bootstrap-tokens.chooser.v1'
 
@@ -459,7 +459,46 @@ function renderField(path, side, modeLabel, token) {
     field.append(picker)
   }
 
+  const contrast = isColor ? renderContrast(path, side) : null
+  if (contrast) field.append(contrast)
+
   return field
+}
+
+/**
+ * The colour pairs a reader actually has to be able to see. `contrast` is the text placed on
+ * a role's solid fill, and `fg`/`fg-emphasis` are that role's text on the page background —
+ * exactly the two places a re-tinted palette quietly goes unreadable.
+ */
+function contrastPartner(path) {
+  const theme = /^theme-color\.([\w-]+)\.(contrast|fg|fg-emphasis)$/.exec(path)
+  if (theme) {
+    return theme[2] === 'contrast'
+      ? { partner: `theme-color.${theme[1]}.bg`, label: 'on fill' }
+      : { partner: 'bg.body', label: 'on page' }
+  }
+  if (/^fg\.\d$/.test(path) || path === 'fg.body') return { partner: 'bg.body', label: 'on page' }
+  if (path === 'type.link.color' || path === 'type.link.hover-color') return { partner: 'bg.body', label: 'on page' }
+  return null
+}
+
+function renderContrast(path, side) {
+  const pair = contrastPartner(path)
+  if (!pair || !state.doc.tokens.has(pair.partner)) return null
+
+  const scheme = side === 'dark' ? 'dark' : 'light'
+  const foreground = resolveColor(resolvedSide(path, side), scheme)
+  const background = resolveColor(resolvedSide(pair.partner, side), scheme)
+  if (!foreground || !background) return null
+
+  const ratio = contrastRatio(foreground, background)
+  const grade = contrastGrade(ratio)
+
+  const badge = document.createElement('span')
+  badge.className = `contrast${grade.ok === true ? ' is-pass' : grade.ok === false ? ' is-fail' : ' is-warn'}`
+  badge.textContent = `${ratio.toFixed(1)}:1 ${grade.level}`
+  badge.title = `WCAG contrast of ${path} ${pair.label} (${pair.partner}), ${scheme} scheme`
+  return badge
 }
 
 const isLiteralColor = (value) => /^(#|rgb|hsl|oklch|oklab|lab|lch|color\()/i.test(String(value).trim())

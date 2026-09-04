@@ -59,6 +59,9 @@ Three things worth knowing:
   `color-mix(in oklch, var(--blue-500) 50%, var(--bg-body))` or a `light-dark()` pair shows
   its real colour in both schemes, because the page asks the previewed document rather than
   reimplementing CSS colour maths.
+* **Contrast is checked where it matters.** Each theme role's `contrast` is scored against
+  its own fill, and its `fg` against the page, per scheme. Upstream's stock `primary`
+  already sits at 3.6:1 for white on `blue-500` — worth knowing before you re-tint it.
 * **A field takes any CSS.** A literal (`1.25rem`), a token reference (`{radius.9}`), or a
   raw custom property (`var(--radius-9)`) all work; references keep the link, literals break
   it.

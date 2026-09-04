@@ -97,3 +97,29 @@ export function parseComputedColor(value) {
 
   return null
 }
+
+/* -------------------------------------------------------------------------- */
+
+const channelLuminance = (c) => {
+  const v = c / 255
+  return v <= 0.03928 ? v / 12.92 : ((v + 0.055) / 1.055) ** 2.4
+}
+
+/** WCAG 2.x relative luminance. */
+export function luminance([r, g, b]) {
+  return 0.2126 * channelLuminance(r) + 0.7152 * channelLuminance(g) + 0.0722 * channelLuminance(b)
+}
+
+/** WCAG 2.x contrast ratio, 1–21. */
+export function contrastRatio(a, b) {
+  const [light, dark] = [luminance(a), luminance(b)].sort((x, y) => y - x)
+  return (light + 0.05) / (dark + 0.05)
+}
+
+/** The strongest WCAG level a ratio clears for normal-size body text. */
+export function contrastGrade(ratio) {
+  if (ratio >= 7) return { level: 'AAA', ok: true }
+  if (ratio >= 4.5) return { level: 'AA', ok: true }
+  if (ratio >= 3) return { level: 'AA large', ok: null }
+  return { level: 'fail', ok: false }
+}

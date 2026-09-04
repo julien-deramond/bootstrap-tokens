@@ -51,12 +51,15 @@ A static page with no build step and no dependencies. `npm run web`.
 * ✅ Export: `custom.scss` (only the maps you touched), runtime `theme.css`, and a
   `theme.json` that imports back into the chooser. Edits persist in `localStorage`.
 * ⬜ Share-by-URL (compressed state in the fragment).
-* ⬜ Contrast checker on theme-colour pairs (`contrast` against `bg`).
+* ✅ WCAG contrast badges on the pairs that matter: a role's `contrast` against its
+  `bg`, and its `fg`/`fg-emphasis` against the page. Shown per scheme, since a palette can
+  pass in light and fail in dark.
 * ⬜ Import an existing `custom.scss` and pre-fill the chooser.
 
-## Phase 4 — Upstream-facing polish ⬜
+## Phase 4 — Upstream-facing polish 🚧
 
-* ⬜ CI: run `sync --check` nightly against `v6-dev` and open an issue on drift.
+* ✅ CI: validate, test, build-is-current and `verify` on every push; a nightly
+  `sync --check` against `v6-dev` that opens an issue on drift.
 * ⬜ Publish `@bootstrap/tokens`-shaped npm package with the resolved JSON + Sass.
 * ⬜ Figma Tokens / Style Dictionary compatibility pass (they read plain DTCG; verify the
   `expression` extension degrades sanely).
