@@ -144,13 +144,37 @@ export function mapsTouched(doc, overrides) {
   return maps
 }
 
+/**
+ * Which key of each touched map actually changed.
+ *
+ * Without this, editing one shadow value exports all 67 entries of `$root-tokens` — correct,
+ * but unreadable, and it hides the four lines that matter. `defaults()` merges key by key,
+ * so a theme only needs to carry its own keys.
+ */
+export function changedKeysOf(doc, overrides) {
+  const byMap = new Map()
+
+  for (const path of Object.keys(overrides)) {
+    const token = doc.tokens.get(path)
+    if (!token) continue
+
+    const meta = ext(token)
+    if (!meta.sassMap || scalarByPath.has(path)) continue
+
+    if (!byMap.has(meta.sassMap)) byMap.set(meta.sassMap, new Set())
+    byMap.get(meta.sassMap).add(meta.sassKey ?? path.split('.').at(-1))
+  }
+
+  return byMap
+}
+
 /** The `custom.scss` a user drops into their project. */
 export function themeScss(doc, overrides, { version, importPath = '../node_modules/bootstrap/scss/bootstrap' } = {}) {
   const only = mapsTouched(doc, overrides)
   if (only.size === 0) {
     return `// No token overrides yet — this is stock Bootstrap.\n@use "${importPath}";\n`
   }
-  return emitUseWith(doc, { version, importPath, only })
+  return emitUseWith(doc, { version, importPath, only, changedKeys: changedKeysOf(doc, overrides) })
 }
 
 /** A portable theme file that loads straight back into the chooser. */

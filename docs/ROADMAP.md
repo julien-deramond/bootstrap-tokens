@@ -46,18 +46,27 @@ A static page with no build step and no dependencies. `npm run web`.
 * ✅ Data pipeline: `build/json/tokens.tree.json`, loaded straight into the browser.
 * ✅ Shared code, not a second implementation: the page imports `tools/lib/*.mjs`, so
   preview and export run the resolver that `verify` proves correct.
-* ✅ Two modes over one override model. **Simple** (the default) is eight high-leverage dials
-  plus presets; **Advanced** is the full token browser — layer/group navigation with search,
-  per-token light and dark fields, an OKLCH-aware colour picker, and change indicators down
-  the rail. A dial reports "Custom" rather than overwriting work it cannot represent.
+* ✅ Two modes over one override model. **Design** (the default) is eight high-leverage
+  controls plus presets; **All tokens** is the full browser — grouped navigation with search,
+  per-token light and dark fields, an OKLCH-aware colour picker, and change indicators. A
+  control reports "Custom" rather than overwriting work it cannot represent.
+* ✅ Controls that look like what they do: radius as shapes, density as spacing, typefaces set
+  in themselves, shadow depths casting their own shadow.
+* ✅ Light and dark side by side, since `light-dark()` makes every v6 theme two themes.
+* ✅ Touching a control scrolls the preview to what it changed and flashes it.
+* ✅ Undo/redo (⌘Z / ⇧⌘Z); Reset is an undoable step, not a confirm dialog.
+* ✅ A theme-level contrast readout that distinguishes issues you introduced from ones
+  Bootstrap's defaults already carry.
+* ✅ Exports carry only the keys you changed.
 * ✅ Live preview: real Bootstrap markup in an iframe over vendored `bootstrap.css`;
   overrides are applied as custom properties, so nothing recompiles.
 * ✅ Swatches resolved by the browser inside the preview, so `color-mix()` and `light-dark()`
   show their true colours in both schemes.
 * ✅ Simple mode picks each role's `contrast` sub-key by measured contrast instead of
   substituting it, and warns when a brand choice fails WCAG AA in either scheme.
-* ✅ Export: `custom.scss` (only the maps you touched), runtime `theme.css`, and a
-  `theme.json` that imports back into the chooser. Edits persist in `localStorage`.
+* ✅ Export: `custom.scss` (only the keys you touched), runtime `theme.css`, and a
+  `theme.json` that imports back into the chooser — each with its own "what to do next".
+  Edits persist in `localStorage`.
 * ✅ Maintainer export: `bstokens eject` patches v6-dev's own Sass sources in place, and the
   chooser's fourth export tab shows exactly which declarations will change.
   See [`maintainer-export.md`](./maintainer-export.md).

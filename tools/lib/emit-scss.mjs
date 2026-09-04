@@ -122,29 +122,34 @@ function hasTopLevelComma(value) {
  * `inline` swaps `#{$white}`-style passthroughs for literals, which is required in a
  * `with ()` block where those Sass variables are not in scope.
  */
-export function buildMap(doc, name, entries, { inline = false, skipReadonly = true } = {}) {
-  if (NESTED_MAPS.has(name)) return buildNestedMap(doc, name, entries, { inline })
+export function buildMap(doc, name, entries, { inline = false, skipReadonly = true, keys = null } = {}) {
+  if (NESTED_MAPS.has(name)) return buildNestedMap(doc, name, entries, { inline, keys })
 
   const rows = []
   for (const entry of entries) {
     if (entry.generated) continue
     if (skipReadonly && entry.readonly) continue
+    if (keys && !keys.has(entry.key)) continue
     const value = entry.sassEmit && !inline ? entry.sassEmit : doc.cssValueOf(entry.path)
     rows.push([renderKey(entry.key, entry.quoted), renderValue(value)])
   }
   return rows
 }
 
-function buildNestedMap(doc, name, entries, { inline }) {
+function buildNestedMap(doc, name, entries, { inline, keys = null }) {
   if (name === '$colors') {
     return entries
       .filter((entry) => !entry.generated && entry.path.endsWith('.base'))
+      .filter((entry) => !keys || keys.has(entry.key))
       .map((entry) => [renderKey(entry.key, entry.quoted), doc.cssValueOf(entry.path)])
   }
 
+  // A nested map merges only one level deep, so a changed sub-key means emitting that
+  // whole sub-map — but only for the roles that changed, not all of them.
   const grouped = new Map()
   for (const entry of entries) {
     if (entry.generated) continue
+    if (keys && !keys.has(entry.key)) continue
     const key = renderKey(entry.key, entry.quoted)
     if (!grouped.has(key)) grouped.set(key, [])
     grouped.get(key).push([
@@ -217,7 +222,10 @@ export function emitTokensModule(doc, { version }) {
  * A `@use "…/bootstrap" with (…)` configuration.
  * `only` limits the output to the maps that actually changed; omit it for a full config.
  */
-export function emitUseWith(doc, { version, importPath = 'bootstrap/scss/bootstrap', only = null } = {}) {
+export function emitUseWith(
+  doc,
+  { version, importPath = 'bootstrap/scss/bootstrap', only = null, changedKeys = null } = {}
+) {
   const maps = mapEntries(doc)
   const blocks = []
 
@@ -230,7 +238,8 @@ export function emitUseWith(doc, { version, importPath = 'bootstrap/scss/bootstr
   for (const name of [...MAP_ORDER, ...componentMaps(maps)]) {
     const entries = maps.get(name)
     if (!entries || !wanted(name)) continue
-    const rows = buildMap(doc, name, entries, { inline: true })
+    // `defaults()` merges key by key, so a theme only has to carry the keys it changed.
+    const rows = buildMap(doc, name, entries, { inline: true, keys: changedKeys?.get(name) ?? null })
     if (rows.length === 0) continue
     blocks.push(renderMap(name, rows, { indent: 2, suffix: '' }))
   }

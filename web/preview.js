@@ -1,47 +1,60 @@
 /**
- * The preview document. It renders real Bootstrap markup and listens for token overrides
- * from the chooser — no recompilation, because v6 drives everything through custom
- * properties, so re-declaring them re-themes the whole page.
+ * The preview document.
+ *
+ * Three jobs beyond rendering markup: it can show light and dark side by side (v6's
+ * defining feature is `light-dark()`, so a theme is always two themes and comparing them
+ * should not require flipping a switch); it can be told to bring a section into view when
+ * the chooser touches a related control; and it re-themes purely by re-declaring custom
+ * properties, so nothing here recompiles.
  */
 
 const THEMES = ['primary', 'accent', 'success', 'danger', 'warning', 'info', 'secondary', 'inverse']
 const HUES = ['blue', 'indigo', 'violet', 'purple', 'pink', 'red', 'orange', 'amber', 'yellow', 'lime', 'green', 'teal', 'cyan', 'brown', 'gray', 'pewter']
 const STOPS = ['025', '050', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950', '975']
 
-const section = (title, body) => `
-  <section class="preview-section">
+const section = (id, title, body) => `
+  <section class="preview-section" data-section="${id}">
     <h2>${title}</h2>
     ${body}
   </section>`
 
 const buttons = () => section(
+  'buttons',
   'Buttons',
   `<div class="cluster">
     ${THEMES.map((t) => `<button type="button" class="btn btn-solid theme-${t}">${t}</button>`).join('')}
   </div>
-  <div class="cluster" style="margin-block-start:.5rem">
+  <div class="cluster mt">
     ${['outline', 'subtle', 'text'].map((v) => `<button type="button" class="btn btn-${v} theme-primary">${v}</button>`).join('')}
     <button type="button" class="btn btn-solid btn-styled theme-primary">styled</button>
     <button type="button" class="btn btn-link">link</button>
     <button type="button" class="btn btn-solid theme-primary" disabled>disabled</button>
   </div>
-  <div class="cluster" style="margin-block-start:.5rem">
+  <div class="cluster mt">
     ${['xs', 'sm', '', 'lg'].map((s) => `<button type="button" class="btn btn-solid theme-secondary ${s ? `btn-${s}` : ''}">${s || 'base'}</button>`).join('')}
   </div>`
 )
 
 const alerts = () => section(
-  'Alerts',
-  ['primary', 'success', 'warning', 'danger'].map((t) => `
-    <div class="alert theme-${t}" role="alert" style="margin-block-end:.5rem">
+  'alerts',
+  'Alerts and badges',
+  `${['primary', 'success', 'warning', 'danger'].map((t) => `
+    <div class="alert theme-${t}" role="alert">
       <p class="m-0"><strong>${t}</strong> — a short message with a <a href="#" class="alert-link">link</a>.</p>
-    </div>`).join('')
+    </div>`).join('')}
+  <div class="cluster mt">
+    ${THEMES.slice(0, 5).map((t) => `<span class="badge theme-${t}">${t}</span>`).join('')}
+    <span class="badge badge-subtle theme-primary">subtle</span>
+    <span class="badge badge-outline theme-primary">outline</span>
+    <div class="spinner-border theme-primary" role="status"><span class="visually-hidden">Loading…</span></div>
+  </div>`
 )
 
-const cards = () => section(
-  'Card, list group, progress',
-  `<div class="d-flex flex-wrap gap-3 align-items-start">
-    <section class="card" style="max-width:19rem">
+const surfaces = (uid) => section(
+  'surfaces',
+  'Cards, lists, progress',
+  `<div class="preview-row">
+    <section class="card">
       <div class="card-header">Featured</div>
       <div class="card-body">
         <h4 class="card-title">Card title</h4>
@@ -49,68 +62,84 @@ const cards = () => section(
         <a href="#" class="btn btn-solid theme-primary">Go somewhere</a>
       </div>
     </section>
-    <ul class="list-group" style="min-width:14rem">
+    <ul class="list-group">
       <li class="list-group-item active" aria-current="true">An active item</li>
       <li class="list-group-item">A second item</li>
       <li class="list-group-item">A third item</li>
       <li class="list-group-item disabled">A disabled item</li>
     </ul>
-    <div style="min-width:14rem">
+    <div>
       <div class="progress" role="progressbar" aria-label="Example" aria-valuenow="65" aria-valuemin="0" aria-valuemax="100">
         <div class="progress-bar" style="width:65%"></div>
       </div>
-      <div class="cluster" style="margin-block-start:.75rem">
-        ${THEMES.slice(0, 5).map((t) => `<span class="badge theme-${t}">${t}</span>`).join('')}
-      </div>
-      <div class="cluster" style="margin-block-start:.5rem">
-        <span class="badge badge-subtle theme-primary">subtle</span>
-        <span class="badge badge-outline theme-primary">outline</span>
-        <div class="spinner-border theme-primary" role="status"><span class="visually-hidden">Loading…</span></div>
-      </div>
+      <table class="table mt">
+        <thead><tr><th scope="col">#</th><th scope="col">Token</th></tr></thead>
+        <tbody>
+          <tr><th scope="row">1</th><td><code>--primary-bg</code></td></tr>
+          <tr><th scope="row">2</th><td><code>--spacer-4</code></td></tr>
+        </tbody>
+      </table>
     </div>
   </div>`
 )
 
-const forms = () => section(
+/**
+ * Shadows had no home in the sample, so the shadow control changed nothing visible.
+ * These boxes exist purely so that dial has something to point at.
+ */
+const elevation = () => section(
+  'elevation',
+  'Elevation',
+  `<div class="elevation-row">
+    ${['xs', 'sm', '', 'lg', 'xl'].map((size) => `
+      <div class="elevation-box" style="box-shadow: var(--box-shadow${size ? `-${size}` : ''})">
+        <span>${size || 'base'}</span>
+      </div>`).join('')}
+  </div>`
+)
+
+const forms = (uid) => section(
+  'forms',
   'Forms',
-  `<div class="d-flex flex-wrap gap-3">
-    <div style="min-width:16rem">
-      <label class="form-label" for="p-email">Email</label>
-      <input type="email" class="form-control" id="p-email" placeholder="name@example.com" />
+  `<div class="preview-row">
+    <div>
+      <label class="form-label" for="email-${uid}">Email</label>
+      <input type="email" class="form-control" id="email-${uid}" placeholder="name@example.com" />
       <div class="form-text">We never share it.</div>
     </div>
-    <div style="min-width:12rem">
-      <label class="form-label" for="p-select">Select</label>
-      <select class="form-select" id="p-select">
+    <div>
+      <label class="form-label" for="select-${uid}">Select</label>
+      <select class="form-select" id="select-${uid}">
         <option>Choose…</option>
         <option>Another option</option>
       </select>
     </div>
-    <div style="min-width:10rem">
+    <div>
       <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="p-check" checked />
-        <label class="form-check-label" for="p-check">Checkbox</label>
+        <input class="form-check-input" type="checkbox" id="check-${uid}" checked />
+        <label class="form-check-label" for="check-${uid}">Checkbox</label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="p-radio" id="p-radio" checked />
-        <label class="form-check-label" for="p-radio">Radio</label>
+        <input class="form-check-input" type="radio" name="radio-${uid}" id="radio-${uid}" checked />
+        <label class="form-check-label" for="radio-${uid}">Radio</label>
       </div>
       <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="p-switch" checked />
-        <label class="form-check-label" for="p-switch">Switch</label>
+        <input class="form-check-input" type="checkbox" role="switch" id="switch-${uid}" checked />
+        <label class="form-check-label" for="switch-${uid}">Switch</label>
       </div>
     </div>
   </div>`
 )
 
 const navigation = () => section(
+  'navigation',
   'Navigation',
-  `<ul class="nav nav-tabs" style="margin-block-end:.75rem">
+  `<ul class="nav nav-tabs mb">
     <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Active</a></li>
     <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
     <li class="nav-item"><a class="nav-link disabled" aria-disabled="true">Disabled</a></li>
   </ul>
-  <ul class="nav nav-pills" style="margin-block-end:.75rem">
+  <ul class="nav nav-pills mb">
     <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Active</a></li>
     <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
   </ul>
@@ -125,32 +154,20 @@ const navigation = () => section(
 )
 
 const typography = () => section(
+  'typography',
   'Typography and surfaces',
   `<h1>Heading one</h1>
   <h3>Heading three</h3>
   <p>Body copy with a <a href="#">link</a>, some <code>inline code</code>, <mark>a mark</mark> and <kbd>Ctrl</kbd> + <kbd>K</kbd>.</p>
   <blockquote class="blockquote"><p>A well-known quote, contained in a blockquote element.</p></blockquote>
-  <div class="d-flex gap-2" style="margin-block-start:.75rem">
+  <div class="surface-row">
     ${['body', '1', '2', '3', '4'].map((n) => `
-      <div style="flex:1;padding:.75rem;border-radius:var(--radius-5);background:var(--bg-${n});border:var(--border-width) solid var(--border-subtle)">
-        <code>--bg-${n}</code>
-      </div>`).join('')}
+      <div class="surface" style="background: var(--bg-${n})"><code>--bg-${n}</code></div>`).join('')}
   </div>`
 )
 
-const table = () => section(
-  'Table',
-  `<table class="table">
-    <thead><tr><th scope="col">#</th><th scope="col">Token</th><th scope="col">Value</th></tr></thead>
-    <tbody>
-      <tr><th scope="row">1</th><td><code>--primary-bg</code></td><td>var(--blue-500)</td></tr>
-      <tr><th scope="row">2</th><td><code>--spacer-4</code></td><td>1rem</td></tr>
-      <tr><th scope="row">3</th><td><code>--radius-8</code></td><td>1rem</td></tr>
-    </tbody>
-  </table>`
-)
-
 const palette = () => section(
+  'palette',
   'Colour scale',
   HUES.map((hue) => `
     <div class="swatch-row">
@@ -161,25 +178,105 @@ const palette = () => section(
     </div>`).join('')
 )
 
-document.getElementById('preview-root').innerHTML = [
+const sample = (uid) => [
   buttons(),
+  forms(uid),
   alerts(),
-  cards(),
-  forms(),
+  surfaces(uid),
+  elevation(),
   navigation(),
   typography(),
-  table(),
   palette()
 ].join('')
 
+/* -------------------------------------------------------------------------- */
+
+const root = document.getElementById('preview-root')
 const overrides = document.getElementById('token-overrides')
+
+let mode = 'light'
+
+function render() {
+  if (mode !== 'split') {
+    root.className = 'preview-single'
+    root.innerHTML = `<div class="pane" data-bs-theme="${mode}">${sample(mode)}</div>`
+    return
+  }
+
+  root.className = 'preview-split'
+  root.innerHTML = ['light', 'dark']
+    .map((scheme) => `
+      <div class="pane" data-bs-theme="${scheme}">
+        <p class="pane-label">${scheme}</p>
+        ${sample(scheme)}
+      </div>`)
+    .join('')
+}
+
+const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)')
+
+/**
+ * Scroll the document ourselves rather than leaning on `scroll-behavior: smooth` or
+ * `scrollIntoView({ behavior: 'smooth' })`: both are silently ignored in some embedded
+ * frames, and a control that appears to do nothing is worse than one that jumps.
+ */
+function scrollToOffset(top) {
+  const max = document.documentElement.scrollHeight - document.documentElement.clientHeight
+  const target = Math.max(0, Math.min(top, max))
+
+  if (reducedMotion.matches) {
+    window.scrollTo({ top: target, behavior: 'instant' })
+    return
+  }
+
+  const from = window.scrollY
+  const distance = target - from
+  if (Math.abs(distance) < 2) return
+
+  const duration = Math.min(420, 120 + Math.abs(distance) * 0.35)
+  const start = performance.now()
+
+  const step = (now) => {
+    const progress = Math.min(1, (now - start) / duration)
+    // easeOutCubic: quick to move, gentle to land.
+    const eased = 1 - (1 - progress) ** 3
+    window.scrollTo({ top: from + distance * eased, behavior: 'instant' })
+    if (progress < 1) requestAnimationFrame(step)
+  }
+
+  requestAnimationFrame(step)
+}
+
+/** Bring a section into view and flash it, so a control and its result are connected. */
+function focusSection(id) {
+  const targets = root.querySelectorAll(`[data-section="${id}"]`)
+  if (targets.length === 0) return
+
+  // Leave room for the sticky pane label in split view.
+  const offset = mode === 'split' ? 44 : 12
+  scrollToOffset(targets[0].getBoundingClientRect().top + window.scrollY - offset)
+
+  for (const target of targets) {
+    target.classList.remove('is-focused')
+    // Force a reflow so the animation restarts when the same section is focused twice.
+    void target.offsetWidth
+    target.classList.add('is-focused')
+  }
+}
 
 window.addEventListener('message', (event) => {
   const message = event.data
   if (!message || typeof message !== 'object') return
 
   if (typeof message.css === 'string') overrides.textContent = message.css
-  if (message.scheme) document.documentElement.setAttribute('data-bs-theme', message.scheme)
+
+  if (message.scheme && message.scheme !== mode) {
+    mode = message.scheme
+    render()
+  }
+
+  if (message.focus) focusSection(message.focus)
 })
 
+render()
 parent.postMessage({ ready: true }, '*')

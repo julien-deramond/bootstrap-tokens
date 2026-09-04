@@ -53,19 +53,36 @@ properties, so re-declaring them is the whole mechanism.
 
 ### Two modes over one model
 
-**Simple** (the default) is eight dials that each move a lot of the system — brand and accent
-colour, corner radius, density, border weight, typeface, text size, shadow depth — plus four
-presets to start from. Most themes are a few of these and nothing else.
+**Design** (the default) is eight controls that each move a lot of the system — brand and
+accent colour, corner radius, density, border weight, typeface, text size, shadow depth —
+plus four presets to start from. Most themes are a few of these and nothing else.
 
-**Advanced** is the token browser: all 1197 tokens, grouped by layer, searchable, with a
-light and a dark field each.
+**All tokens** is the browser: all 1197 tokens, grouped, searchable, with a light and a dark
+field each.
 
-They are two *views*, not two models. Every dial writes ordinary token overrides into the
-same state Advanced edits, so switching is lossless and the export comes from one source of
-truth. A dial reads its position back out of those overrides and says **Custom** when the
-tokens hold something it cannot represent, rather than snapping your work back to a preset.
+They are two *views*, not two models. Every control writes ordinary token overrides into the
+same state the browser edits, so switching is lossless and the export comes from one source
+of truth. A control reads its position back out of those overrides and says **Custom** when
+the tokens hold something it cannot represent, rather than snapping your work back to a
+preset.
 
-Two decisions inside Simple mode are worth knowing about:
+### How it behaves
+
+* **Options look like what they do.** Corner radius is five rounded shapes, density is
+  spacing diagrams, typefaces are set in themselves, shadow depths cast their own shadow. A
+  row of words would make you click, look elsewhere, and infer.
+* **Light and dark, side by side.** `light-dark()` means a v6 theme is always two themes, so
+  comparing them should not require flipping a switch. Side by side is the default on a wide
+  screen.
+* **Touching a control shows you what it changed.** The preview scrolls to the affected
+  section and flashes it, so you never have to hunt for the difference.
+* **Undo, always.** ⌘Z / ⇧⌘Z, and Reset is just another undoable step — no confirmation
+  dialog guarding a reversible action.
+* **A theme-level contrast readout**, which separates issues you introduced from ones
+  Bootstrap's defaults already have. A warning you didn't cause teaches you to ignore
+  warnings.
+
+Two decisions inside Design mode are worth knowing about:
 
 * **Changing the brand colour repoints the role, it doesn't recolour a scale.** Bootstrap
   builds `primary` out of the blue scale, so picking green rewrites all nine sub-keys to
@@ -87,6 +104,9 @@ Two decisions inside Simple mode are worth knowing about:
 * **Contrast is checked where it matters.** Each theme role's `contrast` is scored against
   its own fill, and its `fg` against the page, per scheme. Upstream's stock `primary`
   already sits at 3.6:1 for white on `blue-500` — worth knowing before you re-tint it.
+* **An export carries only the keys you changed.** `defaults()` merges key by key, so
+  editing one shadow gives you a three-line `$root-tokens`, not all 67 entries. Nested maps
+  merge one level deep, so a changed sub-key carries its whole role — but only that role.
 * **A field takes any CSS.** A literal (`1.25rem`), a token reference (`{radius.9}`), or a
   raw custom property (`var(--radius-9)`) all work; references keep the link, literals break
   it.

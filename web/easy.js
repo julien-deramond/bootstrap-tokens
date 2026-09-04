@@ -33,6 +33,7 @@ export const DIALS = [
     section: 'Colour',
     kind: 'hue',
     role: 'primary',
+    preview: 'buttons',
     label: 'Brand colour',
     help: 'Repoints the primary role at another colour scale. Buttons, links, focus rings and every component that uses primary follow.'
   },
@@ -41,6 +42,7 @@ export const DIALS = [
     section: 'Colour',
     kind: 'hue',
     role: 'accent',
+    preview: 'buttons',
     label: 'Accent colour',
     help: 'The secondary brand role, used for highlights alongside primary.'
   },
@@ -51,6 +53,8 @@ export const DIALS = [
     label: 'Corner radius',
     help: 'Sets the base radius. The whole 0–9 scale is derived from it, so every component moves together.',
     token: 'radius.base',
+    preview: 'surfaces',
+    swatch: 'radius',
     options: [
       { label: 'Square', values: { 'radius.base': '0' } },
       { label: 'Slight', values: { 'radius.base': '.25rem' } },
@@ -66,6 +70,8 @@ export const DIALS = [
     label: 'Density',
     help: 'Sets the base spacer. The spacing scale, gutters and every component padding derive from it.',
     token: 'spacing.base',
+    preview: 'surfaces',
+    swatch: 'density',
     options: [
       { label: 'Compact', values: { 'spacing.base': '.875rem' } },
       { label: 'Default', values: { 'spacing.base': '1rem' } },
@@ -80,6 +86,8 @@ export const DIALS = [
     label: 'Border weight',
     help: 'The default border width, used by cards, inputs, tables and dividers.',
     token: 'border.width',
+    preview: 'forms',
+    swatch: 'border',
     options: [
       { label: 'Hairline', values: { 'border.width': '.5px' } },
       { label: 'Default', values: { 'border.width': '1px' } },
@@ -93,6 +101,8 @@ export const DIALS = [
     label: 'Typeface',
     help: 'The body font stack. Anything not installed falls back through the rest of the stack.',
     token: 'type.body.font-family',
+    preview: 'typography',
+    swatch: 'font',
     options: [
       { label: 'System', values: { 'type.body.font-family': FONT_STACKS.system } },
       { label: 'Geometric', values: { 'type.body.font-family': FONT_STACKS.geometric } },
@@ -108,6 +118,8 @@ export const DIALS = [
     label: 'Base text size',
     help: 'The body font size. Component sizes that reference it follow; the fluid heading scale does not.',
     token: 'type.body.font-size',
+    preview: 'typography',
+    swatch: 'text-size',
     options: [
       { label: '14px', values: { 'type.body.font-size': '.875rem' } },
       { label: '15px', values: { 'type.body.font-size': '.9375rem' } },
@@ -123,6 +135,8 @@ export const DIALS = [
     label: 'Shadow depth',
     help: 'Multiplies every shadow layer’s opacity. Light mode only — Bootstrap pins dark mode to 2.4 with a media query no token can reach.',
     token: 'elevation.strength',
+    preview: 'elevation',
+    swatch: 'shadow',
     options: [
       { label: 'None', values: { 'elevation.strength': '0' } },
       { label: 'Subtle', values: { 'elevation.strength': '.5' } },

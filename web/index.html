@@ -4,53 +4,67 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>Bootstrap token chooser</title>
-    <meta name="description" content="Edit Bootstrap v6 design tokens and export them as Sass." />
+    <meta name="description" content="Design a Bootstrap v6 theme and export it as Sass." />
     <link rel="stylesheet" href="./app.css" />
   </head>
   <body>
     <header class="topbar">
       <div class="brand">
         <span class="brand-mark" aria-hidden="true"></span>
-        <div>
-          <h1>Bootstrap token chooser</h1>
-          <p class="brand-sub" id="brand-sub">Loading the token document…</p>
+        <div class="brand-text">
+          <h1>Bootstrap theme</h1>
+          <p class="brand-sub" id="brand-sub">Loading…</p>
         </div>
       </div>
 
       <div class="topbar-actions">
-        <div class="segmented" id="mode" role="group" aria-label="Editing mode">
-          <button type="button" data-mode="simple">Simple</button>
-          <button type="button" data-mode="advanced">Advanced</button>
+        <span class="health" id="health" hidden></span>
+
+        <div class="icon-group" role="group" aria-label="History">
+          <button type="button" class="icon-button" id="undo" title="Undo (⌘Z)" aria-label="Undo" disabled><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h7a3.5 3.5 0 0 1 0 7H7"/><path d="M6 4 3 7l3 3"/></svg></button>
+          <button type="button" class="icon-button" id="redo" title="Redo (⇧⌘Z)" aria-label="Redo" disabled><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M13 7H6a3.5 3.5 0 0 0 0 7h3"/><path d="m10 4 3 3-3 3"/></svg></button>
         </div>
-        <div class="segmented" id="scheme" role="group" aria-label="Preview colour scheme">
-          <button type="button" data-scheme="light">Light</button>
-          <button type="button" data-scheme="dark">Dark</button>
-        </div>
-        <button type="button" class="button" id="reset" disabled>Reset</button>
-        <button type="button" class="button button-primary" id="open-export">Export</button>
+
+        <button type="button" class="button" id="reset" disabled>Reset all</button>
+        <button type="button" class="button button-primary" id="open-export">Export…</button>
       </div>
     </header>
 
     <main class="layout">
-      <nav class="rail" aria-label="Token groups">
-        <div class="rail-search">
-          <input type="search" id="search" placeholder="Search tokens…" aria-label="Search tokens" autocomplete="off" />
+      <section class="panel" aria-label="Theme controls">
+        <div class="panel-tabs" role="tablist" id="mode">
+          <button type="button" role="tab" data-mode="simple" aria-selected="true">Design</button>
+          <button type="button" role="tab" data-mode="advanced" aria-selected="false">All tokens</button>
         </div>
-        <div class="rail-list" id="rail"></div>
-      </nav>
 
-      <section class="editor" aria-label="Token editor">
-        <div class="editor-head">
-          <h2 id="section-title">Basics</h2>
-          <p id="section-note"></p>
+        <div class="panel-body">
+          <div id="simple"></div>
+
+          <div id="advanced" hidden>
+            <div class="rail-search">
+              <input type="search" id="search" placeholder="Search 1197 tokens…" aria-label="Search tokens" autocomplete="off" />
+            </div>
+            <div class="advanced-split">
+              <nav class="rail" id="rail" aria-label="Token groups"></nav>
+              <div class="editor">
+                <div class="editor-head">
+                  <h2 id="section-title"></h2>
+                  <p id="section-note"></p>
+                </div>
+                <div class="editor-body" id="editor"></div>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="editor-body" id="editor"></div>
-        <div class="editor-body" id="simple" hidden></div>
       </section>
 
       <section class="preview" aria-label="Live preview">
         <div class="preview-head">
-          <span class="preview-label">Live preview</span>
+          <div class="segmented" id="scheme" role="group" aria-label="Preview colour scheme">
+            <button type="button" data-scheme="light">Light</button>
+            <button type="button" data-scheme="dark">Dark</button>
+            <button type="button" data-scheme="split">Side by side</button>
+          </div>
           <span class="chip" id="change-count">no changes</span>
         </div>
         <iframe id="preview" title="Bootstrap components preview" src="./preview.html"></iframe>
@@ -59,24 +73,25 @@
 
     <dialog id="export" class="export">
       <form method="dialog" class="export-head">
-        <h2>Export</h2>
+        <h2>Export your theme</h2>
         <button class="button" value="close" aria-label="Close">Close</button>
       </form>
 
       <div class="tabs" role="tablist">
         <button type="button" role="tab" data-tab="scss" aria-selected="true">custom.scss</button>
-        <button type="button" role="tab" data-tab="css" aria-selected="false">CSS custom properties</button>
+        <button type="button" role="tab" data-tab="css" aria-selected="false">theme.css</button>
         <button type="button" role="tab" data-tab="json" aria-selected="false">theme.json</button>
         <button type="button" role="tab" data-tab="sources" aria-selected="false">v6-dev sources</button>
       </div>
 
       <p class="export-note" id="export-note"></p>
+      <ol class="export-steps" id="export-steps" hidden></ol>
       <pre class="export-code"><code id="export-code"></code></pre>
 
       <div class="export-actions">
+        <button type="button" class="button button-primary" id="download">Download</button>
         <button type="button" class="button" id="copy">Copy</button>
-        <button type="button" class="button" id="download">Download</button>
-        <label class="button button-file">
+        <label class="button">
           Import theme.json
           <input type="file" id="import" accept="application/json,.json" hidden />
         </label>

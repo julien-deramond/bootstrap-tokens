@@ -26,26 +26,6 @@ import { parseComputedColor, formatColor, hexToRgb, rgbToHex, contrastRatio, con
 const STORAGE_KEY = 'bootstrap-tokens.chooser.v1'
 const MODE_KEY = 'bootstrap-tokens.chooser.mode'
 
-/** The handful of tokens that move the most for the least effort. */
-const BASICS = [
-  'spacing.base',
-  'radius.base',
-  'border.width',
-  'type.body.font-family',
-  'type.body.font-size',
-  'type.body.line-height',
-  'font-weight.normal',
-  'focus.width',
-  'elevation.strength',
-  'color.blue.base',
-  'color.indigo.base',
-  'color.green.base',
-  'color.red.base',
-  'color.yellow.base',
-  'color.cyan.base',
-  'color.gray.base'
-]
-
 const PRIMITIVE_ORDER = [
   'color',
   'color-tint',
@@ -108,11 +88,17 @@ const state = {
   meta: { bootstrap: 'unknown' },
   overrides: load(),
   mode: loadMode(),
-  section: 'basics',
-  scheme: globalThis.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light',
+  section: 'theme-color',
+  // Side by side is the point on a wide screen; on a narrow one it halves an already small
+  // preview, so start from the reader's own preference there.
+  scheme: globalThis.innerWidth >= 1024
+    ? 'split'
+    : (globalThis.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
   query: '',
   exportTab: 'scss',
-  previewReady: false
+  previewReady: false,
+  past: [],
+  future: []
 }
 
 function load() {
@@ -152,39 +138,57 @@ function setMode(mode) {
 
 /* ---------------------------------------------------------------- sections */
 
+/**
+ * Sixty components in one alphabetical list is a scan, not a menu. Grouping them the way
+ * people think about interfaces means you can find "the thing I'm looking at" without
+ * knowing its Bootstrap name.
+ */
+const COMPONENT_GROUPS = [
+  { title: 'Forms', names: ['form-control', 'form-label', 'form-text', 'form-adorn', 'form-floating', 'check', 'radio', 'switch', 'range', 'input-group-addon', 'chip-input', 'otp', 'strength'] },
+  { title: 'Actions', names: ['btn', 'button-link', 'button-styled', 'btn-close', 'icon-link'] },
+  { title: 'Navigation', names: ['nav', 'nav-tabs', 'nav-pills', 'nav-underline', 'tab-pane', 'navbar', 'navbar-dark', 'navbar-nav', 'breadcrumb', 'pagination', 'menu', 'stepper'] },
+  { title: 'Feedback', names: ['alert', 'badge', 'chip', 'progress', 'spinner-border', 'spinner-grow', 'placeholder', 'toast', 'tooltip', 'popover'] },
+  { title: 'Overlays', names: ['dialog', 'drawer', 'drawer-backdrop'] },
+  { title: 'Content', names: ['card', 'list-group', 'accordion', 'table', 'blockquote', 'figure', 'thumbnail', 'prose', 'reboot-type', 'reboot-kbd', 'reboot-mark', 'avatar', 'carousel', 'calendar', 'datepicker', 'hover-lift', 'stretched-link'] }
+]
+
 function sections() {
   const groups = new Set(Object.keys(state.baseDoc.tree))
   const componentNames = new Set(COMPONENTS.map((c) => c.name))
 
   const primitive = PRIMITIVE_ORDER.filter((id) => groups.has(id))
   const semantic = SEMANTIC_ORDER.filter((id) => groups.has(id))
-  const components = COMPONENTS.filter((c) => groups.has(c.name)).map((c) => c.name).sort()
 
   const unlisted = [...groups].filter(
     (id) => !primitive.includes(id) && !semantic.includes(id) && !componentNames.has(id)
   )
 
+  const grouped = COMPONENT_GROUPS.map((group) => ({
+    title: group.title,
+    items: group.names.filter((id) => groups.has(id)).map((id) => ({ id, label: id }))
+  }))
+
+  // Anything the grouping forgot still has to be reachable.
+  const placed = new Set(COMPONENT_GROUPS.flatMap((group) => group.names))
+  const rest = [...componentNames].filter((id) => groups.has(id) && !placed.has(id)).sort()
+  if (rest.length > 0) grouped.push({ title: 'Other', items: rest.map((id) => ({ id, label: id })) })
+
   return [
-    { title: 'Start here', items: [{ id: 'basics', label: 'Basics' }] },
-    { title: 'Primitive', items: [...primitive, ...unlisted].map((id) => ({ id, label: label(id) })) },
     { title: 'Semantic', items: semantic.map((id) => ({ id, label: label(id) })) },
-    { title: 'Components', items: components.map((id) => ({ id, label: id })) }
+    { title: 'Primitive', items: [...primitive, ...unlisted].map((id) => ({ id, label: label(id) })) },
+    ...grouped
   ]
 }
 
 /** The token paths a section shows, filtered by the search box. */
 function pathsFor(sectionId) {
   const paths = []
+  const group = state.doc.tree[sectionId]
 
-  if (sectionId === 'basics') {
-    for (const path of BASICS) if (state.doc.tokens.has(path)) paths.push(path)
-  } else {
-    const group = state.doc.tree[sectionId]
-    if (group) {
-      for (const [suffix, token] of walk(group)) {
-        if (ext(token).generated) continue
-        paths.push(`${sectionId}.${suffix}`)
-      }
+  if (group) {
+    for (const [suffix, token] of walk(group)) {
+      if (ext(token).generated) continue
+      paths.push(`${sectionId}.${suffix}`)
     }
   }
 
@@ -224,6 +228,47 @@ function editableValue(path, side = 'value') {
 
 const isChanged = (path) => Object.hasOwn(state.overrides, path)
 
+/**
+ * Every mutation goes through here, so exploring is always reversible.
+ *
+ * A tool whose whole purpose is "try a value and see" needs undo more than it needs almost
+ * anything else; without it the only way back is a destructive Reset, which makes people
+ * stop experimenting.
+ */
+function mutate(change) {
+  state.past.push(JSON.stringify(state.overrides))
+  if (state.past.length > 100) state.past.shift()
+  state.future.length = 0
+
+  change()
+
+  save()
+  recompute()
+  render()
+}
+
+function undo() {
+  const previous = state.past.pop()
+  if (previous === undefined) return
+
+  state.future.push(JSON.stringify(state.overrides))
+  state.overrides = JSON.parse(previous)
+  save()
+  recompute()
+  render()
+}
+
+function redo() {
+  const next = state.future.pop()
+  if (next === undefined) return
+
+  state.past.push(JSON.stringify(state.overrides))
+  state.overrides = JSON.parse(next)
+  save()
+  recompute()
+  render()
+}
+
 /** Record one edit without touching the DOM, so batches apply as a single update. */
 function writeOverride(path, side, value) {
   const base = editableBase(path, side)
@@ -237,21 +282,19 @@ function writeOverride(path, side, value) {
 }
 
 function setOverride(path, side, value) {
-  writeOverride(path, side, value)
-  save()
-  recompute()
+  mutate(() => writeOverride(path, side, value))
 }
 
 /** Apply a `{ path: value | { value, dark } }` batch — how every Simple-mode dial writes. */
-function applyValues(values) {
-  for (const [path, entry] of Object.entries(values)) {
-    const override = typeof entry === 'string' ? { value: entry } : entry
-    if ('value' in override) writeOverride(path, 'value', override.value)
-    if ('dark' in override) writeOverride(path, 'dark', override.dark)
-  }
-  save()
-  recompute()
-  render()
+function applyValues(values, { focus = null } = {}) {
+  mutate(() => {
+    for (const [path, entry] of Object.entries(values)) {
+      const override = typeof entry === 'string' ? { value: entry } : entry
+      if ('value' in override) writeOverride(path, 'value', override.value)
+      if ('dark' in override) writeOverride(path, 'dark', override.dark)
+    }
+  })
+  if (focus) postToPreview({ focus })
 }
 
 function editableBase(path, side) {
@@ -259,9 +302,9 @@ function editableBase(path, side) {
 }
 
 function clearOverride(path) {
-  delete state.overrides[path]
-  save()
-  recompute()
+  mutate(() => {
+    delete state.overrides[path]
+  })
 }
 
 /* ----------------------------------------------------------------- probing */
@@ -310,7 +353,7 @@ function renderRail() {
   rail.textContent = ''
 
   for (const group of sections()) {
-    const items = group.items.filter((item) => !matches || item.id === 'basics' || matches.has(item.id))
+    const items = group.items.filter((item) => !matches || matches.has(item.id))
     if (items.length === 0) continue
 
     const heading = document.createElement('div')
@@ -346,22 +389,17 @@ function renderRail() {
 }
 
 function changedIn(sectionId) {
-  if (sectionId === 'basics') return BASICS.filter(isChanged).length
   return Object.keys(state.overrides).filter((path) => path.split('.')[0] === sectionId).length
 }
 
 function renderEditor() {
   const paths = pathsFor(state.section)
-  const title = state.section === 'basics' ? 'Basics' : label(state.section)
   const component = COMPONENTS.find((c) => c.name === state.section)
 
-  $('#section-title').textContent = title
-  $('#section-note').textContent =
-    state.section === 'basics'
-      ? 'The values that move the most for the least effort. Change a hue here and every scale, theme colour and component that derives from it follows.'
-      : component
-        ? `Emitted on ${component.selector} · ${component.sassMap}`
-        : (GROUP_DESCRIPTIONS[state.section] ?? '')
+  $('#section-title').textContent = label(state.section)
+  $('#section-note').textContent = component
+    ? `Emitted on ${component.selector} · ${component.sassMap}`
+    : (GROUP_DESCRIPTIONS[state.section] ?? '')
 
   const editor = $('#editor')
   editor.textContent = ''
@@ -428,7 +466,6 @@ function renderToken(path) {
     reset.textContent = 'Reset to default'
     reset.addEventListener('click', () => {
       clearOverride(path)
-      render()
     })
     controls.append(reset)
   }
@@ -469,7 +506,6 @@ function renderField(path, side, modeLabel, token) {
   input.setAttribute('aria-label', `${path} ${side === 'dark' ? 'dark value' : 'value'}`)
   input.addEventListener('change', () => {
     setOverride(path, side, input.value.trim())
-    render()
   })
   field.append(input)
 
@@ -482,7 +518,6 @@ function renderField(path, side, modeLabel, token) {
     picker.setAttribute('aria-label', `${path} colour picker`)
     picker.addEventListener('input', () => {
       setOverride(path, side, formatColor(hexToRgb(picker.value), input.value))
-      render()
     })
     field.append(picker)
   }
@@ -531,9 +566,9 @@ function renderContrast(path, side) {
 
 const isLiteralColor = (value) => /^(#|rgb|hsl|oklch|oklab|lab|lch|color\()/i.test(String(value).trim())
 
-function resolvedSide(path, side) {
+function resolvedSide(path, side, doc = state.doc) {
   try {
-    const full = state.doc.cssValueOf(path)
+    const full = doc.cssValueOf(path)
     const pair = /^light-dark\((.*)\)$/s.exec(full)
     if (!pair) return full
     const split = splitTop(pair[1])
@@ -556,6 +591,9 @@ function splitTop(value) {
 /* ------------------------------------------------------------- simple mode */
 
 const read = (path, side = 'value') => editableValue(path, side)
+
+/** Which colour schemes the panel should report on, following the preview. */
+const shownSchemes = () => (state.scheme === 'split' ? ['light', 'dark'] : [state.scheme])
 
 /** The token paths every dial owns, so we can tell "edited elsewhere" from "edited here". */
 function dialTokens() {
@@ -637,26 +675,27 @@ function renderPresets() {
   return row
 }
 
-/** A preset resets every dial first, so applying one is never a partial merge. */
+/**
+ * A preset clears every dial-owned token before applying its own, so it is a *state*, not a
+ * merge — and the whole thing is one history entry, so one undo takes you back.
+ */
 function applyPreset(preset) {
   const values = {}
   for (const path of dialTokens()) values[path] = { value: undefined, dark: undefined }
-  applyValues(values)
 
-  const next = {}
   for (const dial of DIALS) {
     const choice = preset.dials[dial.id]
     if (!choice) continue
 
     if (dial.kind === 'hue') {
-      Object.assign(next, hueValues(dial, choice))
+      Object.assign(values, hueValues(dial, choice))
       continue
     }
     const option = dial.options.find((candidate) => candidate.label === choice)
-    if (option) Object.assign(next, option.values)
+    if (option) Object.assign(values, option.values)
   }
 
-  if (Object.keys(next).length > 0) applyValues(next)
+  applyValues(values, { focus: 'buttons' })
 }
 
 function hueValues(dial, toHue) {
@@ -693,11 +732,26 @@ function dialShell(dial, current) {
     head.append(custom)
   }
 
+  // Progressive disclosure: eight permanently-visible explanations is a wall of text before
+  // the user has done anything. The label carries the meaning; the rest is on request.
+  const info = document.createElement('button')
+  info.type = 'button'
+  info.className = 'dial-info'
+  info.textContent = '?'
+  info.setAttribute('aria-expanded', 'false')
+  info.setAttribute('aria-label', `What does ${dial.label} change?`)
+  head.append(info)
+
   row.append(head)
 
   const help = document.createElement('p')
   help.className = 'dial-help'
   help.textContent = dial.help
+  help.hidden = true
+  info.addEventListener('click', () => {
+    help.hidden = !help.hidden
+    info.setAttribute('aria-expanded', String(!help.hidden))
+  })
   row.append(help)
 
   return row
@@ -708,21 +762,89 @@ function renderChoiceDial(dial) {
   const row = dialShell(dial, current)
 
   const group = document.createElement('div')
-  group.className = 'segmented dial-options'
+  group.className = dial.swatch ? 'dial-swatches' : 'segmented dial-options'
   group.setAttribute('role', 'group')
   group.setAttribute('aria-label', dial.label)
 
   for (const option of dial.options) {
     const button = document.createElement('button')
     button.type = 'button'
-    button.textContent = option.label
     button.setAttribute('aria-pressed', String(current === option))
-    button.addEventListener('click', () => applyValues(option.values))
+    button.addEventListener('click', () => applyValues(option.values, { focus: dial.preview }))
+
+    if (dial.swatch) {
+      button.className = 'dial-swatch'
+      button.append(optionPreview(dial, option))
+
+      const caption = document.createElement('span')
+      caption.className = 'dial-swatch-label'
+      caption.textContent = option.label
+      button.append(caption)
+    } else {
+      button.textContent = option.label
+    }
+
     group.append(button)
   }
 
   row.append(group)
   return row
+}
+
+/**
+ * Draw what an option does, using the option's own value.
+ *
+ * A row of words ("Square, Slight, Default, Round") asks the user to click, look somewhere
+ * else, and infer. A row of shapes lets them choose by eye, which is what a design tool is
+ * for — and it means the explanatory sentence underneath stops carrying the whole load.
+ */
+function optionPreview(dial, option) {
+  const value = Object.values(option.values)[0]
+  const box = document.createElement('span')
+  box.className = `swatch-preview swatch-${dial.swatch}`
+  box.setAttribute('aria-hidden', 'true')
+
+  if (dial.swatch === 'radius') {
+    box.style.borderRadius = value
+    return box
+  }
+
+  if (dial.swatch === 'border') {
+    box.style.borderWidth = value
+    return box
+  }
+
+  if (dial.swatch === 'density') {
+    // Three stacked bars whose gap is the value: density read as rhythm, not as a number.
+    box.style.gap = `calc(${value} * .45)`
+    for (let i = 0; i < 3; i++) box.append(document.createElement('span'))
+    return box
+  }
+
+  if (dial.swatch === 'shadow') {
+    const strength = Number(value) || 0
+    box.style.boxShadow =
+      strength === 0
+        ? 'none'
+        : `0 ${1.5 * strength}px ${4 * strength}px rgb(0 0 0 / ${Math.min(0.42, 0.1 * strength + 0.06)})`
+    return box
+  }
+
+  if (dial.swatch === 'font') {
+    // The quoting that makes it a valid Sass map value is not valid CSS here.
+    box.style.fontFamily = String(value).replace(/^"|"$/g, '')
+    box.textContent = 'Ag'
+    return box
+  }
+
+  if (dial.swatch === 'text-size') {
+    box.style.fontSize = value
+    box.textContent = 'Aa'
+    return box
+  }
+
+  box.textContent = option.label
+  return box
 }
 
 function renderHueDial(dial) {
@@ -742,7 +864,7 @@ function renderHueDial(dial) {
 
     const rgb = hueColor(hue)
     button.style.background = rgb ? rgbToHex(rgb) : 'transparent'
-    button.addEventListener('click', () => applyValues(hueValues(dial, hue)))
+    button.addEventListener('click', () => applyValues(hueValues(dial, hue), { focus: dial.preview }))
     grid.append(button)
   }
 
@@ -758,27 +880,28 @@ function renderHueDial(dial) {
  * so here rather than letting it ship.
  */
 function renderRoleContrast(dial) {
-  const side = state.scheme === 'dark' ? 'dark' : 'value'
   const row = document.createElement('div')
   row.className = 'dial-contrast'
 
-  for (const [key, caption] of [['contrast', 'label on fill'], ['fg', 'text on page']]) {
-    const badge = renderContrast(`theme-color.${dial.role}.${key}`, side)
-    if (!badge) continue
+  for (const scheme of shownSchemes()) {
+    for (const [key, caption] of [['contrast', 'on fill'], ['fg', 'on page']]) {
+      const badge = renderContrast(`theme-color.${dial.role}.${key}`, scheme === 'dark' ? 'dark' : 'value')
+      if (!badge) continue
 
-    const item = document.createElement('span')
-    item.className = 'dial-contrast-item'
+      const item = document.createElement('span')
+      item.className = 'dial-contrast-item'
 
-    const text = document.createElement('span')
-    text.textContent = caption
-    item.append(text, badge)
-    row.append(item)
+      const text = document.createElement('span')
+      text.textContent = shownSchemes().length > 1 ? `${scheme} ${caption}` : caption
+      item.append(text, badge)
+      row.append(item)
+    }
   }
 
   if (row.querySelector('.is-fail')) {
     const warning = document.createElement('span')
     warning.className = 'dial-contrast-warning'
-    warning.textContent = `Fails WCAG AA in ${state.scheme} mode. Try a darker step, or a different hue.`
+    warning.textContent = 'Fails WCAG AA for body text. Try a darker step of the same hue, or another hue.'
     row.append(warning)
   }
 
@@ -802,10 +925,13 @@ function renderCustomHue(dial, hue) {
   picker.value = rgb ? rgbToHex(rgb) : '#000000'
   picker.setAttribute('aria-label', `Custom ${dial.role} colour`)
   picker.addEventListener('input', () => {
-    applyValues({
-      [path]: formatColor(hexToRgb(picker.value), read(path)),
-      [`theme-color.${dial.role}.contrast`]: contrastTokenFor(hue)
-    })
+    applyValues(
+      {
+        [path]: formatColor(hexToRgb(picker.value), read(path)),
+        [`theme-color.${dial.role}.contrast`]: contrastTokenFor(hue)
+      },
+      { focus: dial.preview }
+    )
   })
 
   const note = document.createElement('span')
@@ -847,6 +973,92 @@ function renderSimpleFooter() {
   return footer
 }
 
+/* ------------------------------------------------------------------ health */
+
+/**
+ * One answer to "is this theme readable?".
+ *
+ * Per-control badges tell you about the control you are looking at; they cannot tell you
+ * that the theme as a whole has a problem three sections down. This also separates issues
+ * *you* introduced from ones Bootstrap's defaults already have — a fresh visitor seeing a
+ * warning they did not cause learns to ignore warnings.
+ */
+function themeHealth() {
+  if (!state.previewReady) return null
+
+  const issues = []
+
+  for (const [path, token] of walk(state.doc.tree)) {
+    if (token.$type !== 'color') continue
+    const pair = contrastPartner(path)
+    if (!pair || !state.doc.tokens.has(pair.partner)) continue
+
+    for (const scheme of shownSchemes()) {
+      const side = scheme === 'dark' ? 'dark' : 'value'
+      const ratio = ratioFor(path, pair.partner, side, state.doc)
+      if (ratio === null || ratio >= 4.5) continue
+
+      const before = state.baseDoc.tokens.has(path)
+        ? ratioFor(path, pair.partner, side, state.baseDoc)
+        : null
+
+      issues.push({
+        path,
+        scheme,
+        ratio,
+        inherited: before !== null && before < 4.5
+      })
+    }
+  }
+
+  return {
+    issues,
+    introduced: issues.filter((issue) => !issue.inherited).length,
+    inherited: issues.filter((issue) => issue.inherited).length
+  }
+}
+
+function ratioFor(path, partnerPath, side, doc) {
+  const foreground = resolveColor(resolvedSide(path, side, doc), side === 'dark' ? 'dark' : 'light')
+  const background = resolveColor(resolvedSide(partnerPath, side, doc), side === 'dark' ? 'dark' : 'light')
+  return foreground && background ? contrastRatio(foreground, background) : null
+}
+
+function renderHealth() {
+  const element = $('#health')
+  const health = themeHealth()
+
+  if (!health || health.issues.length === 0) {
+    element.hidden = !health
+    if (health) {
+      element.className = 'health is-ok'
+      element.textContent = 'Contrast OK'
+      element.title = 'Every theme colour meets WCAG AA for body text in the schemes shown.'
+    }
+    return
+  }
+
+  element.hidden = false
+  element.className = `health ${health.introduced > 0 ? 'is-warn' : 'is-muted'}`
+
+  // Lead with the source. "12 contrast issues" on a page the visitor has not touched reads
+  // as an accusation; naming Bootstrap's defaults makes it information instead.
+  element.textContent = health.introduced > 0
+    ? `${health.introduced} contrast issue${health.introduced === 1 ? '' : 's'}`
+    : `Bootstrap defaults: ${health.inherited} contrast issue${health.inherited === 1 ? '' : 's'}`
+
+  const lines = health.issues
+    .slice(0, 8)
+    .map((issue) => `${issue.path} (${issue.scheme}) ${issue.ratio.toFixed(1)}:1${issue.inherited ? ' — already in Bootstrap' : ''}`)
+
+  element.title = [
+    health.introduced > 0
+      ? 'Below WCAG AA (4.5:1) for body text:'
+      : 'These already fail in stock Bootstrap — not something you changed:',
+    ...lines
+  ].join('\n')
+}
+
 /* ------------------------------------------------------------------ update */
 
 /** Draw whichever mode is active. Both read the same override state. */
@@ -855,22 +1067,23 @@ function render() {
   document.body.dataset.mode = state.mode
 
   $('#simple').hidden = !simple
-  $('#editor').hidden = simple
-  $('#section-title').textContent = simple ? 'Theme' : (state.section === 'basics' ? 'Basics' : label(state.section))
+  $('#advanced').hidden = simple
 
   for (const button of document.querySelectorAll('#mode button')) {
-    button.setAttribute('aria-pressed', String(button.dataset.mode === state.mode))
+    button.setAttribute('aria-selected', String(button.dataset.mode === state.mode))
   }
 
-  if (simple) {
-    $('#section-note').textContent =
-      'A few controls that each move a lot of the system. Everything you change here is an ordinary token override — switch to Advanced any time to see exactly which.'
-    renderSimple()
-    return
+  $('#undo').disabled = state.past.length === 0
+  $('#redo').disabled = state.future.length === 0
+  $('#reset').disabled = Object.keys(state.overrides).length === 0
+
+  if (simple) renderSimple()
+  else {
+    renderRail()
+    renderEditor()
   }
 
-  renderRail()
-  renderEditor()
+  renderHealth()
 }
 
 function recompute() {
@@ -906,8 +1119,14 @@ function exportContent() {
     return {
       filename: 'custom.scss',
       note: mapsTouched(state.doc, state.overrides).size
-        ? 'Drop this in as your entry stylesheet. Bootstrap merges these maps over its defaults, so only what you changed is here.'
+        ? 'The usual choice. Bootstrap merges these keys over its own defaults, so this carries only what you changed.'
         : 'Nothing is overridden yet, so this is stock Bootstrap.',
+      steps: [
+        'Save it as <code>scss/custom.scss</code> in your project.',
+        'Install what it needs: <code>npm i bootstrap@6</code> and <code>npm i -D sass</code>.',
+        'Compile it: <code>npx sass scss/custom.scss css/app.css</code>.',
+        'Link <code>css/app.css</code> instead of Bootstrap’s own stylesheet.'
+      ],
       text: themeScss(state.doc, state.overrides, { version })
     }
   }
@@ -916,7 +1135,11 @@ function exportContent() {
     const css = themeCss(diffResolved(state.baseDoc, state.doc))
     return {
       filename: 'theme.css',
-      note: 'No Sass required — load this after Bootstrap’s stylesheet to re-theme at runtime.',
+      note: 'No build step. Load it after Bootstrap’s stylesheet and it re-themes at runtime.',
+      steps: [
+        'Save it next to your HTML.',
+        'Add it <em>after</em> Bootstrap: <code>&lt;link href="theme.css" rel="stylesheet"&gt;</code>.'
+      ],
       text: css || '/* Nothing overridden yet. */\n'
     }
   }
@@ -924,17 +1147,16 @@ function exportContent() {
   if (state.exportTab === 'json') {
     return {
       filename: 'theme.json',
-      note: 'Your edits, portable. Import it back here to carry on where you left off.',
+      note: 'Your edits, portable. Import it back here to carry on, or hand it to the maintainer export.',
       text: themeJson(state.overrides, { version })
     }
   }
 
   return {
-    filename: 'theme.json',
+    filename: 'eject.txt',
     note:
-      'For Bootstrap maintainers: this writes the values into v6-dev’s own Sass files, ' +
-      'so the result is an ordinary pull request rather than a consumer override. Save the ' +
-      'theme.json below, then run the command against your checkout.',
+      'For Bootstrap maintainers: this writes the values into v6-dev’s own Sass files, so the ' +
+      'result is an ordinary pull request rather than a consumer override.',
     text: maintainerExport(version)
   }
 }
@@ -986,9 +1208,21 @@ function maintainerExport(version) {
 }
 
 function renderExport() {
-  const { note, text } = exportContent()
+  const { note, text, steps, filename } = exportContent()
+
   $('#export-note').textContent = note
   $('#export-code').textContent = text
+  $('#download').textContent = `Download ${filename}`
+
+  // "Here is your code" is not an answer to "what do I do with it?".
+  const list = $('#export-steps')
+  list.textContent = ''
+  list.hidden = !steps
+  for (const step of steps ?? []) {
+    const item = document.createElement('li')
+    item.innerHTML = step
+    list.append(item)
+  }
 
   for (const tab of document.querySelectorAll('.tabs button')) {
     tab.setAttribute('aria-selected', String(tab.dataset.tab === state.exportTab))
@@ -1019,12 +1253,20 @@ function wire() {
     button.addEventListener('click', () => setMode(button.dataset.mode))
   }
 
-  $('#reset').addEventListener('click', () => {
-    if (!confirm('Discard every token override?')) return
-    state.overrides = {}
-    save()
-    recompute()
-    render()
+  // No confirm(): the action is undoable, and a modal to guard a reversible action just
+  // trains people to dismiss modals.
+  $('#reset').addEventListener('click', () => mutate(() => { state.overrides = {} }))
+
+  $('#undo').addEventListener('click', undo)
+  $('#redo').addEventListener('click', redo)
+
+  window.addEventListener('keydown', (event) => {
+    if (!(event.metaKey || event.ctrlKey) || event.key.toLowerCase() !== 'z') return
+    if (event.target.matches('input, textarea')) return
+
+    event.preventDefault()
+    if (event.shiftKey) redo()
+    else undo()
   })
 
   $('#open-export').addEventListener('click', () => {
@@ -1062,10 +1304,9 @@ function wire() {
     try {
       const parsed = JSON.parse(await file.text())
       if (!parsed || typeof parsed.overrides !== 'object') throw new Error('missing "overrides"')
-      state.overrides = parsed.overrides
-      save()
-      recompute()
-      render()
+      mutate(() => {
+        state.overrides = parsed.overrides
+      })
       renderExport()
     } catch (error) {
       alert(`That doesn't look like a theme.json: ${error.message}`)
@@ -1112,7 +1353,8 @@ async function start() {
   state.baseDoc = index(expandColorScales(clone(tree)))
   state.doc = withOverrides(tree, state.overrides)
 
-  $('#brand-sub').textContent = `Bootstrap ${meta.bootstrap} · ${state.baseDoc.tokens.size} tokens`
+  $('#brand-sub').textContent = `Bootstrap ${meta.bootstrap}`
+  $('#search').placeholder = `Search ${state.baseDoc.tokens.size} tokens…`
 
   wire()
   render()

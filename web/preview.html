@@ -7,8 +7,34 @@
     <link rel="stylesheet" href="./vendor/bootstrap.css" />
     <style id="token-overrides"></style>
     <style>
-      body { padding: 1.25rem; }
+      body { margin: 0; }
+
+      .preview-single .pane { padding: 1.25rem; }
+      .preview-split { display: grid; grid-template-columns: 1fr 1fr; align-items: start; }
+      .preview-split .pane { padding: 1rem; min-width: 0; }
+      .preview-split .pane + .pane { border-inline-start: 1px solid var(--border-subtle); }
+
+      /* Each pane paints its own scheme's page colour, which is the whole point of split. */
+      .pane { background: var(--bg-body); color: var(--fg-body); min-height: 100vh; }
+
+      .pane-label {
+        position: sticky;
+        top: 0;
+        z-index: 2;
+        margin: -1rem -1rem .75rem;
+        padding: .375rem 1rem;
+        font-size: .625rem;
+        font-weight: 700;
+        letter-spacing: .1em;
+        text-transform: uppercase;
+        color: var(--fg-3);
+        background: var(--bg-1);
+        border-block-end: 1px solid var(--border-subtle);
+      }
+
+      .preview-section { scroll-margin-block-start: .5rem; border-radius: .5rem; }
       .preview-section + .preview-section { margin-block-start: 1.75rem; }
+
       .preview-section > h2 {
         margin-block-end: .625rem;
         font-size: .6875rem;
@@ -17,11 +43,61 @@
         text-transform: uppercase;
         color: var(--fg-3);
       }
-      .swatch-grid { display: grid; grid-template-columns: repeat(13, 1fr); gap: 2px; }
-      .swatch-grid > div { height: 1.75rem; border-radius: 2px; }
-      .swatch-row { display: grid; grid-template-columns: 3.5rem 1fr; gap: .5rem; align-items: center; margin-block-end: 2px; }
-      .swatch-row > span { font-size: .6875rem; color: var(--fg-3); }
+
+      /* The flash that ties a control to what it changed. */
+      .preview-section.is-focused { animation: flash 1.4s ease-out; }
+
+      @keyframes flash {
+        0%, 40% { box-shadow: 0 0 0 4px var(--primary-focus-ring); background: var(--bg-1); }
+        100% { box-shadow: 0 0 0 4px transparent; background: transparent; }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        .preview-section.is-focused { animation: none; outline: 3px solid var(--primary-base); }
+      }
+
       .cluster { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+      .mt { margin-block-start: .5rem; }
+      .mb { margin-block-end: .75rem; }
+      .alert { margin-block-end: .5rem; }
+
+      .preview-row { display: flex; flex-wrap: wrap; gap: 1rem; align-items: flex-start; }
+      .preview-row > * { flex: 1 1 12rem; min-width: 0; }
+      .card { max-width: 20rem; }
+
+      .elevation-row { display: flex; flex-wrap: wrap; gap: 1rem; padding-block: .5rem 1rem; }
+
+      .elevation-box {
+        display: grid;
+        place-items: center;
+        inline-size: 5rem;
+        block-size: 3.5rem;
+        font-size: .75rem;
+        color: var(--fg-3);
+        background: var(--bg-body);
+        border: var(--border-width) solid var(--border-subtle);
+        border-radius: var(--radius-6);
+      }
+
+      .surface-row { display: flex; gap: .5rem; margin-block-start: .75rem; }
+
+      .surface {
+        flex: 1;
+        padding: .75rem;
+        font-size: .75rem;
+        border: var(--border-width) solid var(--border-subtle);
+        border-radius: var(--radius-5);
+      }
+
+      .swatch-grid { display: grid; grid-template-columns: repeat(13, 1fr); gap: 2px; }
+      .swatch-grid > div { height: 1.5rem; border-radius: 2px; }
+      .swatch-row { display: grid; grid-template-columns: 3.25rem 1fr; gap: .5rem; align-items: center; margin-block-end: 2px; }
+      .swatch-row > span { font-size: .6875rem; color: var(--fg-3); }
+
+      @media (width < 48rem) {
+        .preview-split { grid-template-columns: 1fr; }
+        .preview-split .pane + .pane { border-inline-start: 0; border-block-start: 1px solid var(--border-subtle); }
+      }
     </style>
   </head>
   <body>
