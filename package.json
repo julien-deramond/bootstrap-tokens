@@ -15,7 +15,7 @@
     "sync": "node tools/cli.mjs sync",
     "validate": "node tools/cli.mjs validate",
     "verify": "node tools/cli.mjs verify",
-    "test": "node --test tools/test/",
+    "test": "node --test \"tools/test/**/*.test.mjs\"",
     "web:dev": "node web/dev-server.mjs"
   },
   "devDependencies": {

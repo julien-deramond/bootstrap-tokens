@@ -1,5 +1,5 @@
 {
-  "type": {
+  "reboot-type": {
     "heading-margin-bottom": {
       "$type": "dimension",
       "$value": "{spacing.2}",

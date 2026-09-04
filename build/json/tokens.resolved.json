@@ -3329,6 +3329,60 @@
     "cssVar": "--mark-bg",
     "sassMap": "$reboot-mark-tokens"
   },
+  "reboot-type.heading-margin-bottom": {
+    "$type": "dimension",
+    "$value": "var(--spacer-2)",
+    "cssVar": "--heading-margin-bottom",
+    "sassMap": "$type-tokens"
+  },
+  "reboot-type.heading-font-family": {
+    "$type": "fontFamily",
+    "$value": "null",
+    "cssVar": "--heading-font-family",
+    "sassMap": "$type-tokens"
+  },
+  "reboot-type.heading-font-style": {
+    "$type": null,
+    "$value": "null",
+    "cssVar": "--heading-font-style",
+    "sassMap": "$type-tokens"
+  },
+  "reboot-type.heading-line-height": {
+    "$type": "number",
+    "$value": "1.2",
+    "cssVar": "--heading-line-height",
+    "sassMap": "$type-tokens"
+  },
+  "reboot-type.paragraph-margin-bottom": {
+    "$type": "dimension",
+    "$value": "var(--spacer)",
+    "cssVar": "--paragraph-margin-bottom",
+    "sassMap": "$type-tokens"
+  },
+  "reboot-type.legend-margin-bottom": {
+    "$type": "dimension",
+    "$value": "var(--spacer-2)",
+    "cssVar": "--legend-margin-bottom",
+    "sassMap": "$type-tokens"
+  },
+  "reboot-type.legend-font-size": {
+    "$type": "dimension",
+    "$value": "1.5rem",
+    "cssVar": "--legend-font-size",
+    "sassMap": "$type-tokens"
+  },
+  "reboot-type.legend-font-weight": {
+    "$type": "fontWeight",
+    "$value": "null",
+    "cssVar": "--legend-font-weight",
+    "sassMap": "$type-tokens"
+  },
+  "reboot-type.list-padding-x": {
+    "$type": "dimension",
+    "$value": "var(--spacer-7)",
+    "cssVar": "--list-padding-x",
+    "sassMap": "$type-tokens"
+  },
   "spinner-border.spinner-width": {
     "$type": "dimension",
     "$value": "1em",
@@ -3964,138 +4018,6 @@
     "$value": "linear",
     "cssVar": "--tooltip-transition-timing",
     "sassMap": "$tooltip-tokens"
-  },
-  "type.heading-margin-bottom": {
-    "$type": "dimension",
-    "$value": "var(--spacer-2)",
-    "cssVar": "--heading-margin-bottom",
-    "sassMap": "$type-tokens"
-  },
-  "type.heading-font-family": {
-    "$type": "fontFamily",
-    "$value": "null",
-    "cssVar": "--heading-font-family",
-    "sassMap": "$type-tokens"
-  },
-  "type.heading-font-style": {
-    "$type": null,
-    "$value": "null",
-    "cssVar": "--heading-font-style",
-    "sassMap": "$type-tokens"
-  },
-  "type.heading-line-height": {
-    "$type": "number",
-    "$value": "1.2",
-    "cssVar": "--heading-line-height",
-    "sassMap": "$type-tokens"
-  },
-  "type.paragraph-margin-bottom": {
-    "$type": "dimension",
-    "$value": "var(--spacer)",
-    "cssVar": "--paragraph-margin-bottom",
-    "sassMap": "$type-tokens"
-  },
-  "type.legend-margin-bottom": {
-    "$type": "dimension",
-    "$value": "var(--spacer-2)",
-    "cssVar": "--legend-margin-bottom",
-    "sassMap": "$type-tokens"
-  },
-  "type.legend-font-size": {
-    "$type": "dimension",
-    "$value": "1.5rem",
-    "cssVar": "--legend-font-size",
-    "sassMap": "$type-tokens"
-  },
-  "type.legend-font-weight": {
-    "$type": "fontWeight",
-    "$value": "null",
-    "cssVar": "--legend-font-weight",
-    "sassMap": "$type-tokens"
-  },
-  "type.list-padding-x": {
-    "$type": "dimension",
-    "$value": "var(--spacer-7)",
-    "cssVar": "--list-padding-x",
-    "sassMap": "$type-tokens"
-  },
-  "type.body.font-family": {
-    "$type": "fontFamily",
-    "$value": "\"-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'\"",
-    "cssVar": "--body-font-family",
-    "sassMap": "$root-tokens"
-  },
-  "type.body.font-size": {
-    "$type": "dimension",
-    "$value": "1rem",
-    "cssVar": "--body-font-size",
-    "sassMap": "$root-tokens"
-  },
-  "type.body.font-weight": {
-    "$type": "fontWeight",
-    "$value": "var(--font-weight-normal)",
-    "cssVar": "--body-font-weight",
-    "sassMap": "$root-tokens"
-  },
-  "type.body.line-height": {
-    "$type": "number",
-    "$value": "1.5",
-    "cssVar": "--body-line-height",
-    "sassMap": "$root-tokens"
-  },
-  "type.heading.color": {
-    "$type": "color",
-    "$value": "inherit",
-    "cssVar": "--heading-color",
-    "sassMap": "$root-tokens"
-  },
-  "type.hr.border-color": {
-    "$type": "color",
-    "$value": "var(--border-color)",
-    "cssVar": "--hr-border-color",
-    "sassMap": "$root-tokens"
-  },
-  "type.link.color": {
-    "$type": "color",
-    "$value": "light-dark(var(--primary-base), var(--primary-fg))",
-    "cssVar": "--link-color",
-    "sassMap": "$root-tokens"
-  },
-  "type.link.decoration": {
-    "$type": null,
-    "$value": "underline",
-    "cssVar": "--link-decoration",
-    "sassMap": "$root-tokens"
-  },
-  "type.link.underline-offset": {
-    "$type": "dimension",
-    "$value": ".2em",
-    "cssVar": "--link-underline-offset",
-    "sassMap": "$root-tokens"
-  },
-  "type.link.hover-color": {
-    "$type": "color",
-    "$value": "color-mix(in oklch, var(--link-color) 90%, #000)",
-    "cssVar": "--link-hover-color",
-    "sassMap": "$root-tokens"
-  },
-  "type.code.font-family": {
-    "$type": null,
-    "$value": "\"ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Monaco, 'Cascadia Mono', Consolas, 'Liberation Mono', monospace\"",
-    "cssVar": "--font-mono",
-    "sassMap": "$root-tokens"
-  },
-  "type.code.font-size": {
-    "$type": "dimension",
-    "$value": "95%",
-    "cssVar": "--code-font-size",
-    "sassMap": "$root-tokens"
-  },
-  "type.code.color": {
-    "$type": "color",
-    "$value": "var(--fg-2)",
-    "cssVar": "--code-color",
-    "sassMap": "$root-tokens"
   },
   "color.blue.100": {
     "$type": null,
@@ -7083,5 +7005,83 @@
     "$value": "light-dark(var(--gray-900), var(--white))",
     "cssVar": "--secondary-contrast",
     "sassMap": "$theme-colors"
+  },
+  "type.body.font-family": {
+    "$type": "fontFamily",
+    "$value": "\"-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'\"",
+    "cssVar": "--body-font-family",
+    "sassMap": "$root-tokens"
+  },
+  "type.body.font-size": {
+    "$type": "dimension",
+    "$value": "1rem",
+    "cssVar": "--body-font-size",
+    "sassMap": "$root-tokens"
+  },
+  "type.body.font-weight": {
+    "$type": "fontWeight",
+    "$value": "var(--font-weight-normal)",
+    "cssVar": "--body-font-weight",
+    "sassMap": "$root-tokens"
+  },
+  "type.body.line-height": {
+    "$type": "number",
+    "$value": "1.5",
+    "cssVar": "--body-line-height",
+    "sassMap": "$root-tokens"
+  },
+  "type.heading.color": {
+    "$type": "color",
+    "$value": "inherit",
+    "cssVar": "--heading-color",
+    "sassMap": "$root-tokens"
+  },
+  "type.hr.border-color": {
+    "$type": "color",
+    "$value": "var(--border-color)",
+    "cssVar": "--hr-border-color",
+    "sassMap": "$root-tokens"
+  },
+  "type.link.color": {
+    "$type": "color",
+    "$value": "light-dark(var(--primary-base), var(--primary-fg))",
+    "cssVar": "--link-color",
+    "sassMap": "$root-tokens"
+  },
+  "type.link.decoration": {
+    "$type": null,
+    "$value": "underline",
+    "cssVar": "--link-decoration",
+    "sassMap": "$root-tokens"
+  },
+  "type.link.underline-offset": {
+    "$type": "dimension",
+    "$value": ".2em",
+    "cssVar": "--link-underline-offset",
+    "sassMap": "$root-tokens"
+  },
+  "type.link.hover-color": {
+    "$type": "color",
+    "$value": "color-mix(in oklch, var(--link-color) 90%, #000)",
+    "cssVar": "--link-hover-color",
+    "sassMap": "$root-tokens"
+  },
+  "type.code.font-family": {
+    "$type": null,
+    "$value": "\"ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Monaco, 'Cascadia Mono', Consolas, 'Liberation Mono', monospace\"",
+    "cssVar": "--font-mono",
+    "sassMap": "$root-tokens"
+  },
+  "type.code.font-size": {
+    "$type": "dimension",
+    "$value": "95%",
+    "cssVar": "--code-font-size",
+    "sassMap": "$root-tokens"
+  },
+  "type.code.color": {
+    "$type": "color",
+    "$value": "var(--fg-2)",
+    "cssVar": "--code-color",
+    "sassMap": "$root-tokens"
   }
 }

@@ -141,7 +141,7 @@ export const COMPONENTS = [
   { name: 'thumbnail', sassMap: '$thumbnail-tokens', file: 'scss/content/_images.scss', selector: '.img-thumbnail' },
   { name: 'toast', sassMap: '$toast-tokens', file: 'scss/_toasts.scss', selector: '.toast' },
   { name: 'tooltip', sassMap: '$tooltip-tokens', file: 'scss/_tooltip.scss', selector: '.tooltip' },
-  { name: 'type', sassMap: '$type-tokens', file: 'scss/content/_reboot.scss', selector: ':root' }
+  { name: 'reboot-type', sassMap: '$type-tokens', file: 'scss/content/_reboot.scss', selector: ':root' }
 ]
 
 export const groupByName = new Map(GROUPS.map((g) => [g.group, g]))

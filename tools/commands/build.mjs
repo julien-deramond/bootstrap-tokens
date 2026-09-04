@@ -102,6 +102,11 @@ export async function build({ flags }) {
     console.log(`  ${String(content.length).padStart(8)} B  build/${relative}`)
   }
 
+  const { emitInventory } = await import('../lib/emit-docs.mjs')
+  const inventory = join(repoRoot, 'docs', 'token-inventory.md')
+  writeFileSync(inventory, emitInventory(doc, { version }))
+  console.log(`  ${String(0).padStart(8)} -  docs/token-inventory.md`)
+
   console.log(`\nBuilt ${doc.tokens.size} tokens for Bootstrap ${version}.`)
   return 0
 }
