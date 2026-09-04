@@ -93,13 +93,25 @@ export const ROOT_TOKEN_PATHS = [
 ]
 
 /**
- * Values that upstream repeats as literals but that are conceptually the same token.
- * Rewriting them into aliases is the one place we improve on upstream rather than mirror it;
- * the exporter inlines the alias, so the emitted CSS is unchanged.
+ * Values upstream repeats as literals that a token document would rather express as an alias.
+ *
+ * Deliberately empty. `--spacer: 1rem` in `$root-tokens` looks like it should alias `$spacer`,
+ * and an earlier version rewrote it that way — but upstream hardcodes it, so Sass does *not*
+ * recompute it when `$spacer` changes. Asserting the link here made the chooser preview a
+ * value the compiled stylesheet would never produce. The token document mirrors what
+ * Bootstrap does; where that is surprising, `TOKEN_DESCRIPTIONS` says so.
  */
-export const ALIAS_REWRITES = new Map([
-  ['spacing.root', '{spacing.base}']
-])
+export const ALIAS_REWRITES = new Map()
+
+/** Per-token notes, surfaced in the chooser and in the resolved JSON. */
+export const TOKEN_DESCRIPTIONS = {
+  'spacing.root':
+    'Upstream hardcodes this rather than deriving it from $spacer, so changing the base spacer does not move it.',
+  'radius.pill': 'A fixed 50rem, set on $root-tokens after the $radii loop.',
+  'elevation.strength':
+    'Multiplies every shadow layer’s alpha. Bumped to 2.4 in dark mode, which a light-dark() pair cannot express because it is a number, not a colour.',
+  'color-mix.space': 'The interpolation space every generated colour step is mixed in.'
+}
 
 /** Which file each root group is written to. */
 export const FILE_FOR_GROUP = {

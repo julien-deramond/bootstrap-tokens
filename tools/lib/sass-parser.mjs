@@ -12,8 +12,11 @@ const isSpace = (ch) => ch === ' ' || ch === '\t' || ch === '\n' || ch === '\r'
  * Walk `src` from `start`, returning the index just past the balanced region.
  * Skips over strings, comments and `#{}` interpolation so that delimiters inside
  * them never affect nesting.
+ *
+ * Exported so the source locator can reuse exactly this scanning behaviour instead of
+ * re-deriving it; the two must agree on where a value starts and stops.
  */
-function scan(src, start, stopAtDepthZero) {
+export function scan(src, start, stopAtDepthZero) {
   let i = start
   let depth = 0
 

@@ -7,6 +7,7 @@
         "$extensions": {
           "dev.bootstrap.tokens": {
             "sassMap": "$colors",
+            "sassVar": "$blue",
             "sassKey": "blue",
             "sassQuoted": true,
             "css": true
@@ -21,6 +22,7 @@
         "$extensions": {
           "dev.bootstrap.tokens": {
             "sassMap": "$colors",
+            "sassVar": "$indigo",
             "sassKey": "indigo",
             "sassQuoted": true,
             "css": true
@@ -35,6 +37,7 @@
         "$extensions": {
           "dev.bootstrap.tokens": {
             "sassMap": "$colors",
+            "sassVar": "$violet",
             "sassKey": "violet",
             "sassQuoted": true,
             "css": true
@@ -49,6 +52,7 @@
         "$extensions": {
           "dev.bootstrap.tokens": {
             "sassMap": "$colors",
+            "sassVar": "$purple",
             "sassKey": "purple",
             "sassQuoted": true,
             "css": true
@@ -63,6 +67,7 @@
         "$extensions": {
           "dev.bootstrap.tokens": {
             "sassMap": "$colors",
+            "sassVar": "$pink",
             "sassKey": "pink",
             "sassQuoted": true,
             "css": true
@@ -77,6 +82,7 @@
         "$extensions": {
           "dev.bootstrap.tokens": {
             "sassMap": "$colors",
+            "sassVar": "$red",
             "sassKey": "red",
             "sassQuoted": true,
             "css": true
@@ -91,6 +97,7 @@
         "$extensions": {
           "dev.bootstrap.tokens": {
             "sassMap": "$colors",
+            "sassVar": "$orange",
             "sassKey": "orange",
             "sassQuoted": true,
             "css": true
@@ -105,6 +112,7 @@
         "$extensions": {
           "dev.bootstrap.tokens": {
             "sassMap": "$colors",
+            "sassVar": "$amber",
             "sassKey": "amber",
             "sassQuoted": true,
             "css": true
@@ -119,6 +127,7 @@
         "$extensions": {
           "dev.bootstrap.tokens": {
             "sassMap": "$colors",
+            "sassVar": "$yellow",
             "sassKey": "yellow",
             "sassQuoted": true,
             "css": true
@@ -133,6 +142,7 @@
         "$extensions": {
           "dev.bootstrap.tokens": {
             "sassMap": "$colors",
+            "sassVar": "$lime",
             "sassKey": "lime",
             "sassQuoted": true,
             "css": true
@@ -147,6 +157,7 @@
         "$extensions": {
           "dev.bootstrap.tokens": {
             "sassMap": "$colors",
+            "sassVar": "$green",
             "sassKey": "green",
             "sassQuoted": true,
             "css": true
@@ -161,6 +172,7 @@
         "$extensions": {
           "dev.bootstrap.tokens": {
             "sassMap": "$colors",
+            "sassVar": "$teal",
             "sassKey": "teal",
             "sassQuoted": true,
             "css": true
@@ -175,6 +187,7 @@
         "$extensions": {
           "dev.bootstrap.tokens": {
             "sassMap": "$colors",
+            "sassVar": "$cyan",
             "sassKey": "cyan",
             "sassQuoted": true,
             "css": true
@@ -189,6 +202,7 @@
         "$extensions": {
           "dev.bootstrap.tokens": {
             "sassMap": "$colors",
+            "sassVar": "$brown",
             "sassKey": "brown",
             "sassQuoted": true,
             "css": true
@@ -203,6 +217,7 @@
         "$extensions": {
           "dev.bootstrap.tokens": {
             "sassMap": "$colors",
+            "sassVar": "$gray",
             "sassKey": "gray",
             "sassQuoted": true,
             "css": true
@@ -217,6 +232,7 @@
         "$extensions": {
           "dev.bootstrap.tokens": {
             "sassMap": "$colors",
+            "sassVar": "$pewter",
             "sassKey": "pewter",
             "sassQuoted": true,
             "css": true
@@ -418,7 +434,8 @@
           "sassVar": "$color-mix-space",
           "css": true
         }
-      }
+      },
+      "$description": "The interpolation space every generated colour step is mixed in."
     },
     "tint-color": {
       "$type": "color",

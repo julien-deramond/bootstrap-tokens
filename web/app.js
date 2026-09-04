@@ -20,6 +20,7 @@ import {
   themeJson,
   mapsTouched
 } from '../tools/lib/overrides.mjs'
+import { sourceEdits } from '../tools/lib/source-value.mjs'
 import { parseComputedColor, formatColor, hexToRgb, rgbToHex, contrastRatio, contrastGrade } from './color.js'
 
 const STORAGE_KEY = 'bootstrap-tokens.chooser.v1'
@@ -575,11 +576,68 @@ function exportContent() {
     }
   }
 
+  if (state.exportTab === 'json') {
+    return {
+      filename: 'theme.json',
+      note: 'Your edits, portable. Import it back here to carry on where you left off.',
+      text: themeJson(state.overrides, { version })
+    }
+  }
+
   return {
     filename: 'theme.json',
-    note: 'Your edits, portable. Import it back here to carry on where you left off.',
-    text: themeJson(state.overrides, { version })
+    note:
+      'For Bootstrap maintainers: this writes the values into v6-dev’s own Sass files, ' +
+      'so the result is an ordinary pull request rather than a consumer override. Save the ' +
+      'theme.json below, then run the command against your checkout.',
+    text: maintainerExport(version)
   }
+}
+
+/**
+ * The maintainer route. The chooser deliberately does not try to produce the patched files
+ * itself: it has no copy of Bootstrap's sources, and guessing at them would risk writing a
+ * file that does not match the maintainer's checkout. Instead it shows exactly which
+ * declaration each edit lands on — the `to` values come from the same renderer the CLI
+ * uses — and hands over the command that does the locating properly.
+ */
+function maintainerExport(version) {
+  const edits = sourceEdits(state.baseDoc, state.doc, state.overrides)
+
+  const lines = [
+    '# 1. Save the theme.json tab next to your Bootstrap checkout.',
+    '# 2. Patch the sources in place:',
+    '',
+    '    npx bstokens eject --theme theme.json --src ../bootstrap --in-place',
+    '',
+    '# 3. Check it still compiles and matches what you previewed here:',
+    '',
+    '    npx bstokens eject --theme theme.json --src ../bootstrap --verify',
+    '',
+    '# Drop --in-place to write to build/v6-dev instead of touching the checkout.',
+    ''
+  ]
+
+  if (edits.length === 0) {
+    lines.push('# Nothing is overridden yet, so no source file would change.')
+    return `${lines.join('\n')}\n`
+  }
+
+  lines.push(`# ${edits.length} declaration(s) would change:`, '')
+
+  let currentFile
+  for (const edit of edits) {
+    if (edit.file !== currentFile) {
+      currentFile = edit.file
+      lines.push(`# ${currentFile ?? 'unknown file'}`)
+    }
+    lines.push(`#   ${edit.key}:`)
+    lines.push(`#     - ${edit.from ?? '(new)'}`)
+    lines.push(`#     + ${edit.to}`)
+  }
+
+  lines.push('', `# Bootstrap ${version}. Run \`npm run sync\` first if your checkout is newer.`)
+  return `${lines.join('\n')}\n`
 }
 
 function renderExport() {

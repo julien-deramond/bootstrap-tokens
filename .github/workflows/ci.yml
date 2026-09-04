@@ -52,3 +52,19 @@ jobs:
       # as upstream's own entrypoint.
       - name: Verify byte-identical CSS
         run: node tools/cli.mjs verify --src "$GITHUB_WORKSPACE/bootstrap-v6-dev"
+
+      # And the maintainer route must reach that same CSS by patching upstream's sources.
+      - name: Verify the maintainer export
+        run: |
+          cat > /tmp/theme.json <<'JSON'
+          {
+            "format": "bootstrap-tokens-theme@1",
+            "overrides": {
+              "color.blue.base": { "value": "oklch(58% 0.19 28)" },
+              "spacing.base": { "value": "1.25rem" },
+              "alert.border-radius": { "value": "{radius.9}" },
+              "theme-color.warning.fg": { "value": "{color.amber.700}", "dark": "{color.amber.300}" }
+            }
+          }
+          JSON
+          node tools/cli.mjs eject --theme /tmp/theme.json --src "$GITHUB_WORKSPACE/bootstrap-v6-dev" --verify

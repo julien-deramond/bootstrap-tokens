@@ -14,7 +14,13 @@ import { join } from 'node:path'
 
 import { parseMapVariable, parseScalarVariable } from './sass-parser.mjs'
 import { GROUPS, SCALARS, COMPONENTS, SASS_VAR_PATHS } from './sass-targets.mjs'
-import { ROOT_TOKEN_PATHS, ALIAS_REWRITES, FILE_FOR_GROUP, GROUP_DESCRIPTIONS } from './curation.mjs'
+import {
+  ROOT_TOKEN_PATHS,
+  ALIAS_REWRITES,
+  FILE_FOR_GROUP,
+  GROUP_DESCRIPTIONS,
+  TOKEN_DESCRIPTIONS
+} from './curation.mjs'
 import { splitLightDark, cssToRefs, isPureAlias, typeLiteral } from './value.mjs'
 import { hintFor, GROUP_HINTS } from './hints.mjs'
 import { evaluateSassFunctions } from './sass-functions.mjs'
@@ -79,7 +85,19 @@ function collect(sources, warnings) {
       warnings.push(`$colors references $${hue}, which has no scalar declaration`)
       continue
     }
-    add({ path: `color.${hue}.base`, cssVar: null, sassMap: '$colors', sassKey: hue, sassQuoted: quoted, raw, hint: 'color', layer: 'primitive' })
+    // `$colors` holds `("blue": $blue)`, so the value really lives in the scalar. Recording
+    // it means an eject edits `$blue` where a maintainer expects to find it.
+    add({
+      path: `color.${hue}.base`,
+      cssVar: null,
+      sassMap: '$colors',
+      sassKey: hue,
+      sassQuoted: quoted,
+      sassVar: `$${hue}`,
+      raw,
+      hint: 'color',
+      layer: 'primitive'
+    })
   }
 
   for (const { key, quoted, value } of tints) {
@@ -464,6 +482,7 @@ export function extract(bootstrapRoot) {
     files[file] ??= {}
 
     const token = toToken(record, (name) => lookup(name, record.component))
+    if (TOKEN_DESCRIPTIONS[record.path]) token.$description = TOKEN_DESCRIPTIONS[record.path]
     place(files[file], record.path, token)
     recordOrder(orders, record.path)
   }

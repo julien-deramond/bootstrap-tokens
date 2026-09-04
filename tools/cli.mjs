@@ -6,7 +6,8 @@ const COMMANDS = {
   build: () => import('./commands/build.mjs').then((m) => m.build),
   validate: () => import('./commands/validate.mjs').then((m) => m.validate),
   verify: () => import('./commands/verify.mjs').then((m) => m.verify),
-  vendor: () => import('./commands/vendor.mjs').then((m) => m.vendor)
+  vendor: () => import('./commands/vendor.mjs').then((m) => m.vendor),
+  eject: () => import('./commands/eject.mjs').then((m) => m.eject)
 }
 
 const USAGE = `bstokens <command> [options]
@@ -26,6 +27,13 @@ const USAGE = `bstokens <command> [options]
 
   vendor     Compile upstream Bootstrap into web/vendor/bootstrap.css for the chooser
              --src <path>   the checkout to compile
+
+  eject      Write the tokens back into Bootstrap's own Sass sources, for maintainers
+             --theme <f>    a theme.json exported from the chooser
+             --src <path>   the v6-dev checkout to patch
+             --out <dir>    where to write (default build/v6-dev)
+             --in-place     patch the checkout directly
+             --verify       compile the patched sources and diff against the consumer route
 `
 
 const { flags, positional } = parseArgs(process.argv.slice(2))

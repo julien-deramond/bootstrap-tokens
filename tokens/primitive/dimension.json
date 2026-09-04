@@ -140,14 +140,18 @@
     },
     "root": {
       "$type": "dimension",
-      "$value": "{spacing.base}",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--spacer",
           "sassMap": "$root-tokens",
           "sassKey": "--spacer"
         }
-      }
+      },
+      "$description": "Upstream hardcodes this rather than deriving it from $spacer, so changing the base spacer does not move it."
     },
     "$extensions": {
       "dev.bootstrap.tokens": {
@@ -319,7 +323,8 @@
           "cssVar": "--radius-pill",
           "readonly": "Set directly on $root-tokens after the $radii loop; not overridable through a map."
         }
-      }
+      },
+      "$description": "A fixed 50rem, set on $root-tokens after the $radii loop."
     },
     "$extensions": {
       "dev.bootstrap.tokens": {

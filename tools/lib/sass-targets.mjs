@@ -170,3 +170,51 @@ export const SASS_VAR_PATHS = new Map([
   ['$white', 'color.white'],
   ['$black', 'color.black']
 ])
+
+/**
+ * Which upstream file each global Sass declaration lives in.
+ *
+ * Display only — `bstokens eject` finds the declaration by scanning the checkout, so this
+ * table cannot silently misdirect an edit. It exists so the chooser can name the file a
+ * change will land in without having Bootstrap's sources in the browser.
+ */
+export const SASS_FILE_FOR = new Map([
+  ['$white', 'scss/_colors.scss'],
+  ['$black', 'scss/_colors.scss'],
+  ['$colors', 'scss/_colors.scss'],
+  ['$color-tints', 'scss/_colors.scss'],
+  ['$color-shades', 'scss/_colors.scss'],
+  ['$color-mix-space', 'scss/_colors.scss'],
+  ['$tint-color', 'scss/_colors.scss'],
+  ['$shade-color', 'scss/_colors.scss'],
+  ['$spacer', 'scss/_config.scss'],
+  ['$spacers', 'scss/_config.scss'],
+  ['$negative-spacers', 'scss/_config.scss'],
+  ['$sizes', 'scss/_config.scss'],
+  ['$radius', 'scss/_config.scss'],
+  ['$radii', 'scss/_config.scss'],
+  ['$border-width', 'scss/_config.scss'],
+  ['$border-widths', 'scss/_config.scss'],
+  ['$border-style', 'scss/_config.scss'],
+  ['$gradient', 'scss/_config.scss'],
+  ['$breakpoints', 'scss/_config.scss'],
+  ['$container-max-widths', 'scss/_config.scss'],
+  ['$container-padding-x', 'scss/_config.scss'],
+  ['$grid-columns', 'scss/_config.scss'],
+  ['$grid-row-columns', 'scss/_config.scss'],
+  ['$grid-gutter-x', 'scss/_config.scss'],
+  ['$grid-gutter-y', 'scss/_config.scss'],
+  ['$aspect-ratios', 'scss/_config.scss'],
+  ['$position-values', 'scss/_config.scss'],
+  ['$zindex-levels', 'scss/_config.scss'],
+  ['$font-sizes', 'scss/_config.scss'],
+  ['$font-weights', 'scss/_config.scss'],
+  ['$shadows', 'scss/_config.scss'],
+  ['$theme-colors', 'scss/_theme.scss'],
+  ['$theme-bgs', 'scss/_theme.scss'],
+  ['$theme-fgs', 'scss/_theme.scss'],
+  ['$theme-borders', 'scss/_theme.scss'],
+  ['$util-opacity', 'scss/_theme.scss'],
+  ['$root-tokens', 'scss/_root.scss'],
+  ...COMPONENTS.map((component) => [component.sassMap, component.file])
+])

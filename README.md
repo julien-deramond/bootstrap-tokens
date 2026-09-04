@@ -69,6 +69,32 @@ Three things worth knowing:
 The page imports the same modules the CLI does, so the export is produced by the pipeline
 `bstokens verify` checks — not by a second implementation that could drift.
 
+## For Bootstrap maintainers
+
+The consumer export is a `custom.scss` that layers over Bootstrap. Maintainers want the
+opposite — Bootstrap's *own* files, changed, so the result is a normal pull request:
+
+```bash
+npx bstokens eject --theme theme.json --src ../bootstrap --in-place
+npx bstokens eject --theme theme.json --src ../bootstrap --verify
+```
+
+It patches values in place rather than regenerating files, so four token edits give four
+changed lines:
+
+```diff
+ // scss-docs-start spacer-variables-maps
+-$spacer: 1rem !default;
++$spacer: 1.25rem !default;
+ $spacers: () !default;
+```
+
+`!default` survives, `$spacer * .25` stays symbolic, `escape-svg(…)` and every comment and
+`scss-docs` marker are untouched. `--verify` compiles the patched checkout and the same theme
+applied the consumer way and asserts the CSS matches — the two routes get there by different
+means, so agreeing is real evidence. See
+[`docs/maintainer-export.md`](docs/maintainer-export.md).
+
 ## Commands
 
 ```bash
@@ -79,6 +105,8 @@ npx bstokens validate --strict   # also flag component→primitive shortcuts
 npx bstokens build      # emit Sass, CSS and JSON into build/
 npx bstokens verify     # compile upstream vs. our export, diff the CSS
 npx bstokens vendor     # compile upstream Bootstrap for the chooser preview
+npx bstokens eject      # write the tokens into v6-dev's own Sass sources (maintainers)
+                        #   --theme <f> --src <path> [--in-place | --out <dir>] [--verify]
 npm test                # unit tests
 ```
 

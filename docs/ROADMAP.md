@@ -25,6 +25,10 @@ Status legend: ✅ done · 🚧 in progress · ⬜ not started
 
 ## Phase 2 — Sass export ✅
 
+Two routes out, checked against each other by `verify` and `eject --verify`:
+consumer (`@use … with ()`) and maintainer (patched v6-dev sources).
+
+
 * ✅ `bstokens build` emits:
   * `build/scss/_tokens.scss` — every map, drop-in for `v6-dev`.
   * `build/scss/_overrides.scss` — only the tokens that differ from upstream defaults,
@@ -50,6 +54,9 @@ A static page with no build step and no dependencies. `npm run web`.
   show their true colours in both schemes.
 * ✅ Export: `custom.scss` (only the maps you touched), runtime `theme.css`, and a
   `theme.json` that imports back into the chooser. Edits persist in `localStorage`.
+* ✅ Maintainer export: `bstokens eject` patches v6-dev's own Sass sources in place, and the
+  chooser's fourth export tab shows exactly which declarations will change.
+  See [`maintainer-export.md`](./maintainer-export.md).
 * ⬜ Share-by-URL (compressed state in the fragment).
 * ✅ WCAG contrast badges on the pairs that matter: a role's `contrast` against its
   `bg`, and its `fg`/`fg-emphasis` against the page. Shown per scheme, since a palette can
@@ -63,8 +70,8 @@ A static page with no build step and no dependencies. `npm run web`.
 * ⬜ Publish `@bootstrap/tokens`-shaped npm package with the resolved JSON + Sass.
 * ⬜ Figma Tokens / Style Dictionary compatibility pass (they read plain DTCG; verify the
   `expression` extension degrades sanely).
-* ⬜ Propose the token document upstream as the source for `scss/_colors.scss`,
-  `scss/_theme.scss` and `scss/_root.scss`.
+* ⬜ Propose the token document upstream. `eject` makes this concrete: the proposal is not
+  "replace your Sass with generated files" but "here is a tool that edits them for you".
 
 ## Known gaps
 

@@ -1,3 +1,6 @@
 node_modules/
 *.log
 .DS_Store
+
+# `bstokens eject` output — a per-run artifact, not a build product
+build/v6-dev/

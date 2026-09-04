@@ -89,7 +89,8 @@
           "sassMap": "$root-tokens",
           "sassKey": "--shadow-strength"
         }
-      }
+      },
+      "$description": "Multiplies every shadow layer’s alpha. Bumped to 2.4 in dark mode, which a light-dark() pair cannot express because it is a number, not a colour."
     },
     "$description": "Shadow scale plus the colour and strength every layer is tinted by."
   }
