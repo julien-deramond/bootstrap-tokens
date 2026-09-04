@@ -10,7 +10,7 @@ import { mkdtempSync, writeFileSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
-import { loadTokens } from '../lib/tokens.mjs'
+import { loadTokens } from '../lib/load-fs.mjs'
 import { emitUseWith } from '../lib/emit-scss.mjs'
 import { resolveBootstrapSource, tokensDir } from '../lib/config.mjs'
 import { sourceVersion } from './build.mjs'

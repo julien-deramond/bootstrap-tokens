@@ -1,0 +1,31 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Preview</title>
+    <link rel="stylesheet" href="./vendor/bootstrap.css" />
+    <style id="token-overrides"></style>
+    <style>
+      body { padding: 1.25rem; }
+      .preview-section + .preview-section { margin-block-start: 1.75rem; }
+      .preview-section > h2 {
+        margin-block-end: .625rem;
+        font-size: .6875rem;
+        font-weight: 600;
+        letter-spacing: .08em;
+        text-transform: uppercase;
+        color: var(--fg-3);
+      }
+      .swatch-grid { display: grid; grid-template-columns: repeat(13, 1fr); gap: 2px; }
+      .swatch-grid > div { height: 1.75rem; border-radius: 2px; }
+      .swatch-row { display: grid; grid-template-columns: 3.5rem 1fr; gap: .5rem; align-items: center; margin-block-end: 2px; }
+      .swatch-row > span { font-size: .6875rem; color: var(--fg-3); }
+      .cluster { display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
+    </style>
+  </head>
+  <body>
+    <div id="preview-root"></div>
+    <script type="module" src="./preview.js"></script>
+  </body>
+</html>

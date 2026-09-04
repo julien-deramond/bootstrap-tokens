@@ -35,16 +35,23 @@ Status legend: ✅ done · 🚧 in progress · ⬜ not started
   `$root-tokens` (`tools/lib/sass-targets.mjs`).
 * ✅ `bstokens verify` — compile upstream vs. exported, assert identical CSS.
 
-## Phase 3 — Token chooser (web) 🚧
+## Phase 3 — Token chooser (web) ✅
 
-A static, dependency-free page. Load defaults → edit → export Sass.
+A static page with no build step and no dependencies. `npm run web`.
 
-* ✅ Data pipeline: `build/json/chooser.json` (tokens + control metadata + defaults).
-* ✅ UI: layer navigation, live preview of Bootstrap components, colour/dimension editors.
-* ✅ Export panel: `custom.scss` with `@use … with ()`, plus CSS custom-property output and
-  a JSON theme file that round-trips back into the chooser.
+* ✅ Data pipeline: `build/json/tokens.tree.json`, loaded straight into the browser.
+* ✅ Shared code, not a second implementation: the page imports `tools/lib/*.mjs`, so
+  preview and export run the resolver that `verify` proves correct.
+* ✅ UI: layer/group navigation with search, per-token light and dark fields, an OKLCH-aware
+  colour picker, and change indicators down the rail.
+* ✅ Live preview: real Bootstrap markup in an iframe over vendored `bootstrap.css`;
+  overrides are applied as custom properties, so nothing recompiles.
+* ✅ Swatches resolved by the browser inside the preview, so `color-mix()` and `light-dark()`
+  show their true colours in both schemes.
+* ✅ Export: `custom.scss` (only the maps you touched), runtime `theme.css`, and a
+  `theme.json` that imports back into the chooser. Edits persist in `localStorage`.
 * ⬜ Share-by-URL (compressed state in the fragment).
-* ⬜ Contrast checker on theme-colour pairs (`contrast` vs `bg`).
+* ⬜ Contrast checker on theme-colour pairs (`contrast` against `bg`).
 * ⬜ Import an existing `custom.scss` and pre-fill the chooser.
 
 ## Phase 4 — Upstream-facing polish ⬜

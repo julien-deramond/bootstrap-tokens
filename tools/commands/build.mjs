@@ -1,7 +1,8 @@
 import { mkdirSync, writeFileSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-import { loadTokens, ext, walk, NS } from '../lib/tokens.mjs'
+import { ext, walk } from '../lib/tokens.mjs'
+import { loadTokens, loadTree } from '../lib/load-fs.mjs'
 import { emitTokensModule, emitUseWith, mapEntries } from '../lib/emit-scss.mjs'
 import { tokensDir, buildDir, repoRoot } from '../lib/config.mjs'
 import { COMPONENTS } from '../lib/sass-targets.mjs'
@@ -92,8 +93,8 @@ export async function build({ flags }) {
     'json/tokens.resolved.json': emitResolvedJson(doc)
   }
 
-  const { emitChooserData } = await import('../lib/emit-chooser.mjs')
-  outputs['json/chooser.json'] = emitChooserData(doc, { version })
+  // The web chooser loads the unexpanded tree and runs the very same resolver in the browser.
+  outputs['json/tokens.tree.json'] = `${JSON.stringify(loadTree(tokensDir).tree)}\n`
 
   for (const [relative, content] of Object.entries(outputs)) {
     const path = join(buildDir, relative)

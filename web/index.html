@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Bootstrap token chooser</title>
+    <meta name="description" content="Edit Bootstrap v6 design tokens and export them as Sass." />
+    <link rel="stylesheet" href="./app.css" />
+  </head>
+  <body>
+    <header class="topbar">
+      <div class="brand">
+        <span class="brand-mark" aria-hidden="true"></span>
+        <div>
+          <h1>Bootstrap token chooser</h1>
+          <p class="brand-sub" id="brand-sub">Loading the token document…</p>
+        </div>
+      </div>
+
+      <div class="topbar-actions">
+        <div class="segmented" role="group" aria-label="Preview colour scheme">
+          <button type="button" data-scheme="light">Light</button>
+          <button type="button" data-scheme="dark">Dark</button>
+        </div>
+        <button type="button" class="button" id="reset" disabled>Reset</button>
+        <button type="button" class="button button-primary" id="open-export">Export</button>
+      </div>
+    </header>
+
+    <main class="layout">
+      <nav class="rail" aria-label="Token groups">
+        <div class="rail-search">
+          <input type="search" id="search" placeholder="Search tokens…" aria-label="Search tokens" autocomplete="off" />
+        </div>
+        <div class="rail-list" id="rail"></div>
+      </nav>
+
+      <section class="editor" aria-label="Token editor">
+        <div class="editor-head">
+          <h2 id="section-title">Basics</h2>
+          <p id="section-note"></p>
+        </div>
+        <div class="editor-body" id="editor"></div>
+      </section>
+
+      <section class="preview" aria-label="Live preview">
+        <div class="preview-head">
+          <span class="preview-label">Live preview</span>
+          <span class="chip" id="change-count">no changes</span>
+        </div>
+        <iframe id="preview" title="Bootstrap components preview" src="./preview.html"></iframe>
+      </section>
+    </main>
+
+    <dialog id="export" class="export">
+      <form method="dialog" class="export-head">
+        <h2>Export</h2>
+        <button class="button" value="close" aria-label="Close">Close</button>
+      </form>
+
+      <div class="tabs" role="tablist">
+        <button type="button" role="tab" data-tab="scss" aria-selected="true">custom.scss</button>
+        <button type="button" role="tab" data-tab="css" aria-selected="false">CSS custom properties</button>
+        <button type="button" role="tab" data-tab="json" aria-selected="false">theme.json</button>
+      </div>
+
+      <p class="export-note" id="export-note"></p>
+      <pre class="export-code"><code id="export-code"></code></pre>
+
+      <div class="export-actions">
+        <button type="button" class="button" id="copy">Copy</button>
+        <button type="button" class="button" id="download">Download</button>
+        <label class="button button-file">
+          Import theme.json
+          <input type="file" id="import" accept="application/json,.json" hidden />
+        </label>
+      </div>
+    </dialog>
+
+    <script type="module" src="./app.js"></script>
+  </body>
+</html>

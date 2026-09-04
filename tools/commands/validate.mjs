@@ -1,4 +1,4 @@
-import { loadTokens } from '../lib/tokens.mjs'
+import { loadTokens } from '../lib/load-fs.mjs'
 import { validate as run } from '../lib/validate.mjs'
 import { tokensDir } from '../lib/config.mjs'
 

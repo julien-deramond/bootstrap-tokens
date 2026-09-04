@@ -6,10 +6,6 @@
  * Bootstrap's runtime theming intact instead of flattening everything at build time.
  */
 
-import { readdirSync, readFileSync, statSync } from 'node:fs'
-import { join, relative, sep } from 'node:path'
-
-import { expandColorScales } from './color-scale.mjs'
 import { refsToCss, referencesIn, typedToCss, formatNumber, splitArgs } from './value.mjs'
 
 export const NS = 'dev.bootstrap.tokens'
@@ -17,42 +13,6 @@ export const NS = 'dev.bootstrap.tokens'
 export const ext = (node) => node?.$extensions?.[NS] ?? {}
 export const isToken = (node) => node !== null && typeof node === 'object' && node.$value !== undefined
 export const isGroup = (node) => node !== null && typeof node === 'object' && node.$value === undefined
-
-/** Every `.json` file under `dir`, sorted for stable output. */
-function jsonFiles(dir) {
-  const out = []
-  const walk = (current) => {
-    for (const entry of readdirSync(current).sort()) {
-      const path = join(current, entry)
-      if (statSync(path).isDirectory()) walk(path)
-      else if (entry.endsWith('.json')) out.push(path)
-    }
-  }
-  walk(dir)
-  return out
-}
-
-/** Merge `source` into `target`, refusing to overwrite an existing token. */
-function mergeTree(target, source, origin, at = '') {
-  for (const [key, value] of Object.entries(source)) {
-    const path = at ? `${at}.${key}` : key
-
-    if (key.startsWith('$')) {
-      target[key] = value
-      continue
-    }
-
-    if (isToken(value)) {
-      if (target[key] !== undefined) throw new Error(`${origin}: duplicate token "${path}"`)
-      target[key] = value
-      continue
-    }
-
-    if (target[key] === undefined) target[key] = {}
-    if (isToken(target[key])) throw new Error(`${origin}: "${path}" is both a token and a group`)
-    mergeTree(target[key], value, origin, path)
-  }
-}
 
 /** Child keys of a group, honouring an explicit `order` extension. */
 export function childKeys(node) {
@@ -72,29 +32,6 @@ export function* walk(node, at = []) {
     if (isToken(value)) yield [path.join('.'), value]
     else if (isGroup(value)) yield* walk(value, path)
   }
-}
-
-/** Read `tokens/` into a resolved document. */
-export function loadTokens(dir) {
-  const tree = {}
-  const fileOf = new Map()
-
-  for (const file of jsonFiles(dir)) {
-    const origin = relative(dir, file).split(sep).join('/')
-    if (origin === 'meta.json') continue
-    let parsed
-    try {
-      parsed = JSON.parse(readFileSync(file, 'utf8'))
-    } catch (error) {
-      throw new Error(`${origin}: invalid JSON — ${error.message}`)
-    }
-    mergeTree(tree, parsed, origin)
-    for (const [path] of walk(parsed)) fileOf.set(path, origin)
-  }
-
-  expandColorScales(tree)
-
-  return index(tree, fileOf)
 }
 
 /** Build the lookup structures and resolver over a token tree. */

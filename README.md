@@ -40,6 +40,32 @@ npm run build
 | `json/tokens.resolved.json` | every token with its `$value` resolved to CSS |
 | `json/chooser.json` | the data the web chooser loads |
 
+## The token chooser
+
+```bash
+npm run vendor   # compile upstream Bootstrap into web/vendor/bootstrap.css (once)
+npm run web      # http://localhost:4000
+```
+
+Pick a token, change it, watch real Bootstrap components re-theme in the panel beside you,
+then export. There is no Sass in the browser and no compile step in the loop: v6 drives
+everything through CSS custom properties, so re-declaring them is the whole mechanism.
+
+Three things worth knowing:
+
+* **Editing a hue moves everything downstream.** `color.blue.base` regenerates 13 scale
+  steps, which move `theme-color.primary.*`, which move every component that uses them.
+* **Swatches are resolved by the browser, inside the preview.** A value like
+  `color-mix(in oklch, var(--blue-500) 50%, var(--bg-body))` or a `light-dark()` pair shows
+  its real colour in both schemes, because the page asks the previewed document rather than
+  reimplementing CSS colour maths.
+* **A field takes any CSS.** A literal (`1.25rem`), a token reference (`{radius.9}`), or a
+  raw custom property (`var(--radius-9)`) all work; references keep the link, literals break
+  it.
+
+The page imports the same modules the CLI does, so the export is produced by the pipeline
+`bstokens verify` checks — not by a second implementation that could drift.
+
 ## Commands
 
 ```bash
@@ -49,6 +75,7 @@ npx bstokens validate   # references, cycles, layer direction, DTCG shape
 npx bstokens validate --strict   # also flag component→primitive shortcuts
 npx bstokens build      # emit Sass, CSS and JSON into build/
 npx bstokens verify     # compile upstream vs. our export, diff the CSS
+npx bstokens vendor     # compile upstream Bootstrap for the chooser preview
 npm test                # unit tests
 ```
 

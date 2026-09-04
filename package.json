@@ -15,8 +15,9 @@
     "sync": "node tools/cli.mjs sync",
     "validate": "node tools/cli.mjs validate",
     "verify": "node tools/cli.mjs verify",
-    "test": "node --test \"tools/test/**/*.test.mjs\"",
-    "web:dev": "node web/dev-server.mjs"
+    "vendor": "node tools/cli.mjs vendor",
+    "web": "node web/dev-server.mjs",
+    "test": "node --test \"tools/test/**/*.test.mjs\""
   },
   "devDependencies": {
     "sass": "^1.93.0"

@@ -5,7 +5,8 @@ const COMMANDS = {
   sync: () => import('./commands/sync.mjs').then((m) => m.sync),
   build: () => import('./commands/build.mjs').then((m) => m.build),
   validate: () => import('./commands/validate.mjs').then((m) => m.validate),
-  verify: () => import('./commands/verify.mjs').then((m) => m.verify)
+  verify: () => import('./commands/verify.mjs').then((m) => m.verify),
+  vendor: () => import('./commands/vendor.mjs').then((m) => m.vendor)
 }
 
 const USAGE = `bstokens <command> [options]
@@ -22,6 +23,9 @@ const USAGE = `bstokens <command> [options]
 
   verify     Compile upstream Bootstrap and our export, and diff the CSS
              --src <path>   the checkout to compile against
+
+  vendor     Compile upstream Bootstrap into web/vendor/bootstrap.css for the chooser
+             --src <path>   the checkout to compile
 `
 
 const { flags, positional } = parseArgs(process.argv.slice(2))

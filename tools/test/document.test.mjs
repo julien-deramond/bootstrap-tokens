@@ -1,7 +1,8 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 
-import { loadTokens, ext } from '../lib/tokens.mjs'
+import { ext } from '../lib/tokens.mjs'
+import { loadTokens } from '../lib/load-fs.mjs'
 import { validate } from '../lib/validate.mjs'
 import { tokensDir } from '../lib/config.mjs'
 import { emitTokensModule } from '../lib/emit-scss.mjs'
