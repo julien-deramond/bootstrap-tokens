@@ -1,0 +1,24 @@
+{
+  "name": "bootstrap-tokens",
+  "version": "0.1.0",
+  "description": "DTCG design tokens for Bootstrap v6, exportable to Sass.",
+  "type": "module",
+  "license": "MIT",
+  "engines": {
+    "node": ">=20"
+  },
+  "bin": {
+    "bstokens": "./tools/cli.mjs"
+  },
+  "scripts": {
+    "build": "node tools/cli.mjs build",
+    "sync": "node tools/cli.mjs sync",
+    "validate": "node tools/cli.mjs validate",
+    "verify": "node tools/cli.mjs verify",
+    "test": "node --test tools/test/",
+    "web:dev": "node web/dev-server.mjs"
+  },
+  "devDependencies": {
+    "sass": "^1.93.0"
+  }
+}
