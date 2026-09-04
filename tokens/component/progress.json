@@ -1,0 +1,113 @@
+{
+  "progress": {
+    "height": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--progress-height",
+          "sassMap": "$progress-tokens",
+          "sassKey": "--progress-height"
+        }
+      }
+    },
+    "font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.sm}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--progress-font-size",
+          "sassMap": "$progress-tokens",
+          "sassKey": "--progress-font-size"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--progress-bg",
+          "sassMap": "$progress-tokens",
+          "sassKey": "--progress-bg"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--progress-border-radius",
+          "sassMap": "$progress-tokens",
+          "sassKey": "--progress-border-radius"
+        }
+      }
+    },
+    "box-shadow": {
+      "$value": "{shadow.inset}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--progress-box-shadow",
+          "sassMap": "$progress-tokens",
+          "sassKey": "--progress-box-shadow"
+        }
+      }
+    },
+    "bar-color": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--progress-bar-color",
+          "sassMap": "$progress-tokens",
+          "sassKey": "--progress-bar-color"
+        }
+      }
+    },
+    "bar-bg": {
+      "$type": "color",
+      "$value": "{theme-color.primary.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--progress-bar-bg",
+          "sassMap": "$progress-tokens",
+          "sassKey": "--progress-bar-bg"
+        }
+      }
+    },
+    "bar-transition": {
+      "$value": "width .6s ease",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--progress-bar-transition",
+          "sassMap": "$progress-tokens",
+          "sassKey": "--progress-bar-transition",
+          "css": true
+        }
+      }
+    },
+    "bar-animation": {
+      "$value": "progress-bar-stripes 1s linear infinite",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--progress-bar-animation",
+          "sassMap": "$progress-tokens",
+          "sassKey": "--progress-bar-animation",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.progress`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$progress-tokens",
+        "selector": ".progress",
+        "source": "scss/_progress.scss"
+      }
+    }
+  }
+}

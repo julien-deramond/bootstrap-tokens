@@ -1,0 +1,173 @@
+/**
+ * Curation: the editorial layer on top of mechanical extraction.
+ *
+ * `$root-tokens` is one flat bag of 67 custom properties. Left alone it would extract into a
+ * `root.*` group with no meaning. This table gives every entry a semantic path and a home
+ * file, and — critically — fixes the *order* in which the exporter must re-emit them, since
+ * upstream's `:root` block has to come out byte-identical.
+ */
+
+/** `--custom-property` → token path, in upstream `$root-tokens` order. */
+export const ROOT_TOKEN_PATHS = [
+  ['--black', 'color.black'],
+  ['--white', 'color.white'],
+  ['--gradient', 'decoration.gradient'],
+
+  ['--body-font-family', 'type.body.font-family'],
+  ['--body-font-size', 'type.body.font-size'],
+  ['--body-font-weight', 'type.body.font-weight'],
+  ['--body-line-height', 'type.body.line-height'],
+
+  ['--heading-color', 'type.heading.color'],
+  ['--hr-border-color', 'type.hr.border-color'],
+
+  ['--link-color', 'type.link.color'],
+  ['--link-decoration', 'type.link.decoration'],
+  ['--link-underline-offset', 'type.link.underline-offset'],
+  ['--link-hover-color', 'type.link.hover-color'],
+
+  ['--font-mono', 'type.code.font-family'],
+  ['--code-font-size', 'type.code.font-size'],
+  ['--code-color', 'type.code.color'],
+
+  ['--border-width', 'border.width'],
+  ['--border-width-keyline', 'border.width-keyline'],
+  ['--border-style', 'border.style'],
+  ['--border-color', 'border.color'],
+  ['--border-color-translucent', 'border.color-translucent'],
+
+  ['--shadow-color', 'elevation.color'],
+  ['--shadow-strength', 'elevation.strength'],
+
+  ['--transition-timing-overlay', 'motion.timing-overlay'],
+
+  ['--spacer', 'spacing.root'],
+
+  ['--focus-ring-width', 'focus.width'],
+  ['--focus-ring-offset', 'focus.offset'],
+  ['--focus-ring-color', 'focus.color'],
+  ['--focus-ring', 'focus.ring'],
+
+  ['--control-checked-bg', 'control.checked-bg'],
+  ['--control-checked-border-color', 'control.checked-border-color'],
+  ['--control-active-bg', 'control.active-bg'],
+  ['--control-active-border-color', 'control.active-border-color'],
+  ['--control-disabled-bg', 'control.disabled-bg'],
+  ['--control-disabled-opacity', 'control.disabled-opacity'],
+  ['--control-transition-duration', 'control.transition-duration'],
+  ['--control-transition-timing', 'control.transition-timing'],
+
+  ['--btn-input-fg', 'control.field.fg'],
+  ['--btn-input-bg', 'control.field.bg'],
+  ['--btn-input-gap', 'control.field.gap'],
+  ['--btn-input-min-height', 'control.field.min-height'],
+  ['--btn-input-padding-y', 'control.field.padding-y'],
+  ['--btn-input-padding-x', 'control.field.padding-x'],
+  ['--btn-input-font-size', 'control.field.font-size'],
+  ['--btn-input-line-height', 'control.field.line-height'],
+  ['--btn-input-border-radius', 'control.field.border-radius'],
+
+  ['--btn-input-xs-gap', 'control.field.xs.gap'],
+  ['--btn-input-xs-min-height', 'control.field.xs.min-height'],
+  ['--btn-input-xs-padding-y', 'control.field.xs.padding-y'],
+  ['--btn-input-xs-padding-x', 'control.field.xs.padding-x'],
+  ['--btn-input-xs-font-size', 'control.field.xs.font-size'],
+  ['--btn-input-xs-line-height', 'control.field.xs.line-height'],
+  ['--btn-input-xs-border-radius', 'control.field.xs.border-radius'],
+
+  ['--btn-input-sm-gap', 'control.field.sm.gap'],
+  ['--btn-input-sm-min-height', 'control.field.sm.min-height'],
+  ['--btn-input-sm-padding-y', 'control.field.sm.padding-y'],
+  ['--btn-input-sm-padding-x', 'control.field.sm.padding-x'],
+  ['--btn-input-sm-font-size', 'control.field.sm.font-size'],
+  ['--btn-input-sm-line-height', 'control.field.sm.line-height'],
+  ['--btn-input-sm-border-radius', 'control.field.sm.border-radius'],
+
+  ['--btn-input-lg-gap', 'control.field.lg.gap'],
+  ['--btn-input-lg-min-height', 'control.field.lg.min-height'],
+  ['--btn-input-lg-padding-y', 'control.field.lg.padding-y'],
+  ['--btn-input-lg-padding-x', 'control.field.lg.padding-x'],
+  ['--btn-input-lg-font-size', 'control.field.lg.font-size'],
+  ['--btn-input-lg-line-height', 'control.field.lg.line-height'],
+  ['--btn-input-lg-border-radius', 'control.field.lg.border-radius']
+]
+
+/**
+ * Values that upstream repeats as literals but that are conceptually the same token.
+ * Rewriting them into aliases is the one place we improve on upstream rather than mirror it;
+ * the exporter inlines the alias, so the emitted CSS is unchanged.
+ */
+export const ALIAS_REWRITES = new Map([
+  ['spacing.root', '{spacing.base}']
+])
+
+/** Which file each root group is written to. */
+export const FILE_FOR_GROUP = {
+  // primitive
+  color: 'primitive/color.json',
+  'color-tint': 'primitive/color.json',
+  'color-shade': 'primitive/color.json',
+  'color-mix': 'primitive/color.json',
+  spacing: 'primitive/dimension.json',
+  'spacing-negative': 'primitive/dimension.json',
+  size: 'primitive/dimension.json',
+  radius: 'primitive/dimension.json',
+  'border-width': 'primitive/dimension.json',
+  'font-size': 'primitive/typography.json',
+  'line-height': 'primitive/typography.json',
+  'font-weight': 'primitive/typography.json',
+  breakpoint: 'primitive/layout.json',
+  container: 'primitive/layout.json',
+  grid: 'primitive/layout.json',
+  'aspect-ratio': 'primitive/layout.json',
+  position: 'primitive/layout.json',
+  'z-index': 'primitive/z-index.json',
+  opacity: 'primitive/opacity.json',
+
+  // semantic
+  'theme-color': 'semantic/theme-color.json',
+  bg: 'semantic/surface.json',
+  fg: 'semantic/surface.json',
+  border: 'semantic/border.json',
+  type: 'semantic/typography.json',
+  elevation: 'semantic/elevation.json',
+  shadow: 'semantic/elevation.json',
+  focus: 'semantic/focus.json',
+  control: 'semantic/control.json',
+  motion: 'semantic/motion.json',
+  decoration: 'semantic/decoration.json'
+}
+
+/** Human-readable blurbs, attached as `$description` on groups. */
+export const GROUP_DESCRIPTIONS = {
+  color: 'Base hues in oklch() plus the 13-step scale each one generates.',
+  'color-tint': 'How much white is mixed in for each tint stop (025–400).',
+  'color-shade': 'How much black is mixed in for each shade stop (600–975).',
+  'color-mix': 'Inputs to the colour-scale generator: mixing space and tint/shade endpoints.',
+  spacing: 'The spacing scale. Every step is a multiple of the base spacer.',
+  'spacing-negative': 'Negative spacing steps, used by margin utilities.',
+  size: 'Width/height sizing steps.',
+  radius: 'The corner-radius scale, derived from the base radius.',
+  'border-width': 'Available border widths.',
+  'font-size': 'Type scale. Sizes from lg up are fluid via clamp().',
+  'line-height': 'Line height paired with each font size.',
+  'font-weight': 'Named font weights.',
+  breakpoint: 'Minimum viewport widths at which the layout changes.',
+  container: 'Maximum `.container` width at each breakpoint.',
+  grid: 'Grid column count and gutter sizes.',
+  'aspect-ratio': 'Named aspect ratios for the ratio helper.',
+  position: 'Offsets used by the position utilities.',
+  'z-index': 'The stacking ladder. Change these together or not at all.',
+  opacity: 'Opacity steps used by colour utilities.',
+  'theme-color': 'Semantic colour roles. Each role carries the nine sub-keys a component needs.',
+  bg: 'Neutral background ramp, from the page body up through four raised surfaces.',
+  fg: 'Neutral foreground ramp, from primary body text down to the faintest.',
+  border: 'Default border width, style and colour, plus the neutral border ramp.',
+  type: 'Body, heading, link and code typography.',
+  elevation: 'Shadow scale plus the colour and strength every layer is tinted by.',
+  shadow: 'The named shadow scale.',
+  focus: 'Focus ring geometry and colour.',
+  control: 'Shared metrics for buttons and form fields, and their interaction states.',
+  motion: 'Shared easing curves.',
+  decoration: 'Decorative effects that are not colour, spacing or type.'
+}

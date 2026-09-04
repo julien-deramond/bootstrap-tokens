@@ -1,0 +1,407 @@
+{
+  "menu": {
+    "zindex": {
+      "$value": "{z-index.menu}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-zindex",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-zindex"
+        }
+      }
+    },
+    "gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.125,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-gap",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-gap"
+        }
+      }
+    },
+    "min-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 10,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-min-width",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-min-width"
+        }
+      }
+    },
+    "padding-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-padding-x",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-padding-x"
+        }
+      }
+    },
+    "padding-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-padding-y",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-padding-y"
+        }
+      }
+    },
+    "spacer": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.125,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-spacer",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-spacer"
+        }
+      }
+    },
+    "font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.sm}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-font-size",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-font-size"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-color",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-color"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-bg",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-bg"
+        }
+      }
+    },
+    "box-shadow": {
+      "$value": "{shadow.lg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-box-shadow",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-box-shadow"
+        }
+      }
+    },
+    "divider-bg": {
+      "$type": "color",
+      "$value": "{border.color-translucent}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-divider-bg",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-divider-bg"
+        }
+      }
+    },
+    "divider-margin-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.125,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-divider-margin-y",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-divider-margin-y"
+        }
+      }
+    },
+    "divider-margin-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-divider-margin-x",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-divider-margin-x"
+        }
+      }
+    },
+    "item-color": {
+      "$type": "color",
+      "$value": "var(--menu-color, {fg.body})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-item-color",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-item-color",
+          "expression": true
+        }
+      }
+    },
+    "item-hover-color": {
+      "$type": "color",
+      "$value": "var(--menu-color, {fg.body})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-item-hover-color",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-item-hover-color",
+          "expression": true
+        }
+      }
+    },
+    "item-hover-bg": {
+      "$type": "color",
+      "$value": "{bg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-item-hover-bg",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-item-hover-bg"
+        }
+      }
+    },
+    "item-active-color": {
+      "$type": "color",
+      "$value": "{theme-color.primary.contrast}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-item-active-color",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-item-active-color"
+        }
+      }
+    },
+    "item-active-bg": {
+      "$type": "color",
+      "$value": "{theme-color.primary.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-item-active-bg",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-item-active-bg"
+        }
+      }
+    },
+    "item-disabled-color": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-item-disabled-color",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-item-disabled-color"
+        }
+      }
+    },
+    "item-gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-item-gap",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-item-gap"
+        }
+      }
+    },
+    "item-padding-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-item-padding-x",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-item-padding-x"
+        }
+      }
+    },
+    "item-padding-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-item-padding-y",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-item-padding-y"
+        }
+      }
+    },
+    "item-border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-item-border-radius",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-item-border-radius"
+        }
+      }
+    },
+    "icon-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-icon-size",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-icon-size"
+        }
+      }
+    },
+    "description-font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.xs}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-description-font-size",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-description-font-size"
+        }
+      }
+    },
+    "check-color": {
+      "$type": "color",
+      "$value": "currentcolor",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-check-color",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-check-color",
+          "css": true
+        }
+      }
+    },
+    "header-color": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-header-color",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-header-color"
+        }
+      }
+    },
+    "header-padding-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-header-padding-x",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-header-padding-x"
+        }
+      }
+    },
+    "header-padding-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-header-padding-y",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-header-padding-y"
+        }
+      }
+    },
+    "transition-property": {
+      "$value": "\"opacity, transform, display\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-transition-property",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-transition-property",
+          "css": true
+        }
+      }
+    },
+    "transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.15,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-transition-duration",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-transition-duration"
+        }
+      }
+    },
+    "transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "{motion.timing-overlay}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-transition-timing",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-transition-timing"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.menu`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$menu-tokens",
+        "selector": ".menu",
+        "source": "scss/_menu.scss"
+      }
+    }
+  }
+}

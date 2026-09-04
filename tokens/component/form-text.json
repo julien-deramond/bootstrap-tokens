@@ -1,0 +1,71 @@
+{
+  "form-text": {
+    "margin-top": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-text-margin-top",
+          "sassMap": "$form-text-tokens",
+          "sassKey": "--form-text-margin-top"
+        }
+      }
+    },
+    "font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.sm}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-text-font-size",
+          "sassMap": "$form-text-tokens",
+          "sassKey": "--form-text-font-size"
+        }
+      }
+    },
+    "font-style": {
+      "$value": "null",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-text-font-style",
+          "sassMap": "$form-text-tokens",
+          "sassKey": "--form-text-font-style",
+          "css": true
+        }
+      }
+    },
+    "font-weight": {
+      "$type": "fontWeight",
+      "$value": "null",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-text-font-weight",
+          "sassMap": "$form-text-tokens",
+          "sassKey": "--form-text-font-weight",
+          "css": true
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{fg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-text-color",
+          "sassMap": "$form-text-tokens",
+          "sassKey": "--form-text-color"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.form-text`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$form-text-tokens",
+        "selector": ".form-text",
+        "source": "scss/forms/_form-text.scss"
+      }
+    }
+  }
+}

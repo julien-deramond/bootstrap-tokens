@@ -1,0 +1,211 @@
+{
+  "switch": {
+    "height": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-height",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-height"
+        }
+      }
+    },
+    "width": {
+      "$type": "dimension",
+      "$value": "calc({switch.height} * 1.75)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-width",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-width",
+          "expression": true
+        }
+      }
+    },
+    "padding": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.0625,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-padding",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-padding"
+        }
+      }
+    },
+    "margin-block": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.125,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-margin-block",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-margin-block"
+        }
+      }
+    },
+    "transition-duration": {
+      "$type": "duration",
+      "$value": "{control.transition-duration}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-transition-duration",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-transition-duration"
+        }
+      }
+    },
+    "transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "{control.transition-timing}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-transition-timing",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-transition-timing"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-bg",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-bg"
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-border-width",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-border-width"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-border-color",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-border-color"
+        }
+      }
+    },
+    "indicator-bg": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-indicator-bg",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-indicator-bg"
+        }
+      }
+    },
+    "indicator-width": {
+      "$type": "dimension",
+      "$value": "calc({switch.height} - calc({switch.padding} * 2) - {switch.border-width} * 2)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-indicator-width",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-indicator-width",
+          "expression": true
+        }
+      }
+    },
+    "indicator-height": {
+      "$type": "dimension",
+      "$value": "calc({switch.height} - calc({switch.padding} * 2) - {switch.border-width} * 2)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-indicator-height",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-indicator-height",
+          "expression": true
+        }
+      }
+    },
+    "checked-bg": {
+      "$type": "color",
+      "$value": "{control.checked-bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-checked-bg",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-checked-bg"
+        }
+      }
+    },
+    "checked-border-color": {
+      "$type": "color",
+      "$value": "{switch.checked-bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-checked-border-color",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-checked-border-color"
+        }
+      }
+    },
+    "checked-indicator-bg": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-checked-indicator-bg",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-checked-indicator-bg"
+        }
+      }
+    },
+    "disabled-bg": {
+      "$type": "color",
+      "$value": "{control.disabled-bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-disabled-bg",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-disabled-bg"
+        }
+      }
+    },
+    "disabled-indicator-bg": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--switch-disabled-indicator-bg",
+          "sassMap": "$switch-tokens",
+          "sassKey": "--switch-disabled-indicator-bg"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.form-switch`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$switch-tokens",
+        "selector": ".form-switch",
+        "source": "scss/forms/_switch.scss"
+      }
+    }
+  }
+}

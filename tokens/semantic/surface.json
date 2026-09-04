@@ -1,0 +1,280 @@
+{
+  "bg": {
+    "1": {
+      "$type": "color",
+      "$value": "{color.gray.025}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--bg-1",
+          "sassMap": "$theme-bgs",
+          "sassKey": "1",
+          "sassQuoted": true,
+          "dark": "{color.gray.950}"
+        }
+      }
+    },
+    "2": {
+      "$type": "color",
+      "$value": "{color.gray.050}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--bg-2",
+          "sassMap": "$theme-bgs",
+          "sassKey": "2",
+          "sassQuoted": true,
+          "dark": "{color.gray.900}"
+        }
+      }
+    },
+    "3": {
+      "$type": "color",
+      "$value": "{color.gray.100}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--bg-3",
+          "sassMap": "$theme-bgs",
+          "sassKey": "3",
+          "sassQuoted": true,
+          "dark": "{color.gray.800}"
+        }
+      }
+    },
+    "4": {
+      "$type": "color",
+      "$value": "{color.gray.200}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--bg-4",
+          "sassMap": "$theme-bgs",
+          "sassKey": "4",
+          "sassQuoted": true,
+          "dark": "{color.gray.700}"
+        }
+      }
+    },
+    "body": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--bg-body",
+          "sassMap": "$theme-bgs",
+          "sassKey": "body",
+          "sassQuoted": true,
+          "dark": "{color.gray.975}"
+        }
+      }
+    },
+    "fg": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--bg-fg",
+          "sassMap": "$theme-bgs",
+          "sassKey": "fg",
+          "sassQuoted": true
+        }
+      }
+    },
+    "white": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--bg-white",
+          "sassMap": "$theme-bgs",
+          "sassKey": "white",
+          "sassQuoted": true
+        }
+      }
+    },
+    "black": {
+      "$type": "color",
+      "$value": "{color.black}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--bg-black",
+          "sassMap": "$theme-bgs",
+          "sassKey": "black",
+          "sassQuoted": true
+        }
+      }
+    },
+    "transparent": {
+      "$type": "color",
+      "$value": "transparent",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--bg-transparent",
+          "sassMap": "$theme-bgs",
+          "sassKey": "transparent",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "inherit": {
+      "$type": "color",
+      "$value": "inherit",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--bg-inherit",
+          "sassMap": "$theme-bgs",
+          "sassKey": "inherit",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "order": [
+          "body",
+          "1",
+          "2",
+          "3",
+          "4",
+          "fg",
+          "white",
+          "black",
+          "transparent",
+          "inherit"
+        ]
+      }
+    },
+    "$description": "Neutral background ramp, from the page body up through four raised surfaces."
+  },
+  "fg": {
+    "1": {
+      "$type": "color",
+      "$value": "{color.gray.800}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--fg-1",
+          "sassMap": "$theme-fgs",
+          "sassKey": "1",
+          "sassQuoted": true,
+          "dark": "{color.gray.200}"
+        }
+      }
+    },
+    "2": {
+      "$type": "color",
+      "$value": "{color.gray.700}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--fg-2",
+          "sassMap": "$theme-fgs",
+          "sassKey": "2",
+          "sassQuoted": true,
+          "dark": "{color.gray.300}"
+        }
+      }
+    },
+    "3": {
+      "$type": "color",
+      "$value": "{color.gray.600}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--fg-3",
+          "sassMap": "$theme-fgs",
+          "sassKey": "3",
+          "sassQuoted": true,
+          "dark": "{color.gray.500}"
+        }
+      }
+    },
+    "4": {
+      "$type": "color",
+      "$value": "{color.gray.500}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--fg-4",
+          "sassMap": "$theme-fgs",
+          "sassKey": "4",
+          "sassQuoted": true,
+          "dark": "{color.gray.600}"
+        }
+      }
+    },
+    "body": {
+      "$type": "color",
+      "$value": "{color.gray.900}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--fg-body",
+          "sassMap": "$theme-fgs",
+          "sassKey": "body",
+          "sassQuoted": true,
+          "dark": "{color.gray.050}"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--fg-bg",
+          "sassMap": "$theme-fgs",
+          "sassKey": "bg",
+          "sassQuoted": true
+        }
+      }
+    },
+    "white": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--fg-white",
+          "sassMap": "$theme-fgs",
+          "sassKey": "white",
+          "sassQuoted": true
+        }
+      }
+    },
+    "black": {
+      "$type": "color",
+      "$value": "{color.black}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--fg-black",
+          "sassMap": "$theme-fgs",
+          "sassKey": "black",
+          "sassQuoted": true
+        }
+      }
+    },
+    "inherit": {
+      "$type": "color",
+      "$value": "inherit",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--fg-inherit",
+          "sassMap": "$theme-fgs",
+          "sassKey": "inherit",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "order": [
+          "body",
+          "1",
+          "2",
+          "3",
+          "4",
+          "bg",
+          "white",
+          "black",
+          "inherit"
+        ]
+      }
+    },
+    "$description": "Neutral foreground ramp, from primary body text down to the faintest."
+  }
+}

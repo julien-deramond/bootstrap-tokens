@@ -1,0 +1,50 @@
+{
+  "drawer-backdrop": {
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-backdrop-bg",
+          "sassMap": "$drawer-backdrop-tokens",
+          "sassKey": "--drawer-backdrop-bg"
+        }
+      }
+    },
+    "opacity": {
+      "$type": "number",
+      "$value": "25%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-backdrop-opacity",
+          "sassMap": "$drawer-backdrop-tokens",
+          "sassKey": "--drawer-backdrop-opacity",
+          "css": true
+        }
+      }
+    },
+    "blur": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-backdrop-blur",
+          "sassMap": "$drawer-backdrop-tokens",
+          "sassKey": "--drawer-backdrop-blur"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.drawer-backdrop`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$drawer-backdrop-tokens",
+        "selector": ".drawer-backdrop",
+        "source": "scss/_drawer.scss",
+        "variantOf": "drawer"
+      }
+    }
+  }
+}

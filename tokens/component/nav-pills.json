@@ -1,0 +1,82 @@
+{
+  "nav-pills": {
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-pills-bg",
+          "sassMap": "$nav-pills-tokens",
+          "sassKey": "--nav-pills-bg"
+        }
+      }
+    },
+    "padding": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-pills-padding",
+          "sassMap": "$nav-pills-tokens",
+          "sassKey": "--nav-pills-padding"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.9}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-pills-border-radius",
+          "sassMap": "$nav-pills-tokens",
+          "sassKey": "--nav-pills-border-radius"
+        }
+      }
+    },
+    "link-active-color": {
+      "$type": "color",
+      "$value": "{theme-color.primary.contrast}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-pills-link-active-color",
+          "sassMap": "$nav-pills-tokens",
+          "sassKey": "--nav-pills-link-active-color"
+        }
+      }
+    },
+    "link-active-bg": {
+      "$type": "color",
+      "$value": "{theme-color.primary.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-pills-link-active-bg",
+          "sassMap": "$nav-pills-tokens",
+          "sassKey": "--nav-pills-link-active-bg"
+        }
+      }
+    },
+    "link-border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.9}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-pills-link-border-radius",
+          "sassMap": "$nav-pills-tokens",
+          "sassKey": "--nav-pills-link-border-radius"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.nav-pills`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$nav-pills-tokens",
+        "selector": ".nav-pills",
+        "source": "scss/_nav.scss",
+        "variantOf": "nav"
+      }
+    }
+  }
+}

@@ -1,0 +1,123 @@
+{
+  "chip-input": {
+    "padding-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--chip-input-padding-y",
+          "sassMap": "$chip-input-tokens",
+          "sassKey": "--chip-input-padding-y"
+        }
+      }
+    },
+    "padding-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--chip-input-padding-x",
+          "sassMap": "$chip-input-tokens",
+          "sassKey": "--chip-input-padding-x"
+        }
+      }
+    },
+    "gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.375,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--chip-input-gap",
+          "sassMap": "$chip-input-tokens",
+          "sassKey": "--chip-input-gap"
+        }
+      }
+    },
+    "ghost-min-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--chip-input-ghost-min-width",
+          "sassMap": "$chip-input-tokens",
+          "sassKey": "--chip-input-ghost-min-width"
+        }
+      }
+    },
+    "control-fg": {
+      "$type": "color",
+      "$value": "{control.field.fg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-fg",
+          "sassMap": "$chip-input-tokens",
+          "sassKey": "--control-fg"
+        }
+      }
+    },
+    "control-bg": {
+      "$type": "color",
+      "$value": "{control.field.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-bg",
+          "sassMap": "$chip-input-tokens",
+          "sassKey": "--control-bg"
+        }
+      }
+    },
+    "control-border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-border-width",
+          "sassMap": "$chip-input-tokens",
+          "sassKey": "--control-border-width"
+        }
+      }
+    },
+    "control-border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-border-color",
+          "sassMap": "$chip-input-tokens",
+          "sassKey": "--control-border-color"
+        }
+      }
+    },
+    "control-border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-border-radius",
+          "sassMap": "$chip-input-tokens",
+          "sassKey": "--control-border-radius"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.chip-input`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$chip-input-tokens",
+        "selector": ".chip-input",
+        "source": "scss/forms/_chip-input.scss"
+      }
+    }
+  }
+}

@@ -1,0 +1,47 @@
+{
+  "reboot-mark": {
+    "mark-padding": {
+      "$type": "dimension",
+      "$value": ".1875em",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--mark-padding",
+          "sassMap": "$reboot-mark-tokens",
+          "sassKey": "--mark-padding",
+          "css": true
+        }
+      }
+    },
+    "mark-color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--mark-color",
+          "sassMap": "$reboot-mark-tokens",
+          "sassKey": "--mark-color"
+        }
+      }
+    },
+    "mark-bg": {
+      "$type": "color",
+      "$value": "{color.yellow.100}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--mark-bg",
+          "sassMap": "$reboot-mark-tokens",
+          "sassKey": "--mark-bg",
+          "dark": "{color.yellow.900}"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `mark`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$reboot-mark-tokens",
+        "selector": "mark",
+        "source": "scss/content/_reboot.scss"
+      }
+    }
+  }
+}

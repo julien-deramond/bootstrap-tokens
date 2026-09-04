@@ -1,0 +1,146 @@
+{
+  "avatar": {
+    "size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--avatar-size",
+          "sassMap": "$avatar-tokens",
+          "sassKey": "--avatar-size"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "50%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--avatar-border-radius",
+          "sassMap": "$avatar-tokens",
+          "sassKey": "--avatar-border-radius",
+          "css": true
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--avatar-border-width",
+          "sassMap": "$avatar-tokens",
+          "sassKey": "--avatar-border-width"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--avatar-border-color",
+          "sassMap": "$avatar-tokens",
+          "sassKey": "--avatar-border-color"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--avatar-bg",
+          "sassMap": "$avatar-tokens",
+          "sassKey": "--avatar-bg"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--avatar-color",
+          "sassMap": "$avatar-tokens",
+          "sassKey": "--avatar-color"
+        }
+      }
+    },
+    "status-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--avatar-status-size",
+          "sassMap": "$avatar-tokens",
+          "sassKey": "--avatar-status-size"
+        }
+      }
+    },
+    "status-border-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--avatar-status-border-width",
+          "sassMap": "$avatar-tokens",
+          "sassKey": "--avatar-status-border-width"
+        }
+      }
+    },
+    "status-border-color": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--avatar-status-border-color",
+          "sassMap": "$avatar-tokens",
+          "sassKey": "--avatar-status-border-color"
+        }
+      }
+    },
+    "stack-spacing": {
+      "$type": "number",
+      "$value": -0.3,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--avatar-stack-spacing",
+          "sassMap": "$avatar-tokens",
+          "sassKey": "--avatar-stack-spacing"
+        }
+      }
+    },
+    "stack-transition": {
+      "$value": "\"transform .2s ease-in-out\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--avatar-stack-transition",
+          "sassMap": "$avatar-tokens",
+          "sassKey": "--avatar-stack-transition",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.avatar`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$avatar-tokens",
+        "selector": ".avatar",
+        "source": "scss/_avatar.scss"
+      }
+    }
+  }
+}

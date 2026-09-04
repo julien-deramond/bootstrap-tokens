@@ -1,0 +1,206 @@
+{
+  "btn": {
+    "gap": {
+      "$type": "dimension",
+      "$value": "{control.field.gap}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-gap",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-gap"
+        }
+      }
+    },
+    "min-height": {
+      "$type": "dimension",
+      "$value": "{control.field.min-height}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-min-height",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-min-height"
+        }
+      }
+    },
+    "padding-x": {
+      "$type": "dimension",
+      "$value": "{control.field.padding-x}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-padding-x",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-padding-x"
+        }
+      }
+    },
+    "padding-y": {
+      "$type": "dimension",
+      "$value": "{control.field.padding-y}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-padding-y",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-padding-y"
+        }
+      }
+    },
+    "font-size": {
+      "$type": "dimension",
+      "$value": "{control.field.font-size}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-font-size",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-font-size"
+        }
+      }
+    },
+    "font-weight": {
+      "$type": "fontWeight",
+      "$value": "var(--btn-input-font-weight)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-font-weight",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-font-weight",
+          "css": true
+        }
+      }
+    },
+    "line-height": {
+      "$type": "dimension",
+      "$value": "{control.field.line-height}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-line-height",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-line-height"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-color",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-color"
+        }
+      }
+    },
+    "white-space": {
+      "$value": "nowrap",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-white-space",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-white-space",
+          "css": true
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-border-width",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-border-width"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "transparent",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-border-color",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-border-color",
+          "css": true
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-border-radius",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-border-radius"
+        }
+      }
+    },
+    "hover-border-color": {
+      "$type": "color",
+      "$value": "transparent",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-hover-border-color",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-hover-border-color",
+          "css": true
+        }
+      }
+    },
+    "disabled-opacity": {
+      "$type": "number",
+      "$value": 0.65,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-disabled-opacity",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-disabled-opacity"
+        }
+      }
+    },
+    "transition-property": {
+      "$value": "\"color, background-color, border-color, box-shadow\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-transition-property",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-transition-property",
+          "css": true
+        }
+      }
+    },
+    "transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.15,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-transition-duration",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-transition-duration"
+        }
+      }
+    },
+    "transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "ease-in-out",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-transition-timing",
+          "sassMap": "$button-tokens",
+          "sassKey": "--btn-transition-timing",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.btn`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$button-tokens",
+        "selector": ".btn",
+        "source": "scss/buttons/_button.scss"
+      }
+    }
+  }
+}

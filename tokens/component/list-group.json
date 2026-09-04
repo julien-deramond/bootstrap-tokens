@@ -1,0 +1,199 @@
+{
+  "list-group": {
+    "color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-color",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-color"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-bg",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-bg"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-border-color",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-border-color"
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-border-width",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-border-width"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-border-radius",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-border-radius"
+        }
+      }
+    },
+    "item-padding-x": {
+      "$type": "dimension",
+      "$value": "{spacing.root}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-item-padding-x",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-item-padding-x"
+        }
+      }
+    },
+    "item-padding-y": {
+      "$type": "dimension",
+      "$value": "{spacing.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-item-padding-y",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-item-padding-y"
+        }
+      }
+    },
+    "action-color": {
+      "$type": "color",
+      "$value": "{fg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-action-color",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-action-color"
+        }
+      }
+    },
+    "action-hover-color": {
+      "$type": "color",
+      "$value": "{fg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-action-hover-color",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-action-hover-color"
+        }
+      }
+    },
+    "action-hover-bg": {
+      "$type": "color",
+      "$value": "{bg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-action-hover-bg",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-action-hover-bg"
+        }
+      }
+    },
+    "action-active-color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-action-active-color",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-action-active-color"
+        }
+      }
+    },
+    "action-active-bg": {
+      "$type": "color",
+      "$value": "{bg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-action-active-bg",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-action-active-bg"
+        }
+      }
+    },
+    "disabled-color": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-disabled-color",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-disabled-color"
+        }
+      }
+    },
+    "disabled-bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-disabled-bg",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-disabled-bg"
+        }
+      }
+    },
+    "active-color": {
+      "$type": "color",
+      "$value": "{theme-color.primary.contrast}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-active-color",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-active-color"
+        }
+      }
+    },
+    "active-bg": {
+      "$type": "color",
+      "$value": "{theme-color.primary.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-active-bg",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-active-bg"
+        }
+      }
+    },
+    "active-border-color": {
+      "$type": "color",
+      "$value": "{theme-color.primary.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-group-active-border-color",
+          "sassMap": "$list-group-tokens",
+          "sassKey": "--list-group-active-border-color"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.list-group`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$list-group-tokens",
+        "selector": ".list-group",
+        "source": "scss/_list-group.scss"
+      }
+    }
+  }
+}

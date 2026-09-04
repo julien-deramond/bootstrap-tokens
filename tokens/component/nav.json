@@ -1,0 +1,204 @@
+{
+  "nav": {
+    "gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.125,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-gap",
+          "sassMap": "$nav-tokens",
+          "sassKey": "--nav-gap"
+        }
+      }
+    },
+    "link-gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-gap",
+          "sassMap": "$nav-tokens",
+          "sassKey": "--nav-link-gap"
+        }
+      }
+    },
+    "link-align": {
+      "$value": "center",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-align",
+          "sassMap": "$nav-tokens",
+          "sassKey": "--nav-link-align",
+          "css": true
+        }
+      }
+    },
+    "link-justify": {
+      "$value": "center",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-justify",
+          "sassMap": "$nav-tokens",
+          "sassKey": "--nav-link-justify",
+          "css": true
+        }
+      }
+    },
+    "link-padding-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-padding-x",
+          "sassMap": "$nav-tokens",
+          "sassKey": "--nav-link-padding-x"
+        }
+      }
+    },
+    "link-padding-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.375,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-padding-y",
+          "sassMap": "$nav-tokens",
+          "sassKey": "--nav-link-padding-y"
+        }
+      }
+    },
+    "link-color": {
+      "$type": "color",
+      "$value": "{fg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-color",
+          "sassMap": "$nav-tokens",
+          "sassKey": "--nav-link-color"
+        }
+      }
+    },
+    "link-hover-color": {
+      "$type": "color",
+      "$value": "{fg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-hover-color",
+          "sassMap": "$nav-tokens",
+          "sassKey": "--nav-link-hover-color"
+        }
+      }
+    },
+    "link-hover-bg": {
+      "$type": "color",
+      "$value": "{bg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-hover-bg",
+          "sassMap": "$nav-tokens",
+          "sassKey": "--nav-link-hover-bg"
+        }
+      }
+    },
+    "link-active-color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-active-color",
+          "sassMap": "$nav-tokens",
+          "sassKey": "--nav-link-active-color"
+        }
+      }
+    },
+    "link-active-bg": {
+      "$type": "color",
+      "$value": "{bg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-active-bg",
+          "sassMap": "$nav-tokens",
+          "sassKey": "--nav-link-active-bg"
+        }
+      }
+    },
+    "link-disabled-color": {
+      "$type": "color",
+      "$value": "{fg.4}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-disabled-color",
+          "sassMap": "$nav-tokens",
+          "sassKey": "--nav-link-disabled-color"
+        }
+      }
+    },
+    "link-border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-border-width",
+          "sassMap": "$nav-tokens",
+          "sassKey": "--nav-link-border-width"
+        }
+      }
+    },
+    "link-transition-property": {
+      "$value": "\"color, background-color, border-color\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-transition-property",
+          "sassMap": "$nav-tokens",
+          "sassKey": "--nav-link-transition-property",
+          "css": true
+        }
+      }
+    },
+    "link-transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.15,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-transition-duration",
+          "sassMap": "$nav-tokens",
+          "sassKey": "--nav-link-transition-duration"
+        }
+      }
+    },
+    "link-transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "ease-in-out",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-transition-timing",
+          "sassMap": "$nav-tokens",
+          "sassKey": "--nav-link-transition-timing",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.nav`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$nav-tokens",
+        "selector": ".nav",
+        "source": "scss/_nav.scss"
+      }
+    }
+  }
+}

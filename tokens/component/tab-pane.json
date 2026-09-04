@@ -1,0 +1,50 @@
+{
+  "tab-pane": {
+    "transition-property": {
+      "$value": "\"opacity\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tab-pane-transition-property",
+          "sassMap": "$tab-pane-tokens",
+          "sassKey": "--tab-pane-transition-property",
+          "css": true
+        }
+      }
+    },
+    "transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.15,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tab-pane-transition-duration",
+          "sassMap": "$tab-pane-tokens",
+          "sassKey": "--tab-pane-transition-duration"
+        }
+      }
+    },
+    "transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "linear",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tab-pane-transition-timing",
+          "sassMap": "$tab-pane-tokens",
+          "sassKey": "--tab-pane-transition-timing",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.tab-pane`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$tab-pane-tokens",
+        "selector": ".tab-pane",
+        "source": "scss/_nav.scss",
+        "variantOf": "nav"
+      }
+    }
+  }
+}

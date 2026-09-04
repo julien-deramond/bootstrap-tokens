@@ -1,0 +1,94 @@
+{
+  "navbar-dark": {
+    "navbar-color": {
+      "$type": "color",
+      "$value": "color-mix(in oklch, {color.white} .55, transparent)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-color",
+          "sassMap": "$navbar-dark-tokens",
+          "sassKey": "--navbar-color",
+          "expression": true
+        }
+      }
+    },
+    "navbar-hover-color": {
+      "$type": "color",
+      "$value": "color-mix(in oklch, {color.white} .75, transparent)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-hover-color",
+          "sassMap": "$navbar-dark-tokens",
+          "sassKey": "--navbar-hover-color",
+          "expression": true
+        }
+      }
+    },
+    "navbar-disabled-color": {
+      "$type": "color",
+      "$value": "color-mix(in oklch, {color.white} .25, transparent)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-disabled-color",
+          "sassMap": "$navbar-dark-tokens",
+          "sassKey": "--navbar-disabled-color",
+          "expression": true
+        }
+      }
+    },
+    "navbar-active-color": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-active-color",
+          "sassMap": "$navbar-dark-tokens",
+          "sassKey": "--navbar-active-color"
+        }
+      }
+    },
+    "navbar-brand-color": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-brand-color",
+          "sassMap": "$navbar-dark-tokens",
+          "sassKey": "--navbar-brand-color"
+        }
+      }
+    },
+    "navbar-brand-hover-color": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-brand-hover-color",
+          "sassMap": "$navbar-dark-tokens",
+          "sassKey": "--navbar-brand-hover-color"
+        }
+      }
+    },
+    "navbar-toggler-border-color": {
+      "$type": "color",
+      "$value": "color-mix(in oklch, {color.white} .1, transparent)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-toggler-border-color",
+          "sassMap": "$navbar-dark-tokens",
+          "sassKey": "--navbar-toggler-border-color",
+          "expression": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.navbar[data-bs-theme=dark]`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$navbar-dark-tokens",
+        "selector": ".navbar[data-bs-theme=dark]",
+        "source": "scss/_navbar.scss",
+        "variantOf": "navbar"
+      }
+    }
+  }
+}

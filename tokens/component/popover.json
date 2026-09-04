@@ -1,0 +1,277 @@
+{
+  "popover": {
+    "zindex": {
+      "$value": "{z-index.popover}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-zindex",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-zindex"
+        }
+      }
+    },
+    "max-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 280,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-max-width",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-max-width"
+        }
+      }
+    },
+    "font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.sm}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-font-size",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-font-size"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-bg",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-bg"
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-border-width",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-border-width"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color-translucent}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-border-color",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-border-color"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.7}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-border-radius",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-border-radius"
+        }
+      }
+    },
+    "inner-border-radius": {
+      "$type": "dimension",
+      "$value": "calc({radius.7} - {border.width})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-inner-border-radius",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-inner-border-radius",
+          "expression": true
+        }
+      }
+    },
+    "box-shadow": {
+      "$value": "{shadow.default}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-box-shadow",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-box-shadow"
+        }
+      }
+    },
+    "header-padding-x": {
+      "$type": "dimension",
+      "$value": "{spacing.root}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-header-padding-x",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-header-padding-x"
+        }
+      }
+    },
+    "header-padding-y": {
+      "$type": "dimension",
+      "$value": "{spacing.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-header-padding-y",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-header-padding-y"
+        }
+      }
+    },
+    "header-font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.sm}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-header-font-size",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-header-font-size"
+        }
+      }
+    },
+    "header-color": {
+      "$type": "color",
+      "$value": "inherit",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-header-color",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-header-color",
+          "css": true
+        }
+      }
+    },
+    "header-bg": {
+      "$type": "color",
+      "$value": "{bg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-header-bg",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-header-bg"
+        }
+      }
+    },
+    "body-padding-x": {
+      "$type": "dimension",
+      "$value": "{spacing.root}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-body-padding-x",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-body-padding-x"
+        }
+      }
+    },
+    "body-padding-y": {
+      "$type": "dimension",
+      "$value": "{spacing.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-body-padding-y",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-body-padding-y"
+        }
+      }
+    },
+    "body-color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-body-color",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-body-color"
+        }
+      }
+    },
+    "arrow-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-arrow-width",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-arrow-width"
+        }
+      }
+    },
+    "arrow-height": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-arrow-height",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-arrow-height"
+        }
+      }
+    },
+    "arrow-border": {
+      "$value": "{popover.border-color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-arrow-border",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-arrow-border"
+        }
+      }
+    },
+    "transition-property": {
+      "$value": "\"opacity\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-transition-property",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-transition-property",
+          "css": true
+        }
+      }
+    },
+    "transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.15,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-transition-duration",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-transition-duration"
+        }
+      }
+    },
+    "transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "linear",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--popover-transition-timing",
+          "sassMap": "$popover-tokens",
+          "sassKey": "--popover-transition-timing",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.popover`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$popover-tokens",
+        "selector": ".popover",
+        "source": "scss/_popover.scss"
+      }
+    }
+  }
+}

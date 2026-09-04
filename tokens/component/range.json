@@ -1,0 +1,265 @@
+{
+  "range": {
+    "track-width": {
+      "$type": "dimension",
+      "$value": "100%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-track-width",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-track-width",
+          "css": true
+        }
+      }
+    },
+    "track-height": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-track-height",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-track-height"
+        }
+      }
+    },
+    "track-cursor": {
+      "$value": "pointer",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-track-cursor",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-track-cursor",
+          "css": true
+        }
+      }
+    },
+    "track-bg": {
+      "$type": "color",
+      "$value": "{bg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-track-bg",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-track-bg"
+        }
+      }
+    },
+    "track-border-radius": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-track-border-radius",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-track-border-radius"
+        }
+      }
+    },
+    "track-fill-bg": {
+      "$type": "color",
+      "$value": "{theme-color.primary.base}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-track-fill-bg",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-track-fill-bg"
+        }
+      }
+    },
+    "track-disabled-bg": {
+      "$type": "color",
+      "$value": "color-mix(in oklch, {bg.4}, {fg.3})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-track-disabled-bg",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-track-disabled-bg",
+          "expression": true
+        }
+      }
+    },
+    "thumb-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-thumb-width",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-thumb-width"
+        }
+      }
+    },
+    "thumb-height": {
+      "$type": "dimension",
+      "$value": "{range.thumb-width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-thumb-height",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-thumb-height"
+        }
+      }
+    },
+    "thumb-bg": {
+      "$type": "color",
+      "$value": "{theme-color.primary.base}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-thumb-bg",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-thumb-bg"
+        }
+      }
+    },
+    "thumb-border": {
+      "$value": "{range.thumb-bg} solid {border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-thumb-border",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-thumb-border",
+          "expression": true
+        }
+      }
+    },
+    "thumb-border-radius": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-thumb-border-radius",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-thumb-border-radius"
+        }
+      }
+    },
+    "thumb-box-shadow": {
+      "$value": "\"0 1px 2px rgb(0 0 0 / 7.5%), 0 2px 4px rgb(0 0 0 / 7.5%)\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-thumb-box-shadow",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-thumb-box-shadow",
+          "css": true
+        }
+      }
+    },
+    "thumb-active-bg": {
+      "$type": "color",
+      "$value": "color-mix(in oklch, {theme-color.primary.base} 70%, {bg.body})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-thumb-active-bg",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-thumb-active-bg",
+          "expression": true
+        }
+      }
+    },
+    "thumb-disabled-bg": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-thumb-disabled-bg",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-thumb-disabled-bg"
+        }
+      }
+    },
+    "thumb-transition-property": {
+      "$value": "\"background-color, border-color, box-shadow\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-thumb-transition-property",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-thumb-transition-property",
+          "css": true
+        }
+      }
+    },
+    "thumb-transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.15,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-thumb-transition-duration",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-thumb-transition-duration"
+        }
+      }
+    },
+    "thumb-transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "ease-in-out",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-thumb-transition-timing",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-thumb-transition-timing",
+          "css": true
+        }
+      }
+    },
+    "tick-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-tick-width",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-tick-width"
+        }
+      }
+    },
+    "tick-height": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-tick-height",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-tick-height"
+        }
+      }
+    },
+    "tick-bg": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-tick-bg",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-tick-bg"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.form-range`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$range-tokens",
+        "selector": ".form-range",
+        "source": "scss/forms/_form-range.scss"
+      }
+    }
+  }
+}

@@ -1,0 +1,180 @@
+{
+  "breadcrumb": {
+    "font-size": {
+      "$type": "dimension",
+      "$value": "inherit",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breadcrumb-font-size",
+          "sassMap": "$breadcrumb-tokens",
+          "sassKey": "--breadcrumb-font-size",
+          "css": true
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "transparent",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breadcrumb-bg",
+          "sassMap": "$breadcrumb-tokens",
+          "sassKey": "--breadcrumb-bg",
+          "css": true
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breadcrumb-border-radius",
+          "sassMap": "$breadcrumb-tokens",
+          "sassKey": "--breadcrumb-border-radius"
+        }
+      }
+    },
+    "divider-color": {
+      "$type": "color",
+      "$value": "{fg.4}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breadcrumb-divider-color",
+          "sassMap": "$breadcrumb-tokens",
+          "sassKey": "--breadcrumb-divider-color"
+        }
+      }
+    },
+    "divider-icon": {
+      "$value": "#{url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 16'%3e%3cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M2 2l4 6-4 6'/%3e%3c/svg%3e\")}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breadcrumb-divider-icon",
+          "sassMap": "$breadcrumb-tokens",
+          "sassKey": "--breadcrumb-divider-icon",
+          "css": true
+        }
+      }
+    },
+    "divider-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.375,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breadcrumb-divider-width",
+          "sassMap": "$breadcrumb-tokens",
+          "sassKey": "--breadcrumb-divider-width"
+        }
+      }
+    },
+    "divider-height": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breadcrumb-divider-height",
+          "sassMap": "$breadcrumb-tokens",
+          "sassKey": "--breadcrumb-divider-height"
+        }
+      }
+    },
+    "link-padding-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breadcrumb-link-padding-x",
+          "sassMap": "$breadcrumb-tokens",
+          "sassKey": "--breadcrumb-link-padding-x"
+        }
+      }
+    },
+    "link-padding-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breadcrumb-link-padding-y",
+          "sassMap": "$breadcrumb-tokens",
+          "sassKey": "--breadcrumb-link-padding-y"
+        }
+      }
+    },
+    "link-color": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breadcrumb-link-color",
+          "sassMap": "$breadcrumb-tokens",
+          "sassKey": "--breadcrumb-link-color"
+        }
+      }
+    },
+    "link-hover-color": {
+      "$type": "color",
+      "$value": "{fg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breadcrumb-link-hover-color",
+          "sassMap": "$breadcrumb-tokens",
+          "sassKey": "--breadcrumb-link-hover-color"
+        }
+      }
+    },
+    "link-hover-bg": {
+      "$type": "color",
+      "$value": "{bg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breadcrumb-link-hover-bg",
+          "sassMap": "$breadcrumb-tokens",
+          "sassKey": "--breadcrumb-link-hover-bg"
+        }
+      }
+    },
+    "link-active-color": {
+      "$type": "color",
+      "$value": "{fg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breadcrumb-link-active-color",
+          "sassMap": "$breadcrumb-tokens",
+          "sassKey": "--breadcrumb-link-active-color"
+        }
+      }
+    },
+    "link-border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.7}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breadcrumb-link-border-radius",
+          "sassMap": "$breadcrumb-tokens",
+          "sassKey": "--breadcrumb-link-border-radius"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.breadcrumb`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$breadcrumb-tokens",
+        "selector": ".breadcrumb",
+        "source": "scss/_breadcrumb.scss"
+      }
+    }
+  }
+}

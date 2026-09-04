@@ -1,0 +1,164 @@
+{
+  "alert": {
+    "gap": {
+      "$type": "dimension",
+      "$value": "{spacing.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--alert-gap",
+          "sassMap": "$alert-tokens",
+          "sassKey": "--alert-gap"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "var(--theme-bg-subtle, {bg.1})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--alert-bg",
+          "sassMap": "$alert-tokens",
+          "sassKey": "--alert-bg",
+          "expression": true
+        }
+      }
+    },
+    "padding-x": {
+      "$type": "dimension",
+      "$value": "{spacing.root}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--alert-padding-x",
+          "sassMap": "$alert-tokens",
+          "sassKey": "--alert-padding-x"
+        }
+      }
+    },
+    "padding-y": {
+      "$type": "dimension",
+      "$value": "{spacing.root}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--alert-padding-y",
+          "sassMap": "$alert-tokens",
+          "sassKey": "--alert-padding-y"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "var(--theme-fg, inherit)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--alert-color",
+          "sassMap": "$alert-tokens",
+          "sassKey": "--alert-color",
+          "css": true
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "var(--theme-border, {border.color})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--alert-border-color",
+          "sassMap": "$alert-tokens",
+          "sassKey": "--alert-border-color",
+          "expression": true
+        }
+      }
+    },
+    "border": {
+      "$value": "{border.width} solid {alert.border-color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--alert-border",
+          "sassMap": "$alert-tokens",
+          "sassKey": "--alert-border",
+          "expression": true
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--alert-border-radius",
+          "sassMap": "$alert-tokens",
+          "sassKey": "--alert-border-radius"
+        }
+      }
+    },
+    "link-color": {
+      "$type": "color",
+      "$value": "inherit",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--alert-link-color",
+          "sassMap": "$alert-tokens",
+          "sassKey": "--alert-link-color",
+          "css": true
+        }
+      }
+    },
+    "transition-property": {
+      "$value": "\"opacity\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--alert-transition-property",
+          "sassMap": "$alert-tokens",
+          "sassKey": "--alert-transition-property",
+          "css": true
+        }
+      }
+    },
+    "transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.15,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--alert-transition-duration",
+          "sassMap": "$alert-tokens",
+          "sassKey": "--alert-transition-duration"
+        }
+      }
+    },
+    "transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "linear",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--alert-transition-timing",
+          "sassMap": "$alert-tokens",
+          "sassKey": "--alert-transition-timing",
+          "css": true
+        }
+      }
+    },
+    "hr-border-color": {
+      "$type": "color",
+      "$value": "var(--theme-border, {border.color})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--hr-border-color",
+          "sassMap": "$alert-tokens",
+          "sassKey": "--hr-border-color",
+          "expression": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.alert`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$alert-tokens",
+        "selector": ".alert",
+        "source": "scss/_alert.scss"
+      }
+    }
+  }
+}

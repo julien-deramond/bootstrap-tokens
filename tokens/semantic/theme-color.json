@@ -1,0 +1,1016 @@
+{
+  "theme-color": {
+    "primary": {
+      "base": {
+        "$type": "color",
+        "$value": "{color.blue.500}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--primary-base",
+            "sassMap": "$theme-colors",
+            "sassKey": "primary",
+            "sassSubKey": "base",
+            "sassQuoted": true
+          }
+        }
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{color.blue.600}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--primary-fg",
+            "sassMap": "$theme-colors",
+            "sassKey": "primary",
+            "sassSubKey": "fg",
+            "sassQuoted": true,
+            "dark": "{color.blue.400}"
+          }
+        }
+      },
+      "fg-emphasis": {
+        "$type": "color",
+        "$value": "{color.blue.800}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--primary-fg-emphasis",
+            "sassMap": "$theme-colors",
+            "sassKey": "primary",
+            "sassSubKey": "fg-emphasis",
+            "sassQuoted": true,
+            "dark": "{color.blue.200}"
+          }
+        }
+      },
+      "bg": {
+        "$type": "color",
+        "$value": "{color.blue.500}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--primary-bg",
+            "sassMap": "$theme-colors",
+            "sassKey": "primary",
+            "sassSubKey": "bg",
+            "sassQuoted": true
+          }
+        }
+      },
+      "bg-subtle": {
+        "$type": "color",
+        "$value": "{color.blue.100}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--primary-bg-subtle",
+            "sassMap": "$theme-colors",
+            "sassKey": "primary",
+            "sassSubKey": "bg-subtle",
+            "sassQuoted": true,
+            "dark": "{color.blue.900}"
+          }
+        }
+      },
+      "bg-muted": {
+        "$type": "color",
+        "$value": "{color.blue.200}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--primary-bg-muted",
+            "sassMap": "$theme-colors",
+            "sassKey": "primary",
+            "sassSubKey": "bg-muted",
+            "sassQuoted": true,
+            "dark": "{color.blue.800}"
+          }
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.blue.300}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--primary-border",
+            "sassMap": "$theme-colors",
+            "sassKey": "primary",
+            "sassSubKey": "border",
+            "sassQuoted": true,
+            "dark": "{color.blue.600}"
+          }
+        }
+      },
+      "focus-ring": {
+        "$type": "color",
+        "$value": "color-mix(in oklch, {color.blue.500} 50%, {bg.body})",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--primary-focus-ring",
+            "sassMap": "$theme-colors",
+            "sassKey": "primary",
+            "sassSubKey": "focus-ring",
+            "sassQuoted": true,
+            "dark": "color-mix(in oklch, {color.blue.500} 75%, {bg.body})",
+            "expression": true
+          }
+        }
+      },
+      "contrast": {
+        "$type": "color",
+        "$value": "{color.white}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--primary-contrast",
+            "sassMap": "$theme-colors",
+            "sassKey": "primary",
+            "sassSubKey": "contrast",
+            "sassQuoted": true
+          }
+        }
+      }
+    },
+    "accent": {
+      "base": {
+        "$type": "color",
+        "$value": "{color.indigo.500}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--accent-base",
+            "sassMap": "$theme-colors",
+            "sassKey": "accent",
+            "sassSubKey": "base",
+            "sassQuoted": true
+          }
+        }
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{color.indigo.600}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--accent-fg",
+            "sassMap": "$theme-colors",
+            "sassKey": "accent",
+            "sassSubKey": "fg",
+            "sassQuoted": true,
+            "dark": "color-mix(in oklch, {color.indigo.400}, {color.indigo.300})",
+            "expression": true
+          }
+        }
+      },
+      "fg-emphasis": {
+        "$type": "color",
+        "$value": "{color.indigo.800}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--accent-fg-emphasis",
+            "sassMap": "$theme-colors",
+            "sassKey": "accent",
+            "sassSubKey": "fg-emphasis",
+            "sassQuoted": true,
+            "dark": "{color.indigo.300}"
+          }
+        }
+      },
+      "bg": {
+        "$type": "color",
+        "$value": "{color.indigo.500}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--accent-bg",
+            "sassMap": "$theme-colors",
+            "sassKey": "accent",
+            "sassSubKey": "bg",
+            "sassQuoted": true
+          }
+        }
+      },
+      "bg-subtle": {
+        "$type": "color",
+        "$value": "{color.indigo.100}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--accent-bg-subtle",
+            "sassMap": "$theme-colors",
+            "sassKey": "accent",
+            "sassSubKey": "bg-subtle",
+            "sassQuoted": true,
+            "dark": "{color.indigo.900}"
+          }
+        }
+      },
+      "bg-muted": {
+        "$type": "color",
+        "$value": "{color.indigo.200}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--accent-bg-muted",
+            "sassMap": "$theme-colors",
+            "sassKey": "accent",
+            "sassSubKey": "bg-muted",
+            "sassQuoted": true,
+            "dark": "{color.indigo.800}"
+          }
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.indigo.300}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--accent-border",
+            "sassMap": "$theme-colors",
+            "sassKey": "accent",
+            "sassSubKey": "border",
+            "sassQuoted": true,
+            "dark": "{color.indigo.600}"
+          }
+        }
+      },
+      "focus-ring": {
+        "$type": "color",
+        "$value": "color-mix(in oklch, {color.indigo.500} 50%, {bg.body})",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--accent-focus-ring",
+            "sassMap": "$theme-colors",
+            "sassKey": "accent",
+            "sassSubKey": "focus-ring",
+            "sassQuoted": true,
+            "dark": "color-mix(in oklch, {color.indigo.500} 75%, {bg.body})",
+            "expression": true
+          }
+        }
+      },
+      "contrast": {
+        "$type": "color",
+        "$value": "{color.white}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--accent-contrast",
+            "sassMap": "$theme-colors",
+            "sassKey": "accent",
+            "sassSubKey": "contrast",
+            "sassQuoted": true
+          }
+        }
+      }
+    },
+    "success": {
+      "base": {
+        "$type": "color",
+        "$value": "{color.green.500}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--success-base",
+            "sassMap": "$theme-colors",
+            "sassKey": "success",
+            "sassSubKey": "base",
+            "sassQuoted": true
+          }
+        }
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{color.green.600}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--success-fg",
+            "sassMap": "$theme-colors",
+            "sassKey": "success",
+            "sassSubKey": "fg",
+            "sassQuoted": true,
+            "dark": "{color.green.400}"
+          }
+        }
+      },
+      "fg-emphasis": {
+        "$type": "color",
+        "$value": "{color.green.800}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--success-fg-emphasis",
+            "sassMap": "$theme-colors",
+            "sassKey": "success",
+            "sassSubKey": "fg-emphasis",
+            "sassQuoted": true,
+            "dark": "{color.green.300}"
+          }
+        }
+      },
+      "bg": {
+        "$type": "color",
+        "$value": "{color.green.500}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--success-bg",
+            "sassMap": "$theme-colors",
+            "sassKey": "success",
+            "sassSubKey": "bg",
+            "sassQuoted": true
+          }
+        }
+      },
+      "bg-subtle": {
+        "$type": "color",
+        "$value": "{color.green.100}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--success-bg-subtle",
+            "sassMap": "$theme-colors",
+            "sassKey": "success",
+            "sassSubKey": "bg-subtle",
+            "sassQuoted": true,
+            "dark": "{color.green.900}"
+          }
+        }
+      },
+      "bg-muted": {
+        "$type": "color",
+        "$value": "{color.green.200}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--success-bg-muted",
+            "sassMap": "$theme-colors",
+            "sassKey": "success",
+            "sassSubKey": "bg-muted",
+            "sassQuoted": true,
+            "dark": "{color.green.800}"
+          }
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.green.300}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--success-border",
+            "sassMap": "$theme-colors",
+            "sassKey": "success",
+            "sassSubKey": "border",
+            "sassQuoted": true,
+            "dark": "{color.green.600}"
+          }
+        }
+      },
+      "focus-ring": {
+        "$type": "color",
+        "$value": "color-mix(in oklch, {color.green.500} 50%, {bg.body})",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--success-focus-ring",
+            "sassMap": "$theme-colors",
+            "sassKey": "success",
+            "sassSubKey": "focus-ring",
+            "sassQuoted": true,
+            "dark": "color-mix(in oklch, {color.green.500} 75%, {bg.body})",
+            "expression": true
+          }
+        }
+      },
+      "contrast": {
+        "$type": "color",
+        "$value": "{color.white}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--success-contrast",
+            "sassMap": "$theme-colors",
+            "sassKey": "success",
+            "sassSubKey": "contrast",
+            "sassQuoted": true
+          }
+        }
+      }
+    },
+    "danger": {
+      "base": {
+        "$type": "color",
+        "$value": "{color.red.500}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--danger-base",
+            "sassMap": "$theme-colors",
+            "sassKey": "danger",
+            "sassSubKey": "base",
+            "sassQuoted": true
+          }
+        }
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{color.red.600}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--danger-fg",
+            "sassMap": "$theme-colors",
+            "sassKey": "danger",
+            "sassSubKey": "fg",
+            "sassQuoted": true,
+            "dark": "{color.red.400}"
+          }
+        }
+      },
+      "fg-emphasis": {
+        "$type": "color",
+        "$value": "{color.red.800}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--danger-fg-emphasis",
+            "sassMap": "$theme-colors",
+            "sassKey": "danger",
+            "sassSubKey": "fg-emphasis",
+            "sassQuoted": true,
+            "dark": "{color.red.300}"
+          }
+        }
+      },
+      "bg": {
+        "$type": "color",
+        "$value": "{color.red.500}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--danger-bg",
+            "sassMap": "$theme-colors",
+            "sassKey": "danger",
+            "sassSubKey": "bg",
+            "sassQuoted": true
+          }
+        }
+      },
+      "bg-subtle": {
+        "$type": "color",
+        "$value": "{color.red.100}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--danger-bg-subtle",
+            "sassMap": "$theme-colors",
+            "sassKey": "danger",
+            "sassSubKey": "bg-subtle",
+            "sassQuoted": true,
+            "dark": "{color.red.900}"
+          }
+        }
+      },
+      "bg-muted": {
+        "$type": "color",
+        "$value": "{color.red.200}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--danger-bg-muted",
+            "sassMap": "$theme-colors",
+            "sassKey": "danger",
+            "sassSubKey": "bg-muted",
+            "sassQuoted": true,
+            "dark": "{color.red.800}"
+          }
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.red.300}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--danger-border",
+            "sassMap": "$theme-colors",
+            "sassKey": "danger",
+            "sassSubKey": "border",
+            "sassQuoted": true,
+            "dark": "{color.red.600}"
+          }
+        }
+      },
+      "focus-ring": {
+        "$type": "color",
+        "$value": "color-mix(in oklch, {color.red.500} 50%, {bg.body})",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--danger-focus-ring",
+            "sassMap": "$theme-colors",
+            "sassKey": "danger",
+            "sassSubKey": "focus-ring",
+            "sassQuoted": true,
+            "dark": "color-mix(in oklch, {color.red.500} 75%, {bg.body})",
+            "expression": true
+          }
+        }
+      },
+      "contrast": {
+        "$type": "color",
+        "$value": "{color.white}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--danger-contrast",
+            "sassMap": "$theme-colors",
+            "sassKey": "danger",
+            "sassSubKey": "contrast",
+            "sassQuoted": true
+          }
+        }
+      }
+    },
+    "warning": {
+      "base": {
+        "$type": "color",
+        "$value": "{color.yellow.500}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--warning-base",
+            "sassMap": "$theme-colors",
+            "sassKey": "warning",
+            "sassSubKey": "base",
+            "sassQuoted": true
+          }
+        }
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{color.yellow.700}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--warning-fg",
+            "sassMap": "$theme-colors",
+            "sassKey": "warning",
+            "sassSubKey": "fg",
+            "sassQuoted": true,
+            "dark": "{color.yellow.400}"
+          }
+        }
+      },
+      "fg-emphasis": {
+        "$type": "color",
+        "$value": "{color.yellow.800}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--warning-fg-emphasis",
+            "sassMap": "$theme-colors",
+            "sassKey": "warning",
+            "sassSubKey": "fg-emphasis",
+            "sassQuoted": true,
+            "dark": "{color.yellow.300}"
+          }
+        }
+      },
+      "bg": {
+        "$type": "color",
+        "$value": "{color.yellow.500}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--warning-bg",
+            "sassMap": "$theme-colors",
+            "sassKey": "warning",
+            "sassSubKey": "bg",
+            "sassQuoted": true
+          }
+        }
+      },
+      "bg-subtle": {
+        "$type": "color",
+        "$value": "{color.yellow.100}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--warning-bg-subtle",
+            "sassMap": "$theme-colors",
+            "sassKey": "warning",
+            "sassSubKey": "bg-subtle",
+            "sassQuoted": true,
+            "dark": "{color.yellow.900}"
+          }
+        }
+      },
+      "bg-muted": {
+        "$type": "color",
+        "$value": "{color.yellow.200}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--warning-bg-muted",
+            "sassMap": "$theme-colors",
+            "sassKey": "warning",
+            "sassSubKey": "bg-muted",
+            "sassQuoted": true,
+            "dark": "{color.yellow.800}"
+          }
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.yellow.300}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--warning-border",
+            "sassMap": "$theme-colors",
+            "sassKey": "warning",
+            "sassSubKey": "border",
+            "sassQuoted": true,
+            "dark": "{color.yellow.600}"
+          }
+        }
+      },
+      "focus-ring": {
+        "$type": "color",
+        "$value": "color-mix(in oklch, {color.yellow.500} 50%, {bg.body})",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--warning-focus-ring",
+            "sassMap": "$theme-colors",
+            "sassKey": "warning",
+            "sassSubKey": "focus-ring",
+            "sassQuoted": true,
+            "dark": "color-mix(in oklch, {color.yellow.400} 85%, {bg.body})",
+            "expression": true
+          }
+        }
+      },
+      "contrast": {
+        "$type": "color",
+        "$value": "{color.gray.900}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--warning-contrast",
+            "sassMap": "$theme-colors",
+            "sassKey": "warning",
+            "sassSubKey": "contrast",
+            "sassQuoted": true
+          }
+        }
+      }
+    },
+    "info": {
+      "base": {
+        "$type": "color",
+        "$value": "{color.cyan.500}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--info-base",
+            "sassMap": "$theme-colors",
+            "sassKey": "info",
+            "sassSubKey": "base",
+            "sassQuoted": true
+          }
+        }
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{color.cyan.600}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--info-fg",
+            "sassMap": "$theme-colors",
+            "sassKey": "info",
+            "sassSubKey": "fg",
+            "sassQuoted": true,
+            "dark": "{color.cyan.400}"
+          }
+        }
+      },
+      "fg-emphasis": {
+        "$type": "color",
+        "$value": "{color.cyan.800}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--info-fg-emphasis",
+            "sassMap": "$theme-colors",
+            "sassKey": "info",
+            "sassSubKey": "fg-emphasis",
+            "sassQuoted": true,
+            "dark": "{color.cyan.300}"
+          }
+        }
+      },
+      "bg": {
+        "$type": "color",
+        "$value": "{color.cyan.500}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--info-bg",
+            "sassMap": "$theme-colors",
+            "sassKey": "info",
+            "sassSubKey": "bg",
+            "sassQuoted": true
+          }
+        }
+      },
+      "bg-subtle": {
+        "$type": "color",
+        "$value": "{color.cyan.100}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--info-bg-subtle",
+            "sassMap": "$theme-colors",
+            "sassKey": "info",
+            "sassSubKey": "bg-subtle",
+            "sassQuoted": true,
+            "dark": "{color.cyan.900}"
+          }
+        }
+      },
+      "bg-muted": {
+        "$type": "color",
+        "$value": "{color.cyan.200}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--info-bg-muted",
+            "sassMap": "$theme-colors",
+            "sassKey": "info",
+            "sassSubKey": "bg-muted",
+            "sassQuoted": true,
+            "dark": "{color.cyan.800}"
+          }
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.cyan.300}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--info-border",
+            "sassMap": "$theme-colors",
+            "sassKey": "info",
+            "sassSubKey": "border",
+            "sassQuoted": true,
+            "dark": "{color.cyan.600}"
+          }
+        }
+      },
+      "focus-ring": {
+        "$type": "color",
+        "$value": "color-mix(in oklch, {color.cyan.500} 50%, {bg.body})",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--info-focus-ring",
+            "sassMap": "$theme-colors",
+            "sassKey": "info",
+            "sassSubKey": "focus-ring",
+            "sassQuoted": true,
+            "dark": "color-mix(in oklch, {color.cyan.500} 75%, {bg.body})",
+            "expression": true
+          }
+        }
+      },
+      "contrast": {
+        "$type": "color",
+        "$value": "{color.gray.900}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--info-contrast",
+            "sassMap": "$theme-colors",
+            "sassKey": "info",
+            "sassSubKey": "contrast",
+            "sassQuoted": true
+          }
+        }
+      }
+    },
+    "inverse": {
+      "base": {
+        "$type": "color",
+        "$value": "{color.gray.900}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--inverse-base",
+            "sassMap": "$theme-colors",
+            "sassKey": "inverse",
+            "sassSubKey": "base",
+            "sassQuoted": true
+          }
+        }
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{color.gray.900}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--inverse-fg",
+            "sassMap": "$theme-colors",
+            "sassKey": "inverse",
+            "sassSubKey": "fg",
+            "sassQuoted": true,
+            "dark": "{color.gray.200}"
+          }
+        }
+      },
+      "fg-emphasis": {
+        "$type": "color",
+        "$value": "{color.gray.975}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--inverse-fg-emphasis",
+            "sassMap": "$theme-colors",
+            "sassKey": "inverse",
+            "sassSubKey": "fg-emphasis",
+            "sassQuoted": true,
+            "dark": "{color.white}"
+          }
+        }
+      },
+      "bg": {
+        "$type": "color",
+        "$value": "{color.gray.900}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--inverse-bg",
+            "sassMap": "$theme-colors",
+            "sassKey": "inverse",
+            "sassSubKey": "bg",
+            "sassQuoted": true,
+            "dark": "{color.gray.025}"
+          }
+        }
+      },
+      "bg-subtle": {
+        "$type": "color",
+        "$value": "{color.gray.100}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--inverse-bg-subtle",
+            "sassMap": "$theme-colors",
+            "sassKey": "inverse",
+            "sassSubKey": "bg-subtle",
+            "sassQuoted": true,
+            "dark": "{color.gray.900}"
+          }
+        }
+      },
+      "bg-muted": {
+        "$type": "color",
+        "$value": "{color.gray.200}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--inverse-bg-muted",
+            "sassMap": "$theme-colors",
+            "sassKey": "inverse",
+            "sassSubKey": "bg-muted",
+            "sassQuoted": true,
+            "dark": "{color.gray.300}"
+          }
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.gray.400}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--inverse-border",
+            "sassMap": "$theme-colors",
+            "sassKey": "inverse",
+            "sassSubKey": "border",
+            "sassQuoted": true,
+            "dark": "{color.gray.100}"
+          }
+        }
+      },
+      "focus-ring": {
+        "$type": "color",
+        "$value": "color-mix(in oklch, light-dark({color.gray.900}, {color.gray.100}) 50%, {bg.body})",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--inverse-focus-ring",
+            "sassMap": "$theme-colors",
+            "sassKey": "inverse",
+            "sassSubKey": "focus-ring",
+            "sassQuoted": true,
+            "expression": true
+          }
+        }
+      },
+      "contrast": {
+        "$type": "color",
+        "$value": "{color.white}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--inverse-contrast",
+            "sassMap": "$theme-colors",
+            "sassKey": "inverse",
+            "sassSubKey": "contrast",
+            "sassQuoted": true,
+            "dark": "{color.gray.900}"
+          }
+        }
+      }
+    },
+    "secondary": {
+      "base": {
+        "$type": "color",
+        "$value": "{color.gray.200}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--secondary-base",
+            "sassMap": "$theme-colors",
+            "sassKey": "secondary",
+            "sassSubKey": "base",
+            "sassQuoted": true
+          }
+        }
+      },
+      "fg": {
+        "$type": "color",
+        "$value": "{color.gray.600}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--secondary-fg",
+            "sassMap": "$theme-colors",
+            "sassKey": "secondary",
+            "sassSubKey": "fg",
+            "sassQuoted": true,
+            "dark": "{color.gray.400}"
+          }
+        }
+      },
+      "fg-emphasis": {
+        "$type": "color",
+        "$value": "{color.gray.800}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--secondary-fg-emphasis",
+            "sassMap": "$theme-colors",
+            "sassKey": "secondary",
+            "sassSubKey": "fg-emphasis",
+            "sassQuoted": true,
+            "dark": "{color.gray.200}"
+          }
+        }
+      },
+      "bg": {
+        "$type": "color",
+        "$value": "{color.gray.100}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--secondary-bg",
+            "sassMap": "$theme-colors",
+            "sassKey": "secondary",
+            "sassSubKey": "bg",
+            "sassQuoted": true,
+            "dark": "{color.gray.600}"
+          }
+        }
+      },
+      "bg-subtle": {
+        "$type": "color",
+        "$value": "{color.gray.050}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--secondary-bg-subtle",
+            "sassMap": "$theme-colors",
+            "sassKey": "secondary",
+            "sassSubKey": "bg-subtle",
+            "sassQuoted": true,
+            "dark": "{color.gray.800}"
+          }
+        }
+      },
+      "bg-muted": {
+        "$type": "color",
+        "$value": "{color.gray.100}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--secondary-bg-muted",
+            "sassMap": "$theme-colors",
+            "sassKey": "secondary",
+            "sassSubKey": "bg-muted",
+            "sassQuoted": true,
+            "dark": "{color.gray.700}"
+          }
+        }
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.gray.300}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--secondary-border",
+            "sassMap": "$theme-colors",
+            "sassKey": "secondary",
+            "sassSubKey": "border",
+            "sassQuoted": true,
+            "dark": "{color.gray.600}"
+          }
+        }
+      },
+      "focus-ring": {
+        "$type": "color",
+        "$value": "color-mix(in oklch, light-dark({color.gray.500}, {color.gray.300}) 50%, {bg.body})",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--secondary-focus-ring",
+            "sassMap": "$theme-colors",
+            "sassKey": "secondary",
+            "sassSubKey": "focus-ring",
+            "sassQuoted": true,
+            "expression": true
+          }
+        }
+      },
+      "contrast": {
+        "$type": "color",
+        "$value": "{color.gray.900}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--secondary-contrast",
+            "sassMap": "$theme-colors",
+            "sassKey": "secondary",
+            "sassSubKey": "contrast",
+            "sassQuoted": true,
+            "dark": "{color.white}"
+          }
+        }
+      }
+    },
+    "$description": "Semantic colour roles. Each role carries the nine sub-keys a component needs."
+  }
+}

@@ -1,0 +1,224 @@
+{
+  "table": {
+    "cell-padding-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-cell-padding-y",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-cell-padding-y"
+        }
+      }
+    },
+    "cell-padding-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-cell-padding-x",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-cell-padding-x"
+        }
+      }
+    },
+    "cell-vertical-align": {
+      "$value": "top",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-cell-vertical-align",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-cell-vertical-align",
+          "css": true
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-color",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-color"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-bg",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-bg"
+        }
+      }
+    },
+    "accent-bg": {
+      "$type": "color",
+      "$value": "transparent",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-accent-bg",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-accent-bg",
+          "css": true
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-border-width",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-border-width"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-border-color",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-border-color"
+        }
+      }
+    },
+    "group-separator-color": {
+      "$type": "color",
+      "$value": "currentcolor",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-group-separator-color",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-group-separator-color",
+          "css": true
+        }
+      }
+    },
+    "striped-color": {
+      "$type": "color",
+      "$value": "{table.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-striped-color",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-striped-color"
+        }
+      }
+    },
+    "striped-bg-factor": {
+      "$type": "color",
+      "$value": "5%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-striped-bg-factor",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-striped-bg-factor",
+          "css": true
+        }
+      }
+    },
+    "striped-bg": {
+      "$type": "color",
+      "$value": "color-mix(in srgb, {table.color} {table.striped-bg-factor}, transparent)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-striped-bg",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-striped-bg",
+          "expression": true
+        }
+      }
+    },
+    "active-color": {
+      "$type": "color",
+      "$value": "{table.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-active-color",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-active-color"
+        }
+      }
+    },
+    "active-bg-factor": {
+      "$type": "color",
+      "$value": "10%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-active-bg-factor",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-active-bg-factor",
+          "css": true
+        }
+      }
+    },
+    "active-bg": {
+      "$type": "color",
+      "$value": "color-mix(in srgb, {table.color} {table.active-bg-factor}, transparent)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-active-bg",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-active-bg",
+          "expression": true
+        }
+      }
+    },
+    "hover-color": {
+      "$type": "color",
+      "$value": "{table.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-hover-color",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-hover-color"
+        }
+      }
+    },
+    "hover-bg-factor": {
+      "$type": "color",
+      "$value": "7.5%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-hover-bg-factor",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-hover-bg-factor",
+          "css": true
+        }
+      }
+    },
+    "hover-bg": {
+      "$type": "color",
+      "$value": "color-mix(in srgb, {table.color} {table.hover-bg-factor}, transparent)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--table-hover-bg",
+          "sassMap": "$table-tokens",
+          "sassKey": "--table-hover-bg",
+          "expression": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.table`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$table-tokens",
+        "selector": ".table",
+        "source": "scss/content/_tables.scss"
+      }
+    }
+  }
+}

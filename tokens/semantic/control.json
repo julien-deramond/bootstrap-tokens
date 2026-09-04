@@ -1,0 +1,484 @@
+{
+  "control": {
+    "checked-bg": {
+      "$type": "color",
+      "$value": "{theme-color.primary.base}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-checked-bg",
+          "sassMap": "$root-tokens",
+          "sassKey": "--control-checked-bg"
+        }
+      }
+    },
+    "checked-border-color": {
+      "$type": "color",
+      "$value": "{control.checked-bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-checked-border-color",
+          "sassMap": "$root-tokens",
+          "sassKey": "--control-checked-border-color"
+        }
+      }
+    },
+    "active-bg": {
+      "$type": "color",
+      "$value": "{theme-color.primary.base}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-active-bg",
+          "sassMap": "$root-tokens",
+          "sassKey": "--control-active-bg"
+        }
+      }
+    },
+    "active-border-color": {
+      "$type": "color",
+      "$value": "{control.active-bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-active-border-color",
+          "sassMap": "$root-tokens",
+          "sassKey": "--control-active-border-color"
+        }
+      }
+    },
+    "disabled-bg": {
+      "$type": "color",
+      "$value": "{bg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-disabled-bg",
+          "sassMap": "$root-tokens",
+          "sassKey": "--control-disabled-bg"
+        }
+      }
+    },
+    "disabled-opacity": {
+      "$type": "number",
+      "$value": 0.65,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-disabled-opacity",
+          "sassMap": "$root-tokens",
+          "sassKey": "--control-disabled-opacity"
+        }
+      }
+    },
+    "transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.15,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-transition-duration",
+          "sassMap": "$root-tokens",
+          "sassKey": "--control-transition-duration"
+        }
+      }
+    },
+    "transition-timing": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.34,
+        1.56,
+        0.64,
+        1
+      ],
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-transition-timing",
+          "sassMap": "$root-tokens",
+          "sassKey": "--control-transition-timing"
+        }
+      }
+    },
+    "field": {
+      "fg": {
+        "$type": "color",
+        "$value": "{fg.body}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--btn-input-fg",
+            "sassMap": "$root-tokens",
+            "sassKey": "--btn-input-fg"
+          }
+        }
+      },
+      "bg": {
+        "$type": "color",
+        "$value": "{bg.body}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--btn-input-bg",
+            "sassMap": "$root-tokens",
+            "sassKey": "--btn-input-bg"
+          }
+        }
+      },
+      "gap": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0.375,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--btn-input-gap",
+            "sassMap": "$root-tokens",
+            "sassKey": "--btn-input-gap"
+          }
+        }
+      },
+      "min-height": {
+        "$type": "dimension",
+        "$value": {
+          "value": 2.375,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--btn-input-min-height",
+            "sassMap": "$root-tokens",
+            "sassKey": "--btn-input-min-height"
+          }
+        }
+      },
+      "padding-y": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0.375,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--btn-input-padding-y",
+            "sassMap": "$root-tokens",
+            "sassKey": "--btn-input-padding-y"
+          }
+        }
+      },
+      "padding-x": {
+        "$type": "dimension",
+        "$value": {
+          "value": 0.75,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--btn-input-padding-x",
+            "sassMap": "$root-tokens",
+            "sassKey": "--btn-input-padding-x"
+          }
+        }
+      },
+      "font-size": {
+        "$type": "dimension",
+        "$value": "{type.body.font-size}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--btn-input-font-size",
+            "sassMap": "$root-tokens",
+            "sassKey": "--btn-input-font-size"
+          }
+        }
+      },
+      "line-height": {
+        "$type": "dimension",
+        "$value": "{type.body.line-height}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--btn-input-line-height",
+            "sassMap": "$root-tokens",
+            "sassKey": "--btn-input-line-height"
+          }
+        }
+      },
+      "border-radius": {
+        "$type": "dimension",
+        "$value": "{radius.5}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--btn-input-border-radius",
+            "sassMap": "$root-tokens",
+            "sassKey": "--btn-input-border-radius"
+          }
+        }
+      },
+      "xs": {
+        "gap": {
+          "$type": "dimension",
+          "$value": "{spacing.1}",
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-xs-gap",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-xs-gap"
+            }
+          }
+        },
+        "min-height": {
+          "$type": "dimension",
+          "$value": {
+            "value": 1.5,
+            "unit": "rem"
+          },
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-xs-min-height",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-xs-min-height"
+            }
+          }
+        },
+        "padding-y": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0.125,
+            "unit": "rem"
+          },
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-xs-padding-y",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-xs-padding-y"
+            }
+          }
+        },
+        "padding-x": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0.5,
+            "unit": "rem"
+          },
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-xs-padding-x",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-xs-padding-x"
+            }
+          }
+        },
+        "font-size": {
+          "$type": "dimension",
+          "$value": "{font-size.xs}",
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-xs-font-size",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-xs-font-size"
+            }
+          }
+        },
+        "line-height": {
+          "$type": "number",
+          "$value": 1.125,
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-xs-line-height",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-xs-line-height"
+            }
+          }
+        },
+        "border-radius": {
+          "$type": "dimension",
+          "$value": "{radius.5}",
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-xs-border-radius",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-xs-border-radius"
+            }
+          }
+        }
+      },
+      "sm": {
+        "gap": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0.375,
+            "unit": "rem"
+          },
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-sm-gap",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-sm-gap"
+            }
+          }
+        },
+        "min-height": {
+          "$type": "dimension",
+          "$value": {
+            "value": 2,
+            "unit": "rem"
+          },
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-sm-min-height",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-sm-min-height"
+            }
+          }
+        },
+        "padding-y": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0.25,
+            "unit": "rem"
+          },
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-sm-padding-y",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-sm-padding-y"
+            }
+          }
+        },
+        "padding-x": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0.625,
+            "unit": "rem"
+          },
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-sm-padding-x",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-sm-padding-x"
+            }
+          }
+        },
+        "font-size": {
+          "$type": "dimension",
+          "$value": "{font-size.sm}",
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-sm-font-size",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-sm-font-size"
+            }
+          }
+        },
+        "line-height": {
+          "$type": "dimension",
+          "$value": "{line-height.sm}",
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-sm-line-height",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-sm-line-height"
+            }
+          }
+        },
+        "border-radius": {
+          "$type": "dimension",
+          "$value": "{radius.5}",
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-sm-border-radius",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-sm-border-radius"
+            }
+          }
+        }
+      },
+      "lg": {
+        "gap": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0.375,
+            "unit": "rem"
+          },
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-lg-gap",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-lg-gap"
+            }
+          }
+        },
+        "min-height": {
+          "$type": "dimension",
+          "$value": {
+            "value": 2.75,
+            "unit": "rem"
+          },
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-lg-min-height",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-lg-min-height"
+            }
+          }
+        },
+        "padding-y": {
+          "$type": "dimension",
+          "$value": {
+            "value": 0.5,
+            "unit": "rem"
+          },
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-lg-padding-y",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-lg-padding-y"
+            }
+          }
+        },
+        "padding-x": {
+          "$type": "dimension",
+          "$value": {
+            "value": 1,
+            "unit": "rem"
+          },
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-lg-padding-x",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-lg-padding-x"
+            }
+          }
+        },
+        "font-size": {
+          "$type": "dimension",
+          "$value": "{font-size.md}",
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-lg-font-size",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-lg-font-size"
+            }
+          }
+        },
+        "line-height": {
+          "$type": "dimension",
+          "$value": "{line-height.md}",
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-lg-line-height",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-lg-line-height"
+            }
+          }
+        },
+        "border-radius": {
+          "$type": "dimension",
+          "$value": "{radius.7}",
+          "$extensions": {
+            "dev.bootstrap.tokens": {
+              "cssVar": "--btn-input-lg-border-radius",
+              "sassMap": "$root-tokens",
+              "sassKey": "--btn-input-lg-border-radius"
+            }
+          }
+        }
+      }
+    },
+    "$description": "Shared metrics for buttons and form fields, and their interaction states."
+  }
+}

@@ -1,0 +1,23 @@
+{
+  "stretched-link": {
+    "z-index": {
+      "$type": "number",
+      "$value": 1,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--stretched-link-z-index",
+          "sassMap": "$stretched-link-tokens",
+          "sassKey": "--stretched-link-z-index"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.stretched-link`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$stretched-link-tokens",
+        "selector": ".stretched-link",
+        "source": "scss/helpers/_stretched-link.scss"
+      }
+    }
+  }
+}

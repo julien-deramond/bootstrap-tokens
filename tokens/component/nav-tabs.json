@@ -1,0 +1,92 @@
+{
+  "nav-tabs": {
+    "border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-tabs-border-width",
+          "sassMap": "$nav-tabs-tokens",
+          "sassKey": "--nav-tabs-border-width"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-tabs-border-color",
+          "sassMap": "$nav-tabs-tokens",
+          "sassKey": "--nav-tabs-border-color"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-tabs-border-radius",
+          "sassMap": "$nav-tabs-tokens",
+          "sassKey": "--nav-tabs-border-radius"
+        }
+      }
+    },
+    "link-hover-border-color": {
+      "$type": "color",
+      "$value": "{border.subtle}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-tabs-link-hover-border-color",
+          "sassMap": "$nav-tabs-tokens",
+          "sassKey": "--nav-tabs-link-hover-border-color"
+        }
+      }
+    },
+    "link-active-color": {
+      "$type": "color",
+      "$value": "var(--fg-color)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-tabs-link-active-color",
+          "sassMap": "$nav-tabs-tokens",
+          "sassKey": "--nav-tabs-link-active-color",
+          "css": true
+        }
+      }
+    },
+    "link-active-bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-tabs-link-active-bg",
+          "sassMap": "$nav-tabs-tokens",
+          "sassKey": "--nav-tabs-link-active-bg"
+        }
+      }
+    },
+    "link-active-border-color": {
+      "$type": "color",
+      "$value": "{border.color} {border.color} {bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-tabs-link-active-border-color",
+          "sassMap": "$nav-tabs-tokens",
+          "sassKey": "--nav-tabs-link-active-border-color",
+          "expression": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.nav-tabs`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$nav-tabs-tokens",
+        "selector": ".nav-tabs",
+        "source": "scss/_nav.scss",
+        "variantOf": "nav"
+      }
+    }
+  }
+}

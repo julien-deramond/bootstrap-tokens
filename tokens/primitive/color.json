@@ -1,0 +1,443 @@
+{
+  "color": {
+    "blue": {
+      "base": {
+        "$type": "color",
+        "$value": "oklch(60% 0.24 240)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "sassMap": "$colors",
+            "sassKey": "blue",
+            "sassQuoted": true,
+            "css": true
+          }
+        }
+      }
+    },
+    "indigo": {
+      "base": {
+        "$type": "color",
+        "$value": "oklch(56% 0.26 288)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "sassMap": "$colors",
+            "sassKey": "indigo",
+            "sassQuoted": true,
+            "css": true
+          }
+        }
+      }
+    },
+    "violet": {
+      "base": {
+        "$type": "color",
+        "$value": "oklch(56% 0.24 300)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "sassMap": "$colors",
+            "sassKey": "violet",
+            "sassQuoted": true,
+            "css": true
+          }
+        }
+      }
+    },
+    "purple": {
+      "base": {
+        "$type": "color",
+        "$value": "oklch(56% 0.24 320)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "sassMap": "$colors",
+            "sassKey": "purple",
+            "sassQuoted": true,
+            "css": true
+          }
+        }
+      }
+    },
+    "pink": {
+      "base": {
+        "$type": "color",
+        "$value": "oklch(60% 0.22 4)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "sassMap": "$colors",
+            "sassKey": "pink",
+            "sassQuoted": true,
+            "css": true
+          }
+        }
+      }
+    },
+    "red": {
+      "base": {
+        "$type": "color",
+        "$value": "oklch(60% 0.22 20)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "sassMap": "$colors",
+            "sassKey": "red",
+            "sassQuoted": true,
+            "css": true
+          }
+        }
+      }
+    },
+    "orange": {
+      "base": {
+        "$type": "color",
+        "$value": "oklch(70% 0.22 52)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "sassMap": "$colors",
+            "sassKey": "orange",
+            "sassQuoted": true,
+            "css": true
+          }
+        }
+      }
+    },
+    "amber": {
+      "base": {
+        "$type": "color",
+        "$value": "oklch(79% 0.2 78)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "sassMap": "$colors",
+            "sassKey": "amber",
+            "sassQuoted": true,
+            "css": true
+          }
+        }
+      }
+    },
+    "yellow": {
+      "base": {
+        "$type": "color",
+        "$value": "oklch(88% 0.24 88)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "sassMap": "$colors",
+            "sassKey": "yellow",
+            "sassQuoted": true,
+            "css": true
+          }
+        }
+      }
+    },
+    "lime": {
+      "base": {
+        "$type": "color",
+        "$value": "oklch(65% 0.24 135)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "sassMap": "$colors",
+            "sassKey": "lime",
+            "sassQuoted": true,
+            "css": true
+          }
+        }
+      }
+    },
+    "green": {
+      "base": {
+        "$type": "color",
+        "$value": "oklch(64% 0.22 160)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "sassMap": "$colors",
+            "sassKey": "green",
+            "sassQuoted": true,
+            "css": true
+          }
+        }
+      }
+    },
+    "teal": {
+      "base": {
+        "$type": "color",
+        "$value": "oklch(68% 0.22 190)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "sassMap": "$colors",
+            "sassKey": "teal",
+            "sassQuoted": true,
+            "css": true
+          }
+        }
+      }
+    },
+    "cyan": {
+      "base": {
+        "$type": "color",
+        "$value": "oklch(69% 0.22 220)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "sassMap": "$colors",
+            "sassKey": "cyan",
+            "sassQuoted": true,
+            "css": true
+          }
+        }
+      }
+    },
+    "brown": {
+      "base": {
+        "$type": "color",
+        "$value": "oklch(60% 0.12 54)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "sassMap": "$colors",
+            "sassKey": "brown",
+            "sassQuoted": true,
+            "css": true
+          }
+        }
+      }
+    },
+    "gray": {
+      "base": {
+        "$type": "color",
+        "$value": "oklch(60% 0.02 245)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "sassMap": "$colors",
+            "sassKey": "gray",
+            "sassQuoted": true,
+            "css": true
+          }
+        }
+      }
+    },
+    "pewter": {
+      "base": {
+        "$type": "color",
+        "$value": "oklch(65% 0.01 290)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "sassMap": "$colors",
+            "sassKey": "pewter",
+            "sassQuoted": true,
+            "css": true
+          }
+        }
+      }
+    },
+    "white": {
+      "$type": "color",
+      "$value": "#fff",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--white",
+          "sassVar": "$white",
+          "sassEmit": "#{$white}"
+        }
+      }
+    },
+    "black": {
+      "$type": "color",
+      "$value": "#000",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--black",
+          "sassVar": "$black",
+          "sassEmit": "#{$black}"
+        }
+      }
+    },
+    "$description": "Base hues in oklch() plus the 13-step scale each one generates."
+  },
+  "color-tint": {
+    "100": {
+      "$type": "number",
+      "$value": "80%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$color-tints",
+          "sassKey": "100",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "200": {
+      "$type": "number",
+      "$value": "60%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$color-tints",
+          "sassKey": "200",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "300": {
+      "$type": "number",
+      "$value": "40%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$color-tints",
+          "sassKey": "300",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "400": {
+      "$type": "number",
+      "$value": "20%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$color-tints",
+          "sassKey": "400",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "025": {
+      "$type": "number",
+      "$value": "94%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$color-tints",
+          "sassKey": "025",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "050": {
+      "$type": "number",
+      "$value": "90%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$color-tints",
+          "sassKey": "050",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "order": [
+          "025",
+          "050",
+          "100",
+          "200",
+          "300",
+          "400"
+        ]
+      }
+    },
+    "$description": "How much white is mixed in for each tint stop (025–400)."
+  },
+  "color-shade": {
+    "600": {
+      "$type": "number",
+      "$value": "16%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$color-shades",
+          "sassKey": "600",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "700": {
+      "$type": "number",
+      "$value": "32%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$color-shades",
+          "sassKey": "700",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "800": {
+      "$type": "number",
+      "$value": "48%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$color-shades",
+          "sassKey": "800",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "900": {
+      "$type": "number",
+      "$value": "64%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$color-shades",
+          "sassKey": "900",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "950": {
+      "$type": "number",
+      "$value": "70%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$color-shades",
+          "sassKey": "950",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "975": {
+      "$type": "number",
+      "$value": "76%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$color-shades",
+          "sassKey": "975",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "$description": "How much black is mixed in for each shade stop (600–975)."
+  },
+  "color-mix": {
+    "space": {
+      "$value": "oklch",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassVar": "$color-mix-space",
+          "css": true
+        }
+      }
+    },
+    "tint-color": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassVar": "$tint-color"
+        }
+      }
+    },
+    "shade-color": {
+      "$type": "color",
+      "$value": "{color.black}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassVar": "$shade-color"
+        }
+      }
+    },
+    "$description": "Inputs to the colour-scale generator: mixing space and tint/shade endpoints."
+  }
+}

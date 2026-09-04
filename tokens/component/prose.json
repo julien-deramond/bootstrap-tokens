@@ -1,0 +1,61 @@
+{
+  "prose": {
+    "content-font-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--content-font-size",
+          "sassMap": "$prose-tokens",
+          "sassKey": "--content-font-size"
+        }
+      }
+    },
+    "content-line-height": {
+      "$type": "number",
+      "$value": 1.5,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--content-line-height",
+          "sassMap": "$prose-tokens",
+          "sassKey": "--content-line-height"
+        }
+      }
+    },
+    "content-gap": {
+      "$type": "dimension",
+      "$value": "calc({prose.content-font-size} * {prose.content-line-height})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--content-gap",
+          "sassMap": "$prose-tokens",
+          "sassKey": "--content-gap",
+          "expression": true
+        }
+      }
+    },
+    "heading-color": {
+      "$type": "color",
+      "$value": "{color.gray.900}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--heading-color",
+          "sassMap": "$prose-tokens",
+          "sassKey": "--heading-color",
+          "dark": "{color.white}"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.prose`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$prose-tokens",
+        "selector": ".prose",
+        "source": "scss/content/_prose.scss"
+      }
+    }
+  }
+}

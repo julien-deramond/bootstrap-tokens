@@ -1,0 +1,89 @@
+{
+  "input-group-addon": {
+    "padding-y": {
+      "$type": "dimension",
+      "$value": "{control.field.padding-y}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--input-group-addon-padding-y",
+          "sassMap": "$input-group-addon-tokens",
+          "sassKey": "--input-group-addon-padding-y"
+        }
+      }
+    },
+    "padding-x": {
+      "$type": "dimension",
+      "$value": "{control.field.padding-x}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--input-group-addon-padding-x",
+          "sassMap": "$input-group-addon-tokens",
+          "sassKey": "--input-group-addon-padding-x"
+        }
+      }
+    },
+    "font-size": {
+      "$type": "dimension",
+      "$value": "{control.field.font-size}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--input-group-addon-font-size",
+          "sassMap": "$input-group-addon-tokens",
+          "sassKey": "--input-group-addon-font-size"
+        }
+      }
+    },
+    "line-height": {
+      "$type": "dimension",
+      "$value": "{control.field.line-height}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--input-group-addon-line-height",
+          "sassMap": "$input-group-addon-tokens",
+          "sassKey": "--input-group-addon-line-height"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--input-group-addon-color",
+          "sassMap": "$input-group-addon-tokens",
+          "sassKey": "--input-group-addon-color"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--input-group-addon-bg",
+          "sassMap": "$input-group-addon-tokens",
+          "sassKey": "--input-group-addon-bg"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--input-group-addon-border-color",
+          "sassMap": "$input-group-addon-tokens",
+          "sassKey": "--input-group-addon-border-color"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.input-group-text`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$input-group-addon-tokens",
+        "selector": ".input-group-text",
+        "source": "scss/forms/_input-group.scss"
+      }
+    }
+  }
+}

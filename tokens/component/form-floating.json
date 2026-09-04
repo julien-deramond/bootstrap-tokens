@@ -1,0 +1,193 @@
+{
+  "form-floating": {
+    "height": {
+      "$type": "dimension",
+      "$value": "calc(3.75rem + ({border.width} * 2))",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-floating-height",
+          "sassMap": "$form-floating-tokens",
+          "sassKey": "--form-floating-height",
+          "expression": true
+        }
+      }
+    },
+    "line-height": {
+      "$type": "number",
+      "$value": 1.25,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-floating-line-height",
+          "sassMap": "$form-floating-tokens",
+          "sassKey": "--form-floating-line-height"
+        }
+      }
+    },
+    "padding-x": {
+      "$type": "dimension",
+      "$value": "calc({control.field.padding-x} * 1.25)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-floating-padding-x",
+          "sassMap": "$form-floating-tokens",
+          "sassKey": "--form-floating-padding-x",
+          "expression": true
+        }
+      }
+    },
+    "padding-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-floating-padding-y",
+          "sassMap": "$form-floating-tokens",
+          "sassKey": "--form-floating-padding-y"
+        }
+      }
+    },
+    "input-padding-t": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.625,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-floating-input-padding-t",
+          "sassMap": "$form-floating-tokens",
+          "sassKey": "--form-floating-input-padding-t"
+        }
+      }
+    },
+    "input-padding-b": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.625,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-floating-input-padding-b",
+          "sassMap": "$form-floating-tokens",
+          "sassKey": "--form-floating-input-padding-b"
+        }
+      }
+    },
+    "label-height": {
+      "$type": "dimension",
+      "$value": "1.5em",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-floating-label-height",
+          "sassMap": "$form-floating-tokens",
+          "sassKey": "--form-floating-label-height",
+          "css": true
+        }
+      }
+    },
+    "label-bg": {
+      "$type": "color",
+      "$value": "{control.field.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-floating-label-bg",
+          "sassMap": "$form-floating-tokens",
+          "sassKey": "--form-floating-label-bg"
+        }
+      }
+    },
+    "label-disabled-bg": {
+      "$type": "color",
+      "$value": "{bg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-floating-label-disabled-bg",
+          "sassMap": "$form-floating-tokens",
+          "sassKey": "--form-floating-label-disabled-bg"
+        }
+      }
+    },
+    "label-opacity": {
+      "$type": "number",
+      "$value": 0.65,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-floating-label-opacity",
+          "sassMap": "$form-floating-tokens",
+          "sassKey": "--form-floating-label-opacity"
+        }
+      }
+    },
+    "label-transform": {
+      "$value": "scale(.85) translateY(-.5rem) translateX(.15rem)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-floating-label-transform",
+          "sassMap": "$form-floating-tokens",
+          "sassKey": "--form-floating-label-transform",
+          "css": true
+        }
+      }
+    },
+    "label-disabled-color": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-floating-label-disabled-color",
+          "sassMap": "$form-floating-tokens",
+          "sassKey": "--form-floating-label-disabled-color"
+        }
+      }
+    },
+    "transition-property": {
+      "$value": "\"opacity, transform\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-floating-transition-property",
+          "sassMap": "$form-floating-tokens",
+          "sassKey": "--form-floating-transition-property",
+          "css": true
+        }
+      }
+    },
+    "transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.1,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-floating-transition-duration",
+          "sassMap": "$form-floating-tokens",
+          "sassKey": "--form-floating-transition-duration"
+        }
+      }
+    },
+    "transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "ease-in-out",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-floating-transition-timing",
+          "sassMap": "$form-floating-tokens",
+          "sassKey": "--form-floating-transition-timing",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.form-floating`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$form-floating-tokens",
+        "selector": ".form-floating",
+        "source": "scss/forms/_floating-labels.scss"
+      }
+    }
+  }
+}

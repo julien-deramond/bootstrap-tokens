@@ -1,0 +1,218 @@
+{
+  "card": {
+    "spacer-y": {
+      "$type": "dimension",
+      "$value": "{spacing.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-spacer-y",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-spacer-y"
+        }
+      }
+    },
+    "spacer-x": {
+      "$type": "dimension",
+      "$value": "{spacing.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-spacer-x",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-spacer-x"
+        }
+      }
+    },
+    "subtitle-color": {
+      "$type": "color",
+      "$value": "inherit",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-subtitle-color",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-subtitle-color",
+          "css": true
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-border-width",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-border-width"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color-translucent}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-border-color",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-border-color"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.8}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-border-radius",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-border-radius"
+        }
+      }
+    },
+    "box-shadow": {
+      "$value": "none",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-box-shadow",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-box-shadow",
+          "css": true
+        }
+      }
+    },
+    "inner-border-radius": {
+      "$type": "dimension",
+      "$value": "calc({card.border-radius} - {border.width})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-inner-border-radius",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-inner-border-radius",
+          "expression": true
+        }
+      }
+    },
+    "cap-padding-y": {
+      "$type": "dimension",
+      "$value": "{spacing.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-cap-padding-y",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-cap-padding-y"
+        }
+      }
+    },
+    "cap-padding-x": {
+      "$type": "dimension",
+      "$value": "{spacing.root}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-cap-padding-x",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-cap-padding-x"
+        }
+      }
+    },
+    "cap-bg": {
+      "$type": "color",
+      "$value": "{bg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-cap-bg",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-cap-bg"
+        }
+      }
+    },
+    "cap-color": {
+      "$type": "color",
+      "$value": "inherit",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-cap-color",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-cap-color",
+          "css": true
+        }
+      }
+    },
+    "height": {
+      "$type": "dimension",
+      "$value": "auto",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-height",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-height",
+          "css": true
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "inherit",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-color",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-color",
+          "css": true
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-bg",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-bg"
+        }
+      }
+    },
+    "img-overlay-padding": {
+      "$type": "dimension",
+      "$value": "{card.spacer-y}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-img-overlay-padding",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-img-overlay-padding"
+        }
+      }
+    },
+    "group-margin": {
+      "$type": "dimension",
+      "$value": "{grid.gutter-x} * .5",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-group-margin",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-group-margin",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "body-gap": {
+      "$type": "dimension",
+      "$value": "calc({card.spacer-y} * .5)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--card-body-gap",
+          "sassMap": "$card-tokens",
+          "sassKey": "--card-body-gap",
+          "expression": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.card`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$card-tokens",
+        "selector": ".card",
+        "source": "scss/_card.scss"
+      }
+    }
+  }
+}

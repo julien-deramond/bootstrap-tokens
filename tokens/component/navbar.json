@@ -1,0 +1,293 @@
+{
+  "navbar": {
+    "padding-x": {
+      "$type": "number",
+      "$value": 0,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-padding-x",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-padding-x"
+        }
+      }
+    },
+    "padding-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-padding-y",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-padding-y"
+        }
+      }
+    },
+    "min-height": {
+      "$type": "dimension",
+      "$value": {
+        "value": 3.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-min-height",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-min-height"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{fg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-color",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-color"
+        }
+      }
+    },
+    "hover-color": {
+      "$type": "color",
+      "$value": "{fg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-hover-color",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-hover-color"
+        }
+      }
+    },
+    "disabled-color": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-disabled-color",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-disabled-color"
+        }
+      }
+    },
+    "active-color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-active-color",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-active-color"
+        }
+      }
+    },
+    "brand-padding-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.375,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-brand-padding-y",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-brand-padding-y"
+        }
+      }
+    },
+    "brand-margin-end": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-brand-margin-end",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-brand-margin-end"
+        }
+      }
+    },
+    "brand-font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.md}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-brand-font-size",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-brand-font-size"
+        }
+      }
+    },
+    "brand-font-weight": {
+      "$type": "fontWeight",
+      "$value": "{font-weight.medium}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-brand-font-weight",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-brand-font-weight"
+        }
+      }
+    },
+    "brand-color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-brand-color",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-brand-color"
+        }
+      }
+    },
+    "brand-hover-color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-brand-hover-color",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-brand-hover-color"
+        }
+      }
+    },
+    "nav-link-padding-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-nav-link-padding-x",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-nav-link-padding-x"
+        }
+      }
+    },
+    "toggler-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-toggler-width",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-toggler-width"
+        }
+      }
+    },
+    "toggler-padding-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-toggler-padding-y",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-toggler-padding-y"
+        }
+      }
+    },
+    "toggler-padding-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-toggler-padding-x",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-toggler-padding-x"
+        }
+      }
+    },
+    "toggler-font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.lg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-toggler-font-size",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-toggler-font-size"
+        }
+      }
+    },
+    "toggler-border-color": {
+      "$type": "color",
+      "$value": "color-mix(in oklch, {fg.body} 15%, transparent)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-toggler-border-color",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-toggler-border-color",
+          "expression": true
+        }
+      }
+    },
+    "toggler-border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-toggler-border-radius",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-toggler-border-radius"
+        }
+      }
+    },
+    "toggler-transition": {
+      "$value": "box-shadow .15s ease-in-out",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-toggler-transition",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-toggler-transition",
+          "css": true
+        }
+      }
+    },
+    "toggler-icon-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-toggler-icon-size",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-toggler-icon-size"
+        }
+      }
+    },
+    "toggler-icon": {
+      "$value": "#{url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath stroke='black' stroke-linecap='round' stroke-width='1' d='M1 3.5h14M1 8h14M1 12.5h14'/%3e%3c/svg%3e\")}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--navbar-toggler-icon",
+          "sassMap": "$navbar-tokens",
+          "sassKey": "--navbar-toggler-icon",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.navbar`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$navbar-tokens",
+        "selector": ".navbar",
+        "source": "scss/_navbar.scss"
+      }
+    }
+  }
+}

@@ -1,0 +1,167 @@
+{
+  "z-index": {
+    "0": {
+      "$type": "number",
+      "$value": 0,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--z-0",
+          "sassMap": "$zindex-levels",
+          "sassKey": "0"
+        }
+      }
+    },
+    "1": {
+      "$type": "number",
+      "$value": 1,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--z-1",
+          "sassMap": "$zindex-levels",
+          "sassKey": "1"
+        }
+      }
+    },
+    "2": {
+      "$type": "number",
+      "$value": 2,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--z-2",
+          "sassMap": "$zindex-levels",
+          "sassKey": "2"
+        }
+      }
+    },
+    "3": {
+      "$type": "number",
+      "$value": 3,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--z-3",
+          "sassMap": "$zindex-levels",
+          "sassKey": "3"
+        }
+      }
+    },
+    "n1": {
+      "$type": "number",
+      "$value": -1,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--z-n1",
+          "sassMap": "$zindex-levels",
+          "sassKey": "n1"
+        }
+      }
+    },
+    "menu": {
+      "$type": "number",
+      "$value": 1000,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--z-menu",
+          "sassMap": "$zindex-levels",
+          "sassKey": "menu"
+        }
+      }
+    },
+    "sticky": {
+      "$type": "number",
+      "$value": 1010,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--z-sticky",
+          "sassMap": "$zindex-levels",
+          "sassKey": "sticky"
+        }
+      }
+    },
+    "fixed": {
+      "$type": "number",
+      "$value": 1020,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--z-fixed",
+          "sassMap": "$zindex-levels",
+          "sassKey": "fixed"
+        }
+      }
+    },
+    "drawer": {
+      "$type": "number",
+      "$value": 1030,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--z-drawer",
+          "sassMap": "$zindex-levels",
+          "sassKey": "drawer"
+        }
+      }
+    },
+    "dialog": {
+      "$type": "number",
+      "$value": 1040,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--z-dialog",
+          "sassMap": "$zindex-levels",
+          "sassKey": "dialog"
+        }
+      }
+    },
+    "popover": {
+      "$type": "number",
+      "$value": 1050,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--z-popover",
+          "sassMap": "$zindex-levels",
+          "sassKey": "popover"
+        }
+      }
+    },
+    "tooltip": {
+      "$type": "number",
+      "$value": 1060,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--z-tooltip",
+          "sassMap": "$zindex-levels",
+          "sassKey": "tooltip"
+        }
+      }
+    },
+    "toast": {
+      "$type": "number",
+      "$value": 1070,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--z-toast",
+          "sassMap": "$zindex-levels",
+          "sassKey": "toast"
+        }
+      }
+    },
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "order": [
+          "n1",
+          "0",
+          "1",
+          "2",
+          "3",
+          "menu",
+          "sticky",
+          "fixed",
+          "drawer",
+          "dialog",
+          "popover",
+          "tooltip",
+          "toast"
+        ]
+      }
+    },
+    "$description": "The stacking ladder. Change these together or not at all."
+  }
+}

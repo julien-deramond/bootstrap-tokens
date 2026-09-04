@@ -1,0 +1,80 @@
+{
+  "thumbnail": {
+    "padding": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--thumbnail-padding",
+          "sassMap": "$thumbnail-tokens",
+          "sassKey": "--thumbnail-padding"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--thumbnail-bg",
+          "sassMap": "$thumbnail-tokens",
+          "sassKey": "--thumbnail-bg"
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--thumbnail-border-width",
+          "sassMap": "$thumbnail-tokens",
+          "sassKey": "--thumbnail-border-width"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--thumbnail-border-color",
+          "sassMap": "$thumbnail-tokens",
+          "sassKey": "--thumbnail-border-color"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--thumbnail-border-radius",
+          "sassMap": "$thumbnail-tokens",
+          "sassKey": "--thumbnail-border-radius"
+        }
+      }
+    },
+    "box-shadow": {
+      "$value": "{shadow.sm}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--thumbnail-box-shadow",
+          "sassMap": "$thumbnail-tokens",
+          "sassKey": "--thumbnail-box-shadow"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.img-thumbnail`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$thumbnail-tokens",
+        "selector": ".img-thumbnail",
+        "source": "scss/content/_images.scss"
+      }
+    }
+  }
+}

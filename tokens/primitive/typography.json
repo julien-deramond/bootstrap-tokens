@@ -1,0 +1,366 @@
+{
+  "font-weight": {
+    "lighter": {
+      "$type": "fontWeight",
+      "$value": "lighter",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-weight-lighter",
+          "sassMap": "$font-weights",
+          "sassKey": "lighter"
+        }
+      }
+    },
+    "light": {
+      "$type": "fontWeight",
+      "$value": 300,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-weight-light",
+          "sassMap": "$font-weights",
+          "sassKey": "light"
+        }
+      }
+    },
+    "normal": {
+      "$type": "fontWeight",
+      "$value": 400,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-weight-normal",
+          "sassMap": "$font-weights",
+          "sassKey": "normal"
+        }
+      }
+    },
+    "medium": {
+      "$type": "fontWeight",
+      "$value": 500,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-weight-medium",
+          "sassMap": "$font-weights",
+          "sassKey": "medium"
+        }
+      }
+    },
+    "semibold": {
+      "$type": "fontWeight",
+      "$value": 600,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-weight-semibold",
+          "sassMap": "$font-weights",
+          "sassKey": "semibold"
+        }
+      }
+    },
+    "bold": {
+      "$type": "fontWeight",
+      "$value": 700,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-weight-bold",
+          "sassMap": "$font-weights",
+          "sassKey": "bold"
+        }
+      }
+    },
+    "bolder": {
+      "$type": "fontWeight",
+      "$value": "bolder",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-weight-bolder",
+          "sassMap": "$font-weights",
+          "sassKey": "bolder"
+        }
+      }
+    },
+    "$description": "Named font weights."
+  },
+  "font-size": {
+    "xs": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-size-xs",
+          "sassMap": "$font-sizes",
+          "sassKey": "xs",
+          "sassSubKey": "font-size",
+          "sassQuoted": true
+        }
+      }
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.875,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-size-sm",
+          "sassMap": "$font-sizes",
+          "sassKey": "sm",
+          "sassSubKey": "font-size",
+          "sassQuoted": true
+        }
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-size-md",
+          "sassMap": "$font-sizes",
+          "sassKey": "md",
+          "sassSubKey": "font-size",
+          "sassQuoted": true
+        }
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": "clamp(1.125rem, 1rem + .625vw, 1.25rem)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-size-lg",
+          "sassMap": "$font-sizes",
+          "sassKey": "lg",
+          "sassSubKey": "font-size",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": "clamp(1.5rem, 1.1rem + .75vw, 1.75rem)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-size-xl",
+          "sassMap": "$font-sizes",
+          "sassKey": "xl",
+          "sassSubKey": "font-size",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": "clamp(1.75rem, 1.3rem + 1vw, 2rem)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-size-2xl",
+          "sassMap": "$font-sizes",
+          "sassKey": "2xl",
+          "sassSubKey": "font-size",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "3xl": {
+      "$type": "dimension",
+      "$value": "clamp(2rem, 1.5rem + 1.875vw, 2.5rem)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-size-3xl",
+          "sassMap": "$font-sizes",
+          "sassKey": "3xl",
+          "sassSubKey": "font-size",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "4xl": {
+      "$type": "dimension",
+      "$value": "clamp(2.25rem, 1.75rem + 2.5vw, 3rem)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-size-4xl",
+          "sassMap": "$font-sizes",
+          "sassKey": "4xl",
+          "sassSubKey": "font-size",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "5xl": {
+      "$type": "dimension",
+      "$value": "clamp(3rem, 2rem + 5vw, 4rem)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-size-5xl",
+          "sassMap": "$font-sizes",
+          "sassKey": "5xl",
+          "sassSubKey": "font-size",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "6xl": {
+      "$type": "dimension",
+      "$value": "clamp(3.75rem, 2.5rem + 6.25vw, 5rem)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--font-size-6xl",
+          "sassMap": "$font-sizes",
+          "sassKey": "6xl",
+          "sassSubKey": "font-size",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "$description": "Type scale. Sizes from lg up are fluid via clamp()."
+  },
+  "line-height": {
+    "xs": {
+      "$type": "number",
+      "$value": 1.25,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--line-height-xs",
+          "sassMap": "$font-sizes",
+          "sassKey": "xs",
+          "sassSubKey": "line-height",
+          "sassQuoted": true
+        }
+      }
+    },
+    "sm": {
+      "$type": "number",
+      "$value": 1.5,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--line-height-sm",
+          "sassMap": "$font-sizes",
+          "sassKey": "sm",
+          "sassSubKey": "line-height",
+          "sassQuoted": true
+        }
+      }
+    },
+    "md": {
+      "$type": "number",
+      "$value": 1.5,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--line-height-md",
+          "sassMap": "$font-sizes",
+          "sassKey": "md",
+          "sassSubKey": "line-height",
+          "sassQuoted": true
+        }
+      }
+    },
+    "lg": {
+      "$type": "number",
+      "$value": 1.5,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--line-height-lg",
+          "sassMap": "$font-sizes",
+          "sassKey": "lg",
+          "sassSubKey": "line-height",
+          "sassQuoted": true
+        }
+      }
+    },
+    "xl": {
+      "$type": "number",
+      "$value": "calc(2.5 / 1.75)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--line-height-xl",
+          "sassMap": "$font-sizes",
+          "sassKey": "xl",
+          "sassSubKey": "line-height",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "2xl": {
+      "$type": "number",
+      "$value": "calc(3 / 2.25)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--line-height-2xl",
+          "sassMap": "$font-sizes",
+          "sassKey": "2xl",
+          "sassSubKey": "line-height",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "3xl": {
+      "$type": "number",
+      "$value": 1.2,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--line-height-3xl",
+          "sassMap": "$font-sizes",
+          "sassKey": "3xl",
+          "sassSubKey": "line-height",
+          "sassQuoted": true
+        }
+      }
+    },
+    "4xl": {
+      "$type": "number",
+      "$value": 1.1,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--line-height-4xl",
+          "sassMap": "$font-sizes",
+          "sassKey": "4xl",
+          "sassSubKey": "line-height",
+          "sassQuoted": true
+        }
+      }
+    },
+    "5xl": {
+      "$type": "number",
+      "$value": 1.1,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--line-height-5xl",
+          "sassMap": "$font-sizes",
+          "sassKey": "5xl",
+          "sassSubKey": "line-height",
+          "sassQuoted": true
+        }
+      }
+    },
+    "6xl": {
+      "$type": "number",
+      "$value": 1,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--line-height-6xl",
+          "sassMap": "$font-sizes",
+          "sassKey": "6xl",
+          "sassSubKey": "line-height",
+          "sassQuoted": true
+        }
+      }
+    },
+    "$description": "Line height paired with each font size."
+  }
+}

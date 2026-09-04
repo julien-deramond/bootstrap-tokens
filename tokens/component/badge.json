@@ -1,0 +1,128 @@
+{
+  "badge": {
+    "gap": {
+      "$type": "dimension",
+      "$value": ".375em",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--badge-gap",
+          "sassMap": "$badge-tokens",
+          "sassKey": "--badge-gap",
+          "css": true
+        }
+      }
+    },
+    "padding-x": {
+      "$type": "dimension",
+      "$value": ".625em",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--badge-padding-x",
+          "sassMap": "$badge-tokens",
+          "sassKey": "--badge-padding-x",
+          "css": true
+        }
+      }
+    },
+    "padding-y": {
+      "$type": "dimension",
+      "$value": ".25em",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--badge-padding-y",
+          "sassMap": "$badge-tokens",
+          "sassKey": "--badge-padding-y",
+          "css": true
+        }
+      }
+    },
+    "font-size": {
+      "$type": "dimension",
+      "$value": "clamp(12px, .75em, .75em)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--badge-font-size",
+          "sassMap": "$badge-tokens",
+          "sassKey": "--badge-font-size",
+          "css": true
+        }
+      }
+    },
+    "font-weight": {
+      "$type": "fontWeight",
+      "$value": "{font-weight.semibold}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--badge-font-weight",
+          "sassMap": "$badge-tokens",
+          "sassKey": "--badge-font-weight"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "inherit",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--badge-color",
+          "sassMap": "$badge-tokens",
+          "sassKey": "--badge-color",
+          "css": true
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--badge-bg",
+          "sassMap": "$badge-tokens",
+          "sassKey": "--badge-bg"
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--badge-border-width",
+          "sassMap": "$badge-tokens",
+          "sassKey": "--badge-border-width"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "transparent",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--badge-border-color",
+          "sassMap": "$badge-tokens",
+          "sassKey": "--badge-border-color",
+          "css": true
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.7}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--badge-border-radius",
+          "sassMap": "$badge-tokens",
+          "sassKey": "--badge-border-radius"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.badge`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$badge-tokens",
+        "selector": ".badge",
+        "source": "scss/_badge.scss"
+      }
+    }
+  }
+}

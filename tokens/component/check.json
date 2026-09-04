@@ -1,0 +1,183 @@
+{
+  "check": {
+    "size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--check-size",
+          "sassMap": "$check-tokens",
+          "sassKey": "--check-size"
+        }
+      }
+    },
+    "margin-block": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.125,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--check-margin-block",
+          "sassMap": "$check-tokens",
+          "sassKey": "--check-margin-block"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--check-bg",
+          "sassMap": "$check-tokens",
+          "sassKey": "--check-bg"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--check-border-color",
+          "sassMap": "$check-tokens",
+          "sassKey": "--check-border-color"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--check-border-radius",
+          "sassMap": "$check-tokens",
+          "sassKey": "--check-border-radius"
+        }
+      }
+    },
+    "icon-checked": {
+      "$value": "#{url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m5.5 10 3 3 6-6'/%3e%3c/svg%3e\")}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--check-icon-checked",
+          "sassMap": "$check-tokens",
+          "sassKey": "--check-icon-checked",
+          "css": true
+        }
+      }
+    },
+    "icon-indeterminate": {
+      "$value": "#{url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 10h8'/%3e%3c/svg%3e\")}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--check-icon-indeterminate",
+          "sassMap": "$check-tokens",
+          "sassKey": "--check-icon-indeterminate",
+          "css": true
+        }
+      }
+    },
+    "checked-bg": {
+      "$type": "color",
+      "$value": "{control.checked-bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--check-checked-bg",
+          "sassMap": "$check-tokens",
+          "sassKey": "--check-checked-bg"
+        }
+      }
+    },
+    "checked-border-color": {
+      "$type": "color",
+      "$value": "{control.checked-border-color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--check-checked-border-color",
+          "sassMap": "$check-tokens",
+          "sassKey": "--check-checked-border-color"
+        }
+      }
+    },
+    "indeterminate-bg": {
+      "$type": "color",
+      "$value": "{control.checked-bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--check-indeterminate-bg",
+          "sassMap": "$check-tokens",
+          "sassKey": "--check-indeterminate-bg"
+        }
+      }
+    },
+    "indeterminate-border-color": {
+      "$type": "color",
+      "$value": "{control.checked-border-color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--check-indeterminate-border-color",
+          "sassMap": "$check-tokens",
+          "sassKey": "--check-indeterminate-border-color"
+        }
+      }
+    },
+    "active-bg": {
+      "$type": "color",
+      "$value": "{control.active-bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--check-active-bg",
+          "sassMap": "$check-tokens",
+          "sassKey": "--check-active-bg"
+        }
+      }
+    },
+    "active-border-color": {
+      "$type": "color",
+      "$value": "{control.active-border-color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--check-active-border-color",
+          "sassMap": "$check-tokens",
+          "sassKey": "--check-active-border-color"
+        }
+      }
+    },
+    "disabled-bg": {
+      "$type": "color",
+      "$value": "{control.disabled-bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--check-disabled-bg",
+          "sassMap": "$check-tokens",
+          "sassKey": "--check-disabled-bg"
+        }
+      }
+    },
+    "disabled-opacity": {
+      "$type": "number",
+      "$value": "{control.disabled-opacity}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--check-disabled-opacity",
+          "sassMap": "$check-tokens",
+          "sassKey": "--check-disabled-opacity"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.form-check-input`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$check-tokens",
+        "selector": ".form-check-input",
+        "source": "scss/forms/_check.scss"
+      }
+    }
+  }
+}

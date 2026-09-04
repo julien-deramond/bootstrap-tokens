@@ -1,0 +1,261 @@
+{
+  "accordion": {
+    "padding-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-padding-x",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-padding-x"
+        }
+      }
+    },
+    "padding-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-padding-y",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-padding-y"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-color",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-color"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-bg",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-bg"
+        }
+      }
+    },
+    "transition-property": {
+      "$value": "\"color, background-color, border-radius\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-transition-property",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-transition-property",
+          "css": true
+        }
+      }
+    },
+    "transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.15,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-transition-duration",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-transition-duration"
+        }
+      }
+    },
+    "transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "ease-in-out",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-transition-timing",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-transition-timing",
+          "css": true
+        }
+      }
+    },
+    "panel-transition-property": {
+      "$value": "\"content-visibility, block-size\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-panel-transition-property",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-panel-transition-property",
+          "css": true
+        }
+      }
+    },
+    "panel-transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.2,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-panel-transition-duration",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-panel-transition-duration"
+        }
+      }
+    },
+    "panel-transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "ease",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-panel-transition-timing",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-panel-transition-timing",
+          "css": true
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-border-color",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-border-color"
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-border-width",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-border-width"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "var(--accordion-radius, {radius.7})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-border-radius",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-border-radius",
+          "expression": true
+        }
+      }
+    },
+    "gap": {
+      "$type": "number",
+      "$value": 0,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-gap",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-gap"
+        }
+      }
+    },
+    "btn-color": {
+      "$type": "color",
+      "$value": "{fg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-btn-color",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-btn-color"
+        }
+      }
+    },
+    "btn-bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-btn-bg",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-btn-bg"
+        }
+      }
+    },
+    "btn-icon-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-btn-icon-width",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-btn-icon-width"
+        }
+      }
+    },
+    "btn-icon-transform": {
+      "$value": "rotate(-180deg)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-btn-icon-transform",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-btn-icon-transform",
+          "css": true
+        }
+      }
+    },
+    "btn-icon-transition": {
+      "$value": "transform .2s ease-in-out",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-btn-icon-transition",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-btn-icon-transition",
+          "css": true
+        }
+      }
+    },
+    "active-color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-active-color",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-active-color"
+        }
+      }
+    },
+    "active-bg": {
+      "$type": "color",
+      "$value": "{bg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--accordion-active-bg",
+          "sassMap": "$accordion-tokens",
+          "sassKey": "--accordion-active-bg"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.accordion`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$accordion-tokens",
+        "selector": ".accordion",
+        "source": "scss/_accordion.scss"
+      }
+    }
+  }
+}

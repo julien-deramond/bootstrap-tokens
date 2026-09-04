@@ -1,0 +1,59 @@
+{
+  "hover-lift": {
+    "transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.2,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--hover-lift-transition-duration",
+          "sassMap": "$hover-lift-tokens",
+          "sassKey": "--hover-lift-transition-duration"
+        }
+      }
+    },
+    "transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "ease",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--hover-lift-transition-timing",
+          "sassMap": "$hover-lift-tokens",
+          "sassKey": "--hover-lift-transition-timing",
+          "css": true
+        }
+      }
+    },
+    "transform": {
+      "$value": "translateY(-.25rem)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--hover-lift-transform",
+          "sassMap": "$hover-lift-tokens",
+          "sassKey": "--hover-lift-transform",
+          "css": true
+        }
+      }
+    },
+    "box-shadow": {
+      "$value": "{shadow.lg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--hover-lift-box-shadow",
+          "sassMap": "$hover-lift-tokens",
+          "sassKey": "--hover-lift-box-shadow"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.hover-lift`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$hover-lift-tokens",
+        "selector": ".hover-lift",
+        "source": "scss/helpers/_hover-lift.scss"
+      }
+    }
+  }
+}

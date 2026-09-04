@@ -1,0 +1,81 @@
+{
+  "reboot-kbd": {
+    "kbd-padding-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.125,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--kbd-padding-y",
+          "sassMap": "$reboot-kbd-tokens",
+          "sassKey": "--kbd-padding-y"
+        }
+      }
+    },
+    "kbd-padding-x": {
+      "$type": "dimension",
+      "$value": "{spacing.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--kbd-padding-x",
+          "sassMap": "$reboot-kbd-tokens",
+          "sassKey": "--kbd-padding-x"
+        }
+      }
+    },
+    "kbd-font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.xs}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--kbd-font-size",
+          "sassMap": "$reboot-kbd-tokens",
+          "sassKey": "--kbd-font-size"
+        }
+      }
+    },
+    "kbd-color": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--kbd-color",
+          "sassMap": "$reboot-kbd-tokens",
+          "sassKey": "--kbd-color"
+        }
+      }
+    },
+    "kbd-bg": {
+      "$type": "color",
+      "$value": "{fg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--kbd-bg",
+          "sassMap": "$reboot-kbd-tokens",
+          "sassKey": "--kbd-bg"
+        }
+      }
+    },
+    "kbd-border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--kbd-border-radius",
+          "sassMap": "$reboot-kbd-tokens",
+          "sassKey": "--kbd-border-radius"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `kbd`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$reboot-kbd-tokens",
+        "selector": "kbd",
+        "source": "scss/content/_reboot.scss"
+      }
+    }
+  }
+}

@@ -1,0 +1,222 @@
+{
+  "toast": {
+    "zindex": {
+      "$value": "{z-index.toast}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-zindex",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-zindex"
+        }
+      }
+    },
+    "padding-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-padding-x",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-padding-x"
+        }
+      }
+    },
+    "padding-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-padding-y",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-padding-y"
+        }
+      }
+    },
+    "spacing": {
+      "$value": "{grid.container-padding-x}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-spacing",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-spacing"
+        }
+      }
+    },
+    "max-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 350,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-max-width",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-max-width"
+        }
+      }
+    },
+    "font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.sm}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-font-size",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-font-size"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "null",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-color",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-color",
+          "css": true
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-bg",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-bg"
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-border-width",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-border-width"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color-translucent}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-border-color",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-border-color"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "null",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-border-radius",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-border-radius",
+          "css": true
+        }
+      }
+    },
+    "box-shadow": {
+      "$value": "{shadow.default}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-box-shadow",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-box-shadow"
+        }
+      }
+    },
+    "header-color": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-header-color",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-header-color"
+        }
+      }
+    },
+    "header-bg": {
+      "$type": "color",
+      "$value": "{bg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-header-bg",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-header-bg"
+        }
+      }
+    },
+    "header-border-color": {
+      "$type": "color",
+      "$value": "{border.color-translucent}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-header-border-color",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-header-border-color"
+        }
+      }
+    },
+    "transition-property": {
+      "$value": "\"opacity, display\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-transition-property",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-transition-property",
+          "css": true
+        }
+      }
+    },
+    "transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.15,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-transition-duration",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-transition-duration"
+        }
+      }
+    },
+    "transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "linear",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--toast-transition-timing",
+          "sassMap": "$toast-tokens",
+          "sassKey": "--toast-transition-timing",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.toast`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$toast-tokens",
+        "selector": ".toast",
+        "source": "scss/_toasts.scss"
+      }
+    }
+  }
+}

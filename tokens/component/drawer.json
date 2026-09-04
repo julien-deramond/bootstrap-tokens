@@ -1,0 +1,219 @@
+{
+  "drawer": {
+    "inset": {
+      "$type": "dimension",
+      "$value": "{spacing.root}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-inset",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-inset"
+        }
+      }
+    },
+    "zindex": {
+      "$value": "{z-index.drawer}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-zindex",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-zindex"
+        }
+      }
+    },
+    "width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 400,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-width",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-width"
+        }
+      }
+    },
+    "height": {
+      "$type": "dimension",
+      "$value": "30vh",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-height",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-height",
+          "css": true
+        }
+      }
+    },
+    "padding-x": {
+      "$type": "dimension",
+      "$value": "{spacing.root}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-padding-x",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-padding-x"
+        }
+      }
+    },
+    "padding-y": {
+      "$type": "dimension",
+      "$value": "{spacing.root}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-padding-y",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-padding-y"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-color",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-color"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-bg",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-bg"
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-border-width",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-border-width"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color-translucent}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-border-color",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-border-color"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.7}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-border-radius",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-border-radius"
+        }
+      }
+    },
+    "box-shadow": {
+      "$value": "{shadow.xl}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-box-shadow",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-box-shadow"
+        }
+      }
+    },
+    "transition-property": {
+      "$value": "\"transform, visibility\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-transition-property",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-transition-property",
+          "css": true
+        }
+      }
+    },
+    "transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.3,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-transition-duration",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-transition-duration"
+        }
+      }
+    },
+    "transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "{motion.timing-overlay}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-transition-timing",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-transition-timing"
+        }
+      }
+    },
+    "title-line-height": {
+      "$type": "number",
+      "$value": 1.5,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-title-line-height",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-title-line-height"
+        }
+      }
+    },
+    "backdrop-bg": {
+      "$type": "color",
+      "$value": "color-mix(in oklch, {bg.body} 25%, transparent)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-backdrop-bg",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-backdrop-bg",
+          "expression": true
+        }
+      }
+    },
+    "backdrop-blur": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--drawer-backdrop-blur",
+          "sassMap": "$drawer-tokens",
+          "sassKey": "--drawer-backdrop-blur"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.drawer`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$drawer-tokens",
+        "selector": ".drawer",
+        "source": "scss/_drawer.scss"
+      }
+    }
+  }
+}

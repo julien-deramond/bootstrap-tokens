@@ -1,0 +1,93 @@
+{
+  "btn-close": {
+    "size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-close-size",
+          "sassMap": "$btn-close-tokens",
+          "sassKey": "--btn-close-size"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "inherit",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-close-color",
+          "sassMap": "$btn-close-tokens",
+          "sassKey": "--btn-close-color",
+          "css": true
+        }
+      }
+    },
+    "icon": {
+      "$value": "#{url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath d='M12 0a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4zm-.646 4.646a.5.5 0 0 0-.707 0L8 7.293 5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.647a.5.5 0 1 0 .708.707L8 8.707l2.647 2.646a.5.5 0 1 0 .707-.707L8.707 8l2.646-2.646a.5.5 0 0 0 0-.708z'/%3e%3c/svg%3e\")}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-close-icon",
+          "sassMap": "$btn-close-tokens",
+          "sassKey": "--btn-close-icon",
+          "css": true
+        }
+      }
+    },
+    "opacity": {
+      "$type": "number",
+      "$value": 0.5,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-close-opacity",
+          "sassMap": "$btn-close-tokens",
+          "sassKey": "--btn-close-opacity"
+        }
+      }
+    },
+    "hover-opacity": {
+      "$type": "number",
+      "$value": 0.75,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-close-hover-opacity",
+          "sassMap": "$btn-close-tokens",
+          "sassKey": "--btn-close-hover-opacity"
+        }
+      }
+    },
+    "focus-opacity": {
+      "$type": "number",
+      "$value": 0.85,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-close-focus-opacity",
+          "sassMap": "$btn-close-tokens",
+          "sassKey": "--btn-close-focus-opacity"
+        }
+      }
+    },
+    "disabled-opacity": {
+      "$type": "number",
+      "$value": 0.25,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-close-disabled-opacity",
+          "sassMap": "$btn-close-tokens",
+          "sassKey": "--btn-close-disabled-opacity"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.btn-close`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$btn-close-tokens",
+        "selector": ".btn-close",
+        "source": "scss/buttons/_close.scss"
+      }
+    }
+  }
+}

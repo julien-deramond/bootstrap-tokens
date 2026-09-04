@@ -1,0 +1,104 @@
+{
+  "datepicker": {
+    "padding": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-padding",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-padding"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-bg",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-bg"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color-translucent}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-border-color",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-border-color"
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-border-width",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-border-width"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.7}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-border-radius",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-border-radius"
+        }
+      }
+    },
+    "box-shadow": {
+      "$value": "{shadow.default}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-box-shadow",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-box-shadow"
+        }
+      }
+    },
+    "min-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 280,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-min-width",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-min-width"
+        }
+      }
+    },
+    "zindex": {
+      "$value": "{z-index.menu}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-zindex",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-zindex"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.datepicker`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$datepicker-tokens",
+        "selector": ".datepicker",
+        "source": "scss/_datepicker.scss"
+      }
+    }
+  }
+}

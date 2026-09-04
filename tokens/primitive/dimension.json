@@ -1,0 +1,611 @@
+{
+  "spacing": {
+    "0": {
+      "$type": "number",
+      "$value": 0,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spacer-0",
+          "sassMap": "$spacers",
+          "sassKey": "0"
+        }
+      }
+    },
+    "1": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * .25",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spacer-1",
+          "sassMap": "$spacers",
+          "sassKey": "1",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "2": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * .5",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spacer-2",
+          "sassMap": "$spacers",
+          "sassKey": "2",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "3": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * .75",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spacer-3",
+          "sassMap": "$spacers",
+          "sassKey": "3",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "4": {
+      "$type": "dimension",
+      "$value": "{spacing.base}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spacer-4",
+          "sassMap": "$spacers",
+          "sassKey": "4"
+        }
+      }
+    },
+    "5": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * 1.25",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spacer-5",
+          "sassMap": "$spacers",
+          "sassKey": "5",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "6": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * 1.5",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spacer-6",
+          "sassMap": "$spacers",
+          "sassKey": "6",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "7": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * 2",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spacer-7",
+          "sassMap": "$spacers",
+          "sassKey": "7",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * 2.5",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spacer-8",
+          "sassMap": "$spacers",
+          "sassKey": "8",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "9": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * 3",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spacer-9",
+          "sassMap": "$spacers",
+          "sassKey": "9",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "base": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassVar": "$spacer"
+        }
+      }
+    },
+    "root": {
+      "$type": "dimension",
+      "$value": "{spacing.base}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spacer",
+          "sassMap": "$root-tokens",
+          "sassKey": "--spacer"
+        }
+      }
+    },
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "order": [
+          "base",
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "root"
+        ]
+      }
+    },
+    "$description": "The spacing scale. Every step is a multiple of the base spacer."
+  },
+  "radius": {
+    "0": {
+      "$type": "number",
+      "$value": 0,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radius-0",
+          "sassMap": "$radii",
+          "sassKey": "0"
+        }
+      }
+    },
+    "1": {
+      "$type": "dimension",
+      "$value": "{radius.base} * .25",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radius-1",
+          "sassMap": "$radii",
+          "sassKey": "1",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "2": {
+      "$type": "dimension",
+      "$value": "{radius.base} * .375",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radius-2",
+          "sassMap": "$radii",
+          "sassKey": "2",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "3": {
+      "$type": "dimension",
+      "$value": "{radius.base} * .5",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radius-3",
+          "sassMap": "$radii",
+          "sassKey": "3",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "4": {
+      "$type": "dimension",
+      "$value": "{radius.base} * .75",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radius-4",
+          "sassMap": "$radii",
+          "sassKey": "4",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "5": {
+      "$type": "dimension",
+      "$value": "{radius.base}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radius-5",
+          "sassMap": "$radii",
+          "sassKey": "5"
+        }
+      }
+    },
+    "6": {
+      "$type": "dimension",
+      "$value": "{radius.base} * 1.25",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radius-6",
+          "sassMap": "$radii",
+          "sassKey": "6",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "7": {
+      "$type": "dimension",
+      "$value": "{radius.base} * 1.5",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radius-7",
+          "sassMap": "$radii",
+          "sassKey": "7",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": "{radius.base} * 2",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radius-8",
+          "sassMap": "$radii",
+          "sassKey": "8",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "9": {
+      "$type": "dimension",
+      "$value": "{radius.base} * 3",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radius-9",
+          "sassMap": "$radii",
+          "sassKey": "9",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "base": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassVar": "$radius"
+        }
+      }
+    },
+    "pill": {
+      "$type": "dimension",
+      "$value": {
+        "value": 50,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radius-pill",
+          "readonly": "Set directly on $root-tokens after the $radii loop; not overridable through a map."
+        }
+      }
+    },
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "order": [
+          "base",
+          "0",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5",
+          "6",
+          "7",
+          "8",
+          "9",
+          "pill"
+        ]
+      }
+    },
+    "$description": "The corner-radius scale, derived from the base radius."
+  },
+  "spacing-negative": {
+    "-1": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * -.25",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$negative-spacers",
+          "sassKey": "-1",
+          "sassQuoted": true,
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "-2": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * -.5",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$negative-spacers",
+          "sassKey": "-2",
+          "sassQuoted": true,
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "$description": "Negative spacing steps, used by margin utilities."
+  },
+  "size": {
+    "1": {
+      "$type": "dimension",
+      "$value": "{spacing.base}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$sizes",
+          "sassKey": "1"
+        }
+      }
+    },
+    "2": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * 2",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$sizes",
+          "sassKey": "2",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "3": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * 3",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$sizes",
+          "sassKey": "3",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "4": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * 4",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$sizes",
+          "sassKey": "4",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "5": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * 5",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$sizes",
+          "sassKey": "5",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "6": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * 6",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$sizes",
+          "sassKey": "6",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "7": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * 7",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$sizes",
+          "sassKey": "7",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "8": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * 8",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$sizes",
+          "sassKey": "8",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "9": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * 9",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$sizes",
+          "sassKey": "9",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "10": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * 10",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$sizes",
+          "sassKey": "10",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "11": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * 11",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$sizes",
+          "sassKey": "11",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "12": {
+      "$type": "dimension",
+      "$value": "{spacing.base} * 12",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$sizes",
+          "sassKey": "12",
+          "expression": true,
+          "arithmetic": true
+        }
+      }
+    },
+    "$description": "Width/height sizing steps."
+  },
+  "border-width": {
+    "1": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$border-widths",
+          "sassKey": "1"
+        }
+      }
+    },
+    "2": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$border-widths",
+          "sassKey": "2"
+        }
+      }
+    },
+    "3": {
+      "$type": "dimension",
+      "$value": {
+        "value": 3,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$border-widths",
+          "sassKey": "3"
+        }
+      }
+    },
+    "4": {
+      "$type": "dimension",
+      "$value": {
+        "value": 4,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$border-widths",
+          "sassKey": "4"
+        }
+      }
+    },
+    "5": {
+      "$type": "dimension",
+      "$value": {
+        "value": 5,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$border-widths",
+          "sassKey": "5"
+        }
+      }
+    },
+    "keyline": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$border-widths",
+          "sassKey": "keyline"
+        }
+      }
+    },
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "order": [
+          "keyline",
+          "1",
+          "2",
+          "3",
+          "4",
+          "5"
+        ]
+      }
+    },
+    "$description": "Available border widths."
+  }
+}

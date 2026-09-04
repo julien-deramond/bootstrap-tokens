@@ -1,0 +1,296 @@
+{
+  "grid": {
+    "columns": {
+      "$type": "number",
+      "$value": 12,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassVar": "$grid-columns"
+        }
+      }
+    },
+    "row-columns": {
+      "$type": "number",
+      "$value": 6,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassVar": "$grid-row-columns"
+        }
+      }
+    },
+    "gutter-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassVar": "$grid-gutter-x"
+        }
+      }
+    },
+    "gutter-y": {
+      "$type": "number",
+      "$value": 0,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassVar": "$grid-gutter-y"
+        }
+      }
+    },
+    "container-padding-x": {
+      "$type": "dimension",
+      "$value": "{grid.gutter-x}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassVar": "$container-padding-x"
+        }
+      }
+    },
+    "$description": "Grid column count and gutter sizes."
+  },
+  "breakpoint": {
+    "xs": {
+      "$type": "number",
+      "$value": 0,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breakpoint-xs",
+          "sassMap": "$breakpoints",
+          "sassKey": "xs"
+        }
+      }
+    },
+    "sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 576,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breakpoint-sm",
+          "sassMap": "$breakpoints",
+          "sassKey": "sm"
+        }
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": {
+        "value": 768,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breakpoint-md",
+          "sassMap": "$breakpoints",
+          "sassKey": "md"
+        }
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1024,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breakpoint-lg",
+          "sassMap": "$breakpoints",
+          "sassKey": "lg"
+        }
+      }
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1280,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breakpoint-xl",
+          "sassMap": "$breakpoints",
+          "sassKey": "xl"
+        }
+      }
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1536,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breakpoint-2xl",
+          "sassMap": "$breakpoints",
+          "sassKey": "2xl"
+        }
+      }
+    },
+    "$description": "Minimum viewport widths at which the layout changes."
+  },
+  "container": {
+    "sm": {
+      "$type": "dimension",
+      "$value": {
+        "value": 540,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$container-max-widths",
+          "sassKey": "sm"
+        }
+      }
+    },
+    "md": {
+      "$type": "dimension",
+      "$value": {
+        "value": 720,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$container-max-widths",
+          "sassKey": "md"
+        }
+      }
+    },
+    "lg": {
+      "$type": "dimension",
+      "$value": {
+        "value": 960,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$container-max-widths",
+          "sassKey": "lg"
+        }
+      }
+    },
+    "xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1200,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$container-max-widths",
+          "sassKey": "xl"
+        }
+      }
+    },
+    "2xl": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1440,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$container-max-widths",
+          "sassKey": "2xl"
+        }
+      }
+    },
+    "$description": "Maximum `.container` width at each breakpoint."
+  },
+  "aspect-ratio": {
+    "auto": {
+      "$value": "auto",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$aspect-ratios",
+          "sassKey": "auto",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "1x1": {
+      "$value": "#{\"1 / 1\"}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$aspect-ratios",
+          "sassKey": "1x1",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "4x3": {
+      "$value": "#{\"4 / 3\"}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$aspect-ratios",
+          "sassKey": "4x3",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "16x9": {
+      "$value": "#{\"16 / 9\"}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$aspect-ratios",
+          "sassKey": "16x9",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "21x9": {
+      "$value": "#{\"21 / 9\"}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$aspect-ratios",
+          "sassKey": "21x9",
+          "sassQuoted": true,
+          "css": true
+        }
+      }
+    },
+    "$description": "Named aspect ratios for the ratio helper."
+  },
+  "position": {
+    "0": {
+      "$type": "number",
+      "$value": 0,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$position-values",
+          "sassKey": "0"
+        }
+      }
+    },
+    "50": {
+      "$value": "50%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$position-values",
+          "sassKey": "50",
+          "css": true
+        }
+      }
+    },
+    "100": {
+      "$value": "100%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassMap": "$position-values",
+          "sassKey": "100",
+          "css": true
+        }
+      }
+    },
+    "$description": "Offsets used by the position utilities."
+  }
+}

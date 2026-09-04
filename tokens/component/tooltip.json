@@ -1,0 +1,179 @@
+{
+  "tooltip": {
+    "zindex": {
+      "$value": "{z-index.tooltip}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tooltip-zindex",
+          "sassMap": "$tooltip-tokens",
+          "sassKey": "--tooltip-zindex"
+        }
+      }
+    },
+    "max-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 200,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tooltip-max-width",
+          "sassMap": "$tooltip-tokens",
+          "sassKey": "--tooltip-max-width"
+        }
+      }
+    },
+    "padding-x": {
+      "$type": "dimension",
+      "$value": "{spacing.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tooltip-padding-x",
+          "sassMap": "$tooltip-tokens",
+          "sassKey": "--tooltip-padding-x"
+        }
+      }
+    },
+    "padding-y": {
+      "$type": "dimension",
+      "$value": "calc({spacing.root} * .375)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tooltip-padding-y",
+          "sassMap": "$tooltip-tokens",
+          "sassKey": "--tooltip-padding-y",
+          "expression": true
+        }
+      }
+    },
+    "font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.sm}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tooltip-font-size",
+          "sassMap": "$tooltip-tokens",
+          "sassKey": "--tooltip-font-size"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tooltip-color",
+          "sassMap": "$tooltip-tokens",
+          "sassKey": "--tooltip-color"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tooltip-bg",
+          "sassMap": "$tooltip-tokens",
+          "sassKey": "--tooltip-bg"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tooltip-border-radius",
+          "sassMap": "$tooltip-tokens",
+          "sassKey": "--tooltip-border-radius"
+        }
+      }
+    },
+    "opacity": {
+      "$type": "number",
+      "$value": 0.95,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tooltip-opacity",
+          "sassMap": "$tooltip-tokens",
+          "sassKey": "--tooltip-opacity"
+        }
+      }
+    },
+    "arrow-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.8,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tooltip-arrow-width",
+          "sassMap": "$tooltip-tokens",
+          "sassKey": "--tooltip-arrow-width"
+        }
+      }
+    },
+    "arrow-height": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.4,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tooltip-arrow-height",
+          "sassMap": "$tooltip-tokens",
+          "sassKey": "--tooltip-arrow-height"
+        }
+      }
+    },
+    "transition-property": {
+      "$value": "\"opacity\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tooltip-transition-property",
+          "sassMap": "$tooltip-tokens",
+          "sassKey": "--tooltip-transition-property",
+          "css": true
+        }
+      }
+    },
+    "transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.15,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tooltip-transition-duration",
+          "sassMap": "$tooltip-tokens",
+          "sassKey": "--tooltip-transition-duration"
+        }
+      }
+    },
+    "transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "linear",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--tooltip-transition-timing",
+          "sassMap": "$tooltip-tokens",
+          "sassKey": "--tooltip-transition-timing",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.tooltip`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$tooltip-tokens",
+        "selector": ".tooltip",
+        "source": "scss/_tooltip.scss"
+      }
+    }
+  }
+}

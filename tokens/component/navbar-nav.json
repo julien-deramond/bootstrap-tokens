@@ -1,0 +1,152 @@
+{
+  "navbar-nav": {
+    "nav-gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-gap",
+          "sassMap": "$navbar-nav-tokens",
+          "sassKey": "--nav-gap"
+        }
+      }
+    },
+    "nav-link-gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-gap",
+          "sassMap": "$navbar-nav-tokens",
+          "sassKey": "--nav-link-gap"
+        }
+      }
+    },
+    "nav-link-padding-x": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-padding-x",
+          "sassMap": "$navbar-nav-tokens",
+          "sassKey": "--nav-link-padding-x"
+        }
+      }
+    },
+    "nav-link-padding-y": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.375,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-padding-y",
+          "sassMap": "$navbar-nav-tokens",
+          "sassKey": "--nav-link-padding-y"
+        }
+      }
+    },
+    "nav-link-color": {
+      "$type": "color",
+      "$value": "var(--navbar-color)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-color",
+          "sassMap": "$navbar-nav-tokens",
+          "sassKey": "--nav-link-color",
+          "css": true
+        }
+      }
+    },
+    "nav-link-border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-border-width",
+          "sassMap": "$navbar-nav-tokens",
+          "sassKey": "--nav-link-border-width"
+        }
+      }
+    },
+    "nav-link-hover-color": {
+      "$type": "color",
+      "$value": "var(--navbar-hover-color)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-hover-color",
+          "sassMap": "$navbar-nav-tokens",
+          "sassKey": "--nav-link-hover-color",
+          "css": true
+        }
+      }
+    },
+    "nav-link-hover-bg": {
+      "$type": "color",
+      "$value": "transparent",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-hover-bg",
+          "sassMap": "$navbar-nav-tokens",
+          "sassKey": "--nav-link-hover-bg",
+          "css": true
+        }
+      }
+    },
+    "nav-link-active-color": {
+      "$type": "color",
+      "$value": "var(--navbar-active-color)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-active-color",
+          "sassMap": "$navbar-nav-tokens",
+          "sassKey": "--nav-link-active-color",
+          "css": true
+        }
+      }
+    },
+    "nav-link-active-bg": {
+      "$type": "color",
+      "$value": "transparent",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-active-bg",
+          "sassMap": "$navbar-nav-tokens",
+          "sassKey": "--nav-link-active-bg",
+          "css": true
+        }
+      }
+    },
+    "nav-link-disabled-color": {
+      "$type": "color",
+      "$value": "var(--navbar-disabled-color)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-disabled-color",
+          "sassMap": "$navbar-nav-tokens",
+          "sassKey": "--nav-link-disabled-color",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.navbar-nav`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$navbar-nav-tokens",
+        "selector": ".navbar-nav",
+        "source": "scss/_navbar.scss",
+        "variantOf": "navbar"
+      }
+    }
+  }
+}

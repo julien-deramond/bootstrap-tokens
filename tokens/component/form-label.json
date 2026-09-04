@@ -1,0 +1,71 @@
+{
+  "form-label": {
+    "label-margin-bottom": {
+      "$type": "dimension",
+      "$value": "calc({spacing.root} / 2)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--label-margin-bottom",
+          "sassMap": "$form-label-tokens",
+          "sassKey": "--label-margin-bottom",
+          "expression": true
+        }
+      }
+    },
+    "label-font-size": {
+      "$type": "dimension",
+      "$value": "null",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--label-font-size",
+          "sassMap": "$form-label-tokens",
+          "sassKey": "--label-font-size",
+          "css": true
+        }
+      }
+    },
+    "label-font-style": {
+      "$value": "null",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--label-font-style",
+          "sassMap": "$form-label-tokens",
+          "sassKey": "--label-font-style",
+          "css": true
+        }
+      }
+    },
+    "label-font-weight": {
+      "$type": "fontWeight",
+      "$value": "null",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--label-font-weight",
+          "sassMap": "$form-label-tokens",
+          "sassKey": "--label-font-weight",
+          "css": true
+        }
+      }
+    },
+    "label-color": {
+      "$type": "color",
+      "$value": "null",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--label-color",
+          "sassMap": "$form-label-tokens",
+          "sassKey": "--label-color",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.form-label`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$form-label-tokens",
+        "selector": ".form-label",
+        "source": "scss/forms/_labels.scss"
+      }
+    }
+  }
+}

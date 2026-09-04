@@ -1,0 +1,104 @@
+{
+  "blockquote": {
+    "gap": {
+      "$type": "dimension",
+      "$value": "calc({spacing.root} / 2)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--blockquote-gap",
+          "sassMap": "$blockquote-tokens",
+          "sassKey": "--blockquote-gap",
+          "expression": true
+        }
+      }
+    },
+    "padding-x": {
+      "$type": "dimension",
+      "$value": "{spacing.root}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--blockquote-padding-x",
+          "sassMap": "$blockquote-tokens",
+          "sassKey": "--blockquote-padding-x"
+        }
+      }
+    },
+    "margin-y": {
+      "$type": "dimension",
+      "$value": "{spacing.root}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--blockquote-margin-y",
+          "sassMap": "$blockquote-tokens",
+          "sassKey": "--blockquote-margin-y"
+        }
+      }
+    },
+    "font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.md}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--blockquote-font-size",
+          "sassMap": "$blockquote-tokens",
+          "sassKey": "--blockquote-font-size"
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--blockquote-border-width",
+          "sassMap": "$blockquote-tokens",
+          "sassKey": "--blockquote-border-width"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--blockquote-border-color",
+          "sassMap": "$blockquote-tokens",
+          "sassKey": "--blockquote-border-color"
+        }
+      }
+    },
+    "footer-font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.sm}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--blockquote-footer-font-size",
+          "sassMap": "$blockquote-tokens",
+          "sassKey": "--blockquote-footer-font-size"
+        }
+      }
+    },
+    "footer-color": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--blockquote-footer-color",
+          "sassMap": "$blockquote-tokens",
+          "sassKey": "--blockquote-footer-color"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.blockquote`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$blockquote-tokens",
+        "selector": ".blockquote",
+        "source": "scss/content/_blockquote.scss"
+      }
+    }
+  }
+}

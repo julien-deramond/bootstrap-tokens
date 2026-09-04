@@ -1,0 +1,81 @@
+{
+  "spinner-border": {
+    "spinner-width": {
+      "$type": "dimension",
+      "$value": "1em",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spinner-width",
+          "sassMap": "$spinner-border-tokens",
+          "sassKey": "--spinner-width",
+          "css": true
+        }
+      }
+    },
+    "spinner-height": {
+      "$type": "dimension",
+      "$value": "1em",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spinner-height",
+          "sassMap": "$spinner-border-tokens",
+          "sassKey": "--spinner-height",
+          "css": true
+        }
+      }
+    },
+    "width": {
+      "$type": "dimension",
+      "$value": ".125em",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spinner-border-width",
+          "sassMap": "$spinner-border-tokens",
+          "sassKey": "--spinner-border-width",
+          "css": true
+        }
+      }
+    },
+    "spinner-animation-speed": {
+      "$value": "1s",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spinner-animation-speed",
+          "sassMap": "$spinner-border-tokens",
+          "sassKey": "--spinner-animation-speed",
+          "css": true
+        }
+      }
+    },
+    "spinner-animation-timing-function": {
+      "$value": "linear",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spinner-animation-timing-function",
+          "sassMap": "$spinner-border-tokens",
+          "sassKey": "--spinner-animation-timing-function",
+          "css": true
+        }
+      }
+    },
+    "spinner-animation-name": {
+      "$value": "spinner-border",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spinner-animation-name",
+          "sassMap": "$spinner-border-tokens",
+          "sassKey": "--spinner-animation-name",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.spinner-border`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$spinner-border-tokens",
+        "selector": ".spinner-border",
+        "source": "scss/_spinner.scss"
+      }
+    }
+  }
+}

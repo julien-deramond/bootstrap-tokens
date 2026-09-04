@@ -1,0 +1,103 @@
+{
+  "otp": {
+    "size": {
+      "$type": "dimension",
+      "$value": "{control.field.lg.min-height}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--otp-size",
+          "sassMap": "$otp-tokens",
+          "sassKey": "--otp-size"
+        }
+      }
+    },
+    "font-size": {
+      "$type": "dimension",
+      "$value": "{control.field.font-size}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--otp-font-size",
+          "sassMap": "$otp-tokens",
+          "sassKey": "--otp-font-size"
+        }
+      }
+    },
+    "gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--otp-gap",
+          "sassMap": "$otp-tokens",
+          "sassKey": "--otp-gap"
+        }
+      }
+    },
+    "slot-fg": {
+      "$type": "color",
+      "$value": "{control.field.fg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--otp-slot-fg",
+          "sassMap": "$otp-tokens",
+          "sassKey": "--otp-slot-fg"
+        }
+      }
+    },
+    "slot-bg": {
+      "$type": "color",
+      "$value": "{control.field.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--otp-slot-bg",
+          "sassMap": "$otp-tokens",
+          "sassKey": "--otp-slot-bg"
+        }
+      }
+    },
+    "slot-border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--otp-slot-border-width",
+          "sassMap": "$otp-tokens",
+          "sassKey": "--otp-slot-border-width"
+        }
+      }
+    },
+    "slot-border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--otp-slot-border-color",
+          "sassMap": "$otp-tokens",
+          "sassKey": "--otp-slot-border-color"
+        }
+      }
+    },
+    "slot-border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--otp-slot-border-radius",
+          "sassMap": "$otp-tokens",
+          "sassKey": "--otp-slot-border-radius"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.otp-input`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$otp-tokens",
+        "selector": ".otp-input",
+        "source": "scss/forms/_otp-input.scss"
+      }
+    }
+  }
+}

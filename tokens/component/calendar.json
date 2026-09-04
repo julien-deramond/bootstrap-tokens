@@ -1,0 +1,133 @@
+{
+  "calendar": {
+    "padding": {
+      "$type": "number",
+      "$value": 0,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--calendar-padding",
+          "sassMap": "$calendar-tokens",
+          "sassKey": "--calendar-padding"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--calendar-color",
+          "sassMap": "$calendar-tokens",
+          "sassKey": "--calendar-color"
+        }
+      }
+    },
+    "font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.sm}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--calendar-font-size",
+          "sassMap": "$calendar-tokens",
+          "sassKey": "--calendar-font-size"
+        }
+      }
+    },
+    "header-font-weight": {
+      "$type": "fontWeight",
+      "$value": 600,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--calendar-header-font-weight",
+          "sassMap": "$calendar-tokens",
+          "sassKey": "--calendar-header-font-weight"
+        }
+      }
+    },
+    "weekday-color": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--calendar-weekday-color",
+          "sassMap": "$calendar-tokens",
+          "sassKey": "--calendar-weekday-color"
+        }
+      }
+    },
+    "day-hover-bg": {
+      "$type": "color",
+      "$value": "{bg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--calendar-day-hover-bg",
+          "sassMap": "$calendar-tokens",
+          "sassKey": "--calendar-day-hover-bg"
+        }
+      }
+    },
+    "day-selected-bg": {
+      "$type": "color",
+      "$value": "{theme-color.primary.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--calendar-day-selected-bg",
+          "sassMap": "$calendar-tokens",
+          "sassKey": "--calendar-day-selected-bg"
+        }
+      }
+    },
+    "day-selected-color": {
+      "$type": "color",
+      "$value": "{theme-color.primary.contrast}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--calendar-day-selected-color",
+          "sassMap": "$calendar-tokens",
+          "sassKey": "--calendar-day-selected-color"
+        }
+      }
+    },
+    "day-today-bg": {
+      "$type": "color",
+      "$value": "{bg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--calendar-day-today-bg",
+          "sassMap": "$calendar-tokens",
+          "sassKey": "--calendar-day-today-bg"
+        }
+      }
+    },
+    "day-today-color": {
+      "$type": "color",
+      "$value": "{fg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--calendar-day-today-color",
+          "sassMap": "$calendar-tokens",
+          "sassKey": "--calendar-day-today-color"
+        }
+      }
+    },
+    "day-disabled-color": {
+      "$type": "color",
+      "$value": "{fg.4}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--calendar-day-disabled-color",
+          "sassMap": "$calendar-tokens",
+          "sassKey": "--calendar-day-disabled-color"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.calendar`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$calendar-tokens",
+        "selector": ".calendar",
+        "source": "scss/_calendar.scss"
+      }
+    }
+  }
+}

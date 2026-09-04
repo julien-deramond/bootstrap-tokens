@@ -1,0 +1,21 @@
+{
+  "motion": {
+    "timing-overlay": {
+      "$type": "cubicBezier",
+      "$value": [
+        0.22,
+        1,
+        0.36,
+        1
+      ],
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--transition-timing-overlay",
+          "sassMap": "$root-tokens",
+          "sassKey": "--transition-timing-overlay"
+        }
+      }
+    },
+    "$description": "Shared easing curves."
+  }
+}

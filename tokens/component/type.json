@@ -1,0 +1,116 @@
+{
+  "type": {
+    "heading-margin-bottom": {
+      "$type": "dimension",
+      "$value": "{spacing.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--heading-margin-bottom",
+          "sassMap": "$type-tokens",
+          "sassKey": "--heading-margin-bottom"
+        }
+      }
+    },
+    "heading-font-family": {
+      "$type": "fontFamily",
+      "$value": "null",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--heading-font-family",
+          "sassMap": "$type-tokens",
+          "sassKey": "--heading-font-family",
+          "css": true
+        }
+      }
+    },
+    "heading-font-style": {
+      "$value": "null",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--heading-font-style",
+          "sassMap": "$type-tokens",
+          "sassKey": "--heading-font-style",
+          "css": true
+        }
+      }
+    },
+    "heading-line-height": {
+      "$type": "number",
+      "$value": 1.2,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--heading-line-height",
+          "sassMap": "$type-tokens",
+          "sassKey": "--heading-line-height"
+        }
+      }
+    },
+    "paragraph-margin-bottom": {
+      "$type": "dimension",
+      "$value": "{spacing.root}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--paragraph-margin-bottom",
+          "sassMap": "$type-tokens",
+          "sassKey": "--paragraph-margin-bottom"
+        }
+      }
+    },
+    "legend-margin-bottom": {
+      "$type": "dimension",
+      "$value": "{spacing.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--legend-margin-bottom",
+          "sassMap": "$type-tokens",
+          "sassKey": "--legend-margin-bottom"
+        }
+      }
+    },
+    "legend-font-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--legend-font-size",
+          "sassMap": "$type-tokens",
+          "sassKey": "--legend-font-size"
+        }
+      }
+    },
+    "legend-font-weight": {
+      "$type": "fontWeight",
+      "$value": "null",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--legend-font-weight",
+          "sassMap": "$type-tokens",
+          "sassKey": "--legend-font-weight",
+          "css": true
+        }
+      }
+    },
+    "list-padding-x": {
+      "$type": "dimension",
+      "$value": "{spacing.7}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--list-padding-x",
+          "sassMap": "$type-tokens",
+          "sassKey": "--list-padding-x"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `:root`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$type-tokens",
+        "selector": ":root",
+        "source": "scss/content/_reboot.scss"
+      }
+    }
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "shadow": {
+    "default": {
+      "$value": "#{( \"0 .125rem .25rem -.0625rem oklch(from var(--sc, {elevation.color}) l c h / calc(.04 * {elevation.strength} * var(--so, 1)))\", \"0 .375rem .75rem -.125rem oklch(from var(--sc, {elevation.color}) l c h / calc(.05 * {elevation.strength} * var(--so, 1)))\", \"0 .75rem 1.5rem -.25rem oklch(from var(--sc, {elevation.color}) l c h / calc(.06 * {elevation.strength} * var(--so, 1)))\" )}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--box-shadow",
+          "sassMap": "$shadows",
+          "sassKey": "null",
+          "expression": true
+        }
+      }
+    },
+    "xs": {
+      "$value": "0 .0625rem .125rem oklch(from var(--sc, {elevation.color}) l c h / calc(.04 * {elevation.strength} * var(--so, 1)))",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--box-shadow-xs",
+          "sassMap": "$shadows",
+          "sassKey": "xs",
+          "expression": true
+        }
+      }
+    },
+    "sm": {
+      "$value": "#{( \"0 .0625rem .125rem oklch(from var(--sc, {elevation.color}) l c h / calc(.04 * {elevation.strength} * var(--so, 1)))\", \"0 .125rem .375rem -.0625rem oklch(from var(--sc, {elevation.color}) l c h / calc(.05 * {elevation.strength} * var(--so, 1)))\" )}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--box-shadow-sm",
+          "sassMap": "$shadows",
+          "sassKey": "sm",
+          "expression": true
+        }
+      }
+    },
+    "lg": {
+      "$value": "#{( \"0 .125rem .375rem -.0625rem oklch(from var(--sc, {elevation.color}) l c h / calc(.05 * {elevation.strength} * var(--so, 1)))\", \"0 .375rem 1rem -.1875rem oklch(from var(--sc, {elevation.color}) l c h / calc(.06 * {elevation.strength} * var(--so, 1)))\", \"0 .75rem 2rem -.375rem oklch(from var(--sc, {elevation.color}) l c h / calc(.07 * {elevation.strength} * var(--so, 1)))\", \"0 1.5rem 3.5rem -.75rem oklch(from var(--sc, {elevation.color}) l c h / calc(.08 * {elevation.strength} * var(--so, 1)))\" )}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--box-shadow-lg",
+          "sassMap": "$shadows",
+          "sassKey": "lg",
+          "expression": true
+        }
+      }
+    },
+    "xl": {
+      "$value": "#{( \"0 .1875rem .5rem -.0625rem oklch(from var(--sc, {elevation.color}) l c h / calc(.05 * {elevation.strength} * var(--so, 1)))\", \"0 .5rem 1.25rem -.1875rem oklch(from var(--sc, {elevation.color}) l c h / calc(.06 * {elevation.strength} * var(--so, 1)))\", \"0 1rem 2.5rem -.375rem oklch(from var(--sc, {elevation.color}) l c h / calc(.07 * {elevation.strength} * var(--so, 1)))\", \"0 2rem 5rem -.75rem oklch(from var(--sc, {elevation.color}) l c h / calc(.09 * {elevation.strength} * var(--so, 1)))\" )}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--box-shadow-xl",
+          "sassMap": "$shadows",
+          "sassKey": "xl",
+          "expression": true
+        }
+      }
+    },
+    "inset": {
+      "$value": "inset 0 1px 2px light-dark(oklch(from var(--sc, {elevation.color}) l c h / calc(8% * var(--so, 1))), oklch(from var(--sc, {elevation.color}) l c h / calc(26% * var(--so, 1))))",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--box-shadow-inset",
+          "sassMap": "$shadows",
+          "sassKey": "inset",
+          "expression": true
+        }
+      }
+    },
+    "$description": "The named shadow scale."
+  },
+  "elevation": {
+    "color": {
+      "$type": "color",
+      "$value": "#000",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--shadow-color",
+          "sassMap": "$root-tokens",
+          "sassKey": "--shadow-color"
+        }
+      }
+    },
+    "strength": {
+      "$type": "number",
+      "$value": 1,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--shadow-strength",
+          "sassMap": "$root-tokens",
+          "sassKey": "--shadow-strength"
+        }
+      }
+    },
+    "$description": "Shadow scale plus the colour and strength every layer is tinted by."
+  }
+}

@@ -1,0 +1,283 @@
+{
+  "form-control": {
+    "control-min-height": {
+      "$type": "dimension",
+      "$value": "{control.field.min-height}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-min-height",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-min-height"
+        }
+      }
+    },
+    "control-padding-y": {
+      "$type": "dimension",
+      "$value": "{control.field.padding-y}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-padding-y",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-padding-y"
+        }
+      }
+    },
+    "control-padding-x": {
+      "$type": "dimension",
+      "$value": "{control.field.padding-x}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-padding-x",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-padding-x"
+        }
+      }
+    },
+    "control-font-size": {
+      "$type": "dimension",
+      "$value": "{control.field.font-size}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-font-size",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-font-size"
+        }
+      }
+    },
+    "control-line-height": {
+      "$type": "dimension",
+      "$value": "{control.field.line-height}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-line-height",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-line-height"
+        }
+      }
+    },
+    "control-fg": {
+      "$type": "color",
+      "$value": "{control.field.fg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-fg",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-fg"
+        }
+      }
+    },
+    "control-bg": {
+      "$type": "color",
+      "$value": "{control.field.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-bg",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-bg"
+        }
+      }
+    },
+    "control-border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-border-width",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-border-width"
+        }
+      }
+    },
+    "control-border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-border-color",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-border-color"
+        }
+      }
+    },
+    "control-border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-border-radius",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-border-radius"
+        }
+      }
+    },
+    "control-box-shadow": {
+      "$value": "{shadow.inset}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-box-shadow",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-box-shadow"
+        }
+      }
+    },
+    "control-action-bg": {
+      "$type": "color",
+      "$value": "{bg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-action-bg",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-action-bg"
+        }
+      }
+    },
+    "control-action-hover-bg": {
+      "$type": "color",
+      "$value": "{bg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-action-hover-bg",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-action-hover-bg"
+        }
+      }
+    },
+    "control-transition-property": {
+      "$value": "\"border-color, box-shadow\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-transition-property",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-transition-property",
+          "css": true
+        }
+      }
+    },
+    "control-transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.15,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-transition-duration",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-transition-duration"
+        }
+      }
+    },
+    "control-transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "ease-in-out",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-transition-timing",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-transition-timing",
+          "css": true
+        }
+      }
+    },
+    "control-placeholder-color": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-placeholder-color",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-placeholder-color"
+        }
+      }
+    },
+    "control-disabled-color": {
+      "$type": "color",
+      "$value": "{form-control.control-fg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-disabled-color",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-disabled-color"
+        }
+      }
+    },
+    "control-disabled-bg": {
+      "$type": "color",
+      "$value": "{bg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-disabled-bg",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-disabled-bg"
+        }
+      }
+    },
+    "control-disabled-border-color": {
+      "$type": "color",
+      "$value": "{form-control.control-border-color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-disabled-border-color",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-disabled-border-color"
+        }
+      }
+    },
+    "control-select-bg": {
+      "$type": "color",
+      "$value": "#{url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2300000080' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e\")}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-select-bg",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-select-bg",
+          "css": true
+        }
+      }
+    },
+    "control-select-bg-position": {
+      "$type": "color",
+      "$value": "right .75rem center",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-select-bg-position",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-select-bg-position",
+          "css": true
+        }
+      }
+    },
+    "control-select-bg-size": {
+      "$type": "color",
+      "$value": "16px 12px",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-select-bg-size",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-select-bg-size",
+          "css": true
+        }
+      }
+    },
+    "control-select-bg-dark": {
+      "$type": "color",
+      "$value": "#{url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff80' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e\")}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-select-bg-dark",
+          "sassMap": "$form-control-tokens",
+          "sassKey": "--control-select-bg-dark",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.form-control`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$form-control-tokens",
+        "selector": ".form-control",
+        "source": "scss/forms/_form-control.scss"
+      }
+    }
+  }
+}

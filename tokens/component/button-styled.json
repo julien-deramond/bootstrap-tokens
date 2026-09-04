@@ -1,0 +1,103 @@
+{
+  "button-styled": {
+    "btn-gradient-start": {
+      "$type": "dimension",
+      "$value": "rgb(255 255 255 / 12.5%)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-gradient-start",
+          "sassMap": "$button-styled-tokens",
+          "sassKey": "--btn-gradient-start",
+          "css": true
+        }
+      }
+    },
+    "btn-gradient-end": {
+      "$type": "dimension",
+      "$value": "rgb(0 0 0 / 7.5%)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-gradient-end",
+          "sassMap": "$button-styled-tokens",
+          "sassKey": "--btn-gradient-end",
+          "css": true
+        }
+      }
+    },
+    "btn-border-mix-color": {
+      "$type": "color",
+      "$value": "#000",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-border-mix-color",
+          "sassMap": "$button-styled-tokens",
+          "sassKey": "--btn-border-mix-color"
+        }
+      }
+    },
+    "btn-border-mix-amount": {
+      "$value": "10%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-border-mix-amount",
+          "sassMap": "$button-styled-tokens",
+          "sassKey": "--btn-border-mix-amount",
+          "css": true
+        }
+      }
+    },
+    "btn-border-hover-mix-amount": {
+      "$value": "12.5%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-border-hover-mix-amount",
+          "sassMap": "$button-styled-tokens",
+          "sassKey": "--btn-border-hover-mix-amount",
+          "css": true
+        }
+      }
+    },
+    "btn-border-active-mix-amount": {
+      "$value": "20%",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-border-active-mix-amount",
+          "sassMap": "$button-styled-tokens",
+          "sassKey": "--btn-border-active-mix-amount",
+          "css": true
+        }
+      }
+    },
+    "btn-shadow": {
+      "$value": "\"0 1px 2px rgb(0 0 0 / 15%), inset 0 1px 0 rgb(255 255 255 / 10%)\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-shadow",
+          "sassMap": "$button-styled-tokens",
+          "sassKey": "--btn-shadow",
+          "css": true
+        }
+      }
+    },
+    "btn-active-shadow": {
+      "$value": "inset 0 2px 4px rgb(0 0 0 / .15)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-active-shadow",
+          "sassMap": "$button-styled-tokens",
+          "sassKey": "--btn-active-shadow",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.btn-primary, …`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$button-styled-tokens",
+        "selector": ".btn-primary, …",
+        "source": "scss/buttons/_button.scss",
+        "variantOf": "btn"
+      }
+    }
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "radio": {
+    "size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radio-size",
+          "sassMap": "$radio-tokens",
+          "sassKey": "--radio-size"
+        }
+      }
+    },
+    "margin-block": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.125,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radio-margin-block",
+          "sassMap": "$radio-tokens",
+          "sassKey": "--radio-margin-block"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radio-bg",
+          "sassMap": "$radio-tokens",
+          "sassKey": "--radio-bg"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radio-border-color",
+          "sassMap": "$radio-tokens",
+          "sassKey": "--radio-border-color"
+        }
+      }
+    },
+    "checked-bg": {
+      "$type": "color",
+      "$value": "{control.checked-bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radio-checked-bg",
+          "sassMap": "$radio-tokens",
+          "sassKey": "--radio-checked-bg"
+        }
+      }
+    },
+    "checked-border-color": {
+      "$type": "color",
+      "$value": "{control.checked-border-color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radio-checked-border-color",
+          "sassMap": "$radio-tokens",
+          "sassKey": "--radio-checked-border-color"
+        }
+      }
+    },
+    "disabled-bg": {
+      "$type": "color",
+      "$value": "{control.disabled-bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radio-disabled-bg",
+          "sassMap": "$radio-tokens",
+          "sassKey": "--radio-disabled-bg"
+        }
+      }
+    },
+    "disabled-opacity": {
+      "$type": "number",
+      "$value": "{control.disabled-opacity}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--radio-disabled-opacity",
+          "sassMap": "$radio-tokens",
+          "sassKey": "--radio-disabled-opacity"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.form-radio-input`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$radio-tokens",
+        "selector": ".form-radio-input",
+        "source": "scss/forms/_radio.scss"
+      }
+    }
+  }
+}

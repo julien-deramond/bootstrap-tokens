@@ -1,0 +1,112 @@
+{
+  "stepper": {
+    "size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 2,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--stepper-size",
+          "sassMap": "$stepper-tokens",
+          "sassKey": "--stepper-size"
+        }
+      }
+    },
+    "gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--stepper-gap",
+          "sassMap": "$stepper-tokens",
+          "sassKey": "--stepper-gap"
+        }
+      }
+    },
+    "font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.sm}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--stepper-font-size",
+          "sassMap": "$stepper-tokens",
+          "sassKey": "--stepper-font-size"
+        }
+      }
+    },
+    "text-gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--stepper-text-gap",
+          "sassMap": "$stepper-tokens",
+          "sassKey": "--stepper-text-gap"
+        }
+      }
+    },
+    "track-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.125,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--stepper-track-size",
+          "sassMap": "$stepper-tokens",
+          "sassKey": "--stepper-track-size"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--stepper-bg",
+          "sassMap": "$stepper-tokens",
+          "sassKey": "--stepper-bg"
+        }
+      }
+    },
+    "active-color": {
+      "$type": "color",
+      "$value": "{theme-color.primary.contrast}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--stepper-active-color",
+          "sassMap": "$stepper-tokens",
+          "sassKey": "--stepper-active-color"
+        }
+      }
+    },
+    "active-bg": {
+      "$type": "color",
+      "$value": "{theme-color.primary.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--stepper-active-bg",
+          "sassMap": "$stepper-tokens",
+          "sassKey": "--stepper-active-bg"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.stepper`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$stepper-tokens",
+        "selector": ".stepper",
+        "source": "scss/_stepper.scss"
+      }
+    }
+  }
+}

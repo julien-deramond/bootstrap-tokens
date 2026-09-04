@@ -1,0 +1,65 @@
+{
+  "nav-underline": {
+    "nav-gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-gap",
+          "sassMap": "$nav-underline-tokens",
+          "sassKey": "--nav-gap"
+        }
+      }
+    },
+    "nav-link-active-bg": {
+      "$type": "color",
+      "$value": "transparent",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-link-active-bg",
+          "sassMap": "$nav-underline-tokens",
+          "sassKey": "--nav-link-active-bg",
+          "css": true
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.125,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-underline-border-width",
+          "sassMap": "$nav-underline-tokens",
+          "sassKey": "--nav-underline-border-width"
+        }
+      }
+    },
+    "link-active-color": {
+      "$type": "color",
+      "$value": "var(--fg-color)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--nav-underline-link-active-color",
+          "sassMap": "$nav-underline-tokens",
+          "sassKey": "--nav-underline-link-active-color",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.nav-underline`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$nav-underline-tokens",
+        "selector": ".nav-underline",
+        "source": "scss/_nav.scss",
+        "variantOf": "nav"
+      }
+    }
+  }
+}

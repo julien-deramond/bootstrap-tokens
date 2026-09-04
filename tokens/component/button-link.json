@@ -1,0 +1,152 @@
+{
+  "button-link": {
+    "btn-font-weight": {
+      "$type": "fontWeight",
+      "$value": "{font-weight.normal}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-font-weight",
+          "sassMap": "$button-link-tokens",
+          "sassKey": "--btn-font-weight"
+        }
+      }
+    },
+    "btn-color": {
+      "$type": "color",
+      "$value": "{type.link.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-color",
+          "sassMap": "$button-link-tokens",
+          "sassKey": "--btn-color"
+        }
+      }
+    },
+    "btn-bg": {
+      "$type": "color",
+      "$value": "transparent",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-bg",
+          "sassMap": "$button-link-tokens",
+          "sassKey": "--btn-bg",
+          "css": true
+        }
+      }
+    },
+    "btn-border-color": {
+      "$type": "color",
+      "$value": "transparent",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-border-color",
+          "sassMap": "$button-link-tokens",
+          "sassKey": "--btn-border-color",
+          "css": true
+        }
+      }
+    },
+    "btn-hover-color": {
+      "$type": "color",
+      "$value": "{type.link.hover-color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-hover-color",
+          "sassMap": "$button-link-tokens",
+          "sassKey": "--btn-hover-color"
+        }
+      }
+    },
+    "btn-hover-bg": {
+      "$type": "color",
+      "$value": "transparent",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-hover-bg",
+          "sassMap": "$button-link-tokens",
+          "sassKey": "--btn-hover-bg",
+          "css": true
+        }
+      }
+    },
+    "btn-hover-border-color": {
+      "$type": "color",
+      "$value": "transparent",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-hover-border-color",
+          "sassMap": "$button-link-tokens",
+          "sassKey": "--btn-hover-border-color",
+          "css": true
+        }
+      }
+    },
+    "btn-active-color": {
+      "$type": "color",
+      "$value": "{type.link.hover-color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-active-color",
+          "sassMap": "$button-link-tokens",
+          "sassKey": "--btn-active-color"
+        }
+      }
+    },
+    "btn-active-bg": {
+      "$type": "color",
+      "$value": "transparent",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-active-bg",
+          "sassMap": "$button-link-tokens",
+          "sassKey": "--btn-active-bg",
+          "css": true
+        }
+      }
+    },
+    "btn-active-border-color": {
+      "$type": "color",
+      "$value": "transparent",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-active-border-color",
+          "sassMap": "$button-link-tokens",
+          "sassKey": "--btn-active-border-color",
+          "css": true
+        }
+      }
+    },
+    "btn-disabled-color": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-disabled-color",
+          "sassMap": "$button-link-tokens",
+          "sassKey": "--btn-disabled-color"
+        }
+      }
+    },
+    "btn-disabled-border-color": {
+      "$type": "color",
+      "$value": "transparent",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--btn-disabled-border-color",
+          "sassMap": "$button-link-tokens",
+          "sassKey": "--btn-disabled-border-color",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.btn-link`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$button-link-tokens",
+        "selector": ".btn-link",
+        "source": "scss/buttons/_button.scss",
+        "variantOf": "btn"
+      }
+    }
+  }
+}

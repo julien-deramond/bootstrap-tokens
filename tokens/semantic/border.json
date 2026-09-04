@@ -1,0 +1,151 @@
+{
+  "border": {
+    "width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--border-width",
+          "sassVar": "$border-width",
+          "sassEmit": "#{$border-width}"
+        }
+      }
+    },
+    "style": {
+      "$value": "solid",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--border-style",
+          "sassVar": "$border-style",
+          "sassEmit": "#{$border-style}",
+          "css": true
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--border-bg",
+          "sassMap": "$theme-borders",
+          "sassKey": "bg",
+          "sassQuoted": true
+        }
+      }
+    },
+    "body": {
+      "$value": "{color.gray.300}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--border-body",
+          "sassMap": "$theme-borders",
+          "sassKey": "body",
+          "sassQuoted": true,
+          "dark": "{color.gray.800}"
+        }
+      }
+    },
+    "muted": {
+      "$value": "{color.gray.200}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--border-muted",
+          "sassMap": "$theme-borders",
+          "sassKey": "muted",
+          "sassQuoted": true,
+          "dark": "{color.gray.800}"
+        }
+      }
+    },
+    "subtle": {
+      "$value": "color-mix(in oklch, {color.gray.100}, {color.gray.200})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--border-subtle",
+          "sassMap": "$theme-borders",
+          "sassKey": "subtle",
+          "sassQuoted": true,
+          "dark": "color-mix(in oklch, {color.gray.800}, {color.gray.900})",
+          "expression": true
+        }
+      }
+    },
+    "emphasized": {
+      "$value": "{color.gray.400}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--border-emphasized",
+          "sassMap": "$theme-borders",
+          "sassKey": "emphasized",
+          "sassQuoted": true,
+          "dark": "{color.gray.600}"
+        }
+      }
+    },
+    "white": {
+      "$value": "{color.white}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--border-white",
+          "sassMap": "$theme-borders",
+          "sassKey": "white",
+          "sassQuoted": true
+        }
+      }
+    },
+    "black": {
+      "$value": "{color.black}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--border-black",
+          "sassMap": "$theme-borders",
+          "sassKey": "black",
+          "sassQuoted": true
+        }
+      }
+    },
+    "width-keyline": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--border-width-keyline",
+          "sassMap": "$root-tokens",
+          "sassKey": "--border-width-keyline"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{color.gray.200}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--border-color",
+          "sassMap": "$root-tokens",
+          "sassKey": "--border-color",
+          "dark": "{color.gray.700}"
+        }
+      }
+    },
+    "color-translucent": {
+      "$type": "color",
+      "$value": "color-mix(in oklch, {fg.body} 15%, transparent)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--border-color-translucent",
+          "sassMap": "$root-tokens",
+          "sassKey": "--border-color-translucent",
+          "expression": true
+        }
+      }
+    },
+    "$description": "Default border width, style and colour, plus the neutral border ramp."
+  }
+}

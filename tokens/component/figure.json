@@ -1,0 +1,46 @@
+{
+  "figure": {
+    "gap": {
+      "$type": "dimension",
+      "$value": "calc({spacing.root} * .5)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--figure-gap",
+          "sassMap": "$figure-tokens",
+          "sassKey": "--figure-gap",
+          "expression": true
+        }
+      }
+    },
+    "caption-font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.sm}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--figure-caption-font-size",
+          "sassMap": "$figure-tokens",
+          "sassKey": "--figure-caption-font-size"
+        }
+      }
+    },
+    "caption-color": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--figure-caption-color",
+          "sassMap": "$figure-tokens",
+          "sassKey": "--figure-caption-color"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.figure`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$figure-tokens",
+        "selector": ".figure",
+        "source": "scss/content/_images.scss"
+      }
+    }
+  }
+}

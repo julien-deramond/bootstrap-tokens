@@ -1,0 +1,70 @@
+{
+  "spinner-grow": {
+    "spinner-width": {
+      "$type": "dimension",
+      "$value": "1em",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spinner-width",
+          "sassMap": "$spinner-grow-tokens",
+          "sassKey": "--spinner-width",
+          "css": true
+        }
+      }
+    },
+    "spinner-height": {
+      "$type": "dimension",
+      "$value": "1em",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spinner-height",
+          "sassMap": "$spinner-grow-tokens",
+          "sassKey": "--spinner-height",
+          "css": true
+        }
+      }
+    },
+    "spinner-animation-speed": {
+      "$value": "1s",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spinner-animation-speed",
+          "sassMap": "$spinner-grow-tokens",
+          "sassKey": "--spinner-animation-speed",
+          "css": true
+        }
+      }
+    },
+    "spinner-animation-timing-function": {
+      "$value": "ease-in-out",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spinner-animation-timing-function",
+          "sassMap": "$spinner-grow-tokens",
+          "sassKey": "--spinner-animation-timing-function",
+          "css": true
+        }
+      }
+    },
+    "spinner-animation-name": {
+      "$value": "spinner-grow",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--spinner-animation-name",
+          "sassMap": "$spinner-grow-tokens",
+          "sassKey": "--spinner-animation-name",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.spinner-grow`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$spinner-grow-tokens",
+        "selector": ".spinner-grow",
+        "source": "scss/_spinner.scss",
+        "variantOf": "spinner-border"
+      }
+    }
+  }
+}

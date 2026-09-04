@@ -1,0 +1,131 @@
+{
+  "strength": {
+    "height": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.375,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--strength-height",
+          "sassMap": "$strength-tokens",
+          "sassKey": "--strength-height"
+        }
+      }
+    },
+    "gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--strength-gap",
+          "sassMap": "$strength-tokens",
+          "sassKey": "--strength-gap"
+        }
+      }
+    },
+    "margin-top": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--strength-margin-top",
+          "sassMap": "$strength-tokens",
+          "sassKey": "--strength-margin-top"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.pill}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--strength-border-radius",
+          "sassMap": "$strength-tokens",
+          "sassKey": "--strength-border-radius"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--strength-bg",
+          "sassMap": "$strength-tokens",
+          "sassKey": "--strength-bg"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{bg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--strength-color",
+          "sassMap": "$strength-tokens",
+          "sassKey": "--strength-color"
+        }
+      }
+    },
+    "weak-color": {
+      "$type": "color",
+      "$value": "{theme-color.danger.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--strength-weak-color",
+          "sassMap": "$strength-tokens",
+          "sassKey": "--strength-weak-color"
+        }
+      }
+    },
+    "fair-color": {
+      "$type": "color",
+      "$value": "{theme-color.warning.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--strength-fair-color",
+          "sassMap": "$strength-tokens",
+          "sassKey": "--strength-fair-color"
+        }
+      }
+    },
+    "good-color": {
+      "$type": "color",
+      "$value": "{theme-color.info.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--strength-good-color",
+          "sassMap": "$strength-tokens",
+          "sassKey": "--strength-good-color"
+        }
+      }
+    },
+    "strong-color": {
+      "$type": "color",
+      "$value": "{theme-color.success.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--strength-strong-color",
+          "sassMap": "$strength-tokens",
+          "sassKey": "--strength-strong-color"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.strength`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$strength-tokens",
+        "selector": ".strength",
+        "source": "scss/forms/_strength.scss"
+      }
+    }
+  }
+}

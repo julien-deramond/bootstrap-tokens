@@ -1,0 +1,268 @@
+{
+  "dialog": {
+    "padding": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-padding",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-padding"
+        }
+      }
+    },
+    "width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 500,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-width",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-width"
+        }
+      }
+    },
+    "margin": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1.75,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-margin",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-margin"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-color",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-color"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-bg",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-bg"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color-translucent}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-border-color",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-border-color"
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-border-width",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-border-width"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.7}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-border-radius",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-border-radius"
+        }
+      }
+    },
+    "box-shadow": {
+      "$value": "{shadow.xl}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-box-shadow",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-box-shadow"
+        }
+      }
+    },
+    "transition-property": {
+      "$value": "\"opacity, transform, visibility\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-transition-property",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-transition-property",
+          "css": true
+        }
+      }
+    },
+    "transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.3,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-transition-duration",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-transition-duration"
+        }
+      }
+    },
+    "transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "{motion.timing-overlay}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-transition-timing",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-transition-timing"
+        }
+      }
+    },
+    "backdrop-bg": {
+      "$type": "color",
+      "$value": "rgb(0 0 0 / 50%)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-backdrop-bg",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-backdrop-bg",
+          "dark": "rgb(0 0 0 / 65%)",
+          "css": true
+        }
+      }
+    },
+    "backdrop-blur": {
+      "$type": "dimension",
+      "$value": {
+        "value": 8,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-backdrop-blur",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-backdrop-blur"
+        }
+      }
+    },
+    "header-padding": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-header-padding",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-header-padding"
+        }
+      }
+    },
+    "header-border-color": {
+      "$type": "color",
+      "$value": "{border.color-translucent}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-header-border-color",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-header-border-color"
+        }
+      }
+    },
+    "header-border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-header-border-width",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-header-border-width"
+        }
+      }
+    },
+    "footer-padding": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-footer-padding",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-footer-padding"
+        }
+      }
+    },
+    "footer-border-color": {
+      "$type": "color",
+      "$value": "{border.color-translucent}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-footer-border-color",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-footer-border-color"
+        }
+      }
+    },
+    "footer-border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-footer-border-width",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-footer-border-width"
+        }
+      }
+    },
+    "footer-gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-footer-gap",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-footer-gap"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.dialog`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$dialog-tokens",
+        "selector": ".dialog",
+        "source": "scss/_dialog.scss"
+      }
+    }
+  }
+}

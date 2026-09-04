@@ -1,0 +1,167 @@
+{
+  "type": {
+    "body": {
+      "font-family": {
+        "$type": "fontFamily",
+        "$value": "\"-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'\"",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--body-font-family",
+            "sassMap": "$root-tokens",
+            "sassKey": "--body-font-family",
+            "css": true
+          }
+        }
+      },
+      "font-size": {
+        "$type": "dimension",
+        "$value": {
+          "value": 1,
+          "unit": "rem"
+        },
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--body-font-size",
+            "sassMap": "$root-tokens",
+            "sassKey": "--body-font-size"
+          }
+        }
+      },
+      "font-weight": {
+        "$type": "fontWeight",
+        "$value": "{font-weight.normal}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--body-font-weight",
+            "sassMap": "$root-tokens",
+            "sassKey": "--body-font-weight"
+          }
+        }
+      },
+      "line-height": {
+        "$type": "number",
+        "$value": 1.5,
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--body-line-height",
+            "sassMap": "$root-tokens",
+            "sassKey": "--body-line-height"
+          }
+        }
+      }
+    },
+    "heading": {
+      "color": {
+        "$type": "color",
+        "$value": "inherit",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--heading-color",
+            "sassMap": "$root-tokens",
+            "sassKey": "--heading-color",
+            "css": true
+          }
+        }
+      }
+    },
+    "hr": {
+      "border-color": {
+        "$type": "color",
+        "$value": "{border.color}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--hr-border-color",
+            "sassMap": "$root-tokens",
+            "sassKey": "--hr-border-color"
+          }
+        }
+      }
+    },
+    "link": {
+      "color": {
+        "$type": "color",
+        "$value": "{theme-color.primary.base}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--link-color",
+            "sassMap": "$root-tokens",
+            "sassKey": "--link-color",
+            "dark": "{theme-color.primary.fg}"
+          }
+        }
+      },
+      "decoration": {
+        "$value": "underline",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--link-decoration",
+            "sassMap": "$root-tokens",
+            "sassKey": "--link-decoration",
+            "css": true
+          }
+        }
+      },
+      "underline-offset": {
+        "$type": "dimension",
+        "$value": ".2em",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--link-underline-offset",
+            "sassMap": "$root-tokens",
+            "sassKey": "--link-underline-offset",
+            "css": true
+          }
+        }
+      },
+      "hover-color": {
+        "$type": "color",
+        "$value": "color-mix(in oklch, {type.link.color} 90%, #000)",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--link-hover-color",
+            "sassMap": "$root-tokens",
+            "sassKey": "--link-hover-color",
+            "expression": true
+          }
+        }
+      }
+    },
+    "code": {
+      "font-family": {
+        "$value": "\"ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Monaco, 'Cascadia Mono', Consolas, 'Liberation Mono', monospace\"",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--font-mono",
+            "sassMap": "$root-tokens",
+            "sassKey": "--font-mono",
+            "css": true
+          }
+        }
+      },
+      "font-size": {
+        "$type": "dimension",
+        "$value": "95%",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--code-font-size",
+            "sassMap": "$root-tokens",
+            "sassKey": "--code-font-size",
+            "css": true
+          }
+        }
+      },
+      "color": {
+        "$type": "color",
+        "$value": "{fg.2}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--code-color",
+            "sassMap": "$root-tokens",
+            "sassKey": "--code-color"
+          }
+        }
+      }
+    },
+    "$description": "Body, heading, link and code typography."
+  }
+}

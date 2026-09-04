@@ -1,0 +1,265 @@
+{
+  "carousel": {
+    "gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-gap",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-gap"
+        }
+      }
+    },
+    "indicator-bg": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-indicator-bg",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-indicator-bg"
+        }
+      }
+    },
+    "indicator-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-indicator-width",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-indicator-width"
+        }
+      }
+    },
+    "indicator-height": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.75,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-indicator-height",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-indicator-height"
+        }
+      }
+    },
+    "indicator-spacer": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-indicator-spacer",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-indicator-spacer"
+        }
+      }
+    },
+    "indicator-opacity-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.6,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-indicator-opacity-duration",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-indicator-opacity-duration"
+        }
+      }
+    },
+    "indicator-opacity-timing": {
+      "$type": "cubicBezier",
+      "$value": "ease",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-indicator-opacity-timing",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-indicator-opacity-timing",
+          "css": true
+        }
+      }
+    },
+    "indicator-width-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.3,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-indicator-width-duration",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-indicator-width-duration"
+        }
+      }
+    },
+    "indicator-width-timing": {
+      "$type": "cubicBezier",
+      "$value": "ease",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-indicator-width-timing",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-indicator-width-timing",
+          "css": true
+        }
+      }
+    },
+    "indicator-progress-bg": {
+      "$type": "color",
+      "$value": "{carousel.indicator-bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-indicator-progress-bg",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-indicator-progress-bg"
+        }
+      }
+    },
+    "control-icon-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-control-icon-width",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-control-icon-width"
+        }
+      }
+    },
+    "control-prev-icon": {
+      "$value": "url(\"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M11.354 1.646a.5.5 0 0 1 0 .708L5.707 8l5.647 5.646a.5.5 0 0 1-.708.708l-6-6a.5.5 0 0 1 0-.708l6-6a.5.5 0 0 1 .708 0'/></svg>\")",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-control-prev-icon",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-control-prev-icon",
+          "css": true
+        }
+      }
+    },
+    "control-next-icon": {
+      "$value": "url(\"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M4.646 1.646a.5.5 0 0 1 .708 0l6 6a.5.5 0 0 1 0 .708l-6 6a.5.5 0 0 1-.708-.708L10.293 8 4.646 2.354a.5.5 0 0 1 0-.708'/></svg>\")",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-control-next-icon",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-control-next-icon",
+          "css": true
+        }
+      }
+    },
+    "control-pause-icon": {
+      "$value": "url(\"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='M5.5 3.5A1.5 1.5 0 0 1 7 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5m5 0A1.5 1.5 0 0 1 12 5v6a1.5 1.5 0 0 1-3 0V5a1.5 1.5 0 0 1 1.5-1.5'/></svg>\")",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-control-pause-icon",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-control-pause-icon",
+          "css": true
+        }
+      }
+    },
+    "control-play-icon": {
+      "$value": "url(\"data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'><path d='m11.596 8.697-6.363 3.692c-.54.313-1.233-.066-1.233-.697V4.308c0-.63.692-1.01 1.233-.696l6.363 3.692a.802.802 0 0 1 0 1.393z'/></svg>\")",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-control-play-icon",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-control-play-icon",
+          "css": true
+        }
+      }
+    },
+    "items": {
+      "$type": "number",
+      "$value": 1,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-items",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-items"
+        }
+      }
+    },
+    "items-gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-items-gap",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-items-gap"
+        }
+      }
+    },
+    "items-peek": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-items-peek",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-items-peek"
+        }
+      }
+    },
+    "fade-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.6,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-fade-duration",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-fade-duration"
+        }
+      }
+    },
+    "fade-timing": {
+      "$type": "cubicBezier",
+      "$value": "ease",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--carousel-fade-timing",
+          "sassMap": "$carousel-tokens",
+          "sassKey": "--carousel-fade-timing",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.carousel`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$carousel-tokens",
+        "selector": ".carousel",
+        "source": "scss/_carousel.scss"
+      }
+    }
+  }
+}

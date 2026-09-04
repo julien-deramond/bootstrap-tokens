@@ -1,0 +1,213 @@
+{
+  "pagination": {
+    "min-height": {
+      "$type": "dimension",
+      "$value": "{control.field.min-height}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-min-height",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-min-height"
+        }
+      }
+    },
+    "padding-x": {
+      "$type": "dimension",
+      "$value": "{control.field.padding-x}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-padding-x",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-padding-x"
+        }
+      }
+    },
+    "padding-y": {
+      "$type": "dimension",
+      "$value": "{control.field.padding-y}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-padding-y",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-padding-y"
+        }
+      }
+    },
+    "font-size": {
+      "$type": "dimension",
+      "$value": "{control.field.font-size}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-font-size",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-font-size"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{type.link.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-color",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-color"
+        }
+      }
+    },
+    "bg": {
+      "$type": "color",
+      "$value": "{bg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-bg",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-bg"
+        }
+      }
+    },
+    "border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-border-width",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-border-width"
+        }
+      }
+    },
+    "border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-border-color",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-border-color"
+        }
+      }
+    },
+    "border-radius": {
+      "$type": "dimension",
+      "$value": "{control.field.border-radius}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-border-radius",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-border-radius"
+        }
+      }
+    },
+    "hover-color": {
+      "$type": "color",
+      "$value": "{type.link.hover-color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-hover-color",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-hover-color"
+        }
+      }
+    },
+    "hover-bg": {
+      "$type": "color",
+      "$value": "{bg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-hover-bg",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-hover-bg"
+        }
+      }
+    },
+    "hover-border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-hover-border-color",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-hover-border-color"
+        }
+      }
+    },
+    "active-color": {
+      "$type": "color",
+      "$value": "var(--theme-contrast, {theme-color.primary.contrast})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-active-color",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-active-color",
+          "expression": true
+        }
+      }
+    },
+    "active-bg": {
+      "$type": "color",
+      "$value": "var(--theme-bg, {theme-color.primary.bg})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-active-bg",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-active-bg",
+          "expression": true
+        }
+      }
+    },
+    "active-border-color": {
+      "$type": "color",
+      "$value": "var(--theme-bg, {theme-color.primary.bg})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-active-border-color",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-active-border-color",
+          "expression": true
+        }
+      }
+    },
+    "disabled-color": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-disabled-color",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-disabled-color"
+        }
+      }
+    },
+    "disabled-bg": {
+      "$type": "color",
+      "$value": "{bg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-disabled-bg",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-disabled-bg"
+        }
+      }
+    },
+    "disabled-border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--pagination-disabled-border-color",
+          "sassMap": "$pagination-tokens",
+          "sassKey": "--pagination-disabled-border-color"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.pagination`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$pagination-tokens",
+        "selector": ".pagination",
+        "source": "scss/_pagination.scss"
+      }
+    }
+  }
+}

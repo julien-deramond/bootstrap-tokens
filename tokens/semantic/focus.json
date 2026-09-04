@@ -1,0 +1,55 @@
+{
+  "focus": {
+    "width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 3,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--focus-ring-width",
+          "sassMap": "$root-tokens",
+          "sassKey": "--focus-ring-width"
+        }
+      }
+    },
+    "offset": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "px"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--focus-ring-offset",
+          "sassMap": "$root-tokens",
+          "sassKey": "--focus-ring-offset"
+        }
+      }
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{theme-color.primary.focus-ring}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--focus-ring-color",
+          "sassMap": "$root-tokens",
+          "sassKey": "--focus-ring-color"
+        }
+      }
+    },
+    "ring": {
+      "$value": "{focus.width} solid {focus.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--focus-ring",
+          "sassMap": "$root-tokens",
+          "sassKey": "--focus-ring",
+          "expression": true
+        }
+      }
+    },
+    "$description": "Focus ring geometry and colour."
+  }
+}

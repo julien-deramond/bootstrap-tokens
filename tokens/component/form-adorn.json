@@ -1,0 +1,51 @@
+{
+  "form-adorn": {
+    "gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.375,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-adorn-gap",
+          "sassMap": "$form-adorn-tokens",
+          "sassKey": "--form-adorn-gap"
+        }
+      }
+    },
+    "icon-size": {
+      "$type": "dimension",
+      "$value": {
+        "value": 1,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-adorn-icon-size",
+          "sassMap": "$form-adorn-tokens",
+          "sassKey": "--form-adorn-icon-size"
+        }
+      }
+    },
+    "icon-color": {
+      "$type": "color",
+      "$value": "{fg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--form-adorn-icon-color",
+          "sassMap": "$form-adorn-tokens",
+          "sassKey": "--form-adorn-icon-color"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.form-adorn`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$form-adorn-tokens",
+        "selector": ".form-adorn",
+        "source": "scss/forms/_form-adorn.scss"
+      }
+    }
+  }
+}

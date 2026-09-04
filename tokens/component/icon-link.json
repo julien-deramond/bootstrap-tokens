@@ -1,0 +1,72 @@
+{
+  "icon-link": {
+    "gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.375,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--icon-link-gap",
+          "sassMap": "$icon-link-tokens",
+          "sassKey": "--icon-link-gap"
+        }
+      }
+    },
+    "underline-offset": {
+      "$type": "dimension",
+      "$value": ".25em",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--icon-link-underline-offset",
+          "sassMap": "$icon-link-tokens",
+          "sassKey": "--icon-link-underline-offset",
+          "css": true
+        }
+      }
+    },
+    "icon-size": {
+      "$type": "dimension",
+      "$value": "1em",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--icon-link-icon-size",
+          "sassMap": "$icon-link-tokens",
+          "sassKey": "--icon-link-icon-size",
+          "css": true
+        }
+      }
+    },
+    "icon-transition": {
+      "$value": ".2s ease-in-out transform",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--icon-link-icon-transition",
+          "sassMap": "$icon-link-tokens",
+          "sassKey": "--icon-link-icon-transition",
+          "css": true
+        }
+      }
+    },
+    "icon-transform": {
+      "$value": "translate3d(.25em, 0, 0)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--icon-link-icon-transform",
+          "sassMap": "$icon-link-tokens",
+          "sassKey": "--icon-link-icon-transform",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.icon-link`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$icon-link-tokens",
+        "selector": ".icon-link",
+        "source": "scss/helpers/_icon-link.scss"
+      }
+    }
+  }
+}
