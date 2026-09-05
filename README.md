@@ -101,6 +101,10 @@ Two decisions inside Design mode are worth knowing about:
   `color-mix(in oklch, var(--blue-500) 50%, var(--bg-body))` or a `light-dark()` pair shows
   its real colour in both schemes, because the page asks the previewed document rather than
   reimplementing CSS colour maths.
+* **Colour conversion is gamut-mapped, not clamped.** Bootstrap authors hues outside sRGB
+  (`oklch(60% 0.24 240)` is), and clamping each channel independently moves them sideways in
+  hue — that blue came back 14° towards violet. Chroma is reduced instead, so lightness and
+  hue survive, which also made the contrast readings accurate.
 * **Contrast is checked where it matters.** Each theme role's `contrast` is scored against
   its own fill, and its `fg` against the page, per scheme. Upstream's stock `primary`
   already sits at 3.6:1 for white on `blue-500` — worth knowing before you re-tint it.

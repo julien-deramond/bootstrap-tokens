@@ -58,6 +58,10 @@ A static page with no build step and no dependencies. `npm run web`.
 * ✅ A theme-level contrast readout that distinguishes issues you introduced from ones
   Bootstrap's defaults already carry.
 * ✅ Exports carry only the keys you changed.
+* ✅ Accessibility pass: one `:focus-visible` treatment for every control (there had been
+  exactly one rule, on text inputs), WCAG 2.2 target sizes, and tablists that actually
+  respond to arrow keys rather than only claiming the role.
+* ✅ Gamut-mapped OKLCH conversion — see below.
 * ✅ Live preview: real Bootstrap markup in an iframe over vendored `bootstrap.css`;
   overrides are applied as custom properties, so nothing recompiles.
 * ✅ Swatches resolved by the browser inside the preview, so `color-mix()` and `light-dark()`

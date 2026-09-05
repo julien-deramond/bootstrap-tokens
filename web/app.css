@@ -21,6 +21,23 @@
 
 * { box-sizing: border-box; }
 
+/*
+ * One focus treatment for everything.
+ *
+ * The stylesheet previously had exactly one :focus-visible rule, on text inputs, which meant
+ * a keyboard user tabbing through the controls could not see where they were. Styling it
+ * once here rather than per component is the only way it stays true as controls are added.
+ */
+:where(button, [href], input, select, textarea, summary, [tabindex]):focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+  border-radius: 4px;
+}
+
+/* Swatches carry their own radius, so the ring should follow it rather than square it off. */
+.hue:focus-visible, .dial-swatch:focus-visible { outline-offset: 3px; border-radius: inherit; }
+.segmented button:focus-visible, .panel-tabs button:focus-visible, .tabs button:focus-visible { outline-offset: -2px; }
+
 body {
   margin: 0;
   font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
@@ -260,7 +277,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   color: var(--ink);
 }
 
-.field input[type="text"]:focus-visible { outline: 2px solid var(--accent); outline-offset: -1px; }
+.field input[type="text"]:focus-visible { outline-offset: -1px; }
 
 .field input[type="color"] {
   inline-size: 1.875rem;
@@ -344,7 +361,8 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 }
 
 .export::backdrop { background: rgb(10 12 16 / 45%); }
-.export[open] { display: grid; grid-template-rows: auto auto auto auto minmax(0, 1fr) auto; }
+.export[open] { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; }
+.export-panel { display: grid; grid-template-rows: auto auto minmax(0, 1fr); min-block-size: 0; }
 
 .export-head { display: flex; align-items: center; justify-content: space-between; padding: .875rem 1rem; border-block-end: 1px solid var(--line); }
 .export-head h2 { margin: 0; font-size: .9375rem; }
@@ -455,8 +473,8 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 .hue-grid { display: flex; flex-wrap: wrap; gap: .375rem; }
 
 .hue {
-  inline-size: 1.875rem;
-  block-size: 1.875rem;
+  inline-size: 2rem;
+  block-size: 2rem;
   padding: 0;
   border: 2px solid transparent;
   border-radius: 7px;
@@ -544,7 +562,10 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 .swatch-font { font-size: 1.0625rem; line-height: 1; }
 .swatch-text-size { line-height: 1; }
 
+/* 17px is the right size for the dot but fails WCAG 2.2 target size, so the hit area is
+   grown past the visual with a pseudo-element instead of by making the dot bigger. */
 .dial-info {
+  position: relative;
   font: inherit;
   font-size: .625rem;
   inline-size: 1.0625rem;
@@ -555,6 +576,14 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   background: none;
   color: var(--ink-faint);
   cursor: pointer;
+}
+
+.dial-info::after {
+  content: "";
+  position: absolute;
+  inset: -.25rem;
+  min-inline-size: 24px;
+  min-block-size: 24px;
 }
 
 .dial-info:hover, .dial-info[aria-expanded="true"] { border-color: var(--accent); color: var(--accent); }

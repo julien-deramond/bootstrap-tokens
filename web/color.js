@@ -34,8 +34,8 @@ export function rgbToOklch([red, green, blue]) {
   return { l: okL, c: chroma, h: chroma < 1e-6 ? 0 : hue }
 }
 
-/** OKLCH → sRGB (0–255), clipped to gamut. */
-export function oklchToRgb({ l: okL, c: chroma, h: hue }) {
+/** OKLCH → linear-light sRGB, unclamped, so we can tell whether it is in gamut. */
+function oklchToLinear({ l: okL, c: chroma, h: hue }) {
   const rad = (hue * Math.PI) / 180
   const okA = chroma * Math.cos(rad)
   const okB = chroma * Math.sin(rad)
@@ -44,11 +44,46 @@ export function oklchToRgb({ l: okL, c: chroma, h: hue }) {
   const m = (okL - 0.1055613458 * okA - 0.0638541728 * okB) ** 3
   const s = (okL - 0.0894841775 * okA - 1.291485548 * okB) ** 3
 
-  const r = 4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s
-  const g = -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s
-  const b = -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s
+  return [
+    4.0767416621 * l - 3.3077115913 * m + 0.2309699292 * s,
+    -1.2684380046 * l + 2.6097574011 * m - 0.3413193965 * s,
+    -0.0041960863 * l - 0.7034186147 * m + 1.707614701 * s
+  ]
+}
 
-  return [r, g, b].map((channel) => Math.round(clamp01(toGamma(clamp01(channel))) * 255))
+const EPSILON = 1e-5
+const inSrgb = (rgb) => rgb.every((channel) => channel >= -EPSILON && channel <= 1 + EPSILON)
+
+/**
+ * OKLCH → sRGB (0–255), gamut-mapped by reducing chroma.
+ *
+ * Clamping each channel independently is the obvious implementation and it is wrong: it
+ * moves the colour sideways in hue. Bootstrap authors deliberately saturated hues —
+ * `oklch(60% 0.24 240)` is outside sRGB — so a naive round-trip through the colour picker
+ * turned that blue into a 254° blue-violet, silently rewriting the palette. Reducing chroma
+ * until the colour fits keeps lightness and hue exactly, which is what CSS Color 4 asks for
+ * and what a designer expects: same colour, less saturated.
+ */
+export function oklchToRgb({ l, c, h }) {
+  const lightness = clamp01(l)
+
+  let chroma = Math.max(0, c)
+  if (!inSrgb(oklchToLinear({ l: lightness, c: chroma, h }))) {
+    let low = 0
+    let high = chroma
+
+    // 24 bisections resolves chroma far finer than 8-bit output can show.
+    for (let i = 0; i < 24; i++) {
+      const mid = (low + high) / 2
+      if (inSrgb(oklchToLinear({ l: lightness, c: mid, h }))) low = mid
+      else high = mid
+    }
+    chroma = low
+  }
+
+  return oklchToLinear({ l: lightness, c: chroma, h }).map(
+    (channel) => Math.round(clamp01(toGamma(clamp01(channel))) * 255)
+  )
 }
 
 const hex2 = (n) => n.toString(16).padStart(2, '0')

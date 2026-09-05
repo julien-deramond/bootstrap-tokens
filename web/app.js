@@ -1069,9 +1069,7 @@ function render() {
   $('#simple').hidden = !simple
   $('#advanced').hidden = simple
 
-  for (const button of document.querySelectorAll('#mode button')) {
-    button.setAttribute('aria-selected', String(button.dataset.mode === state.mode))
-  }
+  syncTabs($('#mode'), (tab) => tab.dataset.mode === state.mode)
 
   $('#undo').disabled = state.past.length === 0
   $('#redo').disabled = state.future.length === 0
@@ -1224,12 +1222,49 @@ function renderExport() {
     list.append(item)
   }
 
-  for (const tab of document.querySelectorAll('.tabs button')) {
-    tab.setAttribute('aria-selected', String(tab.dataset.tab === state.exportTab))
-  }
+  syncTabs($('#export-tabs'), (tab) => tab.dataset.tab === state.exportTab)
 }
 
 /* -------------------------------------------------------------------- wire */
+
+/**
+ * Make a `role="tablist"` behave like one.
+ *
+ * Declaring the roles without the keyboard behaviour is worse than not declaring them: a
+ * screen reader announces "tab, 1 of 4" and the user reaches for the arrow keys, which did
+ * nothing. This adds the roving tabindex and arrow/Home/End handling the pattern requires.
+ */
+function wireTabs(list, select) {
+  const tabs = [...list.querySelectorAll('[role="tab"]')]
+
+  const focusTab = (index) => {
+    const next = tabs[(index + tabs.length) % tabs.length]
+    next.focus()
+    next.click()
+  }
+
+  list.addEventListener('keydown', (event) => {
+    const index = tabs.indexOf(event.target)
+    if (index === -1) return
+
+    const keys = { ArrowRight: index + 1, ArrowLeft: index - 1, Home: 0, End: tabs.length - 1 }
+    if (!(event.key in keys)) return
+
+    event.preventDefault()
+    focusTab(keys[event.key])
+  })
+
+  for (const tab of tabs) tab.addEventListener('click', () => select(tab))
+}
+
+/** Keep `aria-selected` and the roving tabindex in step after any change. */
+function syncTabs(list, isSelected) {
+  for (const tab of list.querySelectorAll('[role="tab"]')) {
+    const selected = isSelected(tab)
+    tab.setAttribute('aria-selected', String(selected))
+    tab.tabIndex = selected ? 0 : -1
+  }
+}
 
 function wire() {
   $('#search').addEventListener('input', (event) => {
@@ -1249,9 +1284,7 @@ function wire() {
     })
   }
 
-  for (const button of document.querySelectorAll('#mode button')) {
-    button.addEventListener('click', () => setMode(button.dataset.mode))
-  }
+  wireTabs($('#mode'), (tab) => setMode(tab.dataset.mode))
 
   // No confirm(): the action is undoable, and a modal to guard a reversible action just
   // trains people to dismiss modals.
@@ -1274,12 +1307,10 @@ function wire() {
     $('#export').showModal()
   })
 
-  for (const tab of document.querySelectorAll('.tabs button')) {
-    tab.addEventListener('click', () => {
-      state.exportTab = tab.dataset.tab
-      renderExport()
-    })
-  }
+  wireTabs($('#export-tabs'), (tab) => {
+    state.exportTab = tab.dataset.tab
+    renderExport()
+  })
 
   $('#copy').addEventListener('click', async () => {
     const { text } = exportContent()

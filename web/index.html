@@ -33,14 +33,14 @@
     <main class="layout">
       <section class="panel" aria-label="Theme controls">
         <div class="panel-tabs" role="tablist" id="mode">
-          <button type="button" role="tab" data-mode="simple" aria-selected="true">Design</button>
-          <button type="button" role="tab" data-mode="advanced" aria-selected="false">All tokens</button>
+          <button type="button" role="tab" id="tab-simple" aria-controls="simple" data-mode="simple" aria-selected="true">Design</button>
+          <button type="button" role="tab" id="tab-advanced" aria-controls="advanced" data-mode="advanced" aria-selected="false" tabindex="-1">All tokens</button>
         </div>
 
         <div class="panel-body">
-          <div id="simple"></div>
+          <div id="simple" role="tabpanel" aria-labelledby="tab-simple" tabindex="0"></div>
 
-          <div id="advanced" hidden>
+          <div id="advanced" role="tabpanel" aria-labelledby="tab-advanced" tabindex="0" hidden>
             <div class="rail-search">
               <input type="search" id="search" placeholder="Search 1197 tokens…" aria-label="Search tokens" autocomplete="off" />
             </div>
@@ -77,16 +77,18 @@
         <button class="button" value="close" aria-label="Close">Close</button>
       </form>
 
-      <div class="tabs" role="tablist">
-        <button type="button" role="tab" data-tab="scss" aria-selected="true">custom.scss</button>
-        <button type="button" role="tab" data-tab="css" aria-selected="false">theme.css</button>
-        <button type="button" role="tab" data-tab="json" aria-selected="false">theme.json</button>
-        <button type="button" role="tab" data-tab="sources" aria-selected="false">v6-dev sources</button>
+      <div class="tabs" role="tablist" id="export-tabs">
+        <button type="button" role="tab" id="tab-scss" aria-controls="export-panel" data-tab="scss" aria-selected="true">custom.scss</button>
+        <button type="button" role="tab" id="tab-css" aria-controls="export-panel" data-tab="css" aria-selected="false" tabindex="-1">theme.css</button>
+        <button type="button" role="tab" id="tab-json" aria-controls="export-panel" data-tab="json" aria-selected="false" tabindex="-1">theme.json</button>
+        <button type="button" role="tab" id="tab-sources" aria-controls="export-panel" data-tab="sources" aria-selected="false" tabindex="-1">v6-dev sources</button>
       </div>
 
-      <p class="export-note" id="export-note"></p>
-      <ol class="export-steps" id="export-steps" hidden></ol>
-      <pre class="export-code"><code id="export-code"></code></pre>
+      <div id="export-panel" role="tabpanel" class="export-panel">
+        <p class="export-note" id="export-note"></p>
+        <ol class="export-steps" id="export-steps" hidden></ol>
+        <pre class="export-code" tabindex="0"><code id="export-code"></code></pre>
+      </div>
 
       <div class="export-actions">
         <button type="button" class="button button-primary" id="download">Download</button>
