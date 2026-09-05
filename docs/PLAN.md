@@ -231,6 +231,11 @@ Today there is exactly one: `@use … with ()`. Add, in this order:
    clean directory through `npm install` to a themed stylesheet. It exposed that Bootstrap 6
    is not on npm at all, so a semver range would have failed on install in the very feature
    meant to prove the export works; the scaffold points at the branch and says why.
+
+   The scaffold now ships `npm run verify` too, so the consumer can make the claim in their
+   own project rather than reading it in ours: the Bootstrap they installed is the one that
+   matters, and a dependency bump is exactly when you want to ask again. Run from a clean
+   directory: 34 of 34 previewed properties matching against `node_modules/bootstrap`.
 2. ✅ **Typed JS/TS** — a runtime module plus declarations rather than a `.ts` source, so it
    works from plain JavaScript too. `TokenPath` is a union of all 1203 paths, which is the
    point of shipping types at all: a typo becomes a compile error instead of a `var()` that

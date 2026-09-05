@@ -33,7 +33,12 @@ cd my-theme && npm install && npm run watch
 That writes a project that compiles: the entry stylesheet, a `package.json` with the right
 dependencies and scripts, a page that uses the result, and the `theme.json` so you can reopen
 it in the chooser later. Verified end to end — clean directory, `npm install`, `npm run
-build`, a 355 KB themed stylesheet.
+build`, a 358 KB themed stylesheet.
+
+It also gets `npm run verify`, which compiles the theme against **the Bootstrap you
+installed** and compares every custom property with what the chooser previewed. "It looked
+right in the tool" and "it compiles to this" are different claims, and only the second one
+survives a dependency bump.
 
 > Bootstrap 6 is not on npm yet — the registry has nothing above 5.x — so the scaffold depends
 > on the `v6-dev` branch, which installs cleanly because upstream ships `scss/**` and defines

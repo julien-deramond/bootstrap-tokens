@@ -84,6 +84,29 @@ test('the theme travels with the project, both ways', async () => {
   const theme = JSON.parse(readFileSync(join(target, 'theme.json'), 'utf8'))
   assert.deepEqual(theme.overrides, THEME.overrides)
   assert.deepEqual(theme.options, THEME.options)
+  assert.ok(theme.name, 'the name travels too, so the project is not called theme.json')
+})
+
+test('the project can check its own theme against the Bootstrap it installed', async () => {
+  /*
+   * The claim this whole pipeline exists to support — "it compiles to what you previewed" —
+   * is worth being able to make in the consumer's project, not only in this repository: the
+   * Bootstrap they installed is the one that matters, and a dependency bump is exactly when
+   * you want to ask again.
+   *
+   * Run end to end from a clean directory: scaffold, `npm install`, `npm run verify` — 34 of
+   * 34 previewed properties matching against `node_modules/bootstrap`, and `npm run build`
+   * producing a 358 KB themed stylesheet.
+   */
+  const target = await scaffold()
+  const pkg = JSON.parse(readFileSync(join(target, 'package.json'), 'utf8'))
+
+  assert.match(pkg.scripts.verify, /^bstokens verify/)
+  assert.match(pkg.scripts.verify, /--theme theme\.json/)
+  // Against what they installed, not against a checkout they would have to find.
+  assert.match(pkg.scripts.verify, /--src node_modules\/bootstrap/)
+  // And `bstokens` has to be resolvable, or the script is a suggestion rather than a command.
+  assert.ok(pkg.devDependencies['bootstrap-tokens'], 'nothing provides the bstokens binary')
 })
 
 test('it refuses to write over an existing project unless told to', async () => {
