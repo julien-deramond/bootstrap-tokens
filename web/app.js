@@ -407,7 +407,25 @@ function renderEditor() {
   if (paths.length === 0) {
     const empty = document.createElement('p')
     empty.className = 'empty'
-    empty.textContent = state.query ? `Nothing matches “${state.query}” here.` : 'No editable tokens in this group.'
+
+    if (state.query) {
+      // A filtered empty state names the query and offers the way out of it.
+      empty.append(`No tokens match “${state.query}” in ${label(state.section)}. `)
+
+      const clear = document.createElement('button')
+      clear.type = 'button'
+      clear.className = 'link-button'
+      clear.textContent = 'Clear search'
+      clear.addEventListener('click', () => {
+        state.query = ''
+        $('#search').value = ''
+        render()
+      })
+      empty.append(clear)
+    } else {
+      empty.textContent = 'No editable tokens in this group.'
+    }
+
     editor.append(empty)
     return
   }
@@ -728,7 +746,7 @@ function dialShell(dial, current) {
     const custom = document.createElement('span')
     custom.className = 'dial-custom'
     custom.textContent = 'Custom'
-    custom.title = 'These tokens hold a value none of these options represents. Advanced mode shows it.'
+    custom.title = 'These tokens hold a value none of these options represents. The All tokens tab shows it.'
     head.append(custom)
   }
 
@@ -952,7 +970,7 @@ function renderSimpleFooter() {
 
   const summary = document.createElement('p')
   summary.textContent = total === 0
-    ? 'Nothing changed yet — the preview is stock Bootstrap.'
+    ? 'Nothing changed yet. Pick a brand colour, or start from a preset above.'
     : `${total} token${total === 1 ? '' : 's'} changed. Export writes only what you touched.`
   footer.append(summary)
 
@@ -966,7 +984,7 @@ function renderSimpleFooter() {
   const link = document.createElement('button')
   link.type = 'button'
   link.className = 'link-button'
-  link.textContent = 'Open Advanced mode to edit any of the 1197 tokens →'
+  link.textContent = `Edit all ${state.baseDoc.tokens.size} tokens →`
   link.addEventListener('click', () => setMode('advanced'))
   footer.append(link)
 
@@ -1205,7 +1223,15 @@ function maintainerExport(version) {
   return `${lines.join('\n')}\n`
 }
 
+/** Report an import problem beside the control that caused it, not in a modal alert. */
+function showExportMessage(text) {
+  const element = $('#export-message')
+  element.textContent = text
+  element.hidden = !text
+}
+
 function renderExport() {
+  showExportMessage('')
   const { note, text, steps, filename } = exportContent()
 
   $('#export-note').textContent = note
@@ -1339,8 +1365,8 @@ function wire() {
         state.overrides = parsed.overrides
       })
       renderExport()
-    } catch (error) {
-      alert(`That doesn't look like a theme.json: ${error.message}`)
+    } catch {
+      showExportMessage('Unable to read that file. Choose a theme.json exported from this page.')
     }
     event.target.value = ''
   })
@@ -1394,5 +1420,5 @@ async function start() {
 
 start().catch((error) => {
   console.error(error)
-  $('#brand-sub').textContent = `Could not load the token document: ${error.message}`
+  $('#brand-sub').textContent = 'Could not load the token document. Run npm run build, then reload.'
 })

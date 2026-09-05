@@ -320,6 +320,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 .readonly-note { font-size: .6875rem; color: var(--ink-faint); font-style: italic; }
 
 .empty { padding: 2rem 1rem; color: var(--ink-faint); font-size: .8125rem; }
+.empty .link-button { margin: 0; }
 
 /* --- preview ------------------------------------------------------------ */
 
@@ -361,7 +362,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 }
 
 .export::backdrop { background: rgb(10 12 16 / 45%); }
-.export[open] { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; }
+.export[open] { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto auto; }
 .export-panel { display: grid; grid-template-rows: auto auto minmax(0, 1fr); min-block-size: 0; }
 
 .export-head { display: flex; align-items: center; justify-content: space-between; padding: .875rem 1rem; border-block-end: 1px solid var(--line); }
@@ -398,7 +399,16 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 
 .export-code code { font: .75rem/1.6 var(--mono); white-space: pre; }
 
-.export-actions { display: flex; gap: .5rem; padding: 0 1rem 1rem; }
+.export-message {
+  margin: 0 1rem;
+  padding: .5rem .625rem;
+  font-size: .75rem;
+  border-radius: 6px;
+  background: color-mix(in oklab, #dc2626 14%, transparent);
+  color: light-dark(#7f1d1d, #fca5a5);
+}
+
+.export-actions { display: flex; gap: .5rem; padding: .625rem 1rem 1rem; }
 
 
 
