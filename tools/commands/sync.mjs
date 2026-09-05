@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process'
-import { writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { extract } from '../lib/extract.mjs'
@@ -38,6 +38,26 @@ export async function sync({ flags }) {
     // because it is the only way `validate` can tell a deliberate opt-in hook — a `var()`
     // a theme class fills in — from a reference to a property that simply does not exist.
     declaredCustomProperties: await declaredCustomProperties(source)
+  }
+
+  /*
+   * `extractedAt` is when this run happened and `commit` is which checkout it ran against.
+   * Neither says anything about the tokens, so neither is drift — but both change on every
+   * run, which would make `--check` fail on the first day after a sync and stay failed. In
+   * check mode they are carried over from the committed file so the comparison is about
+   * content. Anything else in meta.json — the version, the token count, the set of custom
+   * properties Bootstrap declares — is a fact about upstream and is compared normally.
+   */
+  if (check) {
+    const path = join(tokensDir, 'meta.json')
+    if (existsSync(path)) {
+      const previous = JSON.parse(readFileSync(path, 'utf8'))
+      files['meta.json'].extractedAt = previous.extractedAt
+      files['meta.json'].commit = previous.commit
+      if (upstreamCommit(source) !== previous.commit) {
+        console.log(`Upstream is at ${upstreamCommit(source)?.slice(0, 8)}, document says ${String(previous.commit).slice(0, 8)}.`)
+      }
+    }
   }
 
   console.log(`Bootstrap ${version} at ${source}`)
