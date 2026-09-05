@@ -65,6 +65,14 @@ export function validate(doc, { strict = false } = {}) {
       seenCssVars.set(meta.cssVar, path)
     }
 
+    // --- documentation ---
+    // Only the semantic layer is required. A primitive scale step is described by its group
+    // ("the spacing scale"), and demanding a line for every component token would buy 676
+    // restatements of the token's own name.
+    if (layer === 'semantic' && !token.$description && !meta.generated) {
+      errors.push(`${path}: a semantic token needs a $description — it is where meaning lives`)
+    }
+
     // --- references ---
     for (const reference of referencesOf(token)) {
       const target = doc.tokens.get(reference)

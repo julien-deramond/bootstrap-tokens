@@ -14,7 +14,8 @@
           "sassMap": "$root-tokens",
           "sassKey": "--transition-timing-overlay"
         }
-      }
+      },
+      "$description": "Shared easing for overlays — dialogs, drawers and menus — so they all enter with the same character."
     },
     "$description": "Shared easing curves."
   }

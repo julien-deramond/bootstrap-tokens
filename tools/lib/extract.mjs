@@ -25,6 +25,7 @@ import {
 import { splitLightDark, cssToRefs, isPureAlias, typeLiteral } from './value.mjs'
 import { hintFor, GROUP_HINTS } from './hints.mjs'
 import { evaluateSassFunctions } from './sass-functions.mjs'
+import { describe, describeRole, describeThemeHook } from './descriptions.mjs'
 
 const NS = 'dev.bootstrap.tokens'
 
@@ -505,7 +506,11 @@ export function extract(bootstrapRoot) {
     files[file] ??= {}
 
     const token = toToken(record, (name) => lookup(name, record.component))
-    if (TOKEN_DESCRIPTIONS[record.path]) token.$description = TOKEN_DESCRIPTIONS[record.path]
+    // Curated notes win: they cover the surprises, where the general description covers
+    // the meaning.
+    const description =
+      TOKEN_DESCRIPTIONS[record.path] ?? describe(record.path) ?? describeThemeHook(token.$value)
+    if (description) token.$description = description
     place(files[file], record.path, token)
     recordOrder(orders, record.path)
   }
@@ -523,6 +528,14 @@ function decorate(files, warnings) {
     for (const [group, node] of Object.entries(tree)) {
       if (!node || typeof node !== 'object' || node.$value !== undefined) continue
       if (GROUP_DESCRIPTIONS[group]) node.$description = GROUP_DESCRIPTIONS[group]
+
+      // Each theme role gets its own note; the nine sub-keys below it are templated.
+      if (group !== 'theme-color') continue
+      for (const [role, roleNode] of Object.entries(node)) {
+        if (role.startsWith('$') || !roleNode || roleNode.$value !== undefined) continue
+        const note = describeRole(role)
+        if (note) roleNode.$description = note
+      }
     }
 
     if (!file.startsWith('component/')) continue

@@ -21,7 +21,8 @@
           "sassKey": "--alert-bg",
           "expression": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg-subtle`, and uses the fallback only when no theme class is set."
     },
     "padding-x": {
       "$type": "dimension",
@@ -55,7 +56,8 @@
           "sassKey": "--alert-color",
           "css": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-fg`, and uses the fallback only when no theme class is set."
     },
     "border-color": {
       "$type": "color",
@@ -67,7 +69,8 @@
           "sassKey": "--alert-border-color",
           "expression": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-border`, and uses the fallback only when no theme class is set."
     },
     "border": {
       "$value": "{border.width} solid {alert.border-color}",
@@ -150,7 +153,8 @@
           "sassKey": "--hr-border-color",
           "expression": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-border`, and uses the fallback only when no theme class is set."
     },
     "$description": "Tokens emitted on `.alert`.",
     "$extensions": {

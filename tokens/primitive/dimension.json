@@ -136,7 +136,8 @@
         "dev.bootstrap.tokens": {
           "sassVar": "$spacer"
         }
-      }
+      },
+      "$description": "The base spacer. Every step of the spacing scale is a multiple of it, so changing it rescales the whole system."
     },
     "root": {
       "$type": "dimension",
@@ -310,7 +311,8 @@
         "dev.bootstrap.tokens": {
           "sassVar": "$radius"
         }
-      }
+      },
+      "$description": "The base radius. Every step of the 0–9 scale is a multiple of it, so one change rounds or squares every component at once."
     },
     "pill": {
       "$type": "dimension",

@@ -249,7 +249,8 @@
           "sassVar": "$white",
           "sassEmit": "#{$white}"
         }
-      }
+      },
+      "$description": "Pure white, referenced by the tint half of every colour scale."
     },
     "black": {
       "$type": "color",
@@ -260,7 +261,8 @@
           "sassVar": "$black",
           "sassEmit": "#{$black}"
         }
-      }
+      },
+      "$description": "Pure black, referenced by the shade half of every colour scale."
     },
     "$description": "Base hues in oklch() plus the 13-step scale each one generates."
   },
@@ -444,7 +446,8 @@
         "dev.bootstrap.tokens": {
           "sassVar": "$tint-color"
         }
-      }
+      },
+      "$description": "What tints are mixed towards — the light end of every scale."
     },
     "shade-color": {
       "$type": "color",
@@ -453,7 +456,8 @@
         "dev.bootstrap.tokens": {
           "sassVar": "$shade-color"
         }
-      }
+      },
+      "$description": "What shades are mixed towards — the dark end of every scale."
     },
     "$description": "Inputs to the colour-scale generator: mixing space and tint/shade endpoints."
   }

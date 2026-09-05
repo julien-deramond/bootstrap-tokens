@@ -9,7 +9,8 @@
           "sassEmit": "#{$gradient}",
           "expression": true
         }
-      }
+      },
+      "$description": "The sheen laid over filled components when `$enable-gradients` is on."
     },
     "$description": "Decorative effects that are not colour, spacing or type."
   }

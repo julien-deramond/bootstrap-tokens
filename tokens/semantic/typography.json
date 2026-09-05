@@ -11,7 +11,8 @@
             "sassKey": "--body-font-family",
             "css": true
           }
-        }
+        },
+        "$description": "The body font stack. It deliberately omits `system-ui`, which resolves to the locale’s UI font and renders non-Latin text incorrectly."
       },
       "font-size": {
         "$type": "dimension",
@@ -25,7 +26,8 @@
             "sassMap": "$root-tokens",
             "sassKey": "--body-font-size"
           }
-        }
+        },
+        "$description": "Base text size. Component sizes that reference it follow; the fluid heading scale does not."
       },
       "font-weight": {
         "$type": "fontWeight",
@@ -36,7 +38,8 @@
             "sassMap": "$root-tokens",
             "sassKey": "--body-font-weight"
           }
-        }
+        },
+        "$description": "Weight of ordinary running text. Headings set their own, so this governs paragraphs and labels."
       },
       "line-height": {
         "$type": "number",
@@ -47,7 +50,8 @@
             "sassMap": "$root-tokens",
             "sassKey": "--body-line-height"
           }
-        }
+        },
+        "$description": "Leading for running text. Headings override it, so this mostly decides how dense a paragraph feels."
       }
     },
     "heading": {
@@ -61,7 +65,8 @@
             "sassKey": "--heading-color",
             "css": true
           }
-        }
+        },
+        "$description": "Heading colour. Inherits by default, so headings match body text unless you separate them."
       }
     },
     "hr": {
@@ -74,7 +79,8 @@
             "sassMap": "$root-tokens",
             "sassKey": "--hr-border-color"
           }
-        }
+        },
+        "$description": "Colour of a horizontal rule, and of the divider inside an alert or a card."
       }
     },
     "link": {
@@ -88,7 +94,8 @@
             "sassKey": "--link-color",
             "dark": "{theme-color.primary.fg}"
           }
-        }
+        },
+        "$description": "Link colour. Uses the solid brand colour in light mode and the lighter text variant in dark."
       },
       "decoration": {
         "$value": "underline",
@@ -99,7 +106,8 @@
             "sassKey": "--link-decoration",
             "css": true
           }
-        }
+        },
+        "$description": "How a link is marked. Removing the underline leaves colour as the only cue, which fails for readers who cannot distinguish it."
       },
       "underline-offset": {
         "$type": "dimension",
@@ -111,7 +119,8 @@
             "sassKey": "--link-underline-offset",
             "css": true
           }
-        }
+        },
+        "$description": "How far the underline sits below the text. Enough clearance keeps it from cutting through descenders."
       },
       "hover-color": {
         "$type": "color",
@@ -123,7 +132,8 @@
             "sassKey": "--link-hover-color",
             "expression": true
           }
-        }
+        },
+        "$description": "Link colour on hover — the base colour darkened, so the shift reads without changing hue."
       }
     },
     "code": {
@@ -136,7 +146,8 @@
             "sassKey": "--font-mono",
             "css": true
           }
-        }
+        },
+        "$description": "The monospace stack, for code and any figure that should align in columns."
       },
       "font-size": {
         "$type": "dimension",
@@ -148,7 +159,8 @@
             "sassKey": "--code-font-size",
             "css": true
           }
-        }
+        },
+        "$description": "Code size relative to its surrounding text, so inline code does not tower over the line."
       },
       "color": {
         "$type": "color",
@@ -159,7 +171,8 @@
             "sassMap": "$root-tokens",
             "sassKey": "--code-color"
           }
-        }
+        },
+        "$description": "Colour of inline code, set a step away from running text so it reads as a quotation."
       }
     },
     "$description": "Body, heading, link and code typography."

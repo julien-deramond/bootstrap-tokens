@@ -142,7 +142,8 @@
           "sassKey": "--pagination-active-color",
           "expression": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-contrast`, and uses the fallback only when no theme class is set."
     },
     "active-bg": {
       "$type": "color",
@@ -154,7 +155,8 @@
           "sassKey": "--pagination-active-bg",
           "expression": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set."
     },
     "active-border-color": {
       "$type": "color",
@@ -166,7 +168,8 @@
           "sassKey": "--pagination-active-border-color",
           "expression": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set."
     },
     "disabled-color": {
       "$type": "color",

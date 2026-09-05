@@ -127,7 +127,8 @@
           "sassKey": "--chip-color",
           "expression": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-fg`, and uses the fallback only when no theme class is set."
     },
     "bg": {
       "$type": "color",
@@ -139,7 +140,8 @@
           "sassKey": "--chip-bg",
           "expression": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg-subtle`, and uses the fallback only when no theme class is set."
     },
     "border-color": {
       "$type": "color",
@@ -163,7 +165,8 @@
           "sassKey": "--chip-selected-color",
           "expression": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-contrast`, and uses the fallback only when no theme class is set."
     },
     "selected-bg": {
       "$type": "color",
@@ -175,7 +178,8 @@
           "sassKey": "--chip-selected-bg",
           "expression": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set."
     },
     "selected-border-color": {
       "$type": "color",
@@ -187,7 +191,8 @@
           "sassKey": "--chip-selected-border-color",
           "expression": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set."
     },
     "$description": "Tokens emitted on `.chip`.",
     "$extensions": {

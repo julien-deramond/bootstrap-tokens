@@ -11,7 +11,8 @@
           "sassQuoted": true,
           "dark": "{color.gray.950}"
         }
-      }
+      },
+      "$description": "The first raised surface — card headers, table stripes, anything a step above the page."
     },
     "2": {
       "$type": "color",
@@ -24,7 +25,8 @@
           "sassQuoted": true,
           "dark": "{color.gray.900}"
         }
-      }
+      },
+      "$description": "A second step up, for a surface raised above one that is already raised."
     },
     "3": {
       "$type": "color",
@@ -37,7 +39,8 @@
           "sassQuoted": true,
           "dark": "{color.gray.800}"
         }
-      }
+      },
+      "$description": "A third step, used mostly for disabled controls and inset wells."
     },
     "4": {
       "$type": "color",
@@ -50,7 +53,8 @@
           "sassQuoted": true,
           "dark": "{color.gray.700}"
         }
-      }
+      },
+      "$description": "The strongest neutral fill before you reach an inverted surface."
     },
     "body": {
       "$type": "color",
@@ -63,7 +67,8 @@
           "sassQuoted": true,
           "dark": "{color.gray.975}"
         }
-      }
+      },
+      "$description": "The page background. Every other surface is measured against it."
     },
     "fg": {
       "$type": "color",
@@ -75,7 +80,8 @@
           "sassKey": "fg",
           "sassQuoted": true
         }
-      }
+      },
+      "$description": "The foreground colour used as a background — for inverted blocks that flip the page around."
     },
     "white": {
       "$type": "color",
@@ -87,7 +93,8 @@
           "sassKey": "white",
           "sassQuoted": true
         }
-      }
+      },
+      "$description": "Fixed white in both schemes. Use it when a surface must not follow the theme."
     },
     "black": {
       "$type": "color",
@@ -99,7 +106,8 @@
           "sassKey": "black",
           "sassQuoted": true
         }
-      }
+      },
+      "$description": "Fixed black in both schemes. Use it when a surface must not follow the theme."
     },
     "transparent": {
       "$type": "color",
@@ -112,7 +120,8 @@
           "sassQuoted": true,
           "css": true
         }
-      }
+      },
+      "$description": "No background at all. Use it to clear an inherited one."
     },
     "inherit": {
       "$type": "color",
@@ -125,7 +134,8 @@
           "sassQuoted": true,
           "css": true
         }
-      }
+      },
+      "$description": "Take whatever background the parent has. A CSS-wide keyword, so it cannot be stored in a custom property."
     },
     "$extensions": {
       "dev.bootstrap.tokens": {
@@ -157,7 +167,8 @@
           "sassQuoted": true,
           "dark": "{color.gray.200}"
         }
-      }
+      },
+      "$description": "Slightly de-emphasised text — secondary lines that still have to be read comfortably."
     },
     "2": {
       "$type": "color",
@@ -170,7 +181,8 @@
           "sassQuoted": true,
           "dark": "{color.gray.300}"
         }
-      }
+      },
+      "$description": "Supporting text: captions, helper text under a field, table metadata."
     },
     "3": {
       "$type": "color",
@@ -183,7 +195,8 @@
           "sassQuoted": true,
           "dark": "{color.gray.500}"
         }
-      }
+      },
+      "$description": "Faint text for labels and placeholders. Below WCAG AA for body copy, so keep it off long prose."
     },
     "4": {
       "$type": "color",
@@ -196,7 +209,8 @@
           "sassQuoted": true,
           "dark": "{color.gray.600}"
         }
-      }
+      },
+      "$description": "The faintest step, for decorative or disabled text only. It does not meet WCAG AA at any size."
     },
     "body": {
       "$type": "color",
@@ -209,7 +223,8 @@
           "sassQuoted": true,
           "dark": "{color.gray.050}"
         }
-      }
+      },
+      "$description": "Primary body text. The default reading colour."
     },
     "bg": {
       "$type": "color",
@@ -221,7 +236,8 @@
           "sassKey": "bg",
           "sassQuoted": true
         }
-      }
+      },
+      "$description": "The page background used as a text colour — for text on an inverted surface."
     },
     "white": {
       "$type": "color",
@@ -233,7 +249,8 @@
           "sassKey": "white",
           "sassQuoted": true
         }
-      }
+      },
+      "$description": "Fixed white in both schemes, for text that must stay light whatever the theme does."
     },
     "black": {
       "$type": "color",
@@ -245,7 +262,8 @@
           "sassKey": "black",
           "sassQuoted": true
         }
-      }
+      },
+      "$description": "Fixed black in both schemes, for text that must stay dark whatever the theme does."
     },
     "inherit": {
       "$type": "color",
@@ -258,7 +276,8 @@
           "sassQuoted": true,
           "css": true
         }
-      }
+      },
+      "$description": "Take whatever text colour the parent has."
     },
     "$extensions": {
       "dev.bootstrap.tokens": {

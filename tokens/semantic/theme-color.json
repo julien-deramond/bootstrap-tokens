@@ -12,7 +12,8 @@
             "sassSubKey": "base",
             "sassQuoted": true
           }
-        }
+        },
+        "$description": "The solid primary colour, unmodified. Use it when you need the hue itself rather than a surface or a text role."
       },
       "fg": {
         "$type": "color",
@@ -26,7 +27,8 @@
             "sassQuoted": true,
             "dark": "{color.blue.400}"
           }
-        }
+        },
+        "$description": "Primary text on the page background — darkened in light mode and lightened in dark, so it stays readable in both."
       },
       "fg-emphasis": {
         "$type": "color",
@@ -40,7 +42,8 @@
             "sassQuoted": true,
             "dark": "{color.blue.200}"
           }
-        }
+        },
+        "$description": "A higher-contrast primary text colour, for headings or for text sitting on a primary-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -53,7 +56,8 @@
             "sassSubKey": "bg",
             "sassQuoted": true
           }
-        }
+        },
+        "$description": "A solid primary fill. Pair it with `contrast` for anything placed on top."
       },
       "bg-subtle": {
         "$type": "color",
@@ -67,7 +71,8 @@
             "sassQuoted": true,
             "dark": "{color.blue.900}"
           }
-        }
+        },
+        "$description": "A lightly tinted primary surface — the usual background for alerts and subtle badges."
       },
       "bg-muted": {
         "$type": "color",
@@ -81,7 +86,8 @@
             "sassQuoted": true,
             "dark": "{color.blue.800}"
           }
-        }
+        },
+        "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces."
       },
       "border": {
         "$type": "color",
@@ -95,7 +101,8 @@
             "sassQuoted": true,
             "dark": "{color.blue.600}"
           }
-        }
+        },
+        "$description": "A primary border against the page background — tinted enough to read as primary, calm enough not to compete with the fill."
       },
       "focus-ring": {
         "$type": "color",
@@ -110,7 +117,8 @@
             "dark": "color-mix(in oklch, {color.blue.500} 75%, {bg.body})",
             "expression": true
           }
-        }
+        },
+        "$description": "The focus ring for primary controls. Mixed with the page background, so it stays visible in either scheme."
       },
       "contrast": {
         "$type": "color",
@@ -123,8 +131,10 @@
             "sassSubKey": "contrast",
             "sassQuoted": true
           }
-        }
-      }
+        },
+        "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black."
+      },
+      "$description": "The main brand colour. Buttons, links and focus rings default to it."
     },
     "accent": {
       "base": {
@@ -138,7 +148,8 @@
             "sassSubKey": "base",
             "sassQuoted": true
           }
-        }
+        },
+        "$description": "The solid accent colour, unmodified. Use it when you need the hue itself rather than a surface or a text role."
       },
       "fg": {
         "$type": "color",
@@ -153,7 +164,8 @@
             "dark": "color-mix(in oklch, {color.indigo.400}, {color.indigo.300})",
             "expression": true
           }
-        }
+        },
+        "$description": "Accent text on the page background — darkened in light mode and lightened in dark, so it stays readable in both."
       },
       "fg-emphasis": {
         "$type": "color",
@@ -167,7 +179,8 @@
             "sassQuoted": true,
             "dark": "{color.indigo.300}"
           }
-        }
+        },
+        "$description": "A higher-contrast accent text colour, for headings or for text sitting on a accent-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -180,7 +193,8 @@
             "sassSubKey": "bg",
             "sassQuoted": true
           }
-        }
+        },
+        "$description": "A solid accent fill. Pair it with `contrast` for anything placed on top."
       },
       "bg-subtle": {
         "$type": "color",
@@ -194,7 +208,8 @@
             "sassQuoted": true,
             "dark": "{color.indigo.900}"
           }
-        }
+        },
+        "$description": "A lightly tinted accent surface — the usual background for alerts and subtle badges."
       },
       "bg-muted": {
         "$type": "color",
@@ -208,7 +223,8 @@
             "sassQuoted": true,
             "dark": "{color.indigo.800}"
           }
-        }
+        },
+        "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces."
       },
       "border": {
         "$type": "color",
@@ -222,7 +238,8 @@
             "sassQuoted": true,
             "dark": "{color.indigo.600}"
           }
-        }
+        },
+        "$description": "A accent border against the page background — tinted enough to read as accent, calm enough not to compete with the fill."
       },
       "focus-ring": {
         "$type": "color",
@@ -237,7 +254,8 @@
             "dark": "color-mix(in oklch, {color.indigo.500} 75%, {bg.body})",
             "expression": true
           }
-        }
+        },
+        "$description": "The focus ring for accent controls. Mixed with the page background, so it stays visible in either scheme."
       },
       "contrast": {
         "$type": "color",
@@ -250,8 +268,10 @@
             "sassSubKey": "contrast",
             "sassQuoted": true
           }
-        }
-      }
+        },
+        "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black."
+      },
+      "$description": "A second brand colour, for highlights that should not compete with primary."
     },
     "success": {
       "base": {
@@ -265,7 +285,8 @@
             "sassSubKey": "base",
             "sassQuoted": true
           }
-        }
+        },
+        "$description": "The solid success colour, unmodified. Use it when you need the hue itself rather than a surface or a text role."
       },
       "fg": {
         "$type": "color",
@@ -279,7 +300,8 @@
             "sassQuoted": true,
             "dark": "{color.green.400}"
           }
-        }
+        },
+        "$description": "Success text on the page background — darkened in light mode and lightened in dark, so it stays readable in both."
       },
       "fg-emphasis": {
         "$type": "color",
@@ -293,7 +315,8 @@
             "sassQuoted": true,
             "dark": "{color.green.300}"
           }
-        }
+        },
+        "$description": "A higher-contrast success text colour, for headings or for text sitting on a success-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -306,7 +329,8 @@
             "sassSubKey": "bg",
             "sassQuoted": true
           }
-        }
+        },
+        "$description": "A solid success fill. Pair it with `contrast` for anything placed on top."
       },
       "bg-subtle": {
         "$type": "color",
@@ -320,7 +344,8 @@
             "sassQuoted": true,
             "dark": "{color.green.900}"
           }
-        }
+        },
+        "$description": "A lightly tinted success surface — the usual background for alerts and subtle badges."
       },
       "bg-muted": {
         "$type": "color",
@@ -334,7 +359,8 @@
             "sassQuoted": true,
             "dark": "{color.green.800}"
           }
-        }
+        },
+        "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces."
       },
       "border": {
         "$type": "color",
@@ -348,7 +374,8 @@
             "sassQuoted": true,
             "dark": "{color.green.600}"
           }
-        }
+        },
+        "$description": "A success border against the page background — tinted enough to read as success, calm enough not to compete with the fill."
       },
       "focus-ring": {
         "$type": "color",
@@ -363,7 +390,8 @@
             "dark": "color-mix(in oklch, {color.green.500} 75%, {bg.body})",
             "expression": true
           }
-        }
+        },
+        "$description": "The focus ring for success controls. Mixed with the page background, so it stays visible in either scheme."
       },
       "contrast": {
         "$type": "color",
@@ -376,8 +404,10 @@
             "sassSubKey": "contrast",
             "sassQuoted": true
           }
-        }
-      }
+        },
+        "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black."
+      },
+      "$description": "Confirmation: something finished, saved or passed validation."
     },
     "danger": {
       "base": {
@@ -391,7 +421,8 @@
             "sassSubKey": "base",
             "sassQuoted": true
           }
-        }
+        },
+        "$description": "The solid danger colour, unmodified. Use it when you need the hue itself rather than a surface or a text role."
       },
       "fg": {
         "$type": "color",
@@ -405,7 +436,8 @@
             "sassQuoted": true,
             "dark": "{color.red.400}"
           }
-        }
+        },
+        "$description": "Danger text on the page background — darkened in light mode and lightened in dark, so it stays readable in both."
       },
       "fg-emphasis": {
         "$type": "color",
@@ -419,7 +451,8 @@
             "sassQuoted": true,
             "dark": "{color.red.300}"
           }
-        }
+        },
+        "$description": "A higher-contrast danger text colour, for headings or for text sitting on a danger-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -432,7 +465,8 @@
             "sassSubKey": "bg",
             "sassQuoted": true
           }
-        }
+        },
+        "$description": "A solid danger fill. Pair it with `contrast` for anything placed on top."
       },
       "bg-subtle": {
         "$type": "color",
@@ -446,7 +480,8 @@
             "sassQuoted": true,
             "dark": "{color.red.900}"
           }
-        }
+        },
+        "$description": "A lightly tinted danger surface — the usual background for alerts and subtle badges."
       },
       "bg-muted": {
         "$type": "color",
@@ -460,7 +495,8 @@
             "sassQuoted": true,
             "dark": "{color.red.800}"
           }
-        }
+        },
+        "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces."
       },
       "border": {
         "$type": "color",
@@ -474,7 +510,8 @@
             "sassQuoted": true,
             "dark": "{color.red.600}"
           }
-        }
+        },
+        "$description": "A danger border against the page background — tinted enough to read as danger, calm enough not to compete with the fill."
       },
       "focus-ring": {
         "$type": "color",
@@ -489,7 +526,8 @@
             "dark": "color-mix(in oklch, {color.red.500} 75%, {bg.body})",
             "expression": true
           }
-        }
+        },
+        "$description": "The focus ring for danger controls. Mixed with the page background, so it stays visible in either scheme."
       },
       "contrast": {
         "$type": "color",
@@ -502,8 +540,10 @@
             "sassSubKey": "contrast",
             "sassQuoted": true
           }
-        }
-      }
+        },
+        "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black."
+      },
+      "$description": "Destruction or failure — deletions, errors, and the confirmations that guard them."
     },
     "warning": {
       "base": {
@@ -517,7 +557,8 @@
             "sassSubKey": "base",
             "sassQuoted": true
           }
-        }
+        },
+        "$description": "The solid warning colour, unmodified. Use it when you need the hue itself rather than a surface or a text role."
       },
       "fg": {
         "$type": "color",
@@ -531,7 +572,8 @@
             "sassQuoted": true,
             "dark": "{color.yellow.400}"
           }
-        }
+        },
+        "$description": "Warning text on the page background — darkened in light mode and lightened in dark, so it stays readable in both."
       },
       "fg-emphasis": {
         "$type": "color",
@@ -545,7 +587,8 @@
             "sassQuoted": true,
             "dark": "{color.yellow.300}"
           }
-        }
+        },
+        "$description": "A higher-contrast warning text colour, for headings or for text sitting on a warning-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -558,7 +601,8 @@
             "sassSubKey": "bg",
             "sassQuoted": true
           }
-        }
+        },
+        "$description": "A solid warning fill. Pair it with `contrast` for anything placed on top."
       },
       "bg-subtle": {
         "$type": "color",
@@ -572,7 +616,8 @@
             "sassQuoted": true,
             "dark": "{color.yellow.900}"
           }
-        }
+        },
+        "$description": "A lightly tinted warning surface — the usual background for alerts and subtle badges."
       },
       "bg-muted": {
         "$type": "color",
@@ -586,7 +631,8 @@
             "sassQuoted": true,
             "dark": "{color.yellow.800}"
           }
-        }
+        },
+        "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces."
       },
       "border": {
         "$type": "color",
@@ -600,7 +646,8 @@
             "sassQuoted": true,
             "dark": "{color.yellow.600}"
           }
-        }
+        },
+        "$description": "A warning border against the page background — tinted enough to read as warning, calm enough not to compete with the fill."
       },
       "focus-ring": {
         "$type": "color",
@@ -615,7 +662,8 @@
             "dark": "color-mix(in oklch, {color.yellow.400} 85%, {bg.body})",
             "expression": true
           }
-        }
+        },
+        "$description": "The focus ring for warning controls. Mixed with the page background, so it stays visible in either scheme."
       },
       "contrast": {
         "$type": "color",
@@ -628,8 +676,10 @@
             "sassSubKey": "contrast",
             "sassQuoted": true
           }
-        }
-      }
+        },
+        "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black."
+      },
+      "$description": "Something needs attention but has not failed yet."
     },
     "info": {
       "base": {
@@ -643,7 +693,8 @@
             "sassSubKey": "base",
             "sassQuoted": true
           }
-        }
+        },
+        "$description": "The solid info colour, unmodified. Use it when you need the hue itself rather than a surface or a text role."
       },
       "fg": {
         "$type": "color",
@@ -657,7 +708,8 @@
             "sassQuoted": true,
             "dark": "{color.cyan.400}"
           }
-        }
+        },
+        "$description": "Info text on the page background — darkened in light mode and lightened in dark, so it stays readable in both."
       },
       "fg-emphasis": {
         "$type": "color",
@@ -671,7 +723,8 @@
             "sassQuoted": true,
             "dark": "{color.cyan.300}"
           }
-        }
+        },
+        "$description": "A higher-contrast info text colour, for headings or for text sitting on a info-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -684,7 +737,8 @@
             "sassSubKey": "bg",
             "sassQuoted": true
           }
-        }
+        },
+        "$description": "A solid info fill. Pair it with `contrast` for anything placed on top."
       },
       "bg-subtle": {
         "$type": "color",
@@ -698,7 +752,8 @@
             "sassQuoted": true,
             "dark": "{color.cyan.900}"
           }
-        }
+        },
+        "$description": "A lightly tinted info surface — the usual background for alerts and subtle badges."
       },
       "bg-muted": {
         "$type": "color",
@@ -712,7 +767,8 @@
             "sassQuoted": true,
             "dark": "{color.cyan.800}"
           }
-        }
+        },
+        "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces."
       },
       "border": {
         "$type": "color",
@@ -726,7 +782,8 @@
             "sassQuoted": true,
             "dark": "{color.cyan.600}"
           }
-        }
+        },
+        "$description": "A info border against the page background — tinted enough to read as info, calm enough not to compete with the fill."
       },
       "focus-ring": {
         "$type": "color",
@@ -741,7 +798,8 @@
             "dark": "color-mix(in oklch, {color.cyan.500} 75%, {bg.body})",
             "expression": true
           }
-        }
+        },
+        "$description": "The focus ring for info controls. Mixed with the page background, so it stays visible in either scheme."
       },
       "contrast": {
         "$type": "color",
@@ -754,8 +812,10 @@
             "sassSubKey": "contrast",
             "sassQuoted": true
           }
-        }
-      }
+        },
+        "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black."
+      },
+      "$description": "Neutral information that is worth noticing but carries no verdict."
     },
     "inverse": {
       "base": {
@@ -769,7 +829,8 @@
             "sassSubKey": "base",
             "sassQuoted": true
           }
-        }
+        },
+        "$description": "The solid inverse colour, unmodified. Use it when you need the hue itself rather than a surface or a text role."
       },
       "fg": {
         "$type": "color",
@@ -783,7 +844,8 @@
             "sassQuoted": true,
             "dark": "{color.gray.200}"
           }
-        }
+        },
+        "$description": "Inverse text on the page background — darkened in light mode and lightened in dark, so it stays readable in both."
       },
       "fg-emphasis": {
         "$type": "color",
@@ -797,7 +859,8 @@
             "sassQuoted": true,
             "dark": "{color.white}"
           }
-        }
+        },
+        "$description": "A higher-contrast inverse text colour, for headings or for text sitting on a inverse-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -811,7 +874,8 @@
             "sassQuoted": true,
             "dark": "{color.gray.025}"
           }
-        }
+        },
+        "$description": "A solid inverse fill. Pair it with `contrast` for anything placed on top."
       },
       "bg-subtle": {
         "$type": "color",
@@ -825,7 +889,8 @@
             "sassQuoted": true,
             "dark": "{color.gray.900}"
           }
-        }
+        },
+        "$description": "A lightly tinted inverse surface — the usual background for alerts and subtle badges."
       },
       "bg-muted": {
         "$type": "color",
@@ -839,7 +904,8 @@
             "sassQuoted": true,
             "dark": "{color.gray.300}"
           }
-        }
+        },
+        "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces."
       },
       "border": {
         "$type": "color",
@@ -853,7 +919,8 @@
             "sassQuoted": true,
             "dark": "{color.gray.100}"
           }
-        }
+        },
+        "$description": "A inverse border against the page background — tinted enough to read as inverse, calm enough not to compete with the fill."
       },
       "focus-ring": {
         "$type": "color",
@@ -867,7 +934,8 @@
             "sassQuoted": true,
             "expression": true
           }
-        }
+        },
+        "$description": "The focus ring for inverse controls. Mixed with the page background, so it stays visible in either scheme."
       },
       "contrast": {
         "$type": "color",
@@ -881,8 +949,10 @@
             "sassQuoted": true,
             "dark": "{color.gray.900}"
           }
-        }
-      }
+        },
+        "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black."
+      },
+      "$description": "Reverses against the page: dark on a light page, light on a dark one. For surfaces that should dominate."
     },
     "secondary": {
       "base": {
@@ -896,7 +966,8 @@
             "sassSubKey": "base",
             "sassQuoted": true
           }
-        }
+        },
+        "$description": "The solid secondary colour, unmodified. Use it when you need the hue itself rather than a surface or a text role."
       },
       "fg": {
         "$type": "color",
@@ -910,7 +981,8 @@
             "sassQuoted": true,
             "dark": "{color.gray.400}"
           }
-        }
+        },
+        "$description": "Secondary text on the page background — darkened in light mode and lightened in dark, so it stays readable in both."
       },
       "fg-emphasis": {
         "$type": "color",
@@ -924,7 +996,8 @@
             "sassQuoted": true,
             "dark": "{color.gray.200}"
           }
-        }
+        },
+        "$description": "A higher-contrast secondary text colour, for headings or for text sitting on a secondary-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -938,7 +1011,8 @@
             "sassQuoted": true,
             "dark": "{color.gray.600}"
           }
-        }
+        },
+        "$description": "A solid secondary fill. Pair it with `contrast` for anything placed on top."
       },
       "bg-subtle": {
         "$type": "color",
@@ -952,7 +1026,8 @@
             "sassQuoted": true,
             "dark": "{color.gray.800}"
           }
-        }
+        },
+        "$description": "A lightly tinted secondary surface — the usual background for alerts and subtle badges."
       },
       "bg-muted": {
         "$type": "color",
@@ -966,7 +1041,8 @@
             "sassQuoted": true,
             "dark": "{color.gray.700}"
           }
-        }
+        },
+        "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces."
       },
       "border": {
         "$type": "color",
@@ -980,7 +1056,8 @@
             "sassQuoted": true,
             "dark": "{color.gray.600}"
           }
-        }
+        },
+        "$description": "A secondary border against the page background — tinted enough to read as secondary, calm enough not to compete with the fill."
       },
       "focus-ring": {
         "$type": "color",
@@ -994,7 +1071,8 @@
             "sassQuoted": true,
             "expression": true
           }
-        }
+        },
+        "$description": "The focus ring for secondary controls. Mixed with the page background, so it stays visible in either scheme."
       },
       "contrast": {
         "$type": "color",
@@ -1008,8 +1086,10 @@
             "sassQuoted": true,
             "dark": "{color.white}"
           }
-        }
-      }
+        },
+        "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black."
+      },
+      "$description": "Low emphasis. For controls that should recede behind the primary action."
     },
     "$description": "Semantic colour roles. Each role carries the nine sub-keys a component needs."
   }

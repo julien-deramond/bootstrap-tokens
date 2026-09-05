@@ -9,7 +9,8 @@
           "sassMap": "$root-tokens",
           "sassKey": "--control-checked-bg"
         }
-      }
+      },
+      "$description": "Fill of a checkbox, radio or switch once it is on."
     },
     "checked-border-color": {
       "$type": "color",
@@ -20,7 +21,8 @@
           "sassMap": "$root-tokens",
           "sassKey": "--control-checked-border-color"
         }
-      }
+      },
+      "$description": "Border of a checked control. Follows the checked fill unless you separate them."
     },
     "active-bg": {
       "$type": "color",
@@ -31,7 +33,8 @@
           "sassMap": "$root-tokens",
           "sassKey": "--control-active-bg"
         }
-      }
+      },
+      "$description": "Fill of a control while it is being pressed."
     },
     "active-border-color": {
       "$type": "color",
@@ -42,7 +45,8 @@
           "sassMap": "$root-tokens",
           "sassKey": "--control-active-border-color"
         }
-      }
+      },
+      "$description": "Border of a control while it is being pressed. Follows the active fill unless you set the two apart."
     },
     "disabled-bg": {
       "$type": "color",
@@ -53,7 +57,8 @@
           "sassMap": "$root-tokens",
           "sassKey": "--control-disabled-bg"
         }
-      }
+      },
+      "$description": "Fill of a control that cannot be used. Combined with the disabled opacity below, so the two compound."
     },
     "disabled-opacity": {
       "$type": "number",
@@ -64,7 +69,8 @@
           "sassMap": "$root-tokens",
           "sassKey": "--control-disabled-opacity"
         }
-      }
+      },
+      "$description": "How far a disabled control fades. Applied on top of the disabled fill, so both compound."
     },
     "transition-duration": {
       "$type": "duration",
@@ -78,7 +84,8 @@
           "sassMap": "$root-tokens",
           "sassKey": "--control-transition-duration"
         }
-      }
+      },
+      "$description": "How long a checkbox or radio mark takes to appear."
     },
     "transition-timing": {
       "$type": "cubicBezier",
@@ -94,7 +101,8 @@
           "sassMap": "$root-tokens",
           "sassKey": "--control-transition-timing"
         }
-      }
+      },
+      "$description": "Easing for a checkbox or radio mark. Overshoots slightly, so the mark pops rather than slides."
     },
     "field": {
       "fg": {
@@ -106,7 +114,8 @@
             "sassMap": "$root-tokens",
             "sassKey": "--btn-input-fg"
           }
-        }
+        },
+        "$description": "Text colour shared by buttons and form fields, so an unstyled button matches an input beside it."
       },
       "bg": {
         "$type": "color",
@@ -117,7 +126,8 @@
             "sassMap": "$root-tokens",
             "sassKey": "--btn-input-bg"
           }
-        }
+        },
+        "$description": "Background shared by buttons and form fields. Variants paint over it; this is what an unstyled control shows."
       },
       "gap": {
         "$type": "dimension",
@@ -131,7 +141,8 @@
             "sassMap": "$root-tokens",
             "sassKey": "--btn-input-gap"
           }
-        }
+        },
+        "$description": "Space between a control’s icon and its label."
       },
       "min-height": {
         "$type": "dimension",
@@ -145,7 +156,8 @@
             "sassMap": "$root-tokens",
             "sassKey": "--btn-input-min-height"
           }
-        }
+        },
+        "$description": "Minimum height of a button or form field. This is what sets the vertical rhythm of a form."
       },
       "padding-y": {
         "$type": "dimension",
@@ -159,7 +171,8 @@
             "sassMap": "$root-tokens",
             "sassKey": "--btn-input-padding-y"
           }
-        }
+        },
+        "$description": "Vertical padding inside a button or form field."
       },
       "padding-x": {
         "$type": "dimension",
@@ -173,7 +186,8 @@
             "sassMap": "$root-tokens",
             "sassKey": "--btn-input-padding-x"
           }
-        }
+        },
+        "$description": "Horizontal padding inside a button or form field."
       },
       "font-size": {
         "$type": "dimension",
@@ -184,7 +198,8 @@
             "sassMap": "$root-tokens",
             "sassKey": "--btn-input-font-size"
           }
-        }
+        },
+        "$description": "Text size inside a button or form field."
       },
       "line-height": {
         "$type": "dimension",
@@ -195,7 +210,8 @@
             "sassMap": "$root-tokens",
             "sassKey": "--btn-input-line-height"
           }
-        }
+        },
+        "$description": "Leading inside a button or form field. Together with the padding it decides how tall the control ends up."
       },
       "border-radius": {
         "$type": "dimension",
@@ -206,7 +222,8 @@
             "sassMap": "$root-tokens",
             "sassKey": "--btn-input-border-radius"
           }
-        }
+        },
+        "$description": "Corner rounding on a button or form field. Taken from the radius scale, so it moves when the base radius does."
       },
       "xs": {
         "gap": {
@@ -218,7 +235,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-xs-gap"
             }
-          }
+          },
+          "$description": "Space between a control’s icon and its label at the extra-small size."
         },
         "min-height": {
           "$type": "dimension",
@@ -232,7 +250,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-xs-min-height"
             }
-          }
+          },
+          "$description": "Minimum height of a button or form field at the extra-small size. This is what sets the vertical rhythm of a form."
         },
         "padding-y": {
           "$type": "dimension",
@@ -246,7 +265,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-xs-padding-y"
             }
-          }
+          },
+          "$description": "Vertical padding inside a button or form field at the extra-small size."
         },
         "padding-x": {
           "$type": "dimension",
@@ -260,7 +280,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-xs-padding-x"
             }
-          }
+          },
+          "$description": "Horizontal padding inside a button or form field at the extra-small size."
         },
         "font-size": {
           "$type": "dimension",
@@ -271,7 +292,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-xs-font-size"
             }
-          }
+          },
+          "$description": "Text size inside a button or form field at the extra-small size."
         },
         "line-height": {
           "$type": "number",
@@ -282,7 +304,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-xs-line-height"
             }
-          }
+          },
+          "$description": "Leading inside a button or form field at the extra-small size. Together with the padding it decides how tall the control ends up."
         },
         "border-radius": {
           "$type": "dimension",
@@ -293,7 +316,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-xs-border-radius"
             }
-          }
+          },
+          "$description": "Corner rounding on a button or form field at the extra-small size. Taken from the radius scale, so it moves when the base radius does."
         }
       },
       "sm": {
@@ -309,7 +333,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-sm-gap"
             }
-          }
+          },
+          "$description": "Space between a control’s icon and its label at the small size."
         },
         "min-height": {
           "$type": "dimension",
@@ -323,7 +348,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-sm-min-height"
             }
-          }
+          },
+          "$description": "Minimum height of a button or form field at the small size. This is what sets the vertical rhythm of a form."
         },
         "padding-y": {
           "$type": "dimension",
@@ -337,7 +363,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-sm-padding-y"
             }
-          }
+          },
+          "$description": "Vertical padding inside a button or form field at the small size."
         },
         "padding-x": {
           "$type": "dimension",
@@ -351,7 +378,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-sm-padding-x"
             }
-          }
+          },
+          "$description": "Horizontal padding inside a button or form field at the small size."
         },
         "font-size": {
           "$type": "dimension",
@@ -362,7 +390,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-sm-font-size"
             }
-          }
+          },
+          "$description": "Text size inside a button or form field at the small size."
         },
         "line-height": {
           "$type": "dimension",
@@ -373,7 +402,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-sm-line-height"
             }
-          }
+          },
+          "$description": "Leading inside a button or form field at the small size. Together with the padding it decides how tall the control ends up."
         },
         "border-radius": {
           "$type": "dimension",
@@ -384,7 +414,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-sm-border-radius"
             }
-          }
+          },
+          "$description": "Corner rounding on a button or form field at the small size. Taken from the radius scale, so it moves when the base radius does."
         }
       },
       "lg": {
@@ -400,7 +431,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-lg-gap"
             }
-          }
+          },
+          "$description": "Space between a control’s icon and its label at the large size."
         },
         "min-height": {
           "$type": "dimension",
@@ -414,7 +446,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-lg-min-height"
             }
-          }
+          },
+          "$description": "Minimum height of a button or form field at the large size. This is what sets the vertical rhythm of a form."
         },
         "padding-y": {
           "$type": "dimension",
@@ -428,7 +461,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-lg-padding-y"
             }
-          }
+          },
+          "$description": "Vertical padding inside a button or form field at the large size."
         },
         "padding-x": {
           "$type": "dimension",
@@ -442,7 +476,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-lg-padding-x"
             }
-          }
+          },
+          "$description": "Horizontal padding inside a button or form field at the large size."
         },
         "font-size": {
           "$type": "dimension",
@@ -453,7 +488,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-lg-font-size"
             }
-          }
+          },
+          "$description": "Text size inside a button or form field at the large size."
         },
         "line-height": {
           "$type": "dimension",
@@ -464,7 +500,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-lg-line-height"
             }
-          }
+          },
+          "$description": "Leading inside a button or form field at the large size. Together with the padding it decides how tall the control ends up."
         },
         "border-radius": {
           "$type": "dimension",
@@ -475,7 +512,8 @@
               "sassMap": "$root-tokens",
               "sassKey": "--btn-input-lg-border-radius"
             }
-          }
+          },
+          "$description": "Corner rounding on a button or form field at the large size. Taken from the radius scale, so it moves when the base radius does."
         }
       }
     },

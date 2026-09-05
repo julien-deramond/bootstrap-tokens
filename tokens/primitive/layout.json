@@ -7,7 +7,8 @@
         "dev.bootstrap.tokens": {
           "sassVar": "$grid-columns"
         }
-      }
+      },
+      "$description": "How many columns a row divides into. Every `.col-*` class is generated from it, so this is a wider change than it looks."
     },
     "row-columns": {
       "$type": "number",
@@ -16,7 +17,8 @@
         "dev.bootstrap.tokens": {
           "sassVar": "$grid-row-columns"
         }
-      }
+      },
+      "$description": "The highest count a `.row-cols-*` layout offers before you have to write your own."
     },
     "gutter-x": {
       "$type": "dimension",
@@ -28,7 +30,8 @@
         "dev.bootstrap.tokens": {
           "sassVar": "$grid-gutter-x"
         }
-      }
+      },
+      "$description": "Horizontal gutter between grid columns. It also sets the default container padding, so it decides the page margin too."
     },
     "gutter-y": {
       "$type": "number",
@@ -37,7 +40,8 @@
         "dev.bootstrap.tokens": {
           "sassVar": "$grid-gutter-y"
         }
-      }
+      },
+      "$description": "Vertical gutter between grid rows. Zero by default, so rows sit flush together unless you opt in."
     },
     "container-padding-x": {
       "$type": "dimension",
@@ -46,7 +50,8 @@
         "dev.bootstrap.tokens": {
           "sassVar": "$container-padding-x"
         }
-      }
+      },
+      "$description": "Inline padding inside a container, holding content clear of the viewport edge on small screens."
     },
     "$description": "Grid column count and gutter sizes."
   },

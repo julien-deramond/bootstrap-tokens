@@ -12,7 +12,8 @@
           "sassVar": "$border-width",
           "sassEmit": "#{$border-width}"
         }
-      }
+      },
+      "$description": "The default border width. Components reference it rather than hard-coding 1px."
     },
     "style": {
       "$value": "solid",
@@ -23,7 +24,8 @@
           "sassEmit": "#{$border-style}",
           "css": true
         }
-      }
+      },
+      "$description": "The default border style. Every component reads it, so switching to `dashed` restyles the whole system rather than one element."
     },
     "bg": {
       "$type": "color",
@@ -35,7 +37,8 @@
           "sassKey": "bg",
           "sassQuoted": true
         }
-      }
+      },
+      "$description": "A border the colour of the page — used to punch a gap between adjacent filled elements."
     },
     "body": {
       "$value": "{color.gray.300}",
@@ -47,7 +50,8 @@
           "sassQuoted": true,
           "dark": "{color.gray.800}"
         }
-      }
+      },
+      "$description": "The standard visible border. Stronger than `subtle`, calmer than `emphasized`."
     },
     "muted": {
       "$value": "{color.gray.200}",
@@ -59,7 +63,8 @@
           "sassQuoted": true,
           "dark": "{color.gray.800}"
         }
-      }
+      },
+      "$description": "A quieter border for grouping without drawing a line the eye stops at."
     },
     "subtle": {
       "$value": "color-mix(in oklch, {color.gray.100}, {color.gray.200})",
@@ -72,7 +77,8 @@
           "dark": "color-mix(in oklch, {color.gray.800}, {color.gray.900})",
           "expression": true
         }
-      }
+      },
+      "$description": "The faintest border. For separating areas that are already distinguished by space."
     },
     "emphasized": {
       "$value": "{color.gray.400}",
@@ -84,7 +90,8 @@
           "sassQuoted": true,
           "dark": "{color.gray.600}"
         }
-      }
+      },
+      "$description": "A deliberately visible border, for focus targets and selected states."
     },
     "white": {
       "$value": "{color.white}",
@@ -95,7 +102,8 @@
           "sassKey": "white",
           "sassQuoted": true
         }
-      }
+      },
+      "$description": "Fixed white in both schemes, for an edge that must stay light whatever the theme does."
     },
     "black": {
       "$value": "{color.black}",
@@ -106,7 +114,8 @@
           "sassKey": "black",
           "sassQuoted": true
         }
-      }
+      },
+      "$description": "Fixed black in both schemes, for an edge that must stay dark whatever the theme does."
     },
     "width-keyline": {
       "$type": "dimension",
@@ -120,7 +129,8 @@
           "sassMap": "$root-tokens",
           "sassKey": "--border-width-keyline"
         }
-      }
+      },
+      "$description": "A sub-pixel hairline for dividers that should read as a seam rather than a border."
     },
     "color": {
       "$type": "color",
@@ -132,7 +142,8 @@
           "sassKey": "--border-color",
           "dark": "{color.gray.700}"
         }
-      }
+      },
+      "$description": "The default border colour, for anything that does not choose a more specific one."
     },
     "color-translucent": {
       "$type": "color",
@@ -144,7 +155,8 @@
           "sassKey": "--border-color-translucent",
           "expression": true
         }
-      }
+      },
+      "$description": "A border mixed from the foreground rather than a fixed grey, so it works over any surface underneath."
     },
     "$description": "Default border width, style and colour, plus the neutral border ramp."
   }

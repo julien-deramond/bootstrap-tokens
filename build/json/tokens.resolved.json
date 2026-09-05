@@ -134,6 +134,7 @@
   "alert.bg": {
     "$type": "color",
     "$value": "var(--theme-bg-subtle, var(--bg-1))",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg-subtle`, and uses the fallback only when no theme class is set.",
     "cssVar": "--alert-bg",
     "sassMap": "$alert-tokens"
   },
@@ -152,12 +153,14 @@
   "alert.color": {
     "$type": "color",
     "$value": "var(--theme-fg, inherit)",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-fg`, and uses the fallback only when no theme class is set.",
     "cssVar": "--alert-color",
     "sassMap": "$alert-tokens"
   },
   "alert.border-color": {
     "$type": "color",
     "$value": "var(--theme-border, var(--border-color))",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-border`, and uses the fallback only when no theme class is set.",
     "cssVar": "--alert-border-color",
     "sassMap": "$alert-tokens"
   },
@@ -200,6 +203,7 @@
   "alert.hr-border-color": {
     "$type": "color",
     "$value": "var(--theme-border, var(--border-color))",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-border`, and uses the fallback only when no theme class is set.",
     "cssVar": "--hr-border-color",
     "sassMap": "$alert-tokens"
   },
@@ -1220,12 +1224,14 @@
   "chip.color": {
     "$type": "color",
     "$value": "var(--theme-fg, var(--fg-body))",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-fg`, and uses the fallback only when no theme class is set.",
     "cssVar": "--chip-color",
     "sassMap": "$chip-tokens"
   },
   "chip.bg": {
     "$type": "color",
     "$value": "var(--theme-bg-subtle, var(--bg-2))",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg-subtle`, and uses the fallback only when no theme class is set.",
     "cssVar": "--chip-bg",
     "sassMap": "$chip-tokens"
   },
@@ -1238,18 +1244,21 @@
   "chip.selected-color": {
     "$type": "color",
     "$value": "var(--theme-contrast, var(--primary-contrast))",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-contrast`, and uses the fallback only when no theme class is set.",
     "cssVar": "--chip-selected-color",
     "sassMap": "$chip-tokens"
   },
   "chip.selected-bg": {
     "$type": "color",
     "$value": "var(--theme-bg, var(--primary-bg))",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set.",
     "cssVar": "--chip-selected-bg",
     "sassMap": "$chip-tokens"
   },
   "chip.selected-border-color": {
     "$type": "color",
     "$value": "var(--theme-bg, var(--primary-bg))",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set.",
     "cssVar": "--chip-selected-border-color",
     "sassMap": "$chip-tokens"
   },
@@ -2870,18 +2879,21 @@
   "pagination.active-color": {
     "$type": "color",
     "$value": "var(--theme-contrast, var(--primary-contrast))",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-contrast`, and uses the fallback only when no theme class is set.",
     "cssVar": "--pagination-active-color",
     "sassMap": "$pagination-tokens"
   },
   "pagination.active-bg": {
     "$type": "color",
     "$value": "var(--theme-bg, var(--primary-bg))",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set.",
     "cssVar": "--pagination-active-bg",
     "sassMap": "$pagination-tokens"
   },
   "pagination.active-border-color": {
     "$type": "color",
     "$value": "var(--theme-bg, var(--primary-bg))",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set.",
     "cssVar": "--pagination-active-border-color",
     "sassMap": "$pagination-tokens"
   },
@@ -3529,7 +3541,8 @@
   },
   "strength.transition": {
     "$type": null,
-    "$value": "background-color .2s ease-in-out, width .3s ease-in-out"
+    "$value": "background-color .2s ease-in-out, width .3s ease-in-out",
+    "$description": "How the password strength meter animates as it fills."
   },
   "strength.height": {
     "$type": "dimension",
@@ -5384,11 +5397,13 @@
   "color.white": {
     "$type": "color",
     "$value": "#fff",
+    "$description": "Pure white, referenced by the tint half of every colour scale.",
     "cssVar": "--white"
   },
   "color.black": {
     "$type": "color",
     "$value": "#000",
+    "$description": "Pure black, referenced by the shade half of every colour scale.",
     "cssVar": "--black"
   },
   "color-tint.025": {
@@ -5458,15 +5473,18 @@
   },
   "color-mix.tint-color": {
     "$type": "color",
-    "$value": "var(--white)"
+    "$value": "var(--white)",
+    "$description": "What tints are mixed towards — the light end of every scale."
   },
   "color-mix.shade-color": {
     "$type": "color",
-    "$value": "var(--black)"
+    "$value": "var(--black)",
+    "$description": "What shades are mixed towards — the dark end of every scale."
   },
   "spacing.base": {
     "$type": "dimension",
-    "$value": "1rem"
+    "$value": "1rem",
+    "$description": "The base spacer. Every step of the spacing scale is a multiple of it, so changing it rescales the whole system."
   },
   "spacing.0": {
     "$type": "number",
@@ -5537,7 +5555,8 @@
   },
   "radius.base": {
     "$type": "dimension",
-    "$value": ".5rem"
+    "$value": ".5rem",
+    "$description": "The base radius. Every step of the 0–9 scale is a multiple of it, so one change rounds or squares every component at once."
   },
   "radius.0": {
     "$type": "number",
@@ -5707,23 +5726,28 @@
   },
   "grid.columns": {
     "$type": "number",
-    "$value": "12"
+    "$value": "12",
+    "$description": "How many columns a row divides into. Every `.col-*` class is generated from it, so this is a wider change than it looks."
   },
   "grid.row-columns": {
     "$type": "number",
-    "$value": "6"
+    "$value": "6",
+    "$description": "The highest count a `.row-cols-*` layout offers before you have to write your own."
   },
   "grid.gutter-x": {
     "$type": "dimension",
-    "$value": "1.5rem"
+    "$value": "1.5rem",
+    "$description": "Horizontal gutter between grid columns. It also sets the default container padding, so it decides the page margin too."
   },
   "grid.gutter-y": {
     "$type": "number",
-    "$value": "0"
+    "$value": "0",
+    "$description": "Vertical gutter between grid rows. Zero by default, so rows sit flush together unless you opt in."
   },
   "grid.container-padding-x": {
     "$type": "dimension",
-    "$value": "1.5rem"
+    "$value": "1.5rem",
+    "$description": "Inline padding inside a container, holding content clear of the viewport edge on small screens."
   },
   "breakpoint.xs": {
     "$type": "number",
@@ -6119,345 +6143,403 @@
   "border.width": {
     "$type": "dimension",
     "$value": "1px",
+    "$description": "The default border width. Components reference it rather than hard-coding 1px.",
     "cssVar": "--border-width"
   },
   "border.style": {
     "$type": null,
     "$value": "solid",
+    "$description": "The default border style. Every component reads it, so switching to `dashed` restyles the whole system rather than one element.",
     "cssVar": "--border-style"
   },
   "border.bg": {
     "$type": "color",
     "$value": "var(--bg-body)",
+    "$description": "A border the colour of the page — used to punch a gap between adjacent filled elements.",
     "cssVar": "--border-bg",
     "sassMap": "$theme-borders"
   },
   "border.body": {
     "$type": null,
     "$value": "light-dark(var(--gray-300), var(--gray-800))",
+    "$description": "The standard visible border. Stronger than `subtle`, calmer than `emphasized`.",
     "cssVar": "--border-body",
     "sassMap": "$theme-borders"
   },
   "border.muted": {
     "$type": null,
     "$value": "light-dark(var(--gray-200), var(--gray-800))",
+    "$description": "A quieter border for grouping without drawing a line the eye stops at.",
     "cssVar": "--border-muted",
     "sassMap": "$theme-borders"
   },
   "border.subtle": {
     "$type": null,
     "$value": "light-dark(color-mix(in oklch, var(--gray-100), var(--gray-200)), color-mix(in oklch, var(--gray-800), var(--gray-900)))",
+    "$description": "The faintest border. For separating areas that are already distinguished by space.",
     "cssVar": "--border-subtle",
     "sassMap": "$theme-borders"
   },
   "border.emphasized": {
     "$type": null,
     "$value": "light-dark(var(--gray-400), var(--gray-600))",
+    "$description": "A deliberately visible border, for focus targets and selected states.",
     "cssVar": "--border-emphasized",
     "sassMap": "$theme-borders"
   },
   "border.white": {
     "$type": null,
     "$value": "var(--white)",
+    "$description": "Fixed white in both schemes, for an edge that must stay light whatever the theme does.",
     "cssVar": "--border-white",
     "sassMap": "$theme-borders"
   },
   "border.black": {
     "$type": null,
     "$value": "var(--black)",
+    "$description": "Fixed black in both schemes, for an edge that must stay dark whatever the theme does.",
     "cssVar": "--border-black",
     "sassMap": "$theme-borders"
   },
   "border.width-keyline": {
     "$type": "dimension",
     "$value": ".5px",
+    "$description": "A sub-pixel hairline for dividers that should read as a seam rather than a border.",
     "cssVar": "--border-width-keyline",
     "sassMap": "$root-tokens"
   },
   "border.color": {
     "$type": "color",
     "$value": "light-dark(var(--gray-200), var(--gray-700))",
+    "$description": "The default border colour, for anything that does not choose a more specific one.",
     "cssVar": "--border-color",
     "sassMap": "$root-tokens"
   },
   "border.color-translucent": {
     "$type": "color",
     "$value": "color-mix(in oklch, var(--fg-body) 15%, transparent)",
+    "$description": "A border mixed from the foreground rather than a fixed grey, so it works over any surface underneath.",
     "cssVar": "--border-color-translucent",
     "sassMap": "$root-tokens"
   },
   "control.checked-bg": {
     "$type": "color",
     "$value": "var(--primary-base)",
+    "$description": "Fill of a checkbox, radio or switch once it is on.",
     "cssVar": "--control-checked-bg",
     "sassMap": "$root-tokens"
   },
   "control.checked-border-color": {
     "$type": "color",
     "$value": "var(--control-checked-bg)",
+    "$description": "Border of a checked control. Follows the checked fill unless you separate them.",
     "cssVar": "--control-checked-border-color",
     "sassMap": "$root-tokens"
   },
   "control.active-bg": {
     "$type": "color",
     "$value": "var(--primary-base)",
+    "$description": "Fill of a control while it is being pressed.",
     "cssVar": "--control-active-bg",
     "sassMap": "$root-tokens"
   },
   "control.active-border-color": {
     "$type": "color",
     "$value": "var(--control-active-bg)",
+    "$description": "Border of a control while it is being pressed. Follows the active fill unless you set the two apart.",
     "cssVar": "--control-active-border-color",
     "sassMap": "$root-tokens"
   },
   "control.disabled-bg": {
     "$type": "color",
     "$value": "var(--bg-3)",
+    "$description": "Fill of a control that cannot be used. Combined with the disabled opacity below, so the two compound.",
     "cssVar": "--control-disabled-bg",
     "sassMap": "$root-tokens"
   },
   "control.disabled-opacity": {
     "$type": "number",
     "$value": ".65",
+    "$description": "How far a disabled control fades. Applied on top of the disabled fill, so both compound.",
     "cssVar": "--control-disabled-opacity",
     "sassMap": "$root-tokens"
   },
   "control.transition-duration": {
     "$type": "duration",
     "$value": ".15s",
+    "$description": "How long a checkbox or radio mark takes to appear.",
     "cssVar": "--control-transition-duration",
     "sassMap": "$root-tokens"
   },
   "control.transition-timing": {
     "$type": "cubicBezier",
     "$value": "cubic-bezier(.34, 1.56, .64, 1)",
+    "$description": "Easing for a checkbox or radio mark. Overshoots slightly, so the mark pops rather than slides.",
     "cssVar": "--control-transition-timing",
     "sassMap": "$root-tokens"
   },
   "control.field.fg": {
     "$type": "color",
     "$value": "var(--fg-body)",
+    "$description": "Text colour shared by buttons and form fields, so an unstyled button matches an input beside it.",
     "cssVar": "--btn-input-fg",
     "sassMap": "$root-tokens"
   },
   "control.field.bg": {
     "$type": "color",
     "$value": "var(--bg-body)",
+    "$description": "Background shared by buttons and form fields. Variants paint over it; this is what an unstyled control shows.",
     "cssVar": "--btn-input-bg",
     "sassMap": "$root-tokens"
   },
   "control.field.gap": {
     "$type": "dimension",
     "$value": ".375rem",
+    "$description": "Space between a control’s icon and its label.",
     "cssVar": "--btn-input-gap",
     "sassMap": "$root-tokens"
   },
   "control.field.min-height": {
     "$type": "dimension",
     "$value": "2.375rem",
+    "$description": "Minimum height of a button or form field. This is what sets the vertical rhythm of a form.",
     "cssVar": "--btn-input-min-height",
     "sassMap": "$root-tokens"
   },
   "control.field.padding-y": {
     "$type": "dimension",
     "$value": ".375rem",
+    "$description": "Vertical padding inside a button or form field.",
     "cssVar": "--btn-input-padding-y",
     "sassMap": "$root-tokens"
   },
   "control.field.padding-x": {
     "$type": "dimension",
     "$value": ".75rem",
+    "$description": "Horizontal padding inside a button or form field.",
     "cssVar": "--btn-input-padding-x",
     "sassMap": "$root-tokens"
   },
   "control.field.font-size": {
     "$type": "dimension",
     "$value": "var(--body-font-size)",
+    "$description": "Text size inside a button or form field.",
     "cssVar": "--btn-input-font-size",
     "sassMap": "$root-tokens"
   },
   "control.field.line-height": {
     "$type": "dimension",
     "$value": "var(--body-line-height)",
+    "$description": "Leading inside a button or form field. Together with the padding it decides how tall the control ends up.",
     "cssVar": "--btn-input-line-height",
     "sassMap": "$root-tokens"
   },
   "control.field.border-radius": {
     "$type": "dimension",
     "$value": "var(--radius-5)",
+    "$description": "Corner rounding on a button or form field. Taken from the radius scale, so it moves when the base radius does.",
     "cssVar": "--btn-input-border-radius",
     "sassMap": "$root-tokens"
   },
   "control.field.xs.gap": {
     "$type": "dimension",
     "$value": "var(--spacer-1)",
+    "$description": "Space between a control’s icon and its label at the extra-small size.",
     "cssVar": "--btn-input-xs-gap",
     "sassMap": "$root-tokens"
   },
   "control.field.xs.min-height": {
     "$type": "dimension",
     "$value": "1.5rem",
+    "$description": "Minimum height of a button or form field at the extra-small size. This is what sets the vertical rhythm of a form.",
     "cssVar": "--btn-input-xs-min-height",
     "sassMap": "$root-tokens"
   },
   "control.field.xs.padding-y": {
     "$type": "dimension",
     "$value": ".125rem",
+    "$description": "Vertical padding inside a button or form field at the extra-small size.",
     "cssVar": "--btn-input-xs-padding-y",
     "sassMap": "$root-tokens"
   },
   "control.field.xs.padding-x": {
     "$type": "dimension",
     "$value": ".5rem",
+    "$description": "Horizontal padding inside a button or form field at the extra-small size.",
     "cssVar": "--btn-input-xs-padding-x",
     "sassMap": "$root-tokens"
   },
   "control.field.xs.font-size": {
     "$type": "dimension",
     "$value": "var(--font-size-xs)",
+    "$description": "Text size inside a button or form field at the extra-small size.",
     "cssVar": "--btn-input-xs-font-size",
     "sassMap": "$root-tokens"
   },
   "control.field.xs.line-height": {
     "$type": "number",
     "$value": "1.125",
+    "$description": "Leading inside a button or form field at the extra-small size. Together with the padding it decides how tall the control ends up.",
     "cssVar": "--btn-input-xs-line-height",
     "sassMap": "$root-tokens"
   },
   "control.field.xs.border-radius": {
     "$type": "dimension",
     "$value": "var(--radius-5)",
+    "$description": "Corner rounding on a button or form field at the extra-small size. Taken from the radius scale, so it moves when the base radius does.",
     "cssVar": "--btn-input-xs-border-radius",
     "sassMap": "$root-tokens"
   },
   "control.field.sm.gap": {
     "$type": "dimension",
     "$value": ".375rem",
+    "$description": "Space between a control’s icon and its label at the small size.",
     "cssVar": "--btn-input-sm-gap",
     "sassMap": "$root-tokens"
   },
   "control.field.sm.min-height": {
     "$type": "dimension",
     "$value": "2rem",
+    "$description": "Minimum height of a button or form field at the small size. This is what sets the vertical rhythm of a form.",
     "cssVar": "--btn-input-sm-min-height",
     "sassMap": "$root-tokens"
   },
   "control.field.sm.padding-y": {
     "$type": "dimension",
     "$value": ".25rem",
+    "$description": "Vertical padding inside a button or form field at the small size.",
     "cssVar": "--btn-input-sm-padding-y",
     "sassMap": "$root-tokens"
   },
   "control.field.sm.padding-x": {
     "$type": "dimension",
     "$value": ".625rem",
+    "$description": "Horizontal padding inside a button or form field at the small size.",
     "cssVar": "--btn-input-sm-padding-x",
     "sassMap": "$root-tokens"
   },
   "control.field.sm.font-size": {
     "$type": "dimension",
     "$value": "var(--font-size-sm)",
+    "$description": "Text size inside a button or form field at the small size.",
     "cssVar": "--btn-input-sm-font-size",
     "sassMap": "$root-tokens"
   },
   "control.field.sm.line-height": {
     "$type": "dimension",
     "$value": "var(--line-height-sm)",
+    "$description": "Leading inside a button or form field at the small size. Together with the padding it decides how tall the control ends up.",
     "cssVar": "--btn-input-sm-line-height",
     "sassMap": "$root-tokens"
   },
   "control.field.sm.border-radius": {
     "$type": "dimension",
     "$value": "var(--radius-5)",
+    "$description": "Corner rounding on a button or form field at the small size. Taken from the radius scale, so it moves when the base radius does.",
     "cssVar": "--btn-input-sm-border-radius",
     "sassMap": "$root-tokens"
   },
   "control.field.lg.gap": {
     "$type": "dimension",
     "$value": ".375rem",
+    "$description": "Space between a control’s icon and its label at the large size.",
     "cssVar": "--btn-input-lg-gap",
     "sassMap": "$root-tokens"
   },
   "control.field.lg.min-height": {
     "$type": "dimension",
     "$value": "2.75rem",
+    "$description": "Minimum height of a button or form field at the large size. This is what sets the vertical rhythm of a form.",
     "cssVar": "--btn-input-lg-min-height",
     "sassMap": "$root-tokens"
   },
   "control.field.lg.padding-y": {
     "$type": "dimension",
     "$value": ".5rem",
+    "$description": "Vertical padding inside a button or form field at the large size.",
     "cssVar": "--btn-input-lg-padding-y",
     "sassMap": "$root-tokens"
   },
   "control.field.lg.padding-x": {
     "$type": "dimension",
     "$value": "1rem",
+    "$description": "Horizontal padding inside a button or form field at the large size.",
     "cssVar": "--btn-input-lg-padding-x",
     "sassMap": "$root-tokens"
   },
   "control.field.lg.font-size": {
     "$type": "dimension",
     "$value": "var(--font-size-md)",
+    "$description": "Text size inside a button or form field at the large size.",
     "cssVar": "--btn-input-lg-font-size",
     "sassMap": "$root-tokens"
   },
   "control.field.lg.line-height": {
     "$type": "dimension",
     "$value": "var(--line-height-md)",
+    "$description": "Leading inside a button or form field at the large size. Together with the padding it decides how tall the control ends up.",
     "cssVar": "--btn-input-lg-line-height",
     "sassMap": "$root-tokens"
   },
   "control.field.lg.border-radius": {
     "$type": "dimension",
     "$value": "var(--radius-7)",
+    "$description": "Corner rounding on a button or form field at the large size. Taken from the radius scale, so it moves when the base radius does.",
     "cssVar": "--btn-input-lg-border-radius",
     "sassMap": "$root-tokens"
   },
   "decoration.gradient": {
     "$type": null,
     "$value": "linear-gradient(180deg, color-mix(var(--white) 15%, transparent), color-mix(var(--white) 0%, transparent))",
+    "$description": "The sheen laid over filled components when `$enable-gradients` is on.",
     "cssVar": "--gradient"
   },
   "shadow.default": {
     "$type": null,
     "$value": "#{( \"0 .125rem .25rem -.0625rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.04 * var(--shadow-strength) * var(--so, 1)))\", \"0 .375rem .75rem -.125rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.05 * var(--shadow-strength) * var(--so, 1)))\", \"0 .75rem 1.5rem -.25rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.06 * var(--shadow-strength) * var(--so, 1)))\" )}",
+    "$description": "The everyday shadow. Three layers, so it stays soft rather than reading as a hard edge.",
     "cssVar": "--box-shadow",
     "sassMap": "$shadows"
   },
   "shadow.xs": {
     "$type": null,
     "$value": "0 .0625rem .125rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.04 * var(--shadow-strength) * var(--so, 1)))",
+    "$description": "A single-layer shadow for elements barely lifted off the page.",
     "cssVar": "--box-shadow-xs",
     "sassMap": "$shadows"
   },
   "shadow.sm": {
     "$type": null,
     "$value": "#{( \"0 .0625rem .125rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.04 * var(--shadow-strength) * var(--so, 1)))\", \"0 .125rem .375rem -.0625rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.05 * var(--shadow-strength) * var(--so, 1)))\" )}",
+    "$description": "Two layers, for resting cards and small popovers.",
     "cssVar": "--box-shadow-sm",
     "sassMap": "$shadows"
   },
   "shadow.lg": {
     "$type": null,
     "$value": "#{( \"0 .125rem .375rem -.0625rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.05 * var(--shadow-strength) * var(--so, 1)))\", \"0 .375rem 1rem -.1875rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.06 * var(--shadow-strength) * var(--so, 1)))\", \"0 .75rem 2rem -.375rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.07 * var(--shadow-strength) * var(--so, 1)))\", \"0 1.5rem 3.5rem -.75rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.08 * var(--shadow-strength) * var(--so, 1)))\" )}",
+    "$description": "Four layers, for menus and anything that overlaps content.",
     "cssVar": "--box-shadow-lg",
     "sassMap": "$shadows"
   },
   "shadow.xl": {
     "$type": null,
     "$value": "#{( \"0 .1875rem .5rem -.0625rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.05 * var(--shadow-strength) * var(--so, 1)))\", \"0 .5rem 1.25rem -.1875rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.06 * var(--shadow-strength) * var(--so, 1)))\", \"0 1rem 2.5rem -.375rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.07 * var(--shadow-strength) * var(--so, 1)))\", \"0 2rem 5rem -.75rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.09 * var(--shadow-strength) * var(--so, 1)))\" )}",
+    "$description": "The deepest scale step, for dialogs and drawers that should detach from the page.",
     "cssVar": "--box-shadow-xl",
     "sassMap": "$shadows"
   },
   "shadow.inset": {
     "$type": null,
     "$value": "inset 0 1px 2px light-dark(oklch(from var(--sc, var(--shadow-color)) l c h / calc(8% * var(--so, 1))), oklch(from var(--sc, var(--shadow-color)) l c h / calc(26% * var(--so, 1))))",
+    "$description": "An inward shadow, for wells and pressed states.",
     "cssVar": "--box-shadow-inset",
     "sassMap": "$shadows"
   },
   "elevation.color": {
     "$type": "color",
     "$value": "#000",
+    "$description": "The colour every shadow is tinted from. Set it to a hue and the whole elevation scale warms or cools with it.",
     "cssVar": "--shadow-color",
     "sassMap": "$root-tokens"
   },
@@ -6471,654 +6553,763 @@
   "focus.width": {
     "$type": "dimension",
     "$value": "3px",
+    "$description": "Thickness of the focus ring. Do not go below 2px: this is the only cue a keyboard user gets.",
     "cssVar": "--focus-ring-width",
     "sassMap": "$root-tokens"
   },
   "focus.offset": {
     "$type": "dimension",
     "$value": "1px",
+    "$description": "Gap between a control and its focus ring, so the ring stays legible against the control.",
     "cssVar": "--focus-ring-offset",
     "sassMap": "$root-tokens"
   },
   "focus.color": {
     "$type": "color",
     "$value": "var(--primary-focus-ring)",
+    "$description": "Colour of the focus ring. Follows the primary role by default.",
     "cssVar": "--focus-ring-color",
     "sassMap": "$root-tokens"
   },
   "focus.ring": {
     "$type": null,
     "$value": "var(--focus-ring-width) solid var(--focus-ring-color)",
+    "$description": "The whole focus ring shorthand, composed from the width and colour above.",
     "cssVar": "--focus-ring",
     "sassMap": "$root-tokens"
   },
   "motion.timing-overlay": {
     "$type": "cubicBezier",
     "$value": "cubic-bezier(.22, 1, .36, 1)",
+    "$description": "Shared easing for overlays — dialogs, drawers and menus — so they all enter with the same character.",
     "cssVar": "--transition-timing-overlay",
     "sassMap": "$root-tokens"
   },
   "bg.body": {
     "$type": "color",
     "$value": "light-dark(var(--white), var(--gray-975))",
+    "$description": "The page background. Every other surface is measured against it.",
     "cssVar": "--bg-body",
     "sassMap": "$theme-bgs"
   },
   "bg.1": {
     "$type": "color",
     "$value": "light-dark(var(--gray-025), var(--gray-950))",
+    "$description": "The first raised surface — card headers, table stripes, anything a step above the page.",
     "cssVar": "--bg-1",
     "sassMap": "$theme-bgs"
   },
   "bg.2": {
     "$type": "color",
     "$value": "light-dark(var(--gray-050), var(--gray-900))",
+    "$description": "A second step up, for a surface raised above one that is already raised.",
     "cssVar": "--bg-2",
     "sassMap": "$theme-bgs"
   },
   "bg.3": {
     "$type": "color",
     "$value": "light-dark(var(--gray-100), var(--gray-800))",
+    "$description": "A third step, used mostly for disabled controls and inset wells.",
     "cssVar": "--bg-3",
     "sassMap": "$theme-bgs"
   },
   "bg.4": {
     "$type": "color",
     "$value": "light-dark(var(--gray-200), var(--gray-700))",
+    "$description": "The strongest neutral fill before you reach an inverted surface.",
     "cssVar": "--bg-4",
     "sassMap": "$theme-bgs"
   },
   "bg.fg": {
     "$type": "color",
     "$value": "var(--fg-body)",
+    "$description": "The foreground colour used as a background — for inverted blocks that flip the page around.",
     "cssVar": "--bg-fg",
     "sassMap": "$theme-bgs"
   },
   "bg.white": {
     "$type": "color",
     "$value": "var(--white)",
+    "$description": "Fixed white in both schemes. Use it when a surface must not follow the theme.",
     "cssVar": "--bg-white",
     "sassMap": "$theme-bgs"
   },
   "bg.black": {
     "$type": "color",
     "$value": "var(--black)",
+    "$description": "Fixed black in both schemes. Use it when a surface must not follow the theme.",
     "cssVar": "--bg-black",
     "sassMap": "$theme-bgs"
   },
   "bg.transparent": {
     "$type": "color",
     "$value": "transparent",
+    "$description": "No background at all. Use it to clear an inherited one.",
     "cssVar": "--bg-transparent",
     "sassMap": "$theme-bgs"
   },
   "bg.inherit": {
     "$type": "color",
     "$value": "inherit",
+    "$description": "Take whatever background the parent has. A CSS-wide keyword, so it cannot be stored in a custom property.",
     "cssVar": "--bg-inherit",
     "sassMap": "$theme-bgs"
   },
   "fg.body": {
     "$type": "color",
     "$value": "light-dark(var(--gray-900), var(--gray-050))",
+    "$description": "Primary body text. The default reading colour.",
     "cssVar": "--fg-body",
     "sassMap": "$theme-fgs"
   },
   "fg.1": {
     "$type": "color",
     "$value": "light-dark(var(--gray-800), var(--gray-200))",
+    "$description": "Slightly de-emphasised text — secondary lines that still have to be read comfortably.",
     "cssVar": "--fg-1",
     "sassMap": "$theme-fgs"
   },
   "fg.2": {
     "$type": "color",
     "$value": "light-dark(var(--gray-700), var(--gray-300))",
+    "$description": "Supporting text: captions, helper text under a field, table metadata.",
     "cssVar": "--fg-2",
     "sassMap": "$theme-fgs"
   },
   "fg.3": {
     "$type": "color",
     "$value": "light-dark(var(--gray-600), var(--gray-500))",
+    "$description": "Faint text for labels and placeholders. Below WCAG AA for body copy, so keep it off long prose.",
     "cssVar": "--fg-3",
     "sassMap": "$theme-fgs"
   },
   "fg.4": {
     "$type": "color",
     "$value": "light-dark(var(--gray-500), var(--gray-600))",
+    "$description": "The faintest step, for decorative or disabled text only. It does not meet WCAG AA at any size.",
     "cssVar": "--fg-4",
     "sassMap": "$theme-fgs"
   },
   "fg.bg": {
     "$type": "color",
     "$value": "var(--bg-body)",
+    "$description": "The page background used as a text colour — for text on an inverted surface.",
     "cssVar": "--fg-bg",
     "sassMap": "$theme-fgs"
   },
   "fg.white": {
     "$type": "color",
     "$value": "var(--white)",
+    "$description": "Fixed white in both schemes, for text that must stay light whatever the theme does.",
     "cssVar": "--fg-white",
     "sassMap": "$theme-fgs"
   },
   "fg.black": {
     "$type": "color",
     "$value": "var(--black)",
+    "$description": "Fixed black in both schemes, for text that must stay dark whatever the theme does.",
     "cssVar": "--fg-black",
     "sassMap": "$theme-fgs"
   },
   "fg.inherit": {
     "$type": "color",
     "$value": "inherit",
+    "$description": "Take whatever text colour the parent has.",
     "cssVar": "--fg-inherit",
     "sassMap": "$theme-fgs"
   },
   "theme-color.primary.base": {
     "$type": "color",
     "$value": "var(--blue-500)",
+    "$description": "The solid primary colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
     "cssVar": "--primary-base",
     "sassMap": "$theme-colors"
   },
   "theme-color.primary.fg": {
     "$type": "color",
     "$value": "light-dark(var(--blue-600), var(--blue-400))",
+    "$description": "Primary text on the page background — darkened in light mode and lightened in dark, so it stays readable in both.",
     "cssVar": "--primary-fg",
     "sassMap": "$theme-colors"
   },
   "theme-color.primary.fg-emphasis": {
     "$type": "color",
     "$value": "light-dark(var(--blue-800), var(--blue-200))",
+    "$description": "A higher-contrast primary text colour, for headings or for text sitting on a primary-tinted surface.",
     "cssVar": "--primary-fg-emphasis",
     "sassMap": "$theme-colors"
   },
   "theme-color.primary.bg": {
     "$type": "color",
     "$value": "var(--blue-500)",
+    "$description": "A solid primary fill. Pair it with `contrast` for anything placed on top.",
     "cssVar": "--primary-bg",
     "sassMap": "$theme-colors"
   },
   "theme-color.primary.bg-subtle": {
     "$type": "color",
     "$value": "light-dark(var(--blue-100), var(--blue-900))",
+    "$description": "A lightly tinted primary surface — the usual background for alerts and subtle badges.",
     "cssVar": "--primary-bg-subtle",
     "sassMap": "$theme-colors"
   },
   "theme-color.primary.bg-muted": {
     "$type": "color",
     "$value": "light-dark(var(--blue-200), var(--blue-800))",
+    "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces.",
     "cssVar": "--primary-bg-muted",
     "sassMap": "$theme-colors"
   },
   "theme-color.primary.border": {
     "$type": "color",
     "$value": "light-dark(var(--blue-300), var(--blue-600))",
+    "$description": "A primary border against the page background — tinted enough to read as primary, calm enough not to compete with the fill.",
     "cssVar": "--primary-border",
     "sassMap": "$theme-colors"
   },
   "theme-color.primary.focus-ring": {
     "$type": "color",
     "$value": "light-dark(color-mix(in oklch, var(--blue-500) 50%, var(--bg-body)), color-mix(in oklch, var(--blue-500) 75%, var(--bg-body)))",
+    "$description": "The focus ring for primary controls. Mixed with the page background, so it stays visible in either scheme.",
     "cssVar": "--primary-focus-ring",
     "sassMap": "$theme-colors"
   },
   "theme-color.primary.contrast": {
     "$type": "color",
     "$value": "var(--white)",
+    "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black.",
     "cssVar": "--primary-contrast",
     "sassMap": "$theme-colors"
   },
   "theme-color.accent.base": {
     "$type": "color",
     "$value": "var(--indigo-500)",
+    "$description": "The solid accent colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
     "cssVar": "--accent-base",
     "sassMap": "$theme-colors"
   },
   "theme-color.accent.fg": {
     "$type": "color",
     "$value": "light-dark(var(--indigo-600), color-mix(in oklch, var(--indigo-400), var(--indigo-300)))",
+    "$description": "Accent text on the page background — darkened in light mode and lightened in dark, so it stays readable in both.",
     "cssVar": "--accent-fg",
     "sassMap": "$theme-colors"
   },
   "theme-color.accent.fg-emphasis": {
     "$type": "color",
     "$value": "light-dark(var(--indigo-800), var(--indigo-300))",
+    "$description": "A higher-contrast accent text colour, for headings or for text sitting on a accent-tinted surface.",
     "cssVar": "--accent-fg-emphasis",
     "sassMap": "$theme-colors"
   },
   "theme-color.accent.bg": {
     "$type": "color",
     "$value": "var(--indigo-500)",
+    "$description": "A solid accent fill. Pair it with `contrast` for anything placed on top.",
     "cssVar": "--accent-bg",
     "sassMap": "$theme-colors"
   },
   "theme-color.accent.bg-subtle": {
     "$type": "color",
     "$value": "light-dark(var(--indigo-100), var(--indigo-900))",
+    "$description": "A lightly tinted accent surface — the usual background for alerts and subtle badges.",
     "cssVar": "--accent-bg-subtle",
     "sassMap": "$theme-colors"
   },
   "theme-color.accent.bg-muted": {
     "$type": "color",
     "$value": "light-dark(var(--indigo-200), var(--indigo-800))",
+    "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces.",
     "cssVar": "--accent-bg-muted",
     "sassMap": "$theme-colors"
   },
   "theme-color.accent.border": {
     "$type": "color",
     "$value": "light-dark(var(--indigo-300), var(--indigo-600))",
+    "$description": "A accent border against the page background — tinted enough to read as accent, calm enough not to compete with the fill.",
     "cssVar": "--accent-border",
     "sassMap": "$theme-colors"
   },
   "theme-color.accent.focus-ring": {
     "$type": "color",
     "$value": "light-dark(color-mix(in oklch, var(--indigo-500) 50%, var(--bg-body)), color-mix(in oklch, var(--indigo-500) 75%, var(--bg-body)))",
+    "$description": "The focus ring for accent controls. Mixed with the page background, so it stays visible in either scheme.",
     "cssVar": "--accent-focus-ring",
     "sassMap": "$theme-colors"
   },
   "theme-color.accent.contrast": {
     "$type": "color",
     "$value": "var(--white)",
+    "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black.",
     "cssVar": "--accent-contrast",
     "sassMap": "$theme-colors"
   },
   "theme-color.success.base": {
     "$type": "color",
     "$value": "var(--green-500)",
+    "$description": "The solid success colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
     "cssVar": "--success-base",
     "sassMap": "$theme-colors"
   },
   "theme-color.success.fg": {
     "$type": "color",
     "$value": "light-dark(var(--green-600), var(--green-400))",
+    "$description": "Success text on the page background — darkened in light mode and lightened in dark, so it stays readable in both.",
     "cssVar": "--success-fg",
     "sassMap": "$theme-colors"
   },
   "theme-color.success.fg-emphasis": {
     "$type": "color",
     "$value": "light-dark(var(--green-800), var(--green-300))",
+    "$description": "A higher-contrast success text colour, for headings or for text sitting on a success-tinted surface.",
     "cssVar": "--success-fg-emphasis",
     "sassMap": "$theme-colors"
   },
   "theme-color.success.bg": {
     "$type": "color",
     "$value": "var(--green-500)",
+    "$description": "A solid success fill. Pair it with `contrast` for anything placed on top.",
     "cssVar": "--success-bg",
     "sassMap": "$theme-colors"
   },
   "theme-color.success.bg-subtle": {
     "$type": "color",
     "$value": "light-dark(var(--green-100), var(--green-900))",
+    "$description": "A lightly tinted success surface — the usual background for alerts and subtle badges.",
     "cssVar": "--success-bg-subtle",
     "sassMap": "$theme-colors"
   },
   "theme-color.success.bg-muted": {
     "$type": "color",
     "$value": "light-dark(var(--green-200), var(--green-800))",
+    "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces.",
     "cssVar": "--success-bg-muted",
     "sassMap": "$theme-colors"
   },
   "theme-color.success.border": {
     "$type": "color",
     "$value": "light-dark(var(--green-300), var(--green-600))",
+    "$description": "A success border against the page background — tinted enough to read as success, calm enough not to compete with the fill.",
     "cssVar": "--success-border",
     "sassMap": "$theme-colors"
   },
   "theme-color.success.focus-ring": {
     "$type": "color",
     "$value": "light-dark(color-mix(in oklch, var(--green-500) 50%, var(--bg-body)), color-mix(in oklch, var(--green-500) 75%, var(--bg-body)))",
+    "$description": "The focus ring for success controls. Mixed with the page background, so it stays visible in either scheme.",
     "cssVar": "--success-focus-ring",
     "sassMap": "$theme-colors"
   },
   "theme-color.success.contrast": {
     "$type": "color",
     "$value": "var(--white)",
+    "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black.",
     "cssVar": "--success-contrast",
     "sassMap": "$theme-colors"
   },
   "theme-color.danger.base": {
     "$type": "color",
     "$value": "var(--red-500)",
+    "$description": "The solid danger colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
     "cssVar": "--danger-base",
     "sassMap": "$theme-colors"
   },
   "theme-color.danger.fg": {
     "$type": "color",
     "$value": "light-dark(var(--red-600), var(--red-400))",
+    "$description": "Danger text on the page background — darkened in light mode and lightened in dark, so it stays readable in both.",
     "cssVar": "--danger-fg",
     "sassMap": "$theme-colors"
   },
   "theme-color.danger.fg-emphasis": {
     "$type": "color",
     "$value": "light-dark(var(--red-800), var(--red-300))",
+    "$description": "A higher-contrast danger text colour, for headings or for text sitting on a danger-tinted surface.",
     "cssVar": "--danger-fg-emphasis",
     "sassMap": "$theme-colors"
   },
   "theme-color.danger.bg": {
     "$type": "color",
     "$value": "var(--red-500)",
+    "$description": "A solid danger fill. Pair it with `contrast` for anything placed on top.",
     "cssVar": "--danger-bg",
     "sassMap": "$theme-colors"
   },
   "theme-color.danger.bg-subtle": {
     "$type": "color",
     "$value": "light-dark(var(--red-100), var(--red-900))",
+    "$description": "A lightly tinted danger surface — the usual background for alerts and subtle badges.",
     "cssVar": "--danger-bg-subtle",
     "sassMap": "$theme-colors"
   },
   "theme-color.danger.bg-muted": {
     "$type": "color",
     "$value": "light-dark(var(--red-200), var(--red-800))",
+    "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces.",
     "cssVar": "--danger-bg-muted",
     "sassMap": "$theme-colors"
   },
   "theme-color.danger.border": {
     "$type": "color",
     "$value": "light-dark(var(--red-300), var(--red-600))",
+    "$description": "A danger border against the page background — tinted enough to read as danger, calm enough not to compete with the fill.",
     "cssVar": "--danger-border",
     "sassMap": "$theme-colors"
   },
   "theme-color.danger.focus-ring": {
     "$type": "color",
     "$value": "light-dark(color-mix(in oklch, var(--red-500) 50%, var(--bg-body)), color-mix(in oklch, var(--red-500) 75%, var(--bg-body)))",
+    "$description": "The focus ring for danger controls. Mixed with the page background, so it stays visible in either scheme.",
     "cssVar": "--danger-focus-ring",
     "sassMap": "$theme-colors"
   },
   "theme-color.danger.contrast": {
     "$type": "color",
     "$value": "var(--white)",
+    "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black.",
     "cssVar": "--danger-contrast",
     "sassMap": "$theme-colors"
   },
   "theme-color.warning.base": {
     "$type": "color",
     "$value": "var(--yellow-500)",
+    "$description": "The solid warning colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
     "cssVar": "--warning-base",
     "sassMap": "$theme-colors"
   },
   "theme-color.warning.fg": {
     "$type": "color",
     "$value": "light-dark(var(--yellow-700), var(--yellow-400))",
+    "$description": "Warning text on the page background — darkened in light mode and lightened in dark, so it stays readable in both.",
     "cssVar": "--warning-fg",
     "sassMap": "$theme-colors"
   },
   "theme-color.warning.fg-emphasis": {
     "$type": "color",
     "$value": "light-dark(var(--yellow-800), var(--yellow-300))",
+    "$description": "A higher-contrast warning text colour, for headings or for text sitting on a warning-tinted surface.",
     "cssVar": "--warning-fg-emphasis",
     "sassMap": "$theme-colors"
   },
   "theme-color.warning.bg": {
     "$type": "color",
     "$value": "var(--yellow-500)",
+    "$description": "A solid warning fill. Pair it with `contrast` for anything placed on top.",
     "cssVar": "--warning-bg",
     "sassMap": "$theme-colors"
   },
   "theme-color.warning.bg-subtle": {
     "$type": "color",
     "$value": "light-dark(var(--yellow-100), var(--yellow-900))",
+    "$description": "A lightly tinted warning surface — the usual background for alerts and subtle badges.",
     "cssVar": "--warning-bg-subtle",
     "sassMap": "$theme-colors"
   },
   "theme-color.warning.bg-muted": {
     "$type": "color",
     "$value": "light-dark(var(--yellow-200), var(--yellow-800))",
+    "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces.",
     "cssVar": "--warning-bg-muted",
     "sassMap": "$theme-colors"
   },
   "theme-color.warning.border": {
     "$type": "color",
     "$value": "light-dark(var(--yellow-300), var(--yellow-600))",
+    "$description": "A warning border against the page background — tinted enough to read as warning, calm enough not to compete with the fill.",
     "cssVar": "--warning-border",
     "sassMap": "$theme-colors"
   },
   "theme-color.warning.focus-ring": {
     "$type": "color",
     "$value": "light-dark(color-mix(in oklch, var(--yellow-500) 50%, var(--bg-body)), color-mix(in oklch, var(--yellow-400) 85%, var(--bg-body)))",
+    "$description": "The focus ring for warning controls. Mixed with the page background, so it stays visible in either scheme.",
     "cssVar": "--warning-focus-ring",
     "sassMap": "$theme-colors"
   },
   "theme-color.warning.contrast": {
     "$type": "color",
     "$value": "var(--gray-900)",
+    "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black.",
     "cssVar": "--warning-contrast",
     "sassMap": "$theme-colors"
   },
   "theme-color.info.base": {
     "$type": "color",
     "$value": "var(--cyan-500)",
+    "$description": "The solid info colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
     "cssVar": "--info-base",
     "sassMap": "$theme-colors"
   },
   "theme-color.info.fg": {
     "$type": "color",
     "$value": "light-dark(var(--cyan-600), var(--cyan-400))",
+    "$description": "Info text on the page background — darkened in light mode and lightened in dark, so it stays readable in both.",
     "cssVar": "--info-fg",
     "sassMap": "$theme-colors"
   },
   "theme-color.info.fg-emphasis": {
     "$type": "color",
     "$value": "light-dark(var(--cyan-800), var(--cyan-300))",
+    "$description": "A higher-contrast info text colour, for headings or for text sitting on a info-tinted surface.",
     "cssVar": "--info-fg-emphasis",
     "sassMap": "$theme-colors"
   },
   "theme-color.info.bg": {
     "$type": "color",
     "$value": "var(--cyan-500)",
+    "$description": "A solid info fill. Pair it with `contrast` for anything placed on top.",
     "cssVar": "--info-bg",
     "sassMap": "$theme-colors"
   },
   "theme-color.info.bg-subtle": {
     "$type": "color",
     "$value": "light-dark(var(--cyan-100), var(--cyan-900))",
+    "$description": "A lightly tinted info surface — the usual background for alerts and subtle badges.",
     "cssVar": "--info-bg-subtle",
     "sassMap": "$theme-colors"
   },
   "theme-color.info.bg-muted": {
     "$type": "color",
     "$value": "light-dark(var(--cyan-200), var(--cyan-800))",
+    "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces.",
     "cssVar": "--info-bg-muted",
     "sassMap": "$theme-colors"
   },
   "theme-color.info.border": {
     "$type": "color",
     "$value": "light-dark(var(--cyan-300), var(--cyan-600))",
+    "$description": "A info border against the page background — tinted enough to read as info, calm enough not to compete with the fill.",
     "cssVar": "--info-border",
     "sassMap": "$theme-colors"
   },
   "theme-color.info.focus-ring": {
     "$type": "color",
     "$value": "light-dark(color-mix(in oklch, var(--cyan-500) 50%, var(--bg-body)), color-mix(in oklch, var(--cyan-500) 75%, var(--bg-body)))",
+    "$description": "The focus ring for info controls. Mixed with the page background, so it stays visible in either scheme.",
     "cssVar": "--info-focus-ring",
     "sassMap": "$theme-colors"
   },
   "theme-color.info.contrast": {
     "$type": "color",
     "$value": "var(--gray-900)",
+    "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black.",
     "cssVar": "--info-contrast",
     "sassMap": "$theme-colors"
   },
   "theme-color.inverse.base": {
     "$type": "color",
     "$value": "var(--gray-900)",
+    "$description": "The solid inverse colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
     "cssVar": "--inverse-base",
     "sassMap": "$theme-colors"
   },
   "theme-color.inverse.fg": {
     "$type": "color",
     "$value": "light-dark(var(--gray-900), var(--gray-200))",
+    "$description": "Inverse text on the page background — darkened in light mode and lightened in dark, so it stays readable in both.",
     "cssVar": "--inverse-fg",
     "sassMap": "$theme-colors"
   },
   "theme-color.inverse.fg-emphasis": {
     "$type": "color",
     "$value": "light-dark(var(--gray-975), var(--white))",
+    "$description": "A higher-contrast inverse text colour, for headings or for text sitting on a inverse-tinted surface.",
     "cssVar": "--inverse-fg-emphasis",
     "sassMap": "$theme-colors"
   },
   "theme-color.inverse.bg": {
     "$type": "color",
     "$value": "light-dark(var(--gray-900), var(--gray-025))",
+    "$description": "A solid inverse fill. Pair it with `contrast` for anything placed on top.",
     "cssVar": "--inverse-bg",
     "sassMap": "$theme-colors"
   },
   "theme-color.inverse.bg-subtle": {
     "$type": "color",
     "$value": "light-dark(var(--gray-100), var(--gray-900))",
+    "$description": "A lightly tinted inverse surface — the usual background for alerts and subtle badges.",
     "cssVar": "--inverse-bg-subtle",
     "sassMap": "$theme-colors"
   },
   "theme-color.inverse.bg-muted": {
     "$type": "color",
     "$value": "light-dark(var(--gray-200), var(--gray-300))",
+    "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces.",
     "cssVar": "--inverse-bg-muted",
     "sassMap": "$theme-colors"
   },
   "theme-color.inverse.border": {
     "$type": "color",
     "$value": "light-dark(var(--gray-400), var(--gray-100))",
+    "$description": "A inverse border against the page background — tinted enough to read as inverse, calm enough not to compete with the fill.",
     "cssVar": "--inverse-border",
     "sassMap": "$theme-colors"
   },
   "theme-color.inverse.focus-ring": {
     "$type": "color",
     "$value": "color-mix(in oklch, light-dark(var(--gray-900), var(--gray-100)) 50%, var(--bg-body))",
+    "$description": "The focus ring for inverse controls. Mixed with the page background, so it stays visible in either scheme.",
     "cssVar": "--inverse-focus-ring",
     "sassMap": "$theme-colors"
   },
   "theme-color.inverse.contrast": {
     "$type": "color",
     "$value": "light-dark(var(--white), var(--gray-900))",
+    "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black.",
     "cssVar": "--inverse-contrast",
     "sassMap": "$theme-colors"
   },
   "theme-color.secondary.base": {
     "$type": "color",
     "$value": "var(--gray-200)",
+    "$description": "The solid secondary colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
     "cssVar": "--secondary-base",
     "sassMap": "$theme-colors"
   },
   "theme-color.secondary.fg": {
     "$type": "color",
     "$value": "light-dark(var(--gray-600), var(--gray-400))",
+    "$description": "Secondary text on the page background — darkened in light mode and lightened in dark, so it stays readable in both.",
     "cssVar": "--secondary-fg",
     "sassMap": "$theme-colors"
   },
   "theme-color.secondary.fg-emphasis": {
     "$type": "color",
     "$value": "light-dark(var(--gray-800), var(--gray-200))",
+    "$description": "A higher-contrast secondary text colour, for headings or for text sitting on a secondary-tinted surface.",
     "cssVar": "--secondary-fg-emphasis",
     "sassMap": "$theme-colors"
   },
   "theme-color.secondary.bg": {
     "$type": "color",
     "$value": "light-dark(var(--gray-100), var(--gray-600))",
+    "$description": "A solid secondary fill. Pair it with `contrast` for anything placed on top.",
     "cssVar": "--secondary-bg",
     "sassMap": "$theme-colors"
   },
   "theme-color.secondary.bg-subtle": {
     "$type": "color",
     "$value": "light-dark(var(--gray-050), var(--gray-800))",
+    "$description": "A lightly tinted secondary surface — the usual background for alerts and subtle badges.",
     "cssVar": "--secondary-bg-subtle",
     "sassMap": "$theme-colors"
   },
   "theme-color.secondary.bg-muted": {
     "$type": "color",
     "$value": "light-dark(var(--gray-100), var(--gray-700))",
+    "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces.",
     "cssVar": "--secondary-bg-muted",
     "sassMap": "$theme-colors"
   },
   "theme-color.secondary.border": {
     "$type": "color",
     "$value": "light-dark(var(--gray-300), var(--gray-600))",
+    "$description": "A secondary border against the page background — tinted enough to read as secondary, calm enough not to compete with the fill.",
     "cssVar": "--secondary-border",
     "sassMap": "$theme-colors"
   },
   "theme-color.secondary.focus-ring": {
     "$type": "color",
     "$value": "color-mix(in oklch, light-dark(var(--gray-500), var(--gray-300)) 50%, var(--bg-body))",
+    "$description": "The focus ring for secondary controls. Mixed with the page background, so it stays visible in either scheme.",
     "cssVar": "--secondary-focus-ring",
     "sassMap": "$theme-colors"
   },
   "theme-color.secondary.contrast": {
     "$type": "color",
     "$value": "light-dark(var(--gray-900), var(--white))",
+    "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black.",
     "cssVar": "--secondary-contrast",
     "sassMap": "$theme-colors"
   },
   "type.body.font-family": {
     "$type": "fontFamily",
     "$value": "\"-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'\"",
+    "$description": "The body font stack. It deliberately omits `system-ui`, which resolves to the locale’s UI font and renders non-Latin text incorrectly.",
     "cssVar": "--body-font-family",
     "sassMap": "$root-tokens"
   },
   "type.body.font-size": {
     "$type": "dimension",
     "$value": "1rem",
+    "$description": "Base text size. Component sizes that reference it follow; the fluid heading scale does not.",
     "cssVar": "--body-font-size",
     "sassMap": "$root-tokens"
   },
   "type.body.font-weight": {
     "$type": "fontWeight",
     "$value": "var(--font-weight-normal)",
+    "$description": "Weight of ordinary running text. Headings set their own, so this governs paragraphs and labels.",
     "cssVar": "--body-font-weight",
     "sassMap": "$root-tokens"
   },
   "type.body.line-height": {
     "$type": "number",
     "$value": "1.5",
+    "$description": "Leading for running text. Headings override it, so this mostly decides how dense a paragraph feels.",
     "cssVar": "--body-line-height",
     "sassMap": "$root-tokens"
   },
   "type.heading.color": {
     "$type": "color",
     "$value": "inherit",
+    "$description": "Heading colour. Inherits by default, so headings match body text unless you separate them.",
     "cssVar": "--heading-color",
     "sassMap": "$root-tokens"
   },
   "type.hr.border-color": {
     "$type": "color",
     "$value": "var(--border-color)",
+    "$description": "Colour of a horizontal rule, and of the divider inside an alert or a card.",
     "cssVar": "--hr-border-color",
     "sassMap": "$root-tokens"
   },
   "type.link.color": {
     "$type": "color",
     "$value": "light-dark(var(--primary-base), var(--primary-fg))",
+    "$description": "Link colour. Uses the solid brand colour in light mode and the lighter text variant in dark.",
     "cssVar": "--link-color",
     "sassMap": "$root-tokens"
   },
   "type.link.decoration": {
     "$type": null,
     "$value": "underline",
+    "$description": "How a link is marked. Removing the underline leaves colour as the only cue, which fails for readers who cannot distinguish it.",
     "cssVar": "--link-decoration",
     "sassMap": "$root-tokens"
   },
   "type.link.underline-offset": {
     "$type": "dimension",
     "$value": ".2em",
+    "$description": "How far the underline sits below the text. Enough clearance keeps it from cutting through descenders.",
     "cssVar": "--link-underline-offset",
     "sassMap": "$root-tokens"
   },
   "type.link.hover-color": {
     "$type": "color",
     "$value": "color-mix(in oklch, var(--link-color) 90%, #000)",
+    "$description": "Link colour on hover — the base colour darkened, so the shift reads without changing hue.",
     "cssVar": "--link-hover-color",
     "sassMap": "$root-tokens"
   },
   "type.code.font-family": {
     "$type": null,
     "$value": "\"ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Monaco, 'Cascadia Mono', Consolas, 'Liberation Mono', monospace\"",
+    "$description": "The monospace stack, for code and any figure that should align in columns.",
     "cssVar": "--font-mono",
     "sassMap": "$root-tokens"
   },
   "type.code.font-size": {
     "$type": "dimension",
     "$value": "95%",
+    "$description": "Code size relative to its surrounding text, so inline code does not tower over the line.",
     "cssVar": "--code-font-size",
     "sassMap": "$root-tokens"
   },
   "type.code.color": {
     "$type": "color",
     "$value": "var(--fg-2)",
+    "$description": "Colour of inline code, set a step away from running text so it reads as a quotation.",
     "cssVar": "--code-color",
     "sassMap": "$root-tokens"
   }

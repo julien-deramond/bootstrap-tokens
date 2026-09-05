@@ -84,16 +84,29 @@ Three groups, three different answers:
 Then **validate against the published DTCG JSON Schema in CI**, so "we follow DTCG" stops
 being a claim and becomes a test.
 
-### A4. Descriptions — the document has to be readable
+### A4. Descriptions — the document has to be readable · ✅ **done**
 
-**4 tokens out of 1197 have a `$description` (0.3%).** A token document nobody can read is a
-config file with extra syntax. This is the largest single gap in the document's usefulness
-and it is pure authoring work, not engineering.
+Was 4 tokens out of 1197. Now **168/168 of the semantic layer**, plus the primitives and
+component tokens that behave surprisingly — 195 in total.
 
-1. Generate a first pass from upstream's own comments and each component's selector.
-2. Hand-write the **semantic layer** (168 tokens) — that is where meaning lives, and where
-   the difference between `fg-emphasis` and `fg` has to be explained or the layer is useless.
-3. Add `$description` coverage to `validate`, failing under `--strict` below a threshold.
+The target deliberately is *not* 100%. A description earns its place only by saying something
+the name does not, and "the alert's horizontal padding" costs a line to teach nothing. So:
+
+* **Semantic layer: every token, required by `validate`.** This is where the difference
+  between `fg` and `fg-emphasis` is a decision rather than a value.
+* **Primitive scales: the group carries it.** `spacing.3` needs no line of its own once the
+  `spacing` group explains the scale.
+* **Component tokens: only the surprising ones.** The twelve that read a `--theme-*` hook
+  behave differently from their name — they follow a `.theme-*` class on an ancestor and fall
+  back only when there is none — and that is generated automatically from the value.
+
+Two families are templated rather than written out: the nine theme sub-keys mean the same
+thing for all eight roles, and the seven control metrics mean the same thing at all four
+sizes. Writing 72 and 28 near-identical strings would only invite them to drift.
+
+A test asserts no description merely restates its path. It found seven that did, and one
+calibration mistake of my own: at a five-word threshold it began rejecting good short
+descriptions and rewarding padding, which is the opposite of the goal. Lowered to four.
 
 ### A5. Generalise modes
 

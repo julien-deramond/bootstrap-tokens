@@ -12,7 +12,8 @@
           "sassMap": "$root-tokens",
           "sassKey": "--focus-ring-width"
         }
-      }
+      },
+      "$description": "Thickness of the focus ring. Do not go below 2px: this is the only cue a keyboard user gets."
     },
     "offset": {
       "$type": "dimension",
@@ -26,7 +27,8 @@
           "sassMap": "$root-tokens",
           "sassKey": "--focus-ring-offset"
         }
-      }
+      },
+      "$description": "Gap between a control and its focus ring, so the ring stays legible against the control."
     },
     "color": {
       "$type": "color",
@@ -37,7 +39,8 @@
           "sassMap": "$root-tokens",
           "sassKey": "--focus-ring-color"
         }
-      }
+      },
+      "$description": "Colour of the focus ring. Follows the primary role by default."
     },
     "ring": {
       "$value": "{focus.width} solid {focus.color}",
@@ -48,7 +51,8 @@
           "sassKey": "--focus-ring",
           "expression": true
         }
-      }
+      },
+      "$description": "The whole focus ring shorthand, composed from the width and colour above."
     },
     "$description": "Focus ring geometry and colour."
   }
