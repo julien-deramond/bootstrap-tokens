@@ -291,7 +291,13 @@ The sample is a component gallery. It cannot answer "does my theme survive a rea
   which is the question anyone actually has. Spacing against real prose is where a density or
   radius choice succeeds or falls apart.
 * ⬜ Hover states, which cannot be forced from outside the document.
-* **Your own markup**, pasted in.
+* ✅ **Your own markup**, pasted in. The gallery answers "do Bootstrap's components look
+  right?"; this answers the question anyone actually has, which is whether the theme survives
+  *their* page — their nesting, their utilities, their content lengths. Stored per browser
+  rather than per theme, because it describes your page and you want to see it under every
+  theme you try. Stripped of anything that executes before rendering, since the preview is
+  same-origin with the chooser, and the editor says what it dropped rather than silently
+  drawing less than you pasted.
 * **Component isolation** — selecting a component in All tokens previews just that component.
 
 ### C4. Accessibility as an output, not a warning · 🚧 **report and APCA done**

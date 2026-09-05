@@ -106,6 +106,7 @@ const state = {
   store: loadStore(),
   migrations: [],
   overrides: {},
+  markup: loadMarkup(),
   mode: loadMode(),
   section: 'theme-color',
   // Side by side is the point on a wide screen; on a narrow one it halves an already small
@@ -152,6 +153,33 @@ function openTheme(id) {
 function addTheme(theme) {
   state.store.themes.push(theme)
   openTheme(theme.id)
+}
+
+/*
+ * Pasted markup is stored per browser, not per theme.
+ *
+ * It is a description of *your page*, not of the theme — you want to see the same chunk of
+ * your app under every theme you try, and duplicating it into each saved theme would mean
+ * updating it in four places when your markup changes.
+ */
+const MARKUP_KEY = 'bstokens.markup'
+
+function loadMarkup() {
+  try {
+    return localStorage.getItem(MARKUP_KEY) ?? ''
+  } catch {
+    return ''
+  }
+}
+
+function saveMarkup(markup) {
+  state.markup = markup
+  try {
+    if (markup) localStorage.setItem(MARKUP_KEY, markup)
+    else localStorage.removeItem(MARKUP_KEY)
+  } catch {
+    /* a private window, or storage turned off — the preview still works this session */
+  }
 }
 
 /** Simple is the default: most people want a theme, not a token browser. */
@@ -1798,6 +1826,7 @@ function recompute() {
     css: themeCss(changes, { scope: state.scheme === 'compare' ? '.pane-after' : null }),
     hues: availableHues(state.doc),
     scenario: state.scenario,
+    markup: state.markup,
     compareScheme: state.compareScheme
   })
 }
@@ -1959,6 +1988,68 @@ function renderExport() {
   }
 
   syncTabs($('#export-tabs'), (tab) => tab.dataset.tab === state.exportTab)
+}
+
+/* ------------------------------------------------------------ your markup */
+
+function openMarkup() {
+  $('#markup-input').value = state.markup
+  describeMarkup(state.markup)
+  $('#markup').showModal()
+  $('#markup-input').focus()
+}
+
+/**
+ * Say what will actually be rendered.
+ *
+ * Pasted markup is stripped of anything that executes before it goes into the preview, and
+ * a preview that silently drops half of what you pasted is worse than one that says so —
+ * you would spend the next ten minutes wondering why your theme "broke" a widget that was
+ * never drawn.
+ */
+function describeMarkup(markup) {
+  const note = $('#markup-note')
+  if (!markup.trim()) {
+    note.textContent = 'Stored in this browser only, and used with every theme you try.'
+    return
+  }
+
+  const parsed = new DOMParser().parseFromString(`<body>${markup}</body>`, 'text/html')
+  const removed = parsed.body.querySelectorAll('script, iframe, object, embed, link, meta, base, noscript')
+  const handlers = [...parsed.body.querySelectorAll('*')].filter((element) =>
+    [...element.attributes].some((attribute) => attribute.name.toLowerCase().startsWith('on'))
+  )
+
+  const dropped = [
+    removed.length > 0 ? `${removed.length} element(s) that would execute` : null,
+    handlers.length > 0 ? `${handlers.length} inline event handler(s)` : null
+  ].filter(Boolean)
+
+  note.textContent = dropped.length > 0
+    ? `Rendered without ${dropped.join(' and ')} — the preview shares an origin with this page, so nothing pasted here is allowed to run.`
+    : 'Stored in this browser only, and used with every theme you try.'
+}
+
+function wireMarkup() {
+  const input = $('#markup-input')
+  input.addEventListener('input', () => describeMarkup(input.value))
+
+  $('#markup-save').addEventListener('click', () => {
+    saveMarkup(input.value)
+    state.scenario = 'yours'
+    for (const button of document.querySelectorAll('#scenario button')) {
+      button.setAttribute('aria-pressed', String(button.dataset.scenario === 'yours'))
+    }
+    postToPreview({ scenario: 'yours', markup: state.markup })
+    $('#markup').close()
+  })
+
+  $('#markup-clear').addEventListener('click', () => {
+    input.value = ''
+    saveMarkup('')
+    describeMarkup('')
+    postToPreview({ markup: '' })
+  })
 }
 
 /**
@@ -2156,17 +2247,25 @@ function wire() {
 
   wireTabs($('#mode'), (tab) => setMode(tab.dataset.mode))
 
-  // What the artboards render: a component gallery, a realistic page, or every state.
+  // What the artboards render: a component gallery, a realistic page, every state, or your
+  // own markup.
   for (const button of document.querySelectorAll('#scenario button')) {
     button.setAttribute('aria-pressed', String(button.dataset.scenario === state.scenario))
     button.addEventListener('click', () => {
-      state.scenario = button.dataset.scenario
+      const scenario = button.dataset.scenario
+      // Picking "Your markup" with nothing pasted yet, or picking it again, opens the
+      // editor — the tab is the way in, so it should not be a dead end the first time.
+      if (scenario === 'yours' && (state.scenario === 'yours' || !state.markup)) openMarkup()
+
+      state.scenario = scenario
       for (const other of document.querySelectorAll('#scenario button')) {
         other.setAttribute('aria-pressed', String(other === button))
       }
-      postToPreview({ scenario: state.scenario })
+      postToPreview({ scenario: state.scenario, markup: state.markup })
     })
   }
+
+  wireMarkup()
 
   // No confirm(): the action is undoable, and a modal to guard a reversible action just
   // trains people to dismiss modals.

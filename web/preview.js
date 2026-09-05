@@ -456,10 +456,60 @@ const states = (uid) => `
     </div>
   </div>`
 
+/* ----------------------------------------------------------- your markup -- */
+
+/**
+ * Render a chunk of the visitor's own HTML.
+ *
+ * The gallery answers "do Bootstrap's components look right?". This answers the question
+ * anyone actually has, which is whether the theme survives *their* page — their nesting,
+ * their utility classes, their content lengths, the bit of custom CSS they forgot about.
+ *
+ * It is parsed and stripped rather than assigned straight to innerHTML. This document is
+ * same-origin with the chooser — it has to be, or the chooser could not read computed
+ * styles out of it — so a script in pasted markup would run with access to the visitor's
+ * saved themes. Nothing here needs to execute to be previewed.
+ */
+const FORBIDDEN = 'script, iframe, object, embed, link, meta, base, noscript'
+
+function sanitise(markup) {
+  const parsed = new DOMParser().parseFromString(`<body>${markup}</body>`, 'text/html')
+  const body = parsed.body
+
+  for (const element of body.querySelectorAll(FORBIDDEN)) element.remove()
+
+  for (const element of body.querySelectorAll('*')) {
+    for (const attribute of [...element.attributes]) {
+      const name = attribute.name.toLowerCase()
+      // Event handlers execute, and so does a `javascript:` URL when someone clicks it.
+      if (name.startsWith('on')) element.removeAttribute(attribute.name)
+      else if (
+        (name === 'href' || name === 'src' || name === 'xlink:href' || name === 'action') &&
+        /^\s*javascript:/i.test(attribute.value)
+      ) {
+        element.setAttribute(attribute.name, '#')
+      }
+    }
+  }
+
+  return body.innerHTML
+}
+
+const EMPTY_MARKUP = `
+  <div class="preview-empty">
+    <p><strong>Nothing pasted yet.</strong></p>
+    <p>Choose <em>Your markup</em> again to paste a chunk of your own HTML. It renders here
+    with the theme applied, in both colour schemes.</p>
+  </div>`
+
+/** Set by the chooser. Sanitised once per change rather than once per artboard. */
+let markup = ''
+
 const SCENARIOS = {
   components: (uid) => componentGallery(uid),
   page: (uid) => section('page', 'A page', page(uid)),
-  states: (uid) => section('states', 'Every state', states(uid))
+  states: (uid) => section('states', 'Every state', states(uid)),
+  yours: () => section('yours', 'Your markup', markup || EMPTY_MARKUP)
 }
 
 const componentGallery = (uid) =>
@@ -596,6 +646,16 @@ window.addEventListener('message', (event) => {
   if (Array.isArray(message.hues) && message.hues.join() !== HUES.join()) {
     HUES = message.hues
     render()
+  }
+
+  // Before the scenario, so switching to "Your markup" and supplying it in the same message
+  // draws once rather than flashing the empty state first.
+  if (typeof message.markup === 'string') {
+    const next = message.markup ? sanitise(message.markup) : ''
+    if (next !== markup) {
+      markup = next
+      if (scenario === 'yours') render()
+    }
   }
 
   if (message.scenario && message.scenario !== scenario && SCENARIOS[message.scenario]) {

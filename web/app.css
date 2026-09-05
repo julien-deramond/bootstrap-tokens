@@ -1011,3 +1011,19 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 .intro p { margin: 0 0 .625rem; font-size: .75rem; color: var(--ink-muted); max-width: 52ch; }
 .intro-actions { display: flex; gap: .375rem; }
 .intro-actions .button { font-size: .75rem; padding: .3125rem .625rem; }
+
+/* The markup editor. Tall enough that a real chunk of a page is legible without scrolling a
+   five-line box, and set in the same sunken monospace surface as the export panes. */
+.markup-input {
+  display: block;
+  inline-size: calc(100% - 2rem);
+  min-block-size: 15rem;
+  margin: .625rem 1rem;
+  padding: .875rem;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: var(--surface-sunken);
+  color: var(--ink);
+  font: .75rem/1.6 var(--mono);
+  resize: vertical;
+}

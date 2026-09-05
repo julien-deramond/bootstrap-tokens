@@ -150,6 +150,23 @@ never reported as bugs.
 
 ## P — This project
 
+### P7 · The pasted-markup sanitiser has no automated test
+
+`sanitise()` in `web/preview.js` strips scripts, event handlers and `javascript:` URLs before
+pasted markup reaches the preview, which is same-origin with the chooser and therefore with
+the visitor's saved themes. It is verified by hand in a browser — a script tag and an
+`onclick` both survive the round trip as zero elements — but not in CI, because Node has no
+`DOMParser` and adding a DOM implementation as a dependency for one function is a poor trade.
+
+**Consequence:** a refactor could weaken it without anything failing.
+
+**Options:** render pasted markup in a nested `sandbox`ed iframe instead, which removes the
+need for a sanitiser entirely at the cost of having to inject Bootstrap and the overrides
+into a second document; or add a browser-run check to `bstokens probe`, which already exists
+to ask a real browser questions.
+
+---
+
 ### P6 · The tool's own controls still borrow Bootstrap's shapes
 
 Reduced, not eliminated. The hue grid is sixteen rounded colour chips and the contrast
