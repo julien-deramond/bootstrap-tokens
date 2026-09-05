@@ -130,8 +130,9 @@ preset.
   *Copy share link* packs the whole theme into the URL fragment — 571 characters for a
   22-token theme, compressed in the browser, uploaded nowhere.
 * **A theme-level contrast readout**, which separates issues you introduced from ones
-  Bootstrap's defaults already have. A warning you didn't cause teaches you to ignore
-  warnings.
+  Bootstrap's defaults already have — by comparing the *colours*, not the verdicts. A warning
+  you didn't cause teaches you to ignore warnings. The *contrast report* tab hands you the
+  same audit as a file to attach to a pull request, WCAG 2 and APCA side by side.
 
 Two decisions inside Design mode are worth knowing about:
 

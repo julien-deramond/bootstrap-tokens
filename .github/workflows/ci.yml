@@ -54,6 +54,12 @@ jobs:
             exit 1
           fi
 
+      # A theme is judged on what it changed. With no theme file this asserts that the
+      # document itself introduces nothing — which is the baseline every theme is measured
+      # against, so it has to hold.
+      - name: Contrast audit
+        run: node tools/cli.mjs report --fail-on introduced --out /dev/null
+
       # The point of the whole pipeline: our export must compile to the same CSS
       # as upstream's own entrypoint.
       - name: Verify byte-identical CSS

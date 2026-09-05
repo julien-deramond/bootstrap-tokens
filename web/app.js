@@ -29,6 +29,8 @@ import { OPTIONS, changedOptions, optionByName } from '../tools/lib/config-surfa
 import { importScss } from '../tools/lib/import-scss.mjs'
 import { applyMigrations } from '../tools/lib/migrations.mjs'
 import { parseComputedColor, formatColor, hexToRgb, rgbToHex, contrastRatio, contrastGrade } from './color.js'
+import { contrastPartner, apcaLc, apcaLevel } from '../tools/lib/contrast.mjs'
+import { audit, reportFor, markdown as contrastReport } from '../tools/lib/report.mjs'
 import {
   loadStore,
   saveStore,
@@ -625,23 +627,6 @@ function renderField(path, side, modeLabel, token) {
   return field
 }
 
-/**
- * The colour pairs a reader actually has to be able to see. `contrast` is the text placed on
- * a role's solid fill, and `fg`/`fg-emphasis` are that role's text on the page background —
- * exactly the two places a re-tinted palette quietly goes unreadable.
- */
-function contrastPartner(path) {
-  const theme = /^theme-color\.([\w-]+)\.(contrast|fg|fg-emphasis)$/.exec(path)
-  if (theme) {
-    return theme[2] === 'contrast'
-      ? { partner: `theme-color.${theme[1]}.bg`, label: 'on fill' }
-      : { partner: 'bg.body', label: 'on page' }
-  }
-  if (/^fg\.\d$/.test(path) || path === 'fg.body') return { partner: 'bg.body', label: 'on page' }
-  if (path === 'type.link.color' || path === 'type.link.hover-color') return { partner: 'bg.body', label: 'on page' }
-  return null
-}
-
 function renderContrast(path, side) {
   const pair = contrastPartner(path)
   if (!pair || !state.doc.tokens.has(pair.partner)) return null
@@ -657,7 +642,15 @@ function renderContrast(path, side) {
   const badge = document.createElement('span')
   badge.className = `contrast${grade.ok === true ? ' is-pass' : grade.ok === false ? ' is-fail' : ' is-warn'}`
   badge.textContent = `${ratio.toFixed(1)}:1 ${grade.level}`
-  badge.title = `WCAG contrast of ${path} ${pair.label} (${pair.partner}), ${scheme} scheme`
+
+  // The badge shows WCAG because that is the number conformance is measured against; APCA
+  // goes in the tooltip because it is the one that will tell you a pair WCAG calls "AA" is
+  // still too weak for body text, and the two disagree often enough to be worth having.
+  const lc = apcaLc(foreground, background)
+  badge.title =
+    `${path} ${pair.label} (${pair.partner}), ${scheme} scheme\n` +
+    `WCAG 2: ${ratio.toFixed(2)}:1 ${grade.level}\n` +
+    `APCA: Lc ${lc.toFixed(0)} — ${apcaLevel(lc).use}`
   return badge
 }
 
@@ -1623,45 +1616,39 @@ function renderChanges() {
  * *you* introduced from ones Bootstrap's defaults already have — a fresh visitor seeing a
  * warning they did not cause learns to ignore warnings.
  */
+let healthCache = { key: null, value: null }
+
 function themeHealth() {
   if (!state.previewReady) return null
 
-  const issues = []
+  /*
+   * The same `audit` the exported report runs, not a second implementation of it.
+   *
+   * They used to be two, and they disagreed: the header said three issues while the report
+   * said four, because each had its own idea of which pairs counted and what "inherited"
+   * meant. A number in a header that does not match the number in the file you hand a
+   * reviewer is worse than no number, so there is now one function and one answer.
+   *
+   * Memoised on the overrides because it runs on every render and walks the document four
+   * times — twice per scheme, once for the theme and once for Bootstrap's defaults.
+   */
+  const key = JSON.stringify(state.overrides)
+  if (healthCache.key !== key) {
+    const rows = audit(state.doc, state.baseDoc)
+      .filter((row) => !row.wcag.ok)
+      .map((row) => ({ ...row, scheme: row.mode }))
 
-  for (const [path, token] of walk(state.doc.tree)) {
-    if (token.$type !== 'color') continue
-    const pair = contrastPartner(path)
-    if (!pair || !state.doc.tokens.has(pair.partner)) continue
-
-    for (const scheme of shownSchemes()) {
-      const side = scheme === 'dark' ? 'dark' : 'value'
-      const ratio = ratioFor(path, pair.partner, side, state.doc)
-      if (ratio === null || ratio >= 4.5) continue
-
-      const before = state.baseDoc.tokens.has(path)
-        ? ratioFor(path, pair.partner, side, state.baseDoc)
-        : null
-
-      issues.push({
-        path,
-        scheme,
-        ratio,
-        inherited: before !== null && before < 4.5
-      })
+    healthCache = {
+      key,
+      value: {
+        issues: rows,
+        introduced: rows.filter((row) => !row.inherited).length,
+        inherited: rows.filter((row) => row.inherited).length
+      }
     }
   }
 
-  return {
-    issues,
-    introduced: issues.filter((issue) => !issue.inherited).length,
-    inherited: issues.filter((issue) => issue.inherited).length
-  }
-}
-
-function ratioFor(path, partnerPath, side, doc) {
-  const foreground = resolveColor(resolvedSide(path, side, doc), side === 'dark' ? 'dark' : 'light')
-  const background = resolveColor(resolvedSide(partnerPath, side, doc), side === 'dark' ? 'dark' : 'light')
-  return foreground && background ? contrastRatio(foreground, background) : null
+  return healthCache.value
 }
 
 /**
@@ -1855,6 +1842,31 @@ function exportContent() {
         'Add it <em>after</em> Bootstrap: <code>&lt;link href="theme.css" rel="stylesheet"&gt;</code>.'
       ],
       text: css || '/* Nothing overridden yet. */\n'
+    }
+  }
+
+  if (state.exportTab === 'a11y') {
+    /*
+     * The same audit the CLI writes, generated here. A reviewer cannot see the warning
+     * badges in someone else's browser, so the evidence that a theme is readable has to be
+     * something you can attach to a pull request — and it has to be the identical document,
+     * which is why the rendering lives in tools/lib/report.mjs rather than twice.
+     */
+    const { summary, ...rest } = reportFor(state.baseTree, state.baseDoc, state.overrides, {
+      theme: activeTheme(state.store)?.name ?? 'this theme',
+      version
+    })
+    return {
+      filename: 'contrast-report.md',
+      note:
+        summary.introduced === 0 && summary.regressed === 0
+          ? 'Every pair a reader has to see, measured by WCAG 2 and APCA. Nothing here is caused by your theme.'
+          : `${summary.introduced} pair(s) fail WCAG AA because of your theme. The report separates those from the ones Bootstrap's defaults already had.`,
+      steps: [
+        'Attach it to the pull request that adds the theme.',
+        'Or run it in CI: <code>npx bstokens report --theme theme.json --fail-on introduced</code>.'
+      ],
+      text: contrastReport({ summary, ...rest })
     }
   }
 

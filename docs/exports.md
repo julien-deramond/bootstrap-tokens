@@ -126,6 +126,32 @@ useful filed under `sizing`.
 
 Anything Figma cannot hold is in `not-exported.json` beside it, with the reason.
 
+## `bstokens report` — the contrast audit
+
+Not a token export, but the other thing a consumer needs before trusting a theme: evidence
+that it is readable.
+
+```bash
+npx bstokens report --theme theme.json --out contrast.md
+npx bstokens report --theme theme.json --fail-on introduced   # a CI gate
+```
+
+Every pair a reader actually has to see — text on a role's fill, a role's text on the page —
+in both colour schemes, measured by WCAG 2 and by APCA. Both, because they disagree: `fg.4`
+on a dark page clears WCAG's 3:1 large-text bar and scores Lc -22 under APCA, which is nearly
+invisible. WCAG 2 is the rule conformance is measured against; APCA is the model WCAG 3 is
+built on and judges light-on-saturated text, the case WCAG 2 handles worst.
+
+The distinction that makes it usable is **inherited versus introduced**, decided by comparing
+the colours rather than the verdicts. Bootstrap's own defaults fail eleven of these pairs;
+reporting those as the theme's problem is how a report loses its reader. `--fail-on
+introduced` therefore gates on what the theme changed, and `--fail-on regression` on pairs
+that were fine before and are not now — the case where a token you did not touch was dragged
+down by one you did.
+
+The chooser's *contrast report* tab produces the identical document in the browser, from the
+same library.
+
 ## Checking the exports
 
 `node --test tools/test/consumers.test.mjs` runs the actual tools: `tsc` over a consumer file

@@ -7,6 +7,7 @@ const COMMANDS = {
   validate: () => import('./commands/validate.mjs').then((m) => m.validate),
   verify: () => import('./commands/verify.mjs').then((m) => m.verify),
   probe: () => import('./commands/probe.mjs').then((m) => m.probe),
+  report: () => import('./commands/report.mjs').then((m) => m.report),
   vendor: () => import('./commands/vendor.mjs').then((m) => m.vendor),
   eject: () => import('./commands/eject.mjs').then((m) => m.eject),
   init: () => import('./commands/init.mjs').then((m) => m.init),
@@ -30,6 +31,12 @@ const USAGE = `bstokens <command> [options]
 
   probe      Write a page that checks the flattened colours against a real browser
              --out <f>      where to write it (default build/probe.html)
+
+  report     Audit a theme's contrast — WCAG 2 and APCA, light and dark
+             --theme <f>    a theme.json (default: Bootstrap's own values)
+             --out <f>      where to write it (default: stdout)
+             --format <f>   md, html or json (default: from --out, else md)
+             --fail-on <g>  exit 1 on: regression, introduced, any (default never)
 
   vendor     Compile upstream Bootstrap into web/vendor/bootstrap.css for the chooser
              --src <path>   the checkout to compile

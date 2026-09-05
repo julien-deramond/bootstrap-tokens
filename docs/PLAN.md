@@ -294,10 +294,13 @@ The sample is a component gallery. It cannot answer "does my theme survive a rea
 * **Your own markup**, pasted in.
 * **Component isolation** — selecting a component in All tokens previews just that component.
 
-### C4. Accessibility as an output, not a warning · 🚧 **repair done**
+### C4. Accessibility as an output, not a warning · 🚧 **report and APCA done**
 
-* **APCA alongside WCAG 2.** WCAG 2's ratio is known to misjudge exactly our case — light
-  text on saturated fills. APCA is what WCAG 3 is built on and would give better advice.
+* ✅ **APCA alongside WCAG 2.** WCAG 2's ratio is known to misjudge exactly our case — light
+  text on saturated fills. APCA is what WCAG 3 is built on. Both are reported, because they
+  disagree and knowing where they disagree is the point: `fg.4` on a dark page clears WCAG's
+  3:1 large-text bar at Lc -22, which is nearly invisible. Checked against the published
+  reference values — a contrast number that is wrong by a little still looks plausible.
 * ✅ **A repair action.** Every failing pair now carries the fix. It prefers a different step
   of the *same hue* — moving along the scale keeps the design intent and changes only the
   contrast — and falls back to the neutral poles only when the value was never on a scale,
@@ -305,7 +308,12 @@ The sample is a component gallery. It cannot answer "does my theme survive a rea
   scale, so the suggestion is the smallest change that works rather than the safest-looking
   one: `warning.fg` at 4.0:1 is offered `yellow.800`, not black.
 * **Colour-vision simulation** over the preview.
-* **An exportable report** to attach to a pull request.
+* ✅ **An exportable report** to attach to a pull request. `bstokens report` writes Markdown,
+  HTML or JSON, and `--fail-on introduced` turns it into a CI gate that judges a theme on
+  what it changed rather than on what Bootstrap already had. The chooser produces the
+  identical document from the browser — the rendering lives in one library, because the
+  header used to say three issues while the report said four, and a number that disagrees
+  with the file you hand a reviewer is worse than no number.
 
 ### C5. Show what changed · ✅ **done**
 
