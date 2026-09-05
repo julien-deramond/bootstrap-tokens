@@ -178,8 +178,9 @@ Two decisions inside Design mode are worth knowing about:
 * **Every contrast failure carries its fix.** Not just "fails AA" but "use `yellow.800`",
   one click, preferring a darker step of the same hue so the design intent survives.
 * **Contrast is checked where it matters.** Each theme role's `contrast` is scored against
-  its own fill, and its `fg` against the page, per scheme. Upstream's stock `primary`
-  already sits at 3.6:1 for white on `blue-500` — worth knowing before you re-tint it.
+  its own fill, and its `fg` against the page, per scheme — by WCAG 2 and by APCA, because
+  they disagree and the disagreement is the useful part. Upstream's stock `primary` already
+  sits at 3.9:1 for white on `blue-500` — worth knowing before you re-tint it.
 * **An export carries only the keys you changed.** `defaults()` merges key by key, so
   editing one shadow gives you a three-line `$root-tokens`, not all 67 entries. Nested maps
   merge one level deep, so a changed sub-key carries its whole role — but only that role.
@@ -189,6 +190,25 @@ Two decisions inside Design mode are worth knowing about:
 
 The page imports the same modules the CLI does, so the export is produced by the pipeline
 `bstokens verify` checks — not by a second implementation that could drift.
+
+## What this found in Bootstrap
+
+Modelling a system precisely enough to re-emit it turns out to be a good way to find things
+wrong with it. Eight so far, all recorded with evidence in [`docs/BACKLOG.md`](docs/BACKLOG.md):
+
+| | What | Effect |
+| --- | --- | --- |
+| **U6** | Four `color-mix()` weights in `.navbar-dark` are bare numbers, not percentages | Those link colours are dropped and inherited instead. Measured in Chrome |
+| **U7** | Three tokens read custom properties nothing declares, with no fallback | `.btn` has no font weight of its own; active tabs have no colour |
+| **U8** | `$drawer-backdrop-tokens` and `$form-label-tokens` are documented, `!default`, and never `@include`d | Configuring either does nothing at all, silently |
+| **U5** | `defaults()` cannot merge a list override | `$button-sizes: ("sm", "lg")`, as documented, fails to compile |
+| **U3** | `--spacer` does not follow `$spacer` | The scale moves and the base does not |
+| **U4** | `--shadow-strength` is re-declared per colour mode outside any token map | Effectively unthemeable |
+| **U1** | `scss/mixins/` variables carry `!default` but are not forwarded | Not configurable through the documented entrypoint |
+| **U2** | Some tokens are CSS defaults rather than design values | Noise in the configurable surface |
+
+None of them is visible by reading the Sass. Each came out of compiling it, resolving it, or
+comparing it against what a browser actually paints.
 
 ## For Bootstrap maintainers
 
@@ -223,8 +243,12 @@ npx bstokens sync       # re-extract from a v6-dev checkout into tokens/
 npx bstokens sync --check   # report upstream drift, exit 1 if any   (CI)
 npx bstokens validate   # references, cycles, layer direction, DTCG shape
 npx bstokens validate --strict   # also flag component→primitive shortcuts
-npx bstokens build      # emit Sass, CSS and JSON into build/
+npx bstokens build      # emit Sass, CSS, JSON, TypeScript, Style Dictionary and Figma
 npx bstokens verify     # compile upstream vs. our export, diff the CSS
+npx bstokens verify --theme theme.json   # …and check your theme compiles to what you saw
+npx bstokens report     # contrast and colour vision, as Markdown, HTML or JSON
+npx bstokens report --theme theme.json --fail-on vision   # a CI gate               (CI)
+npx bstokens probe      # a page that checks the flat colours against a real browser
 npx bstokens vendor     # compile upstream Bootstrap for the chooser preview
 npx bstokens import     # read an existing custom.scss back into a theme.json
 npx bstokens init       # scaffold a project that compiles a theme
@@ -234,6 +258,10 @@ npm test                # unit tests
 ```
 
 Point them at a checkout with `--src <path>`, `$BOOTSTRAP_SRC`, or `bootstrap-tokens.config.json`.
+
+Every command that takes `--theme` follows recorded renames first, then refuses to run if the
+theme still names a token that does not exist. Pass `--skip-unknown` to proceed without those
+values — silently dropping them is how a theme loses work nobody notices.
 
 ## Using the exported Sass
 
@@ -273,7 +301,9 @@ Start with [`docs/PLAN.md`](docs/PLAN.md) for what is missing and what comes nex
 [`docs/ROADMAP.md`](docs/ROADMAP.md) for what is done, then
 [`docs/bootstrap-v6-architecture.md`](docs/bootstrap-v6-architecture.md) for what upstream
 actually does and [`docs/dtcg-conventions.md`](docs/dtcg-conventions.md) for the four places
-we deviate from the DTCG spec and why.
+we deviate from the DTCG spec and why. [`docs/exports.md`](docs/exports.md) covers the five
+output shapes and which to reach for; [`docs/BACKLOG.md`](docs/BACKLOG.md) holds what fell out
+along the way, including eight findings about upstream that this pipeline surfaced.
 
 ## A note on the deviations
 
