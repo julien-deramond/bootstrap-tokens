@@ -996,3 +996,18 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 .health-issue + .contrast-fix { align-self: center; }
 .health-detail li { display: flex; gap: .375rem; align-items: center; }
 .health-detail li .health-issue { flex: 1; min-width: 0; }
+
+/* --- first run ----------------------------------------------------------- */
+
+.intro {
+  margin: .75rem .875rem .25rem;
+  padding: .75rem .875rem;
+  border: 1px solid color-mix(in oklab, var(--accent) 35%, var(--line));
+  border-radius: 9px;
+  background: color-mix(in oklab, var(--accent) 7%, transparent);
+}
+
+.intro h3 { margin: 0 0 .25rem; font-size: .8125rem; font-weight: 650; }
+.intro p { margin: 0 0 .625rem; font-size: .75rem; color: var(--ink-muted); max-width: 52ch; }
+.intro-actions { display: flex; gap: .375rem; }
+.intro-actions .button { font-size: .75rem; padding: .3125rem .625rem; }

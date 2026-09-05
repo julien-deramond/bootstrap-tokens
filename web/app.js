@@ -733,6 +733,10 @@ function contrastTokenFor(hue) {
 function renderSimple() {
   const container = $('#simple')
   container.textContent = ''
+
+  const intro = renderIntro()
+  if (intro) container.append(intro)
+
   container.append(renderPresets())
 
   let section = null
@@ -859,6 +863,122 @@ function renderOptionValue(option) {
   return row
 }
 
+const INTRO_KEY = 'bootstrap-tokens.chooser.intro'
+
+/**
+ * What this is, once, for someone who has just arrived.
+ *
+ * Eight dials and a preview explain themselves eventually, but not what the thing *produces*
+ * — and the export is the whole point. Three sentences, dismissed forever on the first
+ * click, rather than a tour nobody finishes.
+ */
+function renderIntro() {
+  let seen = false
+  try {
+    seen = localStorage.getItem(INTRO_KEY) === 'seen'
+  } catch {
+    seen = false
+  }
+  if (seen) return null
+
+  const card = document.createElement('section')
+  card.className = 'intro'
+
+  const heading = document.createElement('h3')
+  heading.textContent = 'Design a Bootstrap theme'
+
+  const body = document.createElement('p')
+  body.textContent =
+    'Change anything below and the preview re-themes as you go. When it looks right, Export gives you a custom.scss carrying only what you changed — or a whole project ready to compile.'
+
+  const actions = document.createElement('div')
+  actions.className = 'intro-actions'
+
+  const surprise = document.createElement('button')
+  surprise.type = 'button'
+  surprise.className = 'button button-primary'
+  surprise.textContent = 'Surprise me'
+  surprise.addEventListener('click', () => applyRandomTheme())
+
+  const dismiss = document.createElement('button')
+  dismiss.type = 'button'
+  dismiss.className = 'button'
+  dismiss.textContent = 'Got it'
+  dismiss.addEventListener('click', () => {
+    try {
+      localStorage.setItem(INTRO_KEY, 'seen')
+    } catch {
+      /* ignore */
+    }
+    card.remove()
+  })
+
+  actions.append(surprise, dismiss)
+  card.append(heading, body, actions)
+  return card
+}
+
+const pick = (list) => list[Math.floor(Math.random() * list.length)]
+
+/**
+ * A coherent theme, not a random one.
+ *
+ * Rolling every dial independently produces noise. This picks a brand hue, an accent a fixed
+ * distance around the wheel from it so the two relate, and one shape idea applied
+ * consistently — then repairs any contrast the combination broke, so "surprise me" cannot
+ * hand back something unreadable.
+ */
+function applyRandomTheme() {
+  const hues = availableHues(state.doc).filter((hue) => !['gray', 'pewter'].includes(hue))
+  const brand = pick(hues)
+  const accent = hues[(hues.indexOf(brand) + 4 + Math.floor(Math.random() * 5)) % hues.length]
+
+  const shape = pick([
+    { radius: 'Square', density: 'Compact', border: 'Bold' },
+    { radius: 'Slight', density: 'Default', border: 'Default' },
+    { radius: 'Round', density: 'Comfortable', border: 'Default' },
+    { radius: 'Pillowy', density: 'Spacious', border: 'Hairline' }
+  ])
+
+  const values = {}
+  for (const path of dialTokens()) values[path] = { value: undefined, dark: undefined }
+
+  Object.assign(
+    values,
+    hueValues(DIALS.find((dial) => dial.id === 'primary'), brand),
+    hueValues(DIALS.find((dial) => dial.id === 'accent'), accent)
+  )
+
+  for (const [id, label] of Object.entries({ ...shape, typeface: pick(['System', 'Geometric', 'Humanist', 'Serif']) })) {
+    const dial = DIALS.find((candidate) => candidate.id === id)
+    const option = dial?.options.find((candidate) => candidate.label === label)
+    if (option) Object.assign(values, option.values)
+  }
+
+  applyValues(values, { focus: 'buttons' })
+  repairIntroducedContrast()
+}
+
+/** Fix anything the roll broke, so a surprise is never an unreadable one. */
+function repairIntroducedContrast() {
+  const health = themeHealth()
+  if (!health) return
+
+  const fixes = {}
+  for (const issue of health.issues.filter((candidate) => !candidate.inherited)) {
+    const pair = contrastPartner(issue.path)
+    if (!pair) continue
+
+    const side = issue.scheme === 'dark' ? 'dark' : 'value'
+    const fix = suggestContrastFix(issue.path, pair.partner, side)
+    if (!fix) continue
+
+    fixes[issue.path] = { ...(fixes[issue.path] ?? {}), [side]: fix.value }
+  }
+
+  if (Object.keys(fixes).length > 0) applyValues(fixes)
+}
+
 function renderPresets() {
   const row = document.createElement('div')
   row.className = 'presets'
@@ -876,6 +996,13 @@ function renderPresets() {
     button.addEventListener('click', () => applyPreset(preset))
     row.append(button)
   }
+
+  const surprise = document.createElement('button')
+  surprise.type = 'button'
+  surprise.className = 'chip-button'
+  surprise.textContent = 'Surprise me'
+  surprise.addEventListener('click', () => applyRandomTheme())
+  row.append(surprise)
 
   return row
 }

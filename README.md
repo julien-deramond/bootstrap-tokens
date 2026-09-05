@@ -111,6 +111,9 @@ preset.
   section and flashes it, so you never have to hunt for the difference.
 * **Undo, always.** ⌘Z / ⇧⌘Z, and Reset is just another undoable step — no confirmation
   dialog guarding a reversible action.
+* **Surprise me generates a coherent theme, not a random one** — a brand hue, an accent that
+  relates to it, one shape idea applied throughout, then any contrast the combination broke
+  is repaired automatically.
 * **Every change is listed and revertible.** The change counter opens the full diff — tokens
   and build options together, previous value beside new, one Revert per row.
 * **Themes are things you keep.** Name them, hold several, duplicate one to try a variation.

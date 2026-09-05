@@ -307,10 +307,19 @@ short of reading the exported Sass.
 Still to do: the **visual** before/after — the same preview rendered from the base document
 beside the themed one.
 
-### C6. First run and delight
+### C6. First run and delight · ✅ **done**
 
-First-run guidance; "surprise me" generating a coherent accessible palette; keyboard
-shortcuts beyond undo.
+Three sentences on first visit, dismissed forever on the first click, rather than a tour
+nobody finishes. Eight dials and a preview explain themselves eventually — but not what the
+thing *produces*, and the export is the whole point.
+
+**Surprise me** generates a coherent theme rather than a random one. Rolling every dial
+independently produces noise, so it picks a brand hue, an accent a fixed distance around the
+wheel from it so the two relate, and one shape idea applied consistently — then repairs any
+contrast the combination broke, using the same suggestion machinery as C4. A surprise that
+hands back something unreadable is not a feature.
+
+Keyboard shortcuts beyond undo remain open.
 
 ---
 
