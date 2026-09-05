@@ -1220,8 +1220,26 @@ function renderRoleContrast(dial) {
   if (row.querySelector('.is-fail')) {
     const warning = document.createElement('span')
     warning.className = 'dial-contrast-warning'
-    warning.textContent = 'Fails WCAG AA for body text. Try a darker step of the same hue, or another hue.'
+    warning.textContent = 'Fails WCAG AA for body text.'
     row.append(warning)
+
+    for (const scheme of shownSchemes()) {
+      for (const key of ['contrast', 'fg']) {
+        const tokenPath = `theme-color.${dial.role}.${key}`
+        const pair = contrastPartner(tokenPath)
+        if (!pair) continue
+
+        const side = scheme === 'dark' ? 'dark' : 'value'
+        const ratio = ratioFor(tokenPath, pair.partner, side, state.doc)
+        if (ratio === null || ratio >= 4.5) continue
+
+        const fix = renderContrastFix(tokenPath, pair.partner, side)
+        if (fix) {
+          if (shownSchemes().length > 1) fix.textContent += ` (${scheme})`
+          warning.after(fix)
+        }
+      }
+    }
   }
 
   return row
@@ -1290,6 +1308,82 @@ function renderSimpleFooter() {
   footer.append(link)
 
   return footer
+}
+
+/* ------------------------------------------------------------ contrast fix */
+
+const SCALE_STOPS = ['025', '050', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950', '975']
+
+/**
+ * The nearest value that would pass, for a colour pair that does not.
+ *
+ * Telling someone a pair fails and stopping there leaves them to guess which of thirteen
+ * steps to try. The repair prefers the *same hue* — moving along the scale keeps the design
+ * intent and changes only the contrast — and only falls back to the neutral poles when the
+ * value was never on a scale, which is what `contrast` sub-keys usually look like.
+ *
+ * "Nearest" is by distance along the scale, so the fix is the smallest change that works
+ * rather than the safest-looking one.
+ */
+function suggestContrastFix(path, partnerPath, side) {
+  const current = editableValue(path, side === 'dark' ? 'dark' : 'value')
+  const scheme = side === 'dark' ? 'dark' : 'light'
+
+  const background = resolveColor(resolvedSide(partnerPath, side), scheme)
+  if (!background) return null
+
+  const onScale = /^\{color\.([\w-]+)\.([\w]+)\}$/.exec(String(current).trim())
+  const candidates = onScale ? sameHueCandidates(onScale[1], onScale[2]) : NEUTRAL_CANDIDATES
+
+  for (const candidate of candidates) {
+    const colour = resolveColor(candidateCss(candidate), scheme)
+    if (!colour) continue
+
+    const ratio = contrastRatio(colour, background)
+    if (ratio >= 4.5) return { value: candidate, ratio }
+  }
+
+  return null
+}
+
+/** The poles a `contrast` sub-key chooses between, darkest and lightest first. */
+const NEUTRAL_CANDIDATES = ['{color.gray.975}', '{color.gray.900}', '{color.white}', '{color.black}']
+
+/** Every other step of the same hue, ordered by how far it is from where we are. */
+function sameHueCandidates(hue, stop) {
+  const from = SCALE_STOPS.indexOf(stop)
+  if (from === -1) return NEUTRAL_CANDIDATES
+
+  return SCALE_STOPS.map((candidate, index) => ({ candidate, distance: Math.abs(index - from) }))
+    .filter(({ distance }) => distance > 0)
+    .sort((a, b) => a.distance - b.distance)
+    .map(({ candidate }) => `{color.${hue}.${candidate}}`)
+}
+
+function candidateCss(reference) {
+  const path = reference.replace(/[{}]/g, '')
+  try {
+    return state.doc.cssValueOf(path)
+  } catch {
+    return null
+  }
+}
+
+/** A button that applies the suggestion, or nothing when there is no honest suggestion. */
+function renderContrastFix(path, partnerPath, side) {
+  const fix = suggestContrastFix(path, partnerPath, side)
+  if (!fix) return null
+
+  const button = document.createElement('button')
+  button.type = 'button'
+  button.className = 'contrast-fix'
+  button.textContent = `Use ${fix.value.replace(/[{}]/g, '').replace('color.', '')}`
+  button.title = `${fix.value} would give ${fix.ratio.toFixed(1)}:1`
+  button.addEventListener('click', () =>
+    setOverride(path, side === 'dark' ? 'dark' : 'value', fix.value)
+  )
+
+  return button
 }
 
 /* ----------------------------------------------------------------- changes */
@@ -1502,6 +1596,17 @@ function renderHealth() {
 
     link.append(path, meta)
     item.append(link)
+
+    // A warning that also carries its own fix is worth more than one that does not.
+    const pair = contrastPartner(issue.path)
+    if (pair) {
+      const fix = renderContrastFix(issue.path, pair.partner, issue.scheme === 'dark' ? 'dark' : 'value')
+      if (fix) {
+        fix.addEventListener('click', closeHealth)
+        item.append(fix)
+      }
+    }
+
     list.append(item)
   }
 }

@@ -696,8 +696,8 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   inset-block-start: calc(100% + .375rem);
   inset-inline-end: 0;
   z-index: 20;
-  inline-size: min(26rem, 80vw);
-  max-block-size: 22rem;
+  inline-size: min(34rem, 84vw);
+  max-block-size: 24rem;
   overflow-y: auto;
   padding: .625rem;
   border: 1px solid var(--line-strong);
@@ -975,3 +975,24 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 }
 
 .change-revert:hover { color: var(--ink); border-color: var(--accent); }
+
+/* --- contrast repair ----------------------------------------------------- */
+
+.contrast-fix {
+  font: inherit;
+  font-size: .625rem;
+  padding: .1875rem .375rem;
+  margin-inline-end: .25rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 4px;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.contrast-fix:hover { border-color: var(--accent); color: var(--accent); }
+.dial-contrast-warning + .contrast-fix { margin-block-start: .25rem; }
+.health-issue + .contrast-fix { align-self: center; }
+.health-detail li { display: flex; gap: .375rem; align-items: center; }
+.health-detail li .health-issue { flex: 1; min-width: 0; }

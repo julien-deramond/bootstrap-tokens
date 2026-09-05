@@ -275,11 +275,16 @@ The sample is a component gallery. It cannot answer "does my theme survive a rea
 * **Your own markup**, pasted in.
 * **Component isolation** — selecting a component in All tokens previews just that component.
 
-### C4. Accessibility as an output, not a warning
+### C4. Accessibility as an output, not a warning · 🚧 **repair done**
 
 * **APCA alongside WCAG 2.** WCAG 2's ratio is known to misjudge exactly our case — light
   text on saturated fills. APCA is what WCAG 3 is built on and would give better advice.
-* **A repair action.** "Fails AA" should offer "use `green-700` → 4.8:1" as one click.
+* ✅ **A repair action.** Every failing pair now carries the fix. It prefers a different step
+  of the *same hue* — moving along the scale keeps the design intent and changes only the
+  contrast — and falls back to the neutral poles only when the value was never on a scale,
+  which is what a `contrast` sub-key usually looks like. "Nearest" is by distance along the
+  scale, so the suggestion is the smallest change that works rather than the safest-looking
+  one: `warning.fg` at 4.0:1 is offered `yellow.800`, not black.
 * **Colour-vision simulation** over the preview.
 * **An exportable report** to attach to a pull request.
 
