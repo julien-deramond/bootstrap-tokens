@@ -4,9 +4,3 @@ node_modules/
 
 # `bstokens eject` output — a per-run artifact, not a build product
 build/v6-dev/
-
-# Third-party review skills installed with `npx skills add jakubkrehel/skills`.
-# skills-lock.json records the choice; the content itself ships no licence, so it is not
-# vendored into this repository. Re-install it with the command above.
-.agents/
-.claude/skills/
