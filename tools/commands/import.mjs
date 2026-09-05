@@ -7,9 +7,10 @@
 
 import { readFileSync, writeFileSync } from 'node:fs'
 
-import { loadTree } from '../lib/load-fs.mjs'
+import { loadTree, loadMigrations } from '../lib/load-fs.mjs'
 import { withOverrides } from '../lib/overrides.mjs'
 import { importScss } from '../lib/import-scss.mjs'
+import { applyMigrations } from '../lib/migrations.mjs'
 import { tokensDir } from '../lib/config.mjs'
 import { sourceVersion } from './build.mjs'
 
@@ -20,7 +21,12 @@ export async function importCommand({ flags, positional }) {
   const { tree } = loadTree(tokensDir)
   const base = withOverrides(tree, {})
 
-  const { overrides, options, unmapped } = importScss(readFileSync(path, 'utf8'), base)
+  const read = importScss(readFileSync(path, 'utf8'), base)
+  const { overrides, renamed, dropped } = applyMigrations(read.overrides, loadMigrations(tokensDir), base)
+  const { options, unmapped } = read
+
+  for (const { from, to } of renamed) console.log(`  renamed   ${from} -> ${to}`)
+  for (const { path: gone, reason } of dropped) console.warn(`  dropped   ${gone} - ${reason}`)
 
   const edits = Object.keys(overrides).length
   const opts = Object.keys(options).length

@@ -27,6 +27,7 @@ import { sourceEdits } from '../tools/lib/source-value.mjs'
 import { DIALS, PRESETS, HUES, availableHues, addedHues, hueOfRole, repointRole, selectedOption } from './easy.js'
 import { OPTIONS, changedOptions, optionByName } from '../tools/lib/config-surface.mjs'
 import { importScss } from '../tools/lib/import-scss.mjs'
+import { applyMigrations } from '../tools/lib/migrations.mjs'
 import { parseComputedColor, formatColor, hexToRgb, rgbToHex, contrastRatio, contrastGrade } from './color.js'
 import {
   loadStore,
@@ -101,6 +102,7 @@ const state = {
   doc: null,
   meta: { bootstrap: 'unknown' },
   store: loadStore(),
+  migrations: [],
   overrides: {},
   mode: loadMode(),
   section: 'theme-color',
@@ -133,7 +135,7 @@ function openTheme(id) {
   if (!theme) return
 
   state.store.activeId = id
-  state.overrides = theme.overrides ?? {}
+  state.overrides = migrate(theme.overrides ?? {})
   state.options = theme.options ?? {}
   state.past.length = 0
   state.future.length = 0
@@ -1619,6 +1621,23 @@ function renderExport() {
   syncTabs($('#export-tabs'), (tab) => tab.dataset.tab === state.exportTab)
 }
 
+/**
+ * Bring a saved theme's overrides up to date with any renames upstream has made.
+ *
+ * Bootstrap 6 is an alpha, so token names move. Without this a theme saved last month comes
+ * back quietly missing the values whose names changed — the worst failure a theme file can
+ * have, because nothing tells you to look.
+ */
+function migrate(overrides) {
+  if (state.migrations.length === 0 || !state.baseDoc) return overrides
+
+  const { overrides: migrated, renamed, dropped } = applyMigrations(overrides, state.migrations, state.baseDoc)
+  if (renamed.length + dropped.length > 0) {
+    console.info('[bootstrap-tokens] theme migrated', { renamed, dropped })
+  }
+  return migrated
+}
+
 /* ------------------------------------------------------------------ themes */
 
 function renderThemes() {
@@ -1944,17 +1963,20 @@ frame.addEventListener('load', markPreviewReady)
 if (frame.contentDocument?.readyState === 'complete') markPreviewReady()
 
 async function start() {
-  const [tree, meta, options] = await Promise.all([
+  const [tree, meta, options, migrations] = await Promise.all([
     fetch('../build/json/tokens.tree.json').then((r) => r.json()),
     fetch('../tokens/meta.json').then((r) => r.json()).catch(() => ({ bootstrap: 'unknown' })),
-    fetch('../tokens/config/options.json').then((r) => r.json()).catch(() => ({}))
+    fetch('../tokens/config/options.json').then((r) => r.json()).catch(() => ({})),
+    fetch('../tokens/migrations.json').then((r) => r.json()).then((m) => m.migrations ?? []).catch(() => [])
   ])
+
+  state.migrations = migrations
 
   state.baseOptions = options
   await adoptSharedTheme()
 
   const theme = activeTheme(state.store)
-  state.overrides = theme.overrides ?? {}
+  state.overrides = migrate(theme.overrides ?? {})
   state.options = theme.options ?? {}
 
   state.baseTree = tree

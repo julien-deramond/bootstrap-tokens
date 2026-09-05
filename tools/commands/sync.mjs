@@ -6,6 +6,10 @@ import { extract } from '../lib/extract.mjs'
 import { writeTokenFiles } from '../lib/write-tokens.mjs'
 import { discover } from '../lib/discover.mjs'
 import { loadTokens, loadOptions } from '../lib/load-fs.mjs'
+import { detectRenames, migrationFingerprint } from '../lib/migrations.mjs'
+import { ext, walk } from '../lib/tokens.mjs'
+import { index } from '../lib/tokens.mjs'
+import { expandColorScales } from '../lib/color-scale.mjs'
 import { resolveBootstrapSource, tokensDir } from '../lib/config.mjs'
 
 /** The upstream commit the token document was extracted from, when git can tell us. */
@@ -36,6 +40,10 @@ export async function sync({ flags }) {
 
   for (const warning of warnings) console.warn(`  warning: ${warning}`)
 
+  // Before writing, ask what moved. A path that vanished while a similar one appeared is
+  // the shape of a rename, and a rename that goes unrecorded silently empties saved themes.
+  const moved = reportMovedTokens(files)
+
   const changed = writeTokenFiles(tokensDir, files, { dryRun: check })
 
   // Coverage is checked against the document we just wrote, so a surface upstream offers
@@ -53,6 +61,62 @@ export async function sync({ flags }) {
   }
 
   return coverage ? 1 : 0
+}
+
+/**
+ * Compare the freshly extracted document against the committed one and name what moved.
+ *
+ * `sync` proposes; a person decides. Only a human can tell a rename from a coincidence, so
+ * this prints candidates for `tokens/migrations.json` rather than writing them.
+ */
+function reportMovedTokens(files) {
+  let committed
+  try {
+    committed = loadTokens(tokensDir)
+  } catch {
+    return false
+  }
+
+  // Rebuild the extracted tree the way the loader would see it.
+  const tree = {}
+  for (const [name, content] of Object.entries(files)) {
+    if (name === 'meta.json' || name.startsWith('config/')) continue
+    Object.assign(tree, mergeShallow(tree, content))
+  }
+  const extracted = index(expandColorScales(JSON.parse(JSON.stringify(tree))))
+
+  const { candidates, unmatched } = detectRenames(
+    migrationFingerprint(walk(committed.tree), ext),
+    migrationFingerprint(walk(extracted.tree), ext)
+  )
+
+  if (candidates.length === 0 && unmatched.length === 0) return false
+
+  console.log('')
+  for (const { from, to, because } of candidates) {
+    console.log(`  moved?   ${from}  ->  ${to}   (${because})`)
+  }
+  for (const path of unmatched) {
+    console.log(`  gone     ${path}   (no obvious replacement)`)
+  }
+  console.log(
+    '\n  Record real renames in tokens/migrations.json so themes saved against the old\n' +
+      '  names keep working. A rename left unrecorded empties those values silently.'
+  )
+
+  return true
+}
+
+/** Merge extracted file trees into one, without the duplicate checking the loader does. */
+function mergeShallow(target, source) {
+  for (const [key, value] of Object.entries(source)) {
+    if (value && typeof value === 'object' && value.$value === undefined && target[key]) {
+      mergeShallow(target[key], value)
+    } else {
+      target[key] = value
+    }
+  }
+  return target
 }
 
 /**

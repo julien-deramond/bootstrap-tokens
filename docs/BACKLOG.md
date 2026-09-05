@@ -92,10 +92,12 @@ pixels away. They earn their shape (a colour picker has to show colour), but if 
 "which of these is the interface?" confusion returns, this is where the remaining overlap is.
 Denser, more instrument-like treatments are the next lever.
 
-### P1 · `sync --check` cannot tell a rename from a delete-plus-add
+### ~~P1 · `sync --check` cannot tell a rename from a delete-plus-add~~ · done
 
-Covered as PLAN.md A7. Noting the concrete failure: a `theme.json` referencing a renamed
-token silently loses that value on import, with no warning.
+`sync` now proposes rename candidates by matching on the custom property or the Sass map
+slot, `tokens/migrations.json` records the decisions, and every path a theme takes into the
+system resolves through them. An override with nowhere to go is reported rather than
+dropped.
 
 ### ~~P2 · The chooser's `title` tooltips are not keyboard reachable~~ · done
 

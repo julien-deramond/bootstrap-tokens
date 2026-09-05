@@ -142,13 +142,23 @@ Model `$shadows` as `$type: shadow` with structured layers, and `type.body.*` as
 `oklch(from … l c h / calc(…))`, which has no structural form — those stay strings, marked
 `css`, and `dtcg-conventions.md` states which and why.
 
-### A7. Survive upstream renames
+### A7. Survive upstream renames · ✅ **done**
 
-Upstream is alpha; names *will* move. `sync --check` reports drift but cannot tell a rename
-from a delete-plus-add, so a `theme.json` saved today silently loses values tomorrow.
+`tokens/migrations.json` records what became what, and every route a theme takes into the
+system — opening a saved one, importing a `theme.json`, importing a `custom.scss` — resolves
+paths through it first. Chains collapse in one pass, `to: null` marks a token upstream
+removed, and a cycle terminates instead of hanging.
 
-Add a migration map (`old.path → new.path`, versioned) and DTCG `$deprecated` support, and
-apply migrations on import.
+`sync` proposes candidates rather than writing them: a path that vanished while a similar one
+appeared is the *shape* of a rename, matched on the custom property it emits or its slot in a
+Sass map, but only a person can tell a rename from a coincidence. Anything it cannot pair is
+listed as gone with no obvious replacement, so a real removal is not quietly read as a rename.
+
+Nothing is dropped silently. An override with nowhere to go is reported with a reason, because
+a theme that comes back a little more like stock Bootstrap than you left it, with no warning,
+is the worst failure a theme file can have.
+
+Still to do: DTCG `$deprecated`, once a token is actually deprecated rather than moved.
 
 ---
 

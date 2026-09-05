@@ -1,0 +1,4 @@
+{
+  "$comment": "Renames upstream has made, oldest first. `to: null` means the token was removed. Written by hand: `bstokens sync` proposes candidates, a person decides. Applied when a theme is loaded, so a saved theme keeps working across a rename.",
+  "migrations": []
+}

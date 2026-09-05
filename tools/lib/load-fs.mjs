@@ -48,6 +48,18 @@ function mergeTree(target, source, origin, at = '') {
   }
 }
 
+/** Renames upstream has made, applied whenever a saved theme is read. */
+export function loadMigrations(dir) {
+  const path = join(dir, 'migrations.json')
+  if (!existsSync(path)) return []
+
+  try {
+    return JSON.parse(readFileSync(path, 'utf8')).migrations ?? []
+  } catch {
+    return []
+  }
+}
+
 /** Read the build options recorded next to the token document. */
 export function loadOptions(dir) {
   const path = join(dir, 'config', 'options.json')
