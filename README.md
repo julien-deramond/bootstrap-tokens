@@ -195,7 +195,8 @@ build/         generated output (committed, so it is browsable)
 web/           the token chooser
 ```
 
-Start with [`docs/ROADMAP.md`](docs/ROADMAP.md), then
+Start with [`docs/PLAN.md`](docs/PLAN.md) for what is missing and what comes next,
+[`docs/ROADMAP.md`](docs/ROADMAP.md) for what is done, then
 [`docs/bootstrap-v6-architecture.md`](docs/bootstrap-v6-architecture.md) for what upstream
 actually does and [`docs/dtcg-conventions.md`](docs/dtcg-conventions.md) for the four places
 we deviate from the DTCG spec and why.

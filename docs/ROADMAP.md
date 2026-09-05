@@ -2,6 +2,10 @@
 
 Status legend: ✅ done · 🚧 in progress · ⬜ not started
 
+> This file records what is **done**. [`PLAN.md`](./PLAN.md) records what is wrong, what is
+> missing and the order to fix it in — including two upstream token maps this document's
+> "✅ Component layer" claim does not actually cover.
+
 ## Phase 0 — Knowledge base ✅
 
 * ✅ Read `twbs/bootstrap@v6-dev` Sass source end to end; record the real architecture in
