@@ -392,14 +392,44 @@ function changedIn(sectionId) {
   return Object.keys(state.overrides).filter((path) => path.split('.')[0] === sectionId).length
 }
 
+/**
+ * Whether the sample actually renders a component, asked of the preview rather than kept in
+ * a list here.
+ *
+ * A hand-maintained list would go stale the first time the sample changed, and the failure
+ * mode is the one this is meant to prevent: the panel claiming something is visible when it
+ * is not. Forty of sixty-two components had no markup at all, so editing their tokens
+ * changed nothing on screen and the tool said nothing about it.
+ */
+function isPreviewed(component) {
+  const document_ = $('#preview').contentDocument
+  if (!document_) return true
+
+  const selector = component.selector.split(',')[0].trim()
+  try {
+    return Boolean(document_.querySelector(selector))
+  } catch {
+    return true
+  }
+}
+
 function renderEditor() {
   const paths = pathsFor(state.section)
   const component = COMPONENTS.find((c) => c.name === state.section)
 
   $('#section-title').textContent = label(state.section)
-  $('#section-note').textContent = component
+
+  const note = $('#section-note')
+  note.textContent = component
     ? `Emitted on ${component.selector} · ${component.sassMap}`
     : (GROUP_DESCRIPTIONS[state.section] ?? '')
+
+  const warning = $('#section-warning')
+  const unpreviewed = component && !isPreviewed(component)
+  warning.hidden = !unpreviewed
+  if (unpreviewed) {
+    warning.textContent = `The sample does not render ${component.selector}, so changes here will not show in the preview. They still export.`
+  }
 
   const editor = $('#editor')
   editor.textContent = ''
@@ -1042,39 +1072,97 @@ function ratioFor(path, partnerPath, side, doc) {
   return foreground && background ? contrastRatio(foreground, background) : null
 }
 
+/**
+ * The health summary is a disclosure, not a tooltip.
+ *
+ * The failing pairs used to live in a `title` attribute, which does not open on keyboard
+ * focus and is not reliably announced — so the list of contrast problems was unreachable to
+ * exactly the people a contrast warning exists for. Each row is also a link into the token
+ * that causes it, which turns the summary from a complaint into a route to the fix.
+ */
 function renderHealth() {
-  const element = $('#health')
+  const button = $('#health')
+  const detail = $('#health-detail')
   const health = themeHealth()
 
-  if (!health || health.issues.length === 0) {
-    element.hidden = !health
-    if (health) {
-      element.className = 'health is-ok'
-      element.textContent = 'Contrast OK'
-      element.title = 'Every theme colour meets WCAG AA for body text in the schemes shown.'
-    }
+  if (!health) {
+    button.hidden = true
+    detail.hidden = true
     return
   }
 
-  element.hidden = false
-  element.className = `health ${health.introduced > 0 ? 'is-warn' : 'is-muted'}`
+  button.hidden = false
+
+  if (health.issues.length === 0) {
+    button.className = 'health is-ok'
+    button.textContent = 'Contrast OK'
+    button.disabled = true
+    detail.hidden = true
+    button.setAttribute('aria-expanded', 'false')
+    return
+  }
+
+  button.disabled = false
+  button.className = `health ${health.introduced > 0 ? 'is-warn' : 'is-muted'}`
 
   // Lead with the source. "12 contrast issues" on a page the visitor has not touched reads
   // as an accusation; naming Bootstrap's defaults makes it information instead.
-  element.textContent = health.introduced > 0
+  button.textContent = health.introduced > 0
     ? `${health.introduced} contrast issue${health.introduced === 1 ? '' : 's'}`
     : `Bootstrap defaults: ${health.inherited} contrast issue${health.inherited === 1 ? '' : 's'}`
 
-  const lines = health.issues
-    .slice(0, 8)
-    .map((issue) => `${issue.path} (${issue.scheme}) ${issue.ratio.toFixed(1)}:1${issue.inherited ? ' — already in Bootstrap' : ''}`)
+  $('#health-detail-head').textContent = health.introduced > 0
+    ? 'Below WCAG AA (4.5:1) for body text. Select one to edit it.'
+    : 'These already fail in stock Bootstrap — not something you changed.'
 
-  element.title = [
-    health.introduced > 0
-      ? 'Below WCAG AA (4.5:1) for body text:'
-      : 'These already fail in stock Bootstrap — not something you changed:',
-    ...lines
-  ].join('\n')
+  const list = $('#health-list')
+  list.textContent = ''
+
+  for (const issue of health.issues) {
+    const item = document.createElement('li')
+
+    const link = document.createElement('button')
+    link.type = 'button'
+    link.className = 'health-issue'
+    link.addEventListener('click', () => {
+      closeHealth()
+      revealToken(issue.path)
+    })
+
+    const path = document.createElement('code')
+    path.textContent = issue.path
+
+    const meta = document.createElement('span')
+    meta.className = 'health-issue-meta'
+    meta.textContent = `${issue.scheme} · ${issue.ratio.toFixed(1)}:1${issue.inherited ? ' · inherited' : ''}`
+
+    link.append(path, meta)
+    item.append(link)
+    list.append(item)
+  }
+}
+
+function closeHealth() {
+  $('#health').setAttribute('aria-expanded', 'false')
+  $('#health-detail').hidden = true
+}
+
+/** Open All tokens at the group holding `path`, and highlight the row. */
+function revealToken(path) {
+  state.mode = 'advanced'
+  state.section = path.split('.')[0]
+  state.query = ''
+  $('#search').value = ''
+  render()
+
+  const row = [...document.querySelectorAll('#editor .token')].find(
+    (element) => element.querySelector('.token-name code')?.textContent === path
+  )
+  if (!row) return
+
+  row.scrollIntoView({ block: 'center' })
+  row.classList.add('is-revealed')
+  row.addEventListener('animationend', () => row.classList.remove('is-revealed'), { once: true })
 }
 
 /* ------------------------------------------------------------------ update */
@@ -1315,6 +1403,20 @@ function wire() {
   // No confirm(): the action is undoable, and a modal to guard a reversible action just
   // trains people to dismiss modals.
   $('#reset').addEventListener('click', () => mutate(() => { state.overrides = {} }))
+
+  $('#health').addEventListener('click', () => {
+    const open = $('#health').getAttribute('aria-expanded') === 'true'
+    $('#health').setAttribute('aria-expanded', String(!open))
+    $('#health-detail').hidden = open
+  })
+
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('.health-wrap')) closeHealth()
+  })
+
+  window.addEventListener('keydown', (event) => {
+    if (event.key === 'Escape') closeHealth()
+  })
 
   $('#undo').addEventListener('click', undo)
   $('#redo').addEventListener('click', redo)

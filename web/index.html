@@ -18,7 +18,13 @@
       </div>
 
       <div class="topbar-actions">
-        <span class="health" id="health" hidden></span>
+        <div class="health-wrap">
+          <button type="button" class="health" id="health" aria-expanded="false" aria-controls="health-detail" hidden></button>
+          <div class="health-detail" id="health-detail" hidden>
+            <p class="health-detail-head" id="health-detail-head"></p>
+            <ul id="health-list"></ul>
+          </div>
+        </div>
 
         <div class="icon-group" role="group" aria-label="History">
           <button type="button" class="icon-button" id="undo" title="Undo (⌘Z)" aria-label="Undo" disabled><svg viewBox="0 0 16 16" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 7h7a3.5 3.5 0 0 1 0 7H7"/><path d="M6 4 3 7l3 3"/></svg></button>
@@ -50,6 +56,7 @@
                 <div class="editor-head">
                   <h2 id="section-title"></h2>
                   <p id="section-note"></p>
+                  <p class="section-warning" id="section-warning" hidden></p>
                 </div>
                 <div class="editor-body" id="editor"></div>
               </div>

@@ -90,11 +90,11 @@
         }
       }
     },
-    "$description": "Tokens emitted on `.btn-primary, …`.",
+    "$description": "Tokens emitted on `.btn-styled`.",
     "$extensions": {
       "dev.bootstrap.tokens": {
         "sassMap": "$button-styled-tokens",
-        "selector": ".btn-primary, …",
+        "selector": ".btn-styled",
         "source": "scss/buttons/_button.scss",
         "variantOf": "btn"
       }

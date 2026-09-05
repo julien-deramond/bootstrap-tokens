@@ -115,13 +115,29 @@ const forms = (uid) => section(
       </select>
     </div>
     <div>
+      <label class="form-label" for="range-${uid}">Range</label>
+      <input type="range" class="form-range" id="range-${uid}" />
+      <div class="input-group mt">
+        <span class="input-group-text">@</span>
+        <input type="text" class="form-control" aria-label="Username" />
+      </div>
+      <div class="form-floating mt">
+        <input type="text" class="form-control" id="floating-${uid}" placeholder="Name" />
+        <label for="floating-${uid}">Floating label</label>
+      </div>
+    </div>
+    <div>
       <div class="form-check">
         <input class="form-check-input" type="checkbox" id="check-${uid}" checked />
         <label class="form-check-label" for="check-${uid}">Checkbox</label>
       </div>
       <div class="form-check">
-        <input class="form-check-input" type="radio" name="radio-${uid}" id="radio-${uid}" checked />
+        <input class="radio" type="radio" name="radio-${uid}" id="radio-${uid}" checked />
         <label class="form-check-label" for="radio-${uid}">Radio</label>
+      </div>
+      <div class="form-adorn mt">
+        <span class="form-adorn-text">$</span>
+        <input type="text" class="form-control" aria-label="Amount" value="12.00" />
       </div>
       <div class="form-check form-switch">
         <input class="form-check-input" type="checkbox" role="switch" id="switch-${uid}" checked />
@@ -131,14 +147,114 @@ const forms = (uid) => section(
   </div>`
 )
 
+/* A neutral placeholder image, so the sample needs no network. */
+const IMG =
+  "data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3e%3crect width='64' height='64' fill='%23888'/%3e%3c/svg%3e"
+
+const content = () => section(
+  'content',
+  'Content',
+  `<div class="accordion mb">
+    <details class="accordion-item" open>
+      <summary class="accordion-header">An open item</summary>
+      <div class="accordion-body">Body text, shown because the item is open.</div>
+    </details>
+    <details class="accordion-item">
+      <summary class="accordion-header">A closed item</summary>
+      <div class="accordion-body">Body text.</div>
+    </details>
+  </div>
+
+  <div class="cluster mb">
+    <span class="avatar"><img class="avatar-img" src="${IMG}" alt="" /></span>
+    <span class="chip theme-primary">A chip</span>
+    <span class="chip theme-danger">Another</span>
+    <img class="img-thumbnail" src="${IMG}" alt="" width="52" height="52" />
+    <a href="#" class="icon-link">An icon link</a>
+    <button type="button" class="btn-close" aria-label="Close"></button>
+  </div>
+
+  <ol class="stepper mb">
+    <li class="stepper-item active">Create account</li>
+    <li class="stepper-item active">Confirm email</li>
+    <li class="stepper-item">Finish</li>
+  </ol>
+
+  <p class="placeholder-glow mb">
+    <span class="placeholder" style="inline-size:7rem"></span>
+    <span class="placeholder" style="inline-size:4rem"></span>
+    <span class="placeholder" style="inline-size:9rem"></span>
+  </p>
+
+  <figure class="figure mb">
+    <img class="figure-img" src="${IMG}" alt="" width="72" height="72" />
+    <figcaption class="figure-caption">A caption below the figure.</figcaption>
+  </figure>
+
+  <div class="prose">
+    <h4>Prose</h4>
+    <p>A block of long-form text, styled by the prose component rather than by utilities.</p>
+  </div>
+
+  <div class="collapse show mb"><p class="m-0">A collapse, shown.</p></div>
+  <div class="fade show"><p class="m-0">A fade, shown.</p></div>`
+)
+
+const overlays = () => section(
+  'overlays',
+  'Toasts and overlays',
+  `<div class="toast show mb" role="alert">
+    <div class="toast-header"><strong class="me-auto">Bootstrap</strong><small>11 mins ago</small></div>
+    <div class="toast-body">Hello, world! This is a toast message.</div>
+  </div>
+
+  <div class="cluster">
+    <div class="spinner-grow theme-primary" role="status"><span class="visually-hidden">Loading…</span></div>
+    <div class="spinner-border theme-accent" role="status"><span class="visually-hidden">Loading…</span></div>
+  </div>
+
+  <div class="card hover-lift mt" style="max-width:16rem">
+    <div class="card-body">
+      <h5 class="card-title">Hover lift</h5>
+      <p class="card-text">The whole card is a <a href="#" class="stretched-link">stretched link</a>.</p>
+    </div>
+  </div>`
+)
+
 const navigation = () => section(
   'navigation',
   'Navigation',
-  `<ul class="nav nav-tabs mb">
+  `<nav class="navbar bg-1 fg-2 mb">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Navbar</a>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <ul class="nav nav-tabs">
     <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Active</a></li>
     <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
     <li class="nav-item"><a class="nav-link disabled" aria-disabled="true">Disabled</a></li>
   </ul>
+  <div class="tab-content mb">
+    <div class="tab-pane active"><p class="m-0">The active tab pane.</p></div>
+  </div>
+
+  <ul class="nav nav-underline mb">
+    <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Active</a></li>
+    <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
+  </ul>
+
+  <nav aria-label="Breadcrumb" class="mb">
+    <ol class="breadcrumb">
+      <li class="breadcrumb-item"><a class="breadcrumb-link" href="#">Home</a></li>
+      <li class="breadcrumb-divider"></li>
+      <li class="breadcrumb-item"><a class="breadcrumb-link" href="#">Library</a></li>
+    </ol>
+  </nav>
   <ul class="nav nav-pills mb">
     <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Active</a></li>
     <li class="nav-item"><a class="nav-link" href="#">Link</a></li>
@@ -183,6 +299,8 @@ const sample = (uid) => [
   forms(uid),
   alerts(),
   surfaces(uid),
+  content(),
+  overlays(),
   elevation(),
   navigation(),
   typography(),

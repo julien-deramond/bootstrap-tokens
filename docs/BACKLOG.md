@@ -78,10 +78,11 @@ Denser, more instrument-like treatments are the next lever.
 Covered as PLAN.md A7. Noting the concrete failure: a `theme.json` referencing a renamed
 token silently loses that value on import, with no warning.
 
-### P2 · The chooser's `title` tooltips are not keyboard reachable
+### ~~P2 · The chooser's `title` tooltips are not keyboard reachable~~ · done
 
-The theme-health chip puts its detail in a `title` attribute. Tooltips do not open on
-keyboard focus and are not announced reliably. Should be a disclosure or popover.
+The theme-health chip is now a disclosure, and each failing pair is a link that opens the
+token that causes it. The remaining `title` attributes are all supplementary to visible
+text, so they add rather than carry.
 
 ### ~~P3 · No test asserts the preview and the export agree~~ · done
 
@@ -93,8 +94,18 @@ against the compiled value, selector by selector. It found the U4 pin on its fir
 CI catches it, but only on push. A pre-commit hook or a `--check` in `validate` would catch
 it earlier.
 
-### P5 · Component variant maps have no preview
+### P5 · Components with no preview · mostly done
 
-`$navbar-dark-tokens`, `$nav-underline-tokens`, `$spinner-grow-tokens` and the other variant
-maps are editable in All tokens, but the sample markup does not render them, so editing them
-shows nothing. Either add them to the sample or mark them "not previewed" in the UI.
+Worse than first logged: **40 of 62** components had no markup at all, not just the variant
+maps. The sample now covers 49, and the panel warns for the rest — detected by asking the
+preview whether it renders the component's selector, rather than from a list here that would
+go stale the first time the sample changed.
+
+Two of the "missing" turned out to be wrong metadata rather than missing markup:
+`button-styled` was recorded as `.btn-primary, …` (a v5 habit; v6 uses `.btn-styled`) and
+`radio` as `.form-radio-input` (it is `.radio`). Both are fixed.
+
+The 13 that remain — `dialog`, `drawer`, `menu`, `popover`, `tooltip`, `carousel`,
+`datepicker`, `calendar`, `chip-input`, `otp`, `strength`, `navbar-dark`, `drawer-backdrop` —
+need JavaScript or an interaction to appear. Rendering them statically is possible but each
+needs its own scaffolding; worth doing when C3 rebuilds the preview.

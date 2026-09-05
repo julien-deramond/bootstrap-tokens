@@ -51,7 +51,7 @@ Primitive counts include the generated colour scale (16 hues × 13 stops).
 | `btn` | `$button-tokens` | `.btn` | 17 |
 | `btn-close` | `$btn-close-tokens` | `.btn-close` | 7 |
 | `button-link` <sup>variant of `btn`</sup> | `$button-link-tokens` | `.btn-link` | 12 |
-| `button-styled` <sup>variant of `btn`</sup> | `$button-styled-tokens` | `.btn-primary, …` | 8 |
+| `button-styled` <sup>variant of `btn`</sup> | `$button-styled-tokens` | `.btn-styled` | 8 |
 | `calendar` | `$calendar-tokens` | `.calendar` | 11 |
 | `card` | `$card-tokens` | `.card` | 18 |
 | `carousel` | `$carousel-tokens` | `.carousel` | 20 |
@@ -88,7 +88,7 @@ Primitive counts include the generated colour scale (16 hues × 13 stops).
 | `popover` | `$popover-tokens` | `.popover` | 23 |
 | `progress` | `$progress-tokens` | `.progress` | 9 |
 | `prose` | `$prose-tokens` | `.prose` | 4 |
-| `radio` | `$radio-tokens` | `.form-radio-input` | 8 |
+| `radio` | `$radio-tokens` | `.radio` | 8 |
 | `range` | `$range-tokens` | `.form-range` | 21 |
 | `reboot-kbd` | `$reboot-kbd-tokens` | `kbd` | 6 |
 | `reboot-mark` | `$reboot-mark-tokens` | `mark` | 3 |

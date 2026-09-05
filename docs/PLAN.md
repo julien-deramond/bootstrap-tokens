@@ -153,13 +153,11 @@ selector upstream pins, and the Sass export now names what it cannot express.
 
 Still to do: the same end-to-end check for `eject` on a theme that *adds* a key.
 
-### B2. Say when a change cannot be expressed
+### B2. Say when a change cannot be expressed · ✅ **done**
 
-`--shadow-strength` in dark mode is pinned by a media query no token map can reach. The
-chooser knows this (`fixedDark`); the export silently drops it.
-
-Every export should carry an explicit note for any override it cannot express, rather than
-producing a file that quietly does less than the preview showed.
+Built alongside B1. `unexpressible()` finds overrides a `@use … with ()` configuration
+cannot reach, and `themeScss` appends the CSS the consumer also needs, rather than producing
+a file that quietly does less than the preview showed.
 
 ### B3. Expose the configuration surface
 

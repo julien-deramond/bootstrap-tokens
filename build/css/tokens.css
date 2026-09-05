@@ -795,7 +795,7 @@
   --btn-disabled-border-color: transparent;
 }
 
-.btn-primary, … {
+.btn-styled {
   --btn-gradient-start: rgb(255 255 255 / 12.5%);
   --btn-gradient-end: rgb(0 0 0 / 7.5%);
   --btn-border-mix-color: #000;
@@ -1315,7 +1315,7 @@
   --heading-color: light-dark(var(--gray-900), var(--white));
 }
 
-.form-radio-input {
+.radio {
   --radio-size: 1.25rem;
   --radio-margin-block: .125rem;
   --radio-bg: var(--bg-body);

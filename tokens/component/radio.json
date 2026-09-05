@@ -94,11 +94,11 @@
         }
       }
     },
-    "$description": "Tokens emitted on `.form-radio-input`.",
+    "$description": "Tokens emitted on `.radio`.",
     "$extensions": {
       "dev.bootstrap.tokens": {
         "sassMap": "$radio-tokens",
-        "selector": ".form-radio-input",
+        "selector": ".radio",
         "source": "scss/forms/_radio.scss"
       }
     }
