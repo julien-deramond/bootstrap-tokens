@@ -112,6 +112,7 @@ const state = {
     ? 'split'
     : (globalThis.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
   query: '',
+  scenario: 'components',
   exportTab: 'scss',
   previewReady: false,
   past: [],
@@ -445,6 +446,10 @@ function changedIn(sectionId) {
  * changed nothing on screen and the tool said nothing about it.
  */
 function isPreviewed(component) {
+  // Only the component gallery claims to render everything; the page and states scenarios
+  // are deliberately partial, so the warning would be noise there.
+  if (state.scenario !== 'components') return true
+
   const document_ = $('#preview').contentDocument
   if (!document_) return true
 
@@ -1673,7 +1678,7 @@ function recompute() {
   renderChanges()
   $('#reset').disabled = Object.keys(state.overrides).length + Object.keys(state.options).length === 0
 
-  postToPreview({ css: themeCss(changes), hues: availableHues(state.doc) })
+  postToPreview({ css: themeCss(changes), hues: availableHues(state.doc), scenario: state.scenario })
 }
 
 function postToPreview(message) {
@@ -2002,6 +2007,18 @@ function wire() {
 
   wireTabs($('#mode'), (tab) => setMode(tab.dataset.mode))
 
+  // What the artboards render: a component gallery, a realistic page, or every state.
+  for (const button of document.querySelectorAll('#scenario button')) {
+    button.setAttribute('aria-pressed', String(button.dataset.scenario === state.scenario))
+    button.addEventListener('click', () => {
+      state.scenario = button.dataset.scenario
+      for (const other of document.querySelectorAll('#scenario button')) {
+        other.setAttribute('aria-pressed', String(other === button))
+      }
+      postToPreview({ scenario: state.scenario })
+    })
+  }
+
   // No confirm(): the action is undoable, and a modal to guard a reversible action just
   // trains people to dismiss modals.
   $('#reset').addEventListener('click', () => mutate(() => {
@@ -2149,7 +2166,7 @@ function wire() {
 function markPreviewReady() {
   state.previewReady = true
   probe = null
-  postToPreview({ scheme: state.scheme })
+  postToPreview({ scheme: state.scheme, scenario: state.scenario })
   if (state.doc) {
     recompute()
     render()

@@ -81,7 +81,11 @@
 
       <section class="preview" aria-label="Live preview">
         <div class="preview-head">
-          <span class="preview-title">Preview</span>
+          <div class="segmented" id="scenario" role="group" aria-label="What to preview">
+            <button type="button" data-scenario="components">Components</button>
+            <button type="button" data-scenario="page">Page</button>
+            <button type="button" data-scenario="states">States</button>
+          </div>
           <div class="segmented" id="scheme" role="group" aria-label="Preview colour scheme">
             <button type="button" data-scheme="light">Light</button>
             <button type="button" data-scheme="dark">Dark</button>

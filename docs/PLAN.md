@@ -265,13 +265,19 @@ fragment without reloading.
 Still to do: **comparing two themes side by side**, which is the other half of "show me A next
 to B" and needs the preview to render from two documents at once.
 
-### C3. A preview that proves the theme works
+### C3. A preview that proves the theme works · 🚧 **scenarios done**
 
 The sample is a component gallery. It cannot answer "does my theme survive a real page?"
 
-* **Every state, systematically** — hover, focus, active, disabled, loading, error, empty.
-  Today they appear only incidentally, and shadows had *no* home at all until the redesign.
-* **Real layouts** — a dashboard, a form page, a marketing page.
+* ✅ **Every state, systematically** — default, active, disabled, focus ring, valid, invalid,
+  loading, empty, selected. States are where a theme breaks: a disabled control that still
+  looks clickable, a focus ring that vanishes on a dark fill, an invalid field
+  indistinguishable from a valid one. Before this they appeared only by accident.
+* ✅ **A real page** — navbar, hero, stat cards, a form, a table. A row of buttons beside a row
+  of alerts answers "do these components look right?" but not "does my theme survive a page?",
+  which is the question anyone actually has. Spacing against real prose is where a density or
+  radius choice succeeds or falls apart.
+* ⬜ Hover states, which cannot be forced from outside the document.
 * **Your own markup**, pasted in.
 * **Component isolation** — selecting a component in All tokens previews just that component.
 

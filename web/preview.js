@@ -296,18 +296,190 @@ const palette = () => section(
     </div>`).join('')
 )
 
-const sample = (uid) => [
-  buttons(),
-  forms(uid),
-  alerts(),
-  surfaces(uid),
-  content(),
-  overlays(),
-  elevation(),
-  navigation(),
-  typography(),
-  palette()
-].join('')
+/* -------------------------------------------------------------- scenarios -- */
+
+/**
+ * A realistic page, not a gallery.
+ *
+ * A row of buttons beside a row of alerts answers "do these components look right?" but not
+ * "does my theme survive a page?" — which is the question anyone actually has. Spacing
+ * against real prose, a navbar over content, cards in a grid: these are where a density or
+ * radius choice succeeds or falls apart.
+ */
+const page = (uid) => `
+  <nav class="navbar bg-1 fg-2 mb">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Northwind</a>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Overview</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Reports</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <section class="preview-hero">
+    <h1>Everything in one place</h1>
+    <p class="lead">A short paragraph of the kind of copy that actually ships, long enough that
+      the line height and measure have somewhere to show themselves.</p>
+    <div class="cluster">
+      <a href="#" class="btn btn-solid theme-primary btn-lg">Get started</a>
+      <a href="#" class="btn btn-outline theme-primary btn-lg">Read the docs</a>
+    </div>
+  </section>
+
+  <div class="preview-grid">
+    ${[
+      ['Revenue', '$48,200', 'success', '+12% on last month'],
+      ['Open tickets', '37', 'warning', '6 breaching SLA'],
+      ['Churn', '1.8%', 'danger', 'Up from 1.2%']
+    ]
+      .map(
+        ([title, figure, theme, note]) => `
+        <section class="card">
+          <div class="card-body">
+            <p class="card-text"><small class="text-body-secondary">${title}</small></p>
+            <h3 class="card-title">${figure}</h3>
+            <span class="badge badge-subtle theme-${theme}">${note}</span>
+          </div>
+        </section>`
+      )
+      .join('')}
+  </div>
+
+  <section class="card mt">
+    <div class="card-header">Add a customer</div>
+    <div class="card-body">
+      <div class="preview-row">
+        <div>
+          <label class="form-label" for="page-name-${uid}">Name</label>
+          <input type="text" class="form-control" id="page-name-${uid}" value="Northwind Traders" />
+        </div>
+        <div>
+          <label class="form-label" for="page-plan-${uid}">Plan</label>
+          <select class="form-select" id="page-plan-${uid}"><option>Growth</option></select>
+        </div>
+      </div>
+      <div class="cluster mt">
+        <button type="button" class="btn btn-solid theme-primary">Save</button>
+        <button type="button" class="btn btn-text">Cancel</button>
+      </div>
+    </div>
+  </section>
+
+  <table class="table mt">
+    <thead><tr><th scope="col">Customer</th><th scope="col">Plan</th><th scope="col">Status</th></tr></thead>
+    <tbody>
+      <tr><td>Northwind Traders</td><td>Growth</td><td><span class="badge theme-success">Active</span></td></tr>
+      <tr><td>Contoso</td><td>Starter</td><td><span class="badge theme-warning">Trial</span></td></tr>
+      <tr><td>Fabrikam</td><td>Growth</td><td><span class="badge theme-secondary">Paused</span></td></tr>
+    </tbody>
+  </table>`
+
+/**
+ * Every state a component can be in, side by side.
+ *
+ * States are where a theme breaks: a disabled control that still looks clickable, a focus
+ * ring that vanishes on a dark fill, an invalid field indistinguishable from a valid one.
+ * They only ever appeared here by accident before.
+ */
+const states = (uid) => `
+  <div class="state-grid">
+    ${[
+      ['Default', ''],
+      ['Active', ' active'],
+      ['Disabled', ' disabled']
+    ]
+      .map(
+        ([label, extra]) => `
+        <div>
+          <p class="state-label">${label}</p>
+          <div class="cluster">
+            <button type="button" class="btn btn-solid theme-primary${extra}"${extra === ' disabled' ? ' disabled' : ''}>Solid</button>
+            <button type="button" class="btn btn-outline theme-primary${extra}"${extra === ' disabled' ? ' disabled' : ''}>Outline</button>
+            <button type="button" class="btn btn-text theme-primary${extra}"${extra === ' disabled' ? ' disabled' : ''}>Text</button>
+          </div>
+        </div>`
+      )
+      .join('')}
+    <div>
+      <p class="state-label">Focus ring</p>
+      <div class="cluster">
+        <span class="btn btn-solid theme-primary focus-ring">Solid</span>
+        <span class="btn btn-outline theme-primary focus-ring">Outline</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="state-grid mt">
+    <div>
+      <p class="state-label">Field — default</p>
+      <input type="text" class="form-control" value="Northwind" aria-label="Default" />
+    </div>
+    <div>
+      <p class="state-label">Field — invalid</p>
+      <input type="text" class="form-control is-invalid" value="not an email" aria-label="Invalid" />
+      <div class="invalid-feedback d-block">Use an address like name@example.com.</div>
+    </div>
+    <div>
+      <p class="state-label">Field — disabled</p>
+      <input type="text" class="form-control" value="Locked" disabled aria-label="Disabled" />
+    </div>
+    <div>
+      <p class="state-label">Field — focus ring</p>
+      <input type="text" class="form-control focus-ring" value="Focused" aria-label="Focused" />
+    </div>
+  </div>
+
+  <div class="state-grid mt">
+    <div>
+      <p class="state-label">Loading</p>
+      <div class="cluster">
+        <div class="spinner-border theme-primary" role="status"><span class="visually-hidden">Loading</span></div>
+        <p class="placeholder-glow m-0"><span class="placeholder" style="inline-size:6rem"></span></p>
+      </div>
+    </div>
+    <div>
+      <p class="state-label">Empty</p>
+      <div class="state-empty">
+        <p class="m-0"><strong>No customers yet</strong></p>
+        <p class="m-0"><small class="text-body-secondary">They will appear here once you add one.</small></p>
+      </div>
+    </div>
+    <div>
+      <p class="state-label">Selected</p>
+      <ul class="list-group">
+        <li class="list-group-item active" aria-current="true">Selected row</li>
+        <li class="list-group-item">Ordinary row</li>
+        <li class="list-group-item disabled">Disabled row</li>
+      </ul>
+    </div>
+  </div>`
+
+const SCENARIOS = {
+  components: (uid) => componentGallery(uid),
+  page: (uid) => section('page', 'A page', page(uid)),
+  states: (uid) => section('states', 'Every state', states(uid))
+}
+
+const componentGallery = (uid) =>
+  [
+    buttons(),
+    forms(uid),
+    alerts(),
+    surfaces(uid),
+    content(),
+    overlays(),
+    elevation(),
+    navigation(),
+    typography(),
+    palette()
+  ].join('')
+
+/** What the artboards render. Set by the chooser; components unless told otherwise. */
+let scenario = 'components'
+
+const sample = (uid) => (SCENARIOS[scenario] ?? SCENARIOS.components)(uid)
 
 /* -------------------------------------------------------------------------- */
 
@@ -409,6 +581,11 @@ window.addEventListener('message', (event) => {
 
   if (Array.isArray(message.hues) && message.hues.join() !== HUES.join()) {
     HUES = message.hues
+    render()
+  }
+
+  if (message.scenario && message.scenario !== scenario && SCENARIOS[message.scenario]) {
+    scenario = message.scenario
     render()
   }
 

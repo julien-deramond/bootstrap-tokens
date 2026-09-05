@@ -104,6 +104,9 @@ preset.
   screen. Each scheme renders as a framed, labelled artboard on a neutral canvas that belongs
   to neither theme — otherwise, in a dark chooser, the dark preview reads as one more panel of
   the tool.
+* **Three things to preview.** *Components* is the gallery, *Page* is a realistic layout —
+  navbar, hero, cards, form, table — and *States* is every state a theme can break in:
+  disabled, invalid, focused, loading, empty, selected.
 * **Touching a control shows you what it changed.** The preview scrolls to the affected
   section and flashes it, so you never have to hunt for the difference.
 * **Undo, always.** ⌘Z / ⇧⌘Z, and Reset is just another undoable step — no confirmation
