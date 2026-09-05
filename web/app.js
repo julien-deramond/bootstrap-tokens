@@ -107,6 +107,7 @@ const state = {
   migrations: [],
   overrides: {},
   markup: loadMarkup(),
+  vision: 'normal',
   mode: loadMode(),
   section: 'theme-color',
   // Side by side is the point on a wide screen; on a narrow one it halves an already small
@@ -1827,6 +1828,7 @@ function recompute() {
     hues: availableHues(state.doc),
     scenario: state.scenario,
     markup: state.markup,
+    vision: state.vision,
     compareScheme: state.compareScheme
   })
 }
@@ -2266,6 +2268,22 @@ function wire() {
   }
 
   wireMarkup()
+
+  /*
+   * Colour-vision simulation, on the artboard only.
+   *
+   * It answers a question the contrast readout cannot: contrast survives colour blindness
+   * almost unchanged, so a palette can pass every ratio and still collapse into one colour
+   * for eight percent of men. Success and danger buttons that differ only in hue are the
+   * usual casualty, and you cannot reason your way to noticing that.
+   *
+   * Not persisted — it is a way of looking at the theme, not a property of it, and a tool
+   * that silently reopens in simulated deuteranopia would be a confusing one.
+   */
+  $('#vision').addEventListener('change', (event) => {
+    state.vision = event.target.value
+    postToPreview({ vision: state.vision })
+  })
 
   // No confirm(): the action is undoable, and a modal to guard a reversible action just
   // trains people to dismiss modals.

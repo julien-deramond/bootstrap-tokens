@@ -149,6 +149,14 @@ introduced` therefore gates on what the theme changed, and `--fail-on regression
 that were fine before and are not now — the case where a token you did not touch was dragged
 down by one you did.
 
+The report has a second half that contrast cannot give you. Luminance barely moves under
+colour blindness, so it lists the semantic roles that stop being distinguishable under
+simulated protanopia, deuteranopia, tritanopia and achromatopsia — and separates *status*
+roles, which carry meaning by colour, from branding, which does not. `--fail-on vision` gates
+on the former. The simulation matrices are applied in linear light, matching both the
+Viénot derivation and what the preview's SVG filter draws (verified against Chrome, 28 of 28
+exact).
+
 The chooser's *contrast report* tab produces the identical document in the browser, from the
 same library.
 

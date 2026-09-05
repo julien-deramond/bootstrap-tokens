@@ -93,6 +93,17 @@
             <button type="button" data-scheme="split">Side by side</button>
             <button type="button" data-scheme="compare">Before / after</button>
           </div>
+          <label class="vision">
+            <span class="vision-label">Vision</span>
+            <select id="vision">
+              <option value="normal">Typical</option>
+              <option value="deuteranopia">Deuteranopia (no green)</option>
+              <option value="protanopia">Protanopia (no red)</option>
+              <option value="tritanopia">Tritanopia (no blue)</option>
+              <option value="achromatopsia">Achromatopsia (no colour)</option>
+            </select>
+          </label>
+
           <div class="changes-wrap">
             <button type="button" class="chip" id="change-count" aria-expanded="false" aria-controls="changes-detail">no changes</button>
             <div class="changes-detail" id="changes-detail" hidden>

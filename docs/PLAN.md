@@ -300,7 +300,7 @@ The sample is a component gallery. It cannot answer "does my theme survive a rea
   drawing less than you pasted.
 * **Component isolation** — selecting a component in All tokens previews just that component.
 
-### C4. Accessibility as an output, not a warning · 🚧 **report and APCA done**
+### C4. Accessibility as an output, not a warning · ✅ **done**
 
 * ✅ **APCA alongside WCAG 2.** WCAG 2's ratio is known to misjudge exactly our case — light
   text on saturated fills. APCA is what WCAG 3 is built on. Both are reported, because they
@@ -313,7 +313,18 @@ The sample is a component gallery. It cannot answer "does my theme survive a rea
   which is what a `contrast` sub-key usually looks like. "Nearest" is by distance along the
   scale, so the suggestion is the smallest change that works rather than the safest-looking
   one: `warning.fg` at 4.0:1 is offered `yellow.800`, not black.
-* **Colour-vision simulation** over the preview.
+* ✅ **Colour-vision simulation**, over the preview *and* as a check. The preview draws the
+  artboards through protanopia, deuteranopia, tritanopia or achromatopsia; the report says
+  which semantic roles stop being distinguishable, which is the part nobody catches by
+  looking. It is the gap contrast cannot cover: luminance barely moves under colour
+  blindness, so a palette can clear every ratio and still hand around eight percent of men a
+  success button and a danger button in the same colour. `--fail-on vision` gates on it.
+
+  The matrices are applied in linear light, which is both correct for the Viénot
+  approximations and identical to what an SVG filter does — verified against Chrome by
+  painting each colour through the real filter and reading the pixel back, 28 of 28 exact.
+  The widely copied sRGB variants understate the loss, which is the worst direction to be
+  wrong in.
 * ✅ **An exportable report** to attach to a pull request. `bstokens report` writes Markdown,
   HTML or JSON, and `--fail-on introduced` turns it into a CI gate that judges a theme on
   what it changed rather than on what Bootstrap already had. The chooser produces the

@@ -15,6 +15,7 @@
 import { hexToRgb, contrastRatio, contrastGrade } from './color.mjs'
 import { flattenValues } from './flatten.mjs'
 import { walk } from './tokens.mjs'
+import { VISIONS, simulate, difference, SAME_COLOUR } from './vision.mjs'
 
 /* --------------------------------------------------------------------------
  * APCA — Accessible Perceptual Contrast Algorithm, W3 version 0.1.9
@@ -147,3 +148,88 @@ export function auditContrast(doc, { mode = 'light' } = {}) {
 }
 
 export { contrastRatio, contrastGrade }
+
+/* --------------------------------------------------------------------------
+ * Colour vision
+ * -------------------------------------------------------------------------- */
+
+/**
+ * Roles that carry meaning by colour alone, so two of them looking alike is a bug rather
+ * than a style choice. `primary`, `accent`, `secondary` and `inverse` are branding — nobody
+ * reads "this went wrong" out of them — and are reported without being called a failure.
+ */
+const STATUS_ROLES = new Set(['success', 'danger', 'warning', 'info'])
+
+/**
+ * How common each kind is, so a reader can weigh nine findings against one.
+ *
+ * Deuteranopia and protanopia are the ones a real audience has; tritan defects are rare and
+ * achromatopsia is very rare. Listing all four with equal weight would bury the finding that
+ * matters under three that almost never apply, which is how a check gets switched off.
+ */
+export const HOW_COMMON = {
+  deuteranopia: { note: 'about 1 in 100 men', weight: 3 },
+  protanopia: { note: 'about 1 in 100 men', weight: 3 },
+  tritanopia: { note: 'rare, and not sex-linked', weight: 2 },
+  achromatopsia: { note: 'very rare — roughly 1 in 30,000', weight: 1 }
+}
+
+/**
+ * Pairs of semantic roles that cannot be told apart.
+ *
+ * This is the gap the contrast report cannot cover. Luminance survives colour blindness
+ * almost intact, so a palette can clear every ratio and still hand around eight percent of
+ * men a success button and a danger button in the same colour. It is also the failure mode
+ * nobody catches by looking, because the person choosing the colours usually sees both.
+ *
+ * Two cases, and they are not the same problem. A pair that is already indistinguishable in
+ * ordinary vision is wrong for everyone and reported with no simulation attached. A pair
+ * that is distinct until you simulate has a distinction that exists and is lost — which is
+ * the one nobody notices.
+ */
+export function roleCollisions(doc, { mode = 'light' } = {}) {
+  const { values } = flattenValues(doc, { mode })
+
+  const roles = []
+  for (const key of Object.keys(doc.tree['theme-color'] ?? {})) {
+    if (key.startsWith('$')) continue
+    const hex = values.get(`theme-color.${key}.bg`)
+    if (hex && hex.length === 7) roles.push({ role: key, rgb: hexToRgb(hex), hex })
+  }
+
+  const found = []
+  for (let i = 0; i < roles.length; i++) {
+    for (let j = i + 1; j < roles.length; j++) {
+      const [a, b] = [roles[i], roles[j]]
+      const shared = {
+        mode,
+        roles: [a.role, b.role],
+        colors: [a.hex, b.hex],
+        status: STATUS_ROLES.has(a.role) && STATUS_ROLES.has(b.role)
+      }
+
+      const normal = difference(a.rgb, b.rgb)
+      if (normal < SAME_COLOUR) {
+        found.push({ ...shared, vision: null, normal, apart: normal, identical: true })
+        continue
+      }
+
+      for (const vision of Object.keys(VISIONS)) {
+        const apart = difference(simulate(a.rgb, vision), simulate(b.rgb, vision))
+        if (apart < SAME_COLOUR) {
+          found.push({ ...shared, vision, normal, apart, identical: false })
+        }
+      }
+    }
+  }
+
+  // Worst first: two roles nobody can tell apart, then status pairs, then by how common the
+  // vision is. Sorting by the raw distance instead would put an exotic near-miss on top.
+  return found.sort(
+    (a, b) =>
+      Number(b.identical) - Number(a.identical) ||
+      Number(b.status) - Number(a.status) ||
+      (HOW_COMMON[b.vision]?.weight ?? 9) - (HOW_COMMON[a.vision]?.weight ?? 9) ||
+      a.apart - b.apart
+  )
+}

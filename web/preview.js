@@ -539,11 +539,21 @@ const overrides = document.getElementById('token-overrides')
 let mode = 'light'
 
 /** One framed, labelled artboard. `variant` marks the themed side of a comparison. */
+/** Which simulated vision the artboards are drawn through. `normal` means no filter. */
+let vision = 'normal'
+
+const VISIONS = new Set(['protanopia', 'deuteranopia', 'tritanopia', 'achromatopsia'])
+
+const visionAttributes = () =>
+  VISIONS.has(vision)
+    ? ` data-vision="${vision}" style="--vision-filter: url(#vision-${vision})"`
+    : ''
+
 const board = (scheme, { label = scheme, variant = null } = {}) => `
   <figure class="board board-${scheme}">
     <figcaption class="board-label"><span class="board-swatch"></span>${label}</figcaption>
     <div class="artboard">
-      <div class="pane${variant ? ` ${variant}` : ''}" data-bs-theme="${scheme}">${sample(`${label}-${scheme}`)}</div>
+      <div class="pane${variant ? ` ${variant}` : ''}" data-bs-theme="${scheme}"${visionAttributes()}>${sample(`${label}-${scheme}`)}</div>
     </div>
   </figure>`
 
@@ -660,6 +670,11 @@ window.addEventListener('message', (event) => {
 
   if (message.scenario && message.scenario !== scenario && SCENARIOS[message.scenario]) {
     scenario = message.scenario
+    render()
+  }
+
+  if (typeof message.vision === 'string' && message.vision !== vision) {
+    vision = message.vision
     render()
   }
 

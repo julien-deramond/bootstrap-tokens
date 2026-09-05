@@ -32,11 +32,12 @@ const USAGE = `bstokens <command> [options]
   probe      Write a page that checks the flattened colours against a real browser
              --out <f>      where to write it (default build/probe.html)
 
-  report     Audit a theme's contrast — WCAG 2 and APCA, light and dark
+  report     Audit a theme — contrast by WCAG 2 and APCA, plus colour vision
              --theme <f>    a theme.json (default: Bootstrap's own values)
              --out <f>      where to write it (default: stdout)
              --format <f>   md, html or json (default: from --out, else md)
-             --fail-on <g>  exit 1 on: regression, introduced, any (default never)
+             --fail-on <g>  exit 1 on: regression, introduced, vision, any
+                            (default never)
 
   vendor     Compile upstream Bootstrap into web/vendor/bootstrap.css for the chooser
              --src <path>   the checkout to compile

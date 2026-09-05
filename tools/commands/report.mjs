@@ -33,7 +33,11 @@ const GATES = {
   never: () => false,
   regression: (summary) => summary.regressed > 0,
   introduced: (summary) => summary.introduced > 0 || summary.regressed > 0,
-  any: (summary) => summary.wcagFail > 0
+  // Status roles carry meaning by colour, so two of them collapsing into one is a defect
+  // whatever the contrast numbers say — and the contrast numbers will say it is fine.
+  vision: (summary) =>
+    summary.introduced > 0 || summary.regressed > 0 || summary.statusCollisions > 0,
+  any: (summary) => summary.wcagFail > 0 || summary.collisions > 0
 }
 
 export async function report({ flags }) {
@@ -62,8 +66,12 @@ export async function report({ flags }) {
   }
 
   if (gate(data.summary)) {
-    const { introduced, regressed, inherited } = data.summary
-    console.error(`\n✗ ${introduced} introduced, ${regressed} regressed, ${inherited} inherited.`)
+    const { introduced, regressed, inherited, statusCollisions } = data.summary
+    console.error(
+      `\n✗ ${introduced} introduced, ${regressed} regressed, ${inherited} inherited` +
+        (statusCollisions > 0 ? `, ${statusCollisions} status role pair(s) indistinguishable` : '') +
+        '.'
+    )
     return 1
   }
   return 0

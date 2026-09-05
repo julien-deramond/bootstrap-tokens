@@ -7,18 +7,9 @@
  */
 
 import { withOverrides, clone } from './overrides.mjs'
-import { auditContrast } from './contrast.mjs'
+import { auditContrast, roleCollisions, HOW_COMMON } from './contrast.mjs'
 
 const MODES = ['light', 'dark']
-
-function readTheme(path) {
-  if (!path) return { overrides: {}, name: 'Bootstrap defaults' }
-  const parsed = JSON.parse(readFileSync(path, 'utf8'))
-  if (!parsed || typeof parsed.overrides !== 'object') {
-    throw new Error(`${path} is not a theme file — expected an "overrides" object.`)
-  }
-  return { overrides: parsed.overrides, name: parsed.name ?? path }
-}
 
 /** Every pair in both schemes, with what the same pair scored before the theme. */
 export function audit(doc, base) {
@@ -54,6 +45,40 @@ export function audit(doc, base) {
   return rows
 }
 
+/** Role pairs nobody can tell apart, with the ones Bootstrap already had marked as such. */
+export function collisions(doc, base) {
+  const before = new Set()
+  for (const mode of MODES) {
+    for (const row of roleCollisions(base, { mode })) {
+      before.add(`${mode}:${row.roles.join('/')}:${row.vision}:${row.colors.join('/')}`)
+    }
+  }
+
+  /*
+   * Most semantic roles have no dark variant, so the same collision turns up twice and the
+   * table doubles in length without saying anything twice as useful. Merge a pair that is
+   * identical in both schemes into one row and say so; keep them apart when the colours
+   * actually differ, because then they are two findings.
+   */
+  const merged = new Map()
+  for (const mode of MODES) {
+    for (const row of roleCollisions(doc, { mode })) {
+      const identity = `${row.roles.join('/')}:${row.vision}:${row.colors.join('/')}`
+      const seen = merged.get(identity)
+      if (seen) {
+        seen.mode = 'both'
+        continue
+      }
+      merged.set(identity, {
+        ...row,
+        inherited: before.has(`${mode}:${identity}`)
+      })
+    }
+  }
+
+  return [...merged.values()]
+}
+
 export const summarise = (rows) => ({
   audited: rows.length,
   wcagFail: rows.filter((row) => !row.wcag.ok).length,
@@ -69,7 +94,42 @@ export const summarise = (rows) => ({
 
 const grade = (row) => (row.wcag.ok === true ? 'pass' : row.wcag.ok === false ? 'fail' : 'large only')
 
-export function markdown({ rows, summary, theme, version }) {
+/**
+ * The second half of the report, and the half a contrast check cannot give you.
+ *
+ * Luminance barely moves under colour blindness, so every pair here can pass WCAG and APCA
+ * and still be two buttons of the same colour.
+ */
+function colourVisionMarkdown(collided) {
+  if (collided.length === 0) {
+    return ['## Colour vision', '', 'Every semantic role stays distinct under simulated protanopia, deuteranopia, tritanopia and achromatopsia.']
+  }
+
+  const lines = [
+    '## Colour vision',
+    '',
+    '| Roles | Scheme | Seen as | Colours | How common | Source |',
+    '| --- | --- | --- | --- | --- | --- |'
+  ]
+
+  for (const row of collided) {
+    lines.push(
+      `| ${row.status ? '**' : ''}\`${row.roles[0]}\` / \`${row.roles[1]}\`${row.status ? '**' : ''} | ${row.mode} | ` +
+        `${row.vision ?? 'the same colour already'} | \`${row.colors[0]}\` \`${row.colors[1]}\` | ` +
+        `${row.vision ? HOW_COMMON[row.vision].note : 'everyone'} | ${row.inherited ? 'unchanged' : 'this theme'} |`
+    )
+  }
+
+  lines.push(
+    '',
+    'Bold pairs are status roles, which carry meaning by colour alone — two of those looking',
+    'alike is a bug rather than a style choice. The rest is branding, and worth knowing about',
+    'rather than fixing.'
+  )
+  return lines
+}
+
+export function markdown({ rows, summary, theme, version, collisions: collided = [] }) {
   const lines = [
     `# Contrast report — ${theme}`,
     '',
@@ -94,6 +154,16 @@ export function markdown({ rows, summary, theme, version }) {
     )
   }
   if (summary.improved > 0) lines.push(`${summary.improved} pair(s) were repaired by this theme.`, '')
+
+  // Beside the contrast headline, because it is the finding a contrast check cannot make and
+  // therefore the one a reader is least expecting.
+  if (summary.statusCollisions > 0) {
+    lines.push(
+      `**${summary.statusCollisions} pair(s) of status roles cannot be told apart** — colours that ` +
+        'carry meaning, seen as one. Details under Colour vision.',
+      ''
+    )
+  }
 
   lines.push(
     `APCA: ${summary.apcaBelowBody} pair(s) score below Lc 75, the level APCA asks for body text` +
@@ -125,6 +195,8 @@ export function markdown({ rows, summary, theme, version }) {
 
   if (interesting.length === 0) lines.push('| _nothing to report_ | | | | | |')
 
+  lines.push('', ...colourVisionMarkdown(collided))
+
   lines.push(
     '',
     '---',
@@ -142,7 +214,36 @@ export function markdown({ rows, summary, theme, version }) {
 const escapeHtml = (text) =>
   String(text).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c])
 
-export function html({ rows, summary, theme, version }) {
+function colourVisionHtml(collided) {
+  if (collided.length === 0) {
+    return '<h2>Colour vision</h2><p>Every semantic role stays distinct under simulated protanopia, deuteranopia, tritanopia and achromatopsia.</p>'
+  }
+
+  const rows = collided
+    .map(
+      (row) => `<tr class="${row.status ? 'fail' : ''}">
+  <td><code>${escapeHtml(row.roles[0])}</code> / <code>${escapeHtml(row.roles[1])}</code>${row.status ? '<small>status roles — meaning is carried by the colour</small>' : ''}</td>
+  <td>${row.mode}</td>
+  <td>${row.vision ?? 'the same colour already'}</td>
+  <td class="sw"><i style="background:${row.colors[0]}"></i><i style="background:${row.colors[1]}"></i>
+      <code>${row.colors[0]}</code> <code>${row.colors[1]}</code></td>
+  <td>${row.vision ? escapeHtml(HOW_COMMON[row.vision].note) : 'everyone'}</td>
+  <td>${row.inherited ? 'unchanged' : 'this theme'}</td>
+</tr>`
+    )
+    .join('\n')
+
+  return `<h2>Colour vision</h2>
+<p>Luminance barely moves under colour blindness, so every pair here can pass WCAG and APCA
+and still be two buttons of the same colour. Highlighted pairs are status roles, which carry
+meaning by colour alone.</p>
+<div class="scroll"><table>
+  <tr><th>Roles</th><th>Scheme</th><th>Seen as</th><th>Colours</th><th>How common</th><th>Source</th></tr>
+${rows}
+</table></div>`
+}
+
+export function html({ rows, summary, theme, version, collisions: collided = [] }) {
   const swatch = (hex) => `<i style="background:${hex}"></i><code>${hex}</code>`
   const body = rows
     .filter((row) => !row.wcag.ok || Math.abs(row.lc) < 75 || row.improved || row.regressed)
@@ -202,6 +303,7 @@ export function html({ rows, summary, theme, version }) {
 ${body || '<tr><td colspan="6">Nothing to report.</td></tr>'}
 </table>
 </div>
+${colourVisionHtml(collided)}
 <footer>
   WCAG 2 is the rule conformance is measured against. APCA is the model WCAG 3 is built on,
   and judges light-on-saturated text — the case WCAG 2 handles worst — more usefully. Both
@@ -219,6 +321,17 @@ ${body || '<tr><td colspan="6">Nothing to report.</td></tr>'}
 export function reportFor(tree, base, overrides, { theme, version }) {
   const doc = Object.keys(overrides).length > 0 ? withOverrides(clone(tree), overrides) : base
   const rows = audit(doc, base)
-  const summary = summarise(rows)
-  return { rows, summary, theme, version }
+  const collided = collisions(doc, base)
+  return {
+    rows,
+    collisions: collided,
+    summary: {
+      ...summarise(rows),
+      collisions: collided.filter((row) => !row.inherited).length,
+      collisionsInherited: collided.filter((row) => row.inherited).length,
+      statusCollisions: collided.filter((row) => row.status && !row.inherited).length
+    },
+    theme,
+    version
+  }
 }

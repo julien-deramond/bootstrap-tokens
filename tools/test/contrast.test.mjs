@@ -3,8 +3,11 @@ import assert from 'node:assert/strict'
 
 import { loadTokens, loadTree } from '../lib/load-fs.mjs'
 import { tokensDir } from '../lib/config.mjs'
-import { apcaLc, apcaLevel, contrastPartner, auditContrast } from '../lib/contrast.mjs'
+import { apcaLc, apcaLevel, contrastPartner, auditContrast, roleCollisions } from '../lib/contrast.mjs'
 import { audit, summarise, markdown, html, reportFor } from '../lib/report.mjs'
+import { simulate, SAME_COLOUR } from '../lib/vision.mjs'
+import { hexToRgb, rgbToHex } from '../lib/color.mjs'
+import { withOverrides, clone } from '../lib/overrides.mjs'
 
 const doc = loadTokens(tokensDir)
 const { tree } = loadTree(tokensDir)
@@ -128,4 +131,76 @@ test('a clean report says so rather than showing an empty table', () => {
   const md = markdown(reportFor(tree, doc, {}, { theme: 'Bootstrap defaults', version: 'test' }))
   assert.match(md, /\*\*No contrast problems introduced by this theme\.\*\*/)
   assert.match(md, /already failed in Bootstrap's defaults/)
+})
+
+/* -------------------------------------------------------------------------- */
+
+test('simulation matches what the browser draws', () => {
+  /*
+   * These are the same matrices the preview applies through an SVG filter, and they are
+   * applied the same way: in linear light, which is SVG's default. Verified in Chrome 148
+   * by painting each colour through the real filter onto a canvas and reading the pixel
+   * back — 28 of 28 exact. Doing it in gamma-encoded sRGB, as many copies of these filters
+   * do, understates the loss and makes a palette look more distinguishable than it is.
+   */
+  assert.equal(rgbToHex(simulate(hexToRgb('#00a66d'), 'deuteranopia')), '#6a5f82')
+  assert.equal(rgbToHex(simulate(hexToRgb('#e62845'), 'deuteranopia')), '#bcc53e')
+  assert.equal(rgbToHex(simulate(hexToRgb('#00a66d'), 'protanopia')), '#71727e')
+  assert.equal(rgbToHex(simulate(hexToRgb('#e62845'), 'tritanopia')), '#e13a39')
+  assert.equal(rgbToHex(simulate(hexToRgb('#00a66d'), 'achromatopsia')), '#878787')
+  // Grey has nothing to lose.
+  assert.equal(rgbToHex(simulate([128, 128, 128], 'deuteranopia')), '#808080')
+})
+
+test('two roles set to the same colour are a finding for everyone', () => {
+  const doc = withOverrides(clone(tree), { 'theme-color.danger.bg': { value: '{color.green.500}' } })
+  const worst = roleCollisions(doc, { mode: 'light' })[0]
+
+  assert.deepEqual(worst.roles, ['success', 'danger'])
+  assert.equal(worst.vision, null, 'no simulation needed')
+  assert.equal(worst.identical, true)
+  assert.equal(worst.status, true, 'both carry meaning by colour')
+})
+
+test('a distinction that only disappears under simulation is reported as such', () => {
+  const collided = roleCollisions(loadTokens(tokensDir), { mode: 'light' })
+  const lost = collided.find((row) => row.vision === 'deuteranopia')
+  assert.ok(lost, "Bootstrap's own accent and info collapse for red-green colour blindness")
+  assert.equal(lost.identical, false)
+  assert.ok(lost.normal > SAME_COLOUR, 'they are distinct to begin with')
+  assert.ok(lost.apart < SAME_COLOUR, 'and are not afterwards')
+})
+
+test('contrast cannot see what colour vision sees', () => {
+  // The whole reason for the second check: make two status roles the same colour and every
+  // contrast number stays exactly where it was.
+  const doc = withOverrides(clone(tree), { 'theme-color.danger.bg': { value: '{color.green.500}' } })
+  const before = auditContrast(loadTokens(tokensDir), { mode: 'light' })
+  const after = auditContrast(doc, { mode: 'light' })
+
+  const ratioOf = (rows, path) => rows.find((row) => row.path === path)?.ratio
+  assert.equal(ratioOf(after, 'theme-color.danger.contrast'), ratioOf(before, 'theme-color.success.contrast'))
+  assert.equal(roleCollisions(doc, { mode: 'light' }).some((row) => row.status && row.identical), true)
+})
+
+test('the same collision in both schemes is one row, not two', () => {
+  const { collisions: collided } = reportFor(tree, doc, {}, { theme: 'stock', version: 'test' })
+  const identities = collided.map((row) => `${row.roles.join('/')}:${row.vision}`)
+  assert.equal(new Set(identities).size, identities.length)
+  assert.ok(collided.some((row) => row.mode === 'both'))
+})
+
+test('the report names the pairs a reader cannot tell apart', () => {
+  const data = reportFor(tree, doc, { 'theme-color.danger.bg': { value: '{color.green.500}' } }, {
+    theme: 'Collide',
+    version: 'test'
+  })
+
+  assert.equal(data.summary.statusCollisions, 1)
+  const md = markdown(data)
+  assert.match(md, /## Colour vision/)
+  assert.match(md, /\*\*`success` \/ `danger`\*\*/)
+  assert.match(md, /the same colour already/)
+  assert.match(md, /status roles cannot be told apart/)
+  assert.match(html(data), /<h2>Colour vision<\/h2>/)
 })

@@ -135,6 +135,11 @@ preset.
   Bootstrap's defaults already have — by comparing the *colours*, not the verdicts. A warning
   you didn't cause teaches you to ignore warnings. The *contrast report* tab hands you the
   same audit as a file to attach to a pull request, WCAG 2 and APCA side by side.
+* **See it through someone else's eyes.** The *Vision* selector draws the artboards through
+  simulated protanopia, deuteranopia, tritanopia or achromatopsia — the tool's own chrome
+  stays as it is, since the point is to look at the artefact. The report turns it into a
+  check: contrast survives colour blindness almost unchanged, so a palette can pass every
+  ratio and still make success and danger the same button.
 
 Two decisions inside Design mode are worth knowing about:
 

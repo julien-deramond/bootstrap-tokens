@@ -126,6 +126,9 @@
 
       .preview-section.is-focused { animation: flash 1.4s ease-out; }
 
+      /* Only the artboard is simulated; the frame and its label stay legible. */
+      .pane[data-vision] { filter: var(--vision-filter); }
+
       /* The empty state for "your markup". Dashed, so it reads as a placeholder rather
          than as a component the theme drew. */
       .preview-empty {
@@ -213,6 +216,53 @@
     </style>
   </head>
   <body>
+    <!--
+      Colour-vision simulation.
+
+      Applied to the artboard, never to the chooser's own chrome: the point is to look at
+      the artefact through someone else's eyes, and simulating the tool as well would just
+      make the tool hard to use.
+
+      These matrices are the Viénot/Brettel approximations, and they are derived for
+      *linear* light — which is why `color-interpolation-filters` is left alone. SVG's
+      default is linearRGB; forcing sRGB here, as a lot of copies of these filters do,
+      applies a linear-light transform to gamma-encoded values and produces a simulation
+      that is wrong in the direction of "not as bad as it really is".
+
+      A simulation shows what is lost. It cannot tell you a design is fine, only that a
+      distinction you were relying on has gone.
+    -->
+    <svg width="0" height="0" aria-hidden="true" focusable="false" style="position:absolute">
+      <filter id="vision-protanopia">
+        <feColorMatrix type="matrix" values="
+          0.567 0.433 0     0 0
+          0.558 0.442 0     0 0
+          0     0.242 0.758 0 0
+          0     0     0     1 0" />
+      </filter>
+      <filter id="vision-deuteranopia">
+        <feColorMatrix type="matrix" values="
+          0.625 0.375 0    0 0
+          0.700 0.300 0    0 0
+          0     0.300 0.70 0 0
+          0     0     0    1 0" />
+      </filter>
+      <filter id="vision-tritanopia">
+        <feColorMatrix type="matrix" values="
+          0.950 0.050 0     0 0
+          0     0.433 0.567 0 0
+          0     0.475 0.525 0 0
+          0     0     0     1 0" />
+      </filter>
+      <filter id="vision-achromatopsia">
+        <feColorMatrix type="matrix" values="
+          0.299 0.587 0.114 0 0
+          0.299 0.587 0.114 0 0
+          0.299 0.587 0.114 0 0
+          0     0     0     1 0" />
+      </filter>
+    </svg>
+
     <div id="preview-root"></div>
     <script type="module" src="./preview.js"></script>
   </body>
