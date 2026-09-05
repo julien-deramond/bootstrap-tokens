@@ -173,7 +173,7 @@ function collect(sources, warnings) {
         sassKey: key,
         sassQuoted: quoted,
         raw: value,
-        hint: GROUP_HINTS[group.group] ?? hintFor(key),
+        hint: group.hint ?? GROUP_HINTS[group.group] ?? hintFor(key),
         layer: group.layer
       })
     }
@@ -236,7 +236,7 @@ function collect(sources, warnings) {
       sassMap: '$shadows',
       sassKey: key,
       raw: value,
-      hint: null,
+      hint: 'shadow',
       layer: 'semantic'
     })
   }

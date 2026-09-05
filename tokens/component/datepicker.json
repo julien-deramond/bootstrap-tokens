@@ -59,6 +59,7 @@
       }
     },
     "box-shadow": {
+      "$type": "shadow",
       "$value": "{shadow.default}",
       "$extensions": {
         "dev.bootstrap.tokens": {
@@ -83,6 +84,7 @@
       }
     },
     "zindex": {
+      "$type": "number",
       "$value": "{z-index.menu}",
       "$extensions": {
         "dev.bootstrap.tokens": {

@@ -122,6 +122,7 @@
       }
     },
     "thumb-border": {
+      "$type": "border",
       "$value": "{range.thumb-bg} solid {border.color}",
       "$extensions": {
         "dev.bootstrap.tokens": {
@@ -147,6 +148,7 @@
       }
     },
     "thumb-box-shadow": {
+      "$type": "shadow",
       "$value": "\"0 1px 2px rgb(0 0 0 / 7.5%), 0 2px 4px rgb(0 0 0 / 7.5%)\"",
       "$extensions": {
         "dev.bootstrap.tokens": {

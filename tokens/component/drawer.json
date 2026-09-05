@@ -12,6 +12,7 @@
       }
     },
     "zindex": {
+      "$type": "number",
       "$value": "{z-index.drawer}",
       "$extensions": {
         "dev.bootstrap.tokens": {
@@ -125,6 +126,7 @@
       }
     },
     "box-shadow": {
+      "$type": "shadow",
       "$value": "{shadow.xl}",
       "$extensions": {
         "dev.bootstrap.tokens": {

@@ -38,6 +38,7 @@
       }
     },
     "box-shadow": {
+      "$type": "shadow",
       "$value": "{shadow.lg}",
       "$extensions": {
         "dev.bootstrap.tokens": {

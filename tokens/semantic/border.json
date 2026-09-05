@@ -41,6 +41,7 @@
       "$description": "A border the colour of the page — used to punch a gap between adjacent filled elements."
     },
     "body": {
+      "$type": "color",
       "$value": "{color.gray.300}",
       "$extensions": {
         "dev.bootstrap.tokens": {
@@ -54,6 +55,7 @@
       "$description": "The standard visible border. Stronger than `subtle`, calmer than `emphasized`."
     },
     "muted": {
+      "$type": "color",
       "$value": "{color.gray.200}",
       "$extensions": {
         "dev.bootstrap.tokens": {
@@ -67,6 +69,7 @@
       "$description": "A quieter border for grouping without drawing a line the eye stops at."
     },
     "subtle": {
+      "$type": "color",
       "$value": "color-mix(in oklch, {color.gray.100}, {color.gray.200})",
       "$extensions": {
         "dev.bootstrap.tokens": {
@@ -81,6 +84,7 @@
       "$description": "The faintest border. For separating areas that are already distinguished by space."
     },
     "emphasized": {
+      "$type": "color",
       "$value": "{color.gray.400}",
       "$extensions": {
         "dev.bootstrap.tokens": {
@@ -94,6 +98,7 @@
       "$description": "A deliberately visible border, for focus targets and selected states."
     },
     "white": {
+      "$type": "color",
       "$value": "{color.white}",
       "$extensions": {
         "dev.bootstrap.tokens": {
@@ -106,6 +111,7 @@
       "$description": "Fixed white in both schemes, for an edge that must stay light whatever the theme does."
     },
     "black": {
+      "$type": "color",
       "$value": "{color.black}",
       "$extensions": {
         "dev.bootstrap.tokens": {

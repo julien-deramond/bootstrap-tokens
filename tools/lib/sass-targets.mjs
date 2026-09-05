@@ -52,7 +52,9 @@ export const GROUPS = [
   { group: 'theme-color', sassMap: '$theme-colors', cssPrefix: '--', layer: 'semantic', nestedRoles: true },
   { group: 'bg', sassMap: '$theme-bgs', cssPrefix: '--bg-', layer: 'semantic' },
   { group: 'fg', sassMap: '$theme-fgs', cssPrefix: '--fg-', layer: 'semantic' },
-  { group: 'border', sassMap: '$theme-borders', cssPrefix: '--border-', layer: 'semantic' },
+  // `hint` beats the name-based guess: every key of $theme-borders is a colour, while
+  // `border.width` and `border.style` alongside them are not.
+  { group: 'border', sassMap: '$theme-borders', cssPrefix: '--border-', layer: 'semantic', hint: 'color' },
   { group: 'shadow', sassMap: '$shadows', cssPrefix: '--box-shadow', layer: 'semantic', dashOptional: true },
   { group: 'root', sassMap: '$root-tokens', cssPrefix: '--', layer: 'semantic', flat: true }
 ]

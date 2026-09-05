@@ -78,6 +78,31 @@ relative-colour shadow strings. These carry `$value` as a literal string plus:
 
 The exporter passes them through untouched. `validate` skips reference checking on them.
 
+## Deviation 4 — untypeable values carry no `$type`
+
+**Problem.** DTCG requires every token to resolve a `$type`, from itself or an ancestor
+group. Some of Bootstrap's values have no DTCG type in existence:
+
+| value | why no type fits |
+| --- | --- |
+| `nowrap`, `none`, `inherit` | CSS keywords; DTCG has no keyword type |
+| `url("data:image/svg+xml,…")` | DTCG has no asset or image type |
+| `"color, background-color, box-shadow"` | a property list, not a value |
+| `10%`, `12.5%` | `dimension` accepts only `px` and `rem` |
+| `1 / 1` | DTCG has no ratio type |
+| `rotate(-180deg)` | DTCG has no transform type |
+
+**Rule.** Type everything that can be typed honestly — including the composites `shadow`,
+`border`, `transition` and `gradient`, whose values stay strings under Deviation 1. For the
+rest, omit `$type` and set `css: true`.
+
+A wrong type is worse than a missing one: a tool that trusts `$type: dimension` on `10%` will
+mis-parse it, whereas a tool that sees no type knows it does not know.
+
+`validate` requires every token to be typed **or** marked `css: true`, so the escape hatch
+cannot quietly become the norm. It currently covers **58 of 1203** tokens, all of them in the
+table above's shapes.
+
 ## The full extension schema
 
 ```jsonc

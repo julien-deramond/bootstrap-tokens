@@ -1,6 +1,7 @@
 {
   "tooltip": {
     "zindex": {
+      "$type": "number",
       "$value": "{z-index.tooltip}",
       "$extensions": {
         "dev.bootstrap.tokens": {

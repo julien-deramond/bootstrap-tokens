@@ -48,6 +48,7 @@
       }
     },
     "box-shadow": {
+      "$type": "shadow",
       "$value": "{shadow.inset}",
       "$extensions": {
         "dev.bootstrap.tokens": {
@@ -80,6 +81,7 @@
       }
     },
     "bar-transition": {
+      "$type": "transition",
       "$value": "width .6s ease",
       "$extensions": {
         "dev.bootstrap.tokens": {

@@ -59,6 +59,7 @@
       }
     },
     "box-shadow": {
+      "$type": "shadow",
       "$value": "{shadow.sm}",
       "$extensions": {
         "dev.bootstrap.tokens": {

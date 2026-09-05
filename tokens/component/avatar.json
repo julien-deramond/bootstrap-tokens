@@ -124,6 +124,7 @@
       }
     },
     "stack-transition": {
+      "$type": "transition",
       "$value": "\"transform .2s ease-in-out\"",
       "$extensions": {
         "dev.bootstrap.tokens": {

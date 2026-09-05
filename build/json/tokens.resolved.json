@@ -108,7 +108,7 @@
     "sassMap": "$accordion-tokens"
   },
   "accordion.btn-icon-transition": {
-    "$type": null,
+    "$type": "transition",
     "$value": "transform .2s ease-in-out",
     "cssVar": "--accordion-btn-icon-transition",
     "sassMap": "$accordion-tokens"
@@ -165,7 +165,7 @@
     "sassMap": "$alert-tokens"
   },
   "alert.border": {
-    "$type": null,
+    "$type": "border",
     "$value": "var(--border-width) solid var(--alert-border-color)",
     "cssVar": "--alert-border",
     "sassMap": "$alert-tokens"
@@ -268,7 +268,7 @@
     "sassMap": "$avatar-tokens"
   },
   "avatar.stack-transition": {
-    "$type": null,
+    "$type": "transition",
     "$value": "\"transform .2s ease-in-out\"",
     "cssVar": "--avatar-stack-transition",
     "sassMap": "$avatar-tokens"
@@ -718,13 +718,13 @@
     "sassMap": "$button-styled-tokens"
   },
   "button-styled.btn-shadow": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "\"0 1px 2px rgb(0 0 0 / 15%), inset 0 1px 0 rgb(255 255 255 / 10%)\"",
     "cssVar": "--btn-shadow",
     "sassMap": "$button-styled-tokens"
   },
   "button-styled.btn-active-shadow": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "inset 0 2px 4px rgb(0 0 0 / .15)",
     "cssVar": "--btn-active-shadow",
     "sassMap": "$button-styled-tokens"
@@ -832,7 +832,7 @@
     "sassMap": "$card-tokens"
   },
   "card.box-shadow": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "none",
     "cssVar": "--card-box-shadow",
     "sassMap": "$card-tokens"
@@ -1311,7 +1311,7 @@
     "sassMap": "$datepicker-tokens"
   },
   "datepicker.box-shadow": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "var(--box-shadow)",
     "cssVar": "--datepicker-box-shadow",
     "sassMap": "$datepicker-tokens"
@@ -1323,7 +1323,7 @@
     "sassMap": "$datepicker-tokens"
   },
   "datepicker.zindex": {
-    "$type": null,
+    "$type": "number",
     "$value": "var(--z-menu)",
     "cssVar": "--datepicker-zindex",
     "sassMap": "$datepicker-tokens"
@@ -1377,7 +1377,7 @@
     "sassMap": "$dialog-tokens"
   },
   "dialog.box-shadow": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "var(--box-shadow-xl)",
     "cssVar": "--dialog-box-shadow",
     "sassMap": "$dialog-tokens"
@@ -1479,7 +1479,7 @@
     "sassMap": "$drawer-tokens"
   },
   "drawer.zindex": {
-    "$type": null,
+    "$type": "number",
     "$value": "var(--z-drawer)",
     "cssVar": "--drawer-zindex",
     "sassMap": "$drawer-tokens"
@@ -1539,7 +1539,7 @@
     "sassMap": "$drawer-tokens"
   },
   "drawer.box-shadow": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "var(--box-shadow-xl)",
     "cssVar": "--drawer-box-shadow",
     "sassMap": "$drawer-tokens"
@@ -1689,7 +1689,7 @@
     "sassMap": "$form-control-tokens"
   },
   "form-control.control-box-shadow": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "var(--box-shadow-inset)",
     "cssVar": "--control-box-shadow",
     "sassMap": "$form-control-tokens"
@@ -1941,7 +1941,7 @@
     "sassMap": "$hover-lift-tokens"
   },
   "hover-lift.box-shadow": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "var(--box-shadow-lg)",
     "cssVar": "--hover-lift-box-shadow",
     "sassMap": "$hover-lift-tokens"
@@ -1965,7 +1965,7 @@
     "sassMap": "$icon-link-tokens"
   },
   "icon-link.icon-transition": {
-    "$type": null,
+    "$type": "transition",
     "$value": ".2s ease-in-out transform",
     "cssVar": "--icon-link-icon-transition",
     "sassMap": "$icon-link-tokens"
@@ -2121,7 +2121,7 @@
     "sassMap": "$list-group-tokens"
   },
   "menu.zindex": {
-    "$type": null,
+    "$type": "number",
     "$value": "var(--z-menu)",
     "cssVar": "--menu-zindex",
     "sassMap": "$menu-tokens"
@@ -2175,7 +2175,7 @@
     "sassMap": "$menu-tokens"
   },
   "menu.box-shadow": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "var(--box-shadow-lg)",
     "cssVar": "--menu-box-shadow",
     "sassMap": "$menu-tokens"
@@ -2739,7 +2739,7 @@
     "sassMap": "$navbar-tokens"
   },
   "navbar.toggler-transition": {
-    "$type": null,
+    "$type": "transition",
     "$value": "box-shadow .15s ease-in-out",
     "cssVar": "--navbar-toggler-transition",
     "sassMap": "$navbar-tokens"
@@ -2928,7 +2928,7 @@
     "sassMap": "$placeholder-tokens"
   },
   "popover.zindex": {
-    "$type": null,
+    "$type": "number",
     "$value": "var(--z-popover)",
     "cssVar": "--popover-zindex",
     "sassMap": "$popover-tokens"
@@ -2976,7 +2976,7 @@
     "sassMap": "$popover-tokens"
   },
   "popover.box-shadow": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "var(--box-shadow)",
     "cssVar": "--popover-box-shadow",
     "sassMap": "$popover-tokens"
@@ -3042,7 +3042,7 @@
     "sassMap": "$popover-tokens"
   },
   "popover.arrow-border": {
-    "$type": null,
+    "$type": "border",
     "$value": "var(--popover-border-color)",
     "cssVar": "--popover-arrow-border",
     "sassMap": "$popover-tokens"
@@ -3090,7 +3090,7 @@
     "sassMap": "$progress-tokens"
   },
   "progress.box-shadow": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "var(--box-shadow-inset)",
     "cssVar": "--progress-box-shadow",
     "sassMap": "$progress-tokens"
@@ -3108,7 +3108,7 @@
     "sassMap": "$progress-tokens"
   },
   "progress.bar-transition": {
-    "$type": null,
+    "$type": "transition",
     "$value": "width .6s ease",
     "cssVar": "--progress-bar-transition",
     "sassMap": "$progress-tokens"
@@ -3252,7 +3252,7 @@
     "sassMap": "$range-tokens"
   },
   "range.thumb-border": {
-    "$type": null,
+    "$type": "border",
     "$value": "var(--range-thumb-bg) solid var(--border-color)",
     "cssVar": "--range-thumb-border",
     "sassMap": "$range-tokens"
@@ -3264,7 +3264,7 @@
     "sassMap": "$range-tokens"
   },
   "range.thumb-box-shadow": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "\"0 1px 2px rgb(0 0 0 / 7.5%), 0 2px 4px rgb(0 0 0 / 7.5%)\"",
     "cssVar": "--range-thumb-box-shadow",
     "sassMap": "$range-tokens"
@@ -3540,7 +3540,7 @@
     "sassMap": "$stepper-tokens"
   },
   "strength.transition": {
-    "$type": null,
+    "$type": "transition",
     "$value": "background-color .2s ease-in-out, width .3s ease-in-out",
     "$description": "How the password strength meter animates as it fills."
   },
@@ -3869,13 +3869,13 @@
     "sassMap": "$thumbnail-tokens"
   },
   "thumbnail.box-shadow": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "var(--box-shadow-sm)",
     "cssVar": "--thumbnail-box-shadow",
     "sassMap": "$thumbnail-tokens"
   },
   "toast.zindex": {
-    "$type": null,
+    "$type": "number",
     "$value": "var(--z-toast)",
     "cssVar": "--toast-zindex",
     "sassMap": "$toast-tokens"
@@ -3893,7 +3893,7 @@
     "sassMap": "$toast-tokens"
   },
   "toast.spacing": {
-    "$type": null,
+    "$type": "dimension",
     "$value": "1.5rem",
     "cssVar": "--toast-spacing",
     "sassMap": "$toast-tokens"
@@ -3941,7 +3941,7 @@
     "sassMap": "$toast-tokens"
   },
   "toast.box-shadow": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "var(--box-shadow)",
     "cssVar": "--toast-box-shadow",
     "sassMap": "$toast-tokens"
@@ -3983,7 +3983,7 @@
     "sassMap": "$toast-tokens"
   },
   "tooltip.zindex": {
-    "$type": null,
+    "$type": "number",
     "$value": "var(--z-tooltip)",
     "cssVar": "--tooltip-zindex",
     "sassMap": "$tooltip-tokens"
@@ -6160,42 +6160,42 @@
     "sassMap": "$theme-borders"
   },
   "border.body": {
-    "$type": null,
+    "$type": "color",
     "$value": "light-dark(var(--gray-300), var(--gray-800))",
     "$description": "The standard visible border. Stronger than `subtle`, calmer than `emphasized`.",
     "cssVar": "--border-body",
     "sassMap": "$theme-borders"
   },
   "border.muted": {
-    "$type": null,
+    "$type": "color",
     "$value": "light-dark(var(--gray-200), var(--gray-800))",
     "$description": "A quieter border for grouping without drawing a line the eye stops at.",
     "cssVar": "--border-muted",
     "sassMap": "$theme-borders"
   },
   "border.subtle": {
-    "$type": null,
+    "$type": "color",
     "$value": "light-dark(color-mix(in oklch, var(--gray-100), var(--gray-200)), color-mix(in oklch, var(--gray-800), var(--gray-900)))",
     "$description": "The faintest border. For separating areas that are already distinguished by space.",
     "cssVar": "--border-subtle",
     "sassMap": "$theme-borders"
   },
   "border.emphasized": {
-    "$type": null,
+    "$type": "color",
     "$value": "light-dark(var(--gray-400), var(--gray-600))",
     "$description": "A deliberately visible border, for focus targets and selected states.",
     "cssVar": "--border-emphasized",
     "sassMap": "$theme-borders"
   },
   "border.white": {
-    "$type": null,
+    "$type": "color",
     "$value": "var(--white)",
     "$description": "Fixed white in both schemes, for an edge that must stay light whatever the theme does.",
     "cssVar": "--border-white",
     "sassMap": "$theme-borders"
   },
   "border.black": {
-    "$type": null,
+    "$type": "color",
     "$value": "var(--black)",
     "$description": "Fixed black in both schemes, for an edge that must stay dark whatever the theme does.",
     "cssVar": "--border-black",
@@ -6489,48 +6489,48 @@
     "sassMap": "$root-tokens"
   },
   "decoration.gradient": {
-    "$type": null,
+    "$type": "gradient",
     "$value": "linear-gradient(180deg, color-mix(var(--white) 15%, transparent), color-mix(var(--white) 0%, transparent))",
     "$description": "The sheen laid over filled components when `$enable-gradients` is on.",
     "cssVar": "--gradient"
   },
   "shadow.default": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "#{( \"0 .125rem .25rem -.0625rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.04 * var(--shadow-strength) * var(--so, 1)))\", \"0 .375rem .75rem -.125rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.05 * var(--shadow-strength) * var(--so, 1)))\", \"0 .75rem 1.5rem -.25rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.06 * var(--shadow-strength) * var(--so, 1)))\" )}",
     "$description": "The everyday shadow. Three layers, so it stays soft rather than reading as a hard edge.",
     "cssVar": "--box-shadow",
     "sassMap": "$shadows"
   },
   "shadow.xs": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "0 .0625rem .125rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.04 * var(--shadow-strength) * var(--so, 1)))",
     "$description": "A single-layer shadow for elements barely lifted off the page.",
     "cssVar": "--box-shadow-xs",
     "sassMap": "$shadows"
   },
   "shadow.sm": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "#{( \"0 .0625rem .125rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.04 * var(--shadow-strength) * var(--so, 1)))\", \"0 .125rem .375rem -.0625rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.05 * var(--shadow-strength) * var(--so, 1)))\" )}",
     "$description": "Two layers, for resting cards and small popovers.",
     "cssVar": "--box-shadow-sm",
     "sassMap": "$shadows"
   },
   "shadow.lg": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "#{( \"0 .125rem .375rem -.0625rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.05 * var(--shadow-strength) * var(--so, 1)))\", \"0 .375rem 1rem -.1875rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.06 * var(--shadow-strength) * var(--so, 1)))\", \"0 .75rem 2rem -.375rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.07 * var(--shadow-strength) * var(--so, 1)))\", \"0 1.5rem 3.5rem -.75rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.08 * var(--shadow-strength) * var(--so, 1)))\" )}",
     "$description": "Four layers, for menus and anything that overlaps content.",
     "cssVar": "--box-shadow-lg",
     "sassMap": "$shadows"
   },
   "shadow.xl": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "#{( \"0 .1875rem .5rem -.0625rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.05 * var(--shadow-strength) * var(--so, 1)))\", \"0 .5rem 1.25rem -.1875rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.06 * var(--shadow-strength) * var(--so, 1)))\", \"0 1rem 2.5rem -.375rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.07 * var(--shadow-strength) * var(--so, 1)))\", \"0 2rem 5rem -.75rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.09 * var(--shadow-strength) * var(--so, 1)))\" )}",
     "$description": "The deepest scale step, for dialogs and drawers that should detach from the page.",
     "cssVar": "--box-shadow-xl",
     "sassMap": "$shadows"
   },
   "shadow.inset": {
-    "$type": null,
+    "$type": "shadow",
     "$value": "inset 0 1px 2px light-dark(oklch(from var(--sc, var(--shadow-color)) l c h / calc(8% * var(--so, 1))), oklch(from var(--sc, var(--shadow-color)) l c h / calc(26% * var(--so, 1))))",
     "$description": "An inward shadow, for wells and pressed states.",
     "cssVar": "--box-shadow-inset",
@@ -6572,7 +6572,7 @@
     "sassMap": "$root-tokens"
   },
   "focus.ring": {
-    "$type": null,
+    "$type": "border",
     "$value": "var(--focus-ring-width) solid var(--focus-ring-color)",
     "$description": "The whole focus ring shorthand, composed from the width and colour above.",
     "cssVar": "--focus-ring",

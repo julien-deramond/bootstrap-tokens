@@ -53,6 +53,17 @@ export function validate(doc, { strict = false } = {}) {
     if (token.$type !== undefined && !DTCG_TYPES.has(token.$type)) {
       errors.push(`${path}: "${token.$type}" is not a DTCG type`)
     }
+
+    /*
+     * DTCG requires a resolvable `$type`. A handful of Bootstrap's values have no DTCG type
+     * at all — `nowrap`, a `url()` data URI, a property list like "color, background-color",
+     * a percentage, an aspect ratio. Rather than lie about those with a wrong type or leave
+     * the gap unmarked, they carry `css: true`, which says "raw CSS, pass it through".
+     * Everything else must be typed, so the escape hatch cannot quietly become the norm.
+     */
+    if (!token.$type && !meta.css && !meta.generated) {
+      errors.push(`${path}: needs a $type, or \`css: true\` if it is a raw CSS value DTCG cannot express`)
+    }
     if (token.$extensions && Object.keys(token.$extensions).some((key) => !key.includes('.'))) {
       errors.push(`${path}: $extensions keys must be reverse-DNS namespaced`)
     }

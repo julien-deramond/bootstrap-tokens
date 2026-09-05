@@ -1,7 +1,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 
-import { ext } from '../lib/tokens.mjs'
+import { ext, walk } from '../lib/tokens.mjs'
 import { loadTokens } from '../lib/load-fs.mjs'
 import { validate } from '../lib/validate.mjs'
 import { tokensDir } from '../lib/config.mjs'
@@ -53,4 +53,36 @@ test('the emitted Sass module reproduces upstream map shapes', () => {
   assert.match(scss, /2xl: 1536px/)
   assert.doesNotMatch(scss, /"2xl": 1536px/)
   assert.match(scss, /--alert-gap: var\(--spacer-3\)/)
+})
+
+test('every token is typed, or explicitly marked as raw CSS', () => {
+  // A wrong `$type` is worse than a missing one: a tool that trusts `dimension` on `10%`
+  // mis-parses it, while a tool that sees no type knows it does not know.
+  const unclassified = []
+  for (const [path, token] of walk(doc.tree)) {
+    if (token.$type || ext(token).css || ext(token).generated) continue
+    unclassified.push(path)
+  }
+  assert.deepEqual(unclassified, [])
+})
+
+test('the raw-CSS escape hatch stays small', () => {
+  // If this grows a lot, the typing rules have stopped keeping up rather than Bootstrap
+  // having gained that many untypeable values.
+  let escaped = 0
+  let total = 0
+  for (const [, token] of walk(doc.tree)) {
+    if (ext(token).generated) continue
+    total++
+    if (!token.$type && ext(token).css) escaped++
+  }
+  assert.ok(escaped / total < 0.08, `${escaped} of ${total} tokens are untyped`)
+})
+
+test('composite types are used where the value permits', () => {
+  assert.equal(doc.tokens.get('shadow.lg').$type, 'shadow')
+  assert.equal(doc.tokens.get('focus.ring').$type, 'border')
+  assert.equal(doc.tokens.get('decoration.gradient').$type, 'gradient')
+  assert.equal(doc.tokens.get('border.body').$type, 'color')
+  assert.equal(doc.tokens.get('border.width').$type, 'dimension')
 })

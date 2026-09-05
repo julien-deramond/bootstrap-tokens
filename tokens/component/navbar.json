@@ -246,6 +246,7 @@
       }
     },
     "toggler-transition": {
+      "$type": "transition",
       "$value": "box-shadow .15s ease-in-out",
       "$extensions": {
         "dev.bootstrap.tokens": {

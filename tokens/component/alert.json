@@ -73,6 +73,7 @@
       "$description": "Follows the `.theme-*` class on an ancestor through `--theme-border`, and uses the fallback only when no theme class is set."
     },
     "border": {
+      "$type": "border",
       "$value": "{border.width} solid {alert.border-color}",
       "$extensions": {
         "dev.bootstrap.tokens": {

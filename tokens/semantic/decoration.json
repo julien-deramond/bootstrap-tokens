@@ -1,6 +1,7 @@
 {
   "decoration": {
     "gradient": {
+      "$type": "gradient",
       "$value": "linear-gradient(180deg, color-mix({color.white} 15%, transparent), color-mix({color.white} 0%, transparent))",
       "$extensions": {
         "dev.bootstrap.tokens": {

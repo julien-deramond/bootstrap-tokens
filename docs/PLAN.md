@@ -79,23 +79,26 @@ lossless: `"media-query"` keeps its quotes, `4.5` stays a number, a list stays a
 Bootstrap generates rather than what values it holds, and no amount of overriding custom
 properties can un-write a `border-radius` declaration that was never emitted.
 
-### A3. Every token carries a resolvable `$type`
+### A3. Every token carries a resolvable `$type` · ✅ **done**
 
-**308 of 1197 tokens (25.7%) have no `$type`**, which is invalid DTCG — the type must
-resolve, from the token or an ancestor group.
+Was 308 untyped. Now **58**, every one of them explicitly marked `css: true` — and `validate`
+requires a token to be typed *or* carry that mark, so nothing is unclassified and the escape
+hatch cannot quietly become the norm.
 
-Three groups, three different answers:
+Most of the 308 were simply not being asked about. The extractor guessed a type from the
+token's name and gave up when the name did not match, so `menu.zindex`, `toast.spacing` and
+every key of `$theme-borders` went untyped despite being obvious. The composites came with
+them: `shadow`, `border`, `transition` and `gradient` are now used wherever the value permits,
+which is what a design tool needs in order to do anything with a shadow beyond echo it.
 
-* **Typeable, just not typed yet** — extend `hints.mjs` and set them.
-* **CSS keywords** (`inherit`, `nowrap`, `transparent`) — these need a stated convention.
-  Propose a group-level `$type` plus `$extensions…cssKeyword: true`, and record the decision
-  in `dtcg-conventions.md` rather than leaving it implicit.
-* **Not actually design tokens** — `--btn-white-space: nowrap` and
-  `--btn-transition-property: "color, background-color…"` are CSS property defaults that
-  leaked into a token map. Flag them upstream; model them as configuration here.
+The 58 that remain have no DTCG type in existence — `nowrap`, a `url()` data URI, a property
+list, a percentage, an aspect ratio, a transform. Written up as Deviation 4 in
+[`dtcg-conventions.md`](./dtcg-conventions.md). A wrong type would be worse than a missing
+one: a tool that trusts `$type: dimension` on `10%` mis-parses it, whereas a tool that sees no
+type knows it does not know.
 
-Then **validate against the published DTCG JSON Schema in CI**, so "we follow DTCG" stops
-being a claim and becomes a test.
+Still to do: validating against the published DTCG JSON Schema in CI, which needs the schema
+as a dependency.
 
 ### A4. Descriptions — the document has to be readable · ✅ **done**
 

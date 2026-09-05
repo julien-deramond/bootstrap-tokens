@@ -111,6 +111,7 @@
       }
     },
     "control-box-shadow": {
+      "$type": "shadow",
       "$value": "{shadow.inset}",
       "$extensions": {
         "dev.bootstrap.tokens": {

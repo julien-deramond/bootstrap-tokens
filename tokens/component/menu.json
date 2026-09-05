@@ -1,6 +1,7 @@
 {
   "menu": {
     "zindex": {
+      "$type": "number",
       "$value": "{z-index.menu}",
       "$extensions": {
         "dev.bootstrap.tokens": {
@@ -114,6 +115,7 @@
       }
     },
     "box-shadow": {
+      "$type": "shadow",
       "$value": "{shadow.lg}",
       "$extensions": {
         "dev.bootstrap.tokens": {

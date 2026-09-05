@@ -1,6 +1,7 @@
 {
   "popover": {
     "zindex": {
+      "$type": "number",
       "$value": "{z-index.popover}",
       "$extensions": {
         "dev.bootstrap.tokens": {
@@ -92,6 +93,7 @@
       }
     },
     "box-shadow": {
+      "$type": "shadow",
       "$value": "{shadow.default}",
       "$extensions": {
         "dev.bootstrap.tokens": {
@@ -219,6 +221,7 @@
       }
     },
     "arrow-border": {
+      "$type": "border",
       "$value": "{popover.border-color}",
       "$extensions": {
         "dev.bootstrap.tokens": {

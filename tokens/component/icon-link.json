@@ -39,6 +39,7 @@
       }
     },
     "icon-transition": {
+      "$type": "transition",
       "$value": ".2s ease-in-out transform",
       "$extensions": {
         "dev.bootstrap.tokens": {

@@ -1,6 +1,7 @@
 {
   "toast": {
     "zindex": {
+      "$type": "number",
       "$value": "{z-index.toast}",
       "$extensions": {
         "dev.bootstrap.tokens": {
@@ -39,6 +40,7 @@
       }
     },
     "spacing": {
+      "$type": "dimension",
       "$value": "{grid.container-padding-x}",
       "$extensions": {
         "dev.bootstrap.tokens": {
@@ -131,6 +133,7 @@
       }
     },
     "box-shadow": {
+      "$type": "shadow",
       "$value": "{shadow.default}",
       "$extensions": {
         "dev.bootstrap.tokens": {

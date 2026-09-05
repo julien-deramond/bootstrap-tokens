@@ -8,10 +8,26 @@ const TIMING = /(^|-)(timing|easing)$/
 const WEIGHT = /(^|-)font-weight$/
 const FAMILY = /(^|-)font-family$/
 const OPACITY = /(^|-)opacity$/
+const SHADOW = /(^|-)(shadow|box-shadow)$/
+const BORDER = /(^|-)border$/
+/* A composite transition (`transform .2s ease-in-out`), not the property list beside it. */
+const TRANSITION = /(^|-)transition$/
+const ZINDEX = /(^|-)(zindex|z-index)$/
+const SPACING = /(^|-)spacing$/
+const GRADIENT = /(^|-)gradient$/
+/* `3px solid <colour>` is a border composite, whatever it is called. */
+const RING = /(^|-)ring$/
 
 export function hintFor(name) {
   const key = String(name).replace(/^--/, '')
 
+  if (ZINDEX.test(key)) return 'number'
+  if (SPACING.test(key)) return 'dimension'
+  if (GRADIENT.test(key)) return 'gradient'
+  if (RING.test(key)) return 'border'
+  if (SHADOW.test(key)) return 'shadow'
+  if (BORDER.test(key)) return 'border'
+  if (TRANSITION.test(key)) return 'transition'
   if (WEIGHT.test(key)) return 'fontWeight'
   if (FAMILY.test(key)) return 'fontFamily'
   if (DURATION.test(key)) return 'duration'
@@ -24,6 +40,7 @@ export function hintFor(name) {
 
 /** Fixed hints per token group, which beat the name-based guess. */
 export const GROUP_HINTS = {
+  shadow: 'shadow',
   color: 'color',
   'theme-color': 'color',
   bg: 'color',

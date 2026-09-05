@@ -43,6 +43,7 @@
       "$description": "Colour of the focus ring. Follows the primary role by default."
     },
     "ring": {
+      "$type": "border",
       "$value": "{focus.width} solid {focus.color}",
       "$extensions": {
         "dev.bootstrap.tokens": {
