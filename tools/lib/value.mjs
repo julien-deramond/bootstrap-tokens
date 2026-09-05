@@ -169,3 +169,47 @@ export function formatNumber(n) {
   if (str.startsWith('-0.')) return `-${str.slice(2)}`
   return str
 }
+
+/**
+ * A resolved value as it belongs in CSS, rather than as Sass carries it.
+ *
+ * Two things Sass does on the way out that the document keeps, and that a browser cannot
+ * read. Neither is cosmetic; both silently produce nothing.
+ *
+ * **Quotes.** Twenty-one values are Sass strings: `"color, background-color"`, `"transform
+ * .2s ease-in-out"`, the body font stack. The quotes stop Sass parsing a comma list as an
+ * argument list, and interpolation drops them. Left in, `font-family: "-apple-system, …"`
+ * names a single family whose name contains commas, which nothing matches, so text falls
+ * back to the browser default, and a quoted `transition-property` transitions nothing.
+ *
+ * **Interpolation.** Fifteen values are wrapped in `#{…}` — the escape hatch Bootstrap uses
+ * to smuggle a `url()`, an aspect ratio, or a comma-separated shadow list past Sass's own
+ * parsing. Left in, the checkbox tick, the close icon, the select arrow, the navbar toggler
+ * and every box shadow are `#{url(…)}`, which is not a value.
+ *
+ * The Sass export never had either problem, because Sass does this itself. The CSS export,
+ * the theme stylesheet and the chooser's preview all did — until `verify --theme` compiled
+ * a font change and compared it against what was previewed.
+ *
+ * So: quotes and braces for anything handed to Sass, this for anything handed to a browser.
+ */
+export function cssLiteral(value) {
+  if (typeof value !== 'string') return value
+
+  const interpolated = /^#\{(.*)\}$/s.exec(value.trim())
+  if (!interpolated) return unquote(value)
+
+  const inner = interpolated[1].trim()
+  const list = /^\((.*)\)$/s.exec(inner)
+  // A parenthesised list of quoted strings is Sass's way of writing one comma-separated
+  // CSS value — a multi-layer shadow — so it becomes exactly that.
+  if (list) {
+    return splitArgs(list[1])
+      .map((part) => unquote(part.trim()))
+      .filter(Boolean)
+      .join(', ')
+  }
+  return unquote(inner)
+}
+
+const unquote = (value) => (/^"(.*)"$/s.test(value) ? value.replace(/^"(.*)"$/s, '$1') : value)

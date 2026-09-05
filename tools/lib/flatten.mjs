@@ -14,6 +14,7 @@
 
 import { ext, walk } from './tokens.mjs'
 import { parseColor, mixColors, toHex } from './color.mjs'
+import { cssLiteral } from './value.mjs'
 import { lintValue, splitTopLevel } from './css-lint.mjs'
 
 const CALL = /^([a-z-]+)\((.*)\)$/is
@@ -197,7 +198,7 @@ export function flattenValues(doc, { mode = 'light' } = {}) {
     } else {
       // A colour can sit inside a composite: a border, a shadow, a gradient stop. Those
       // have to be computed too, or a "flat" export still contains a color-mix().
-      const folded = foldColors(unquote(literal), mode)
+      const folded = foldColors(cssLiteral(literal), mode)
       if (folded === null) unresolved.set(path, reasonFor(css, { kind: token.$type ?? 'value' }))
       else values.set(path, folded)
     }
@@ -215,9 +216,6 @@ function foldColors(text, mode) {
   })
 }
 
-/** Sass keeps some values quoted so they survive as strings; nothing downstream wants that. */
-const unquote = (text) =>
-  /^"(.*)"$/s.test(text) ? text.replace(/^"(.*)"$/s, '$1') : text
 
 const VAR_CALL = /\bvar\(/
 

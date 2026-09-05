@@ -12,7 +12,8 @@ tokens/  (DTCG, source of truth)  ──build──▶  Sass maps · CSS custom 
 
 **Status:** tracks Bootstrap `6.0.0-alpha1`. 1203 tokens. `bstokens verify` compiles upstream
 `bootstrap.scss` and the exported configuration and asserts the CSS is byte-identical — today
-it is, across all 17021 lines.
+it is, across all 17021 lines. It also checks the CSS export against upstream's own output
+declaration by declaration, and `--theme <file>` runs the same check on your theme.
 
 ## Why
 

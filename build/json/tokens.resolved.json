@@ -25,7 +25,7 @@
   },
   "accordion.transition-property": {
     "$type": null,
-    "$value": "\"color, background-color, border-radius\"",
+    "$value": "color, background-color, border-radius",
     "cssVar": "--accordion-transition-property",
     "sassMap": "$accordion-tokens"
   },
@@ -43,7 +43,7 @@
   },
   "accordion.panel-transition-property": {
     "$type": null,
-    "$value": "\"content-visibility, block-size\"",
+    "$value": "content-visibility, block-size",
     "cssVar": "--accordion-panel-transition-property",
     "sassMap": "$accordion-tokens"
   },
@@ -184,7 +184,7 @@
   },
   "alert.transition-property": {
     "$type": null,
-    "$value": "\"opacity\"",
+    "$value": "opacity",
     "cssVar": "--alert-transition-property",
     "sassMap": "$alert-tokens"
   },
@@ -269,7 +269,7 @@
   },
   "avatar.stack-transition": {
     "$type": "transition",
-    "$value": "\"transform .2s ease-in-out\"",
+    "$value": "transform .2s ease-in-out",
     "cssVar": "--avatar-stack-transition",
     "sassMap": "$avatar-tokens"
   },
@@ -407,7 +407,7 @@
   },
   "breadcrumb.divider-icon": {
     "$type": null,
-    "$value": "#{url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 16'%3e%3cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M2 2l4 6-4 6'/%3e%3c/svg%3e\")}",
+    "$value": "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 8 16'%3e%3cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='M2 2l4 6-4 6'/%3e%3c/svg%3e\")",
     "cssVar": "--breadcrumb-divider-icon",
     "sassMap": "$breadcrumb-tokens"
   },
@@ -479,7 +479,7 @@
   },
   "btn-close.icon": {
     "$type": null,
-    "$value": "#{url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath d='M12 0a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4zm-.646 4.646a.5.5 0 0 0-.707 0L8 7.293 5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.647a.5.5 0 1 0 .708.707L8 8.707l2.647 2.646a.5.5 0 1 0 .707-.707L8.707 8l2.646-2.646a.5.5 0 0 0 0-.708z'/%3e%3c/svg%3e\")}",
+    "$value": "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath d='M12 0a4 4 0 0 1 4 4v8a4 4 0 0 1-4 4H4a4 4 0 0 1-4-4V4a4 4 0 0 1 4-4zm-.646 4.646a.5.5 0 0 0-.707 0L8 7.293 5.354 4.646a.5.5 0 1 0-.708.708L7.293 8l-2.647 2.647a.5.5 0 1 0 .708.707L8 8.707l2.647 2.646a.5.5 0 1 0 .707-.707L8.707 8l2.646-2.646a.5.5 0 0 0 0-.708z'/%3e%3c/svg%3e\")",
     "cssVar": "--btn-close-icon",
     "sassMap": "$btn-close-tokens"
   },
@@ -593,7 +593,7 @@
   },
   "btn.transition-property": {
     "$type": null,
-    "$value": "\"color, background-color, border-color, box-shadow\"",
+    "$value": "color, background-color, border-color, box-shadow",
     "cssVar": "--btn-transition-property",
     "sassMap": "$button-tokens"
   },
@@ -719,7 +719,7 @@
   },
   "button-styled.btn-shadow": {
     "$type": "shadow",
-    "$value": "\"0 1px 2px rgb(0 0 0 / 15%), inset 0 1px 0 rgb(255 255 255 / 10%)\"",
+    "$value": "0 1px 2px rgb(0 0 0 / 15%), inset 0 1px 0 rgb(255 255 255 / 10%)",
     "cssVar": "--btn-shadow",
     "sassMap": "$button-styled-tokens"
   },
@@ -1055,13 +1055,13 @@
   },
   "check.icon-checked": {
     "$type": null,
-    "$value": "#{url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m5.5 10 3 3 6-6'/%3e%3c/svg%3e\")}",
+    "$value": "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m5.5 10 3 3 6-6'/%3e%3c/svg%3e\")",
     "cssVar": "--check-icon-checked",
     "sassMap": "$check-tokens"
   },
   "check.icon-indeterminate": {
     "$type": null,
-    "$value": "#{url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 10h8'/%3e%3c/svg%3e\")}",
+    "$value": "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 20 20'%3e%3cpath fill='none' stroke='black' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M6 10h8'/%3e%3c/svg%3e\")",
     "cssVar": "--check-icon-indeterminate",
     "sassMap": "$check-tokens"
   },
@@ -1264,7 +1264,7 @@
   },
   "collapse.transition-collapse-property": {
     "$type": null,
-    "$value": "\"block-size, display\"",
+    "$value": "block-size, display",
     "cssVar": "--transition-collapse-property",
     "sassMap": "$collapse-tokens"
   },
@@ -1384,7 +1384,7 @@
   },
   "dialog.transition-property": {
     "$type": null,
-    "$value": "\"opacity, transform, visibility\"",
+    "$value": "opacity, transform, visibility",
     "cssVar": "--dialog-transition-property",
     "sassMap": "$dialog-tokens"
   },
@@ -1546,7 +1546,7 @@
   },
   "drawer.transition-property": {
     "$type": null,
-    "$value": "\"transform, visibility\"",
+    "$value": "transform, visibility",
     "cssVar": "--drawer-transition-property",
     "sassMap": "$drawer-tokens"
   },
@@ -1708,7 +1708,7 @@
   },
   "form-control.control-transition-property": {
     "$type": null,
-    "$value": "\"border-color, box-shadow\"",
+    "$value": "border-color, box-shadow",
     "cssVar": "--control-transition-property",
     "sassMap": "$form-control-tokens"
   },
@@ -1750,7 +1750,7 @@
   },
   "form-control.control-select-bg": {
     "$type": "color",
-    "$value": "#{url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2300000080' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e\")}",
+    "$value": "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%2300000080' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e\")",
     "cssVar": "--control-select-bg",
     "sassMap": "$form-control-tokens"
   },
@@ -1768,7 +1768,7 @@
   },
   "form-control.control-select-bg-dark": {
     "$type": "color",
-    "$value": "#{url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff80' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e\")}",
+    "$value": "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath fill='none' stroke='%23ffffff80' stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='m2 5 6 6 6-6'/%3e%3c/svg%3e\")",
     "cssVar": "--control-select-bg-dark",
     "sassMap": "$form-control-tokens"
   },
@@ -1846,7 +1846,7 @@
   },
   "form-floating.transition-property": {
     "$type": null,
-    "$value": "\"opacity, transform\"",
+    "$value": "opacity, transform",
     "cssVar": "--form-floating-transition-property",
     "sassMap": "$form-floating-tokens"
   },
@@ -2296,7 +2296,7 @@
   },
   "menu.transition-property": {
     "$type": null,
-    "$value": "\"opacity, transform, display\"",
+    "$value": "opacity, transform, display",
     "cssVar": "--menu-transition-property",
     "sassMap": "$menu-tokens"
   },
@@ -2494,7 +2494,7 @@
   },
   "nav.link-transition-property": {
     "$type": null,
-    "$value": "\"color, background-color, border-color\"",
+    "$value": "color, background-color, border-color",
     "cssVar": "--nav-link-transition-property",
     "sassMap": "$nav-tokens"
   },
@@ -2752,7 +2752,7 @@
   },
   "navbar.toggler-icon": {
     "$type": null,
-    "$value": "#{url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath stroke='black' stroke-linecap='round' stroke-width='1' d='M1 3.5h14M1 8h14M1 12.5h14'/%3e%3c/svg%3e\")}",
+    "$value": "url(\"data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath stroke='black' stroke-linecap='round' stroke-width='1' d='M1 3.5h14M1 8h14M1 12.5h14'/%3e%3c/svg%3e\")",
     "cssVar": "--navbar-toggler-icon",
     "sassMap": "$navbar-tokens"
   },
@@ -3049,7 +3049,7 @@
   },
   "popover.transition-property": {
     "$type": null,
-    "$value": "\"opacity\"",
+    "$value": "opacity",
     "cssVar": "--popover-transition-property",
     "sassMap": "$popover-tokens"
   },
@@ -3265,7 +3265,7 @@
   },
   "range.thumb-box-shadow": {
     "$type": "shadow",
-    "$value": "\"0 1px 2px rgb(0 0 0 / 7.5%), 0 2px 4px rgb(0 0 0 / 7.5%)\"",
+    "$value": "0 1px 2px rgb(0 0 0 / 7.5%), 0 2px 4px rgb(0 0 0 / 7.5%)",
     "cssVar": "--range-thumb-box-shadow",
     "sassMap": "$range-tokens"
   },
@@ -3283,7 +3283,7 @@
   },
   "range.thumb-transition-property": {
     "$type": null,
-    "$value": "\"background-color, border-color, box-shadow\"",
+    "$value": "background-color, border-color, box-shadow",
     "cssVar": "--range-thumb-transition-property",
     "sassMap": "$range-tokens"
   },
@@ -3714,7 +3714,7 @@
   },
   "tab-pane.transition-property": {
     "$type": null,
-    "$value": "\"opacity\"",
+    "$value": "opacity",
     "cssVar": "--tab-pane-transition-property",
     "sassMap": "$tab-pane-tokens"
   },
@@ -3966,7 +3966,7 @@
   },
   "toast.transition-property": {
     "$type": null,
-    "$value": "\"opacity, display\"",
+    "$value": "opacity, display",
     "cssVar": "--toast-transition-property",
     "sassMap": "$toast-tokens"
   },
@@ -4050,7 +4050,7 @@
   },
   "tooltip.transition-property": {
     "$type": null,
-    "$value": "\"opacity\"",
+    "$value": "opacity",
     "cssVar": "--tooltip-transition-property",
     "sassMap": "$tooltip-tokens"
   },
@@ -5817,22 +5817,22 @@
   },
   "aspect-ratio.1x1": {
     "$type": null,
-    "$value": "#{\"1 / 1\"}",
+    "$value": "1 / 1",
     "sassMap": "$aspect-ratios"
   },
   "aspect-ratio.4x3": {
     "$type": null,
-    "$value": "#{\"4 / 3\"}",
+    "$value": "4 / 3",
     "sassMap": "$aspect-ratios"
   },
   "aspect-ratio.16x9": {
     "$type": null,
-    "$value": "#{\"16 / 9\"}",
+    "$value": "16 / 9",
     "sassMap": "$aspect-ratios"
   },
   "aspect-ratio.21x9": {
     "$type": null,
-    "$value": "#{\"21 / 9\"}",
+    "$value": "21 / 9",
     "sassMap": "$aspect-ratios"
   },
   "position.0": {
@@ -6496,7 +6496,7 @@
   },
   "shadow.default": {
     "$type": "shadow",
-    "$value": "#{( \"0 .125rem .25rem -.0625rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.04 * var(--shadow-strength) * var(--so, 1)))\", \"0 .375rem .75rem -.125rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.05 * var(--shadow-strength) * var(--so, 1)))\", \"0 .75rem 1.5rem -.25rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.06 * var(--shadow-strength) * var(--so, 1)))\" )}",
+    "$value": "0 .125rem .25rem -.0625rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.04 * var(--shadow-strength) * var(--so, 1))), 0 .375rem .75rem -.125rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.05 * var(--shadow-strength) * var(--so, 1))), 0 .75rem 1.5rem -.25rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.06 * var(--shadow-strength) * var(--so, 1)))",
     "$description": "The everyday shadow. Three layers, so it stays soft rather than reading as a hard edge.",
     "cssVar": "--box-shadow",
     "sassMap": "$shadows"
@@ -6510,21 +6510,21 @@
   },
   "shadow.sm": {
     "$type": "shadow",
-    "$value": "#{( \"0 .0625rem .125rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.04 * var(--shadow-strength) * var(--so, 1)))\", \"0 .125rem .375rem -.0625rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.05 * var(--shadow-strength) * var(--so, 1)))\" )}",
+    "$value": "0 .0625rem .125rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.04 * var(--shadow-strength) * var(--so, 1))), 0 .125rem .375rem -.0625rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.05 * var(--shadow-strength) * var(--so, 1)))",
     "$description": "Two layers, for resting cards and small popovers.",
     "cssVar": "--box-shadow-sm",
     "sassMap": "$shadows"
   },
   "shadow.lg": {
     "$type": "shadow",
-    "$value": "#{( \"0 .125rem .375rem -.0625rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.05 * var(--shadow-strength) * var(--so, 1)))\", \"0 .375rem 1rem -.1875rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.06 * var(--shadow-strength) * var(--so, 1)))\", \"0 .75rem 2rem -.375rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.07 * var(--shadow-strength) * var(--so, 1)))\", \"0 1.5rem 3.5rem -.75rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.08 * var(--shadow-strength) * var(--so, 1)))\" )}",
+    "$value": "0 .125rem .375rem -.0625rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.05 * var(--shadow-strength) * var(--so, 1))), 0 .375rem 1rem -.1875rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.06 * var(--shadow-strength) * var(--so, 1))), 0 .75rem 2rem -.375rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.07 * var(--shadow-strength) * var(--so, 1))), 0 1.5rem 3.5rem -.75rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.08 * var(--shadow-strength) * var(--so, 1)))",
     "$description": "Four layers, for menus and anything that overlaps content.",
     "cssVar": "--box-shadow-lg",
     "sassMap": "$shadows"
   },
   "shadow.xl": {
     "$type": "shadow",
-    "$value": "#{( \"0 .1875rem .5rem -.0625rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.05 * var(--shadow-strength) * var(--so, 1)))\", \"0 .5rem 1.25rem -.1875rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.06 * var(--shadow-strength) * var(--so, 1)))\", \"0 1rem 2.5rem -.375rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.07 * var(--shadow-strength) * var(--so, 1)))\", \"0 2rem 5rem -.75rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.09 * var(--shadow-strength) * var(--so, 1)))\" )}",
+    "$value": "0 .1875rem .5rem -.0625rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.05 * var(--shadow-strength) * var(--so, 1))), 0 .5rem 1.25rem -.1875rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.06 * var(--shadow-strength) * var(--so, 1))), 0 1rem 2.5rem -.375rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.07 * var(--shadow-strength) * var(--so, 1))), 0 2rem 5rem -.75rem oklch(from var(--sc, var(--shadow-color)) l c h / calc(.09 * var(--shadow-strength) * var(--so, 1)))",
     "$description": "The deepest scale step, for dialogs and drawers that should detach from the page.",
     "cssVar": "--box-shadow-xl",
     "sassMap": "$shadows"
@@ -7224,7 +7224,7 @@
   },
   "type.body.font-family": {
     "$type": "fontFamily",
-    "$value": "\"-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'\"",
+    "$value": "-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', 'Noto Sans', 'Liberation Sans', Arial, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji'",
     "$description": "The body font stack. It deliberately omits `system-ui`, which resolves to the locale’s UI font and renders non-Latin text incorrectly.",
     "cssVar": "--body-font-family",
     "sassMap": "$root-tokens"
@@ -7294,7 +7294,7 @@
   },
   "type.code.font-family": {
     "$type": null,
-    "$value": "\"ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Monaco, 'Cascadia Mono', Consolas, 'Liberation Mono', monospace\"",
+    "$value": "ui-monospace, 'SF Mono', SFMono-Regular, Menlo, Monaco, 'Cascadia Mono', Consolas, 'Liberation Mono', monospace",
     "$description": "The monospace stack, for code and any figure that should align in columns.",
     "cssVar": "--font-mono",
     "sassMap": "$root-tokens"

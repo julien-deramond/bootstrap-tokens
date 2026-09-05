@@ -2,6 +2,7 @@ import { mkdirSync, writeFileSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { ext, walk } from '../lib/tokens.mjs'
+import { cssLiteral } from '../lib/value.mjs'
 import { loadTokens, loadTree } from '../lib/load-fs.mjs'
 import { emitTokensModule, emitUseWith, mapEntries } from '../lib/emit-scss.mjs'
 import { emitTypeScript, emitStyleDictionary, emitTokensStudio } from '../lib/emit-consumers.mjs'
@@ -31,7 +32,16 @@ export function cssDeclarations(doc) {
       const meta = ext(token)
       if (!meta.cssVar) continue
 
-      const declaration = [meta.cssVar, doc.cssValueOf(entry.path)]
+      /*
+       * `null` in Sass means "emit nothing", which is how Bootstrap says a property is
+       * deliberately unset — `--label-font-weight` exists as a hook and has no default.
+       * Written out literally it becomes `--label-font-weight: null`, a declaration whose
+       * value is the identifier `null`, and every use of it is then invalid. Upstream's
+       * compiled CSS has no such line; neither should ours.
+       */
+      const value = cssLiteral(doc.cssValueOf(entry.path))
+      if (value === 'null' || value === null) continue
+      const declaration = [meta.cssVar, value]
       if (component) {
         if (!scoped.has(component.selector)) scoped.set(component.selector, [])
         scoped.get(component.selector).push(declaration)
@@ -45,7 +55,9 @@ export function cssDeclarations(doc) {
   const scale = []
   for (const [path, token] of walk(doc.tree)) {
     const meta = ext(token)
-    if (meta.generated === 'color-scale' && meta.cssVar) scale.push([meta.cssVar, doc.cssValueOf(path)])
+    if (meta.generated === 'color-scale' && meta.cssVar) {
+      scale.push([meta.cssVar, cssLiteral(doc.cssValueOf(path))])
+    }
   }
 
   return { root: [...scale, ...root], scoped }
@@ -73,7 +85,7 @@ function emitResolvedJson(doc) {
     const meta = ext(token)
     out[path] = {
       $type: token.$type ?? null,
-      $value: doc.cssValueOf(path),
+      $value: cssLiteral(doc.cssValueOf(path)),
       ...(token.$description ? { $description: token.$description } : {}),
       ...(meta.cssVar ? { cssVar: meta.cssVar } : {}),
       ...(meta.sassMap ? { sassMap: meta.sassMap } : {})

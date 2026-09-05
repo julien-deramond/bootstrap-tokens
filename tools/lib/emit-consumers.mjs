@@ -15,37 +15,9 @@
  */
 
 import { ext, walk } from './tokens.mjs'
-import { splitTopLevel } from './css-lint.mjs'
-import { typedToCss } from './value.mjs'
+import { typedToCss, cssLiteral } from './value.mjs'
 import { flattenValues } from './flatten.mjs'
 
-const unquote = (text) => (/^"(.*)"$/s.test(text) ? text.replace(/^"(.*)"$/s, '$1') : text)
-
-/**
- * Strip Sass interpolation, which no consumer outside Sass can read.
- *
- * Fifteen values are wrapped in `#{…}` — the escape hatch Bootstrap uses to smuggle a
- * `url()`, an aspect ratio like `#{"1 / 1"}` or a comma-separated shadow list past Sass's
- * own parsing. Left in, Style Dictionary reads the braces as a token reference and fails on
- * 27 of them; a designer opening the file sees syntax rather than a value.
- *
- * A parenthesised list of quoted strings is Sass's way of writing one comma-separated CSS
- * value, so it becomes exactly that.
- */
-function desass(text) {
-  const interpolated = /^#\{(.*)\}$/s.exec(text)
-  if (!interpolated) return text
-
-  const inner = interpolated[1].trim()
-  const list = /^\((.*)\)$/s.exec(inner)
-  if (list) {
-    return splitTopLevel(list[1])
-      .map((part) => unquote(part.trim()))
-      .filter(Boolean)
-      .join(', ')
-  }
-  return unquote(inner)
-}
 
 /**
  * The token's value with `{references}` intact — DTCG's own shape, as opposed to the CSS
@@ -60,10 +32,10 @@ export function dtcgValue(doc, path, { mode = 'light' } = {}) {
   if (!token) return null
   const meta = ext(token)
 
-  if (meta.arithmetic) return desass(doc.cssValueOf(path))
-  if (mode === 'dark' && meta.dark) return desass(unquote(meta.dark))
+  if (meta.arithmetic) return cssLiteral(doc.cssValueOf(path))
+  if (mode === 'dark' && meta.dark) return cssLiteral(meta.dark)
   if (typeof token.$value !== 'string') return typedToCss(token)
-  return desass(unquote(token.$value))
+  return cssLiteral(token.$value)
 }
 
 /* --------------------------------------------------------------------------
@@ -92,7 +64,7 @@ export function emitTypeScript(doc, { version, mode = 'light' } = {}) {
     const fields = [
       `cssVar: ${meta.cssVar ? jsString(meta.cssVar) : 'null'}`,
       `type: ${token.$type ? jsString(token.$type) : 'null'}`,
-      `value: ${jsString(desass(unquote(doc.cssValueOf(path) ?? '')))}`
+      `value: ${jsString(cssLiteral(doc.cssValueOf(path) ?? ''))}`
     ]
     if (flat.values.has(path)) fields.push(`light: ${jsString(flat.values.get(path))}`)
     if (dark.values.has(path)) fields.push(`dark: ${jsString(dark.values.get(path))}`)

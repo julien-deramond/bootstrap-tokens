@@ -28,6 +28,8 @@ const USAGE = `bstokens <command> [options]
 
   verify     Compile upstream Bootstrap and our export, and diff the CSS
              --src <path>   the checkout to compile against
+             --theme <f>    also check that this theme.json compiles to the values the
+                            chooser previewed (default: a built-in fixture)
 
   probe      Write a page that checks the flattened colours against a real browser
              --out <f>      where to write it (default build/probe.html)

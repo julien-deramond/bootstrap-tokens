@@ -177,6 +177,24 @@ never reached any page with an explicit theme, including this tool's own preview
 `fixedDark` extension generalised to `pinnedModes`, the runtime CSS re-asserts at every
 selector upstream pins, and the Sass export now names what it cannot express.
 
+`verify --theme <file>` runs the same check on **your** theme rather than the built-in
+fixture, which is the question anyone about to ship one actually has. It found two bugs on
+its first real theme: Sass strings emitted with their quotes, so `font-family` named a single
+family with commas in it and matched nothing, and `#{…}` interpolation left in, so every icon
+and every box shadow in `build/css/tokens.css` was `#{url(…)}`.
+
+Both were invisible because nothing compared the **CSS route**. The Sass export is proved
+byte-identical and covers one of the three ways out of this document; the CSS export is
+assembled in JavaScript and had never been checked against anything. `verify` now compares it
+to upstream's compiled output per selector, modulo the ways Sass reformats — leading zeros,
+hue angles, legacy colour syntax, folded constants.
+
+Fixing the comparison exposed a third problem in the check itself: upstream writes
+`:root,\n:host`, which the parser records as two rules, so a lookup for the combined selector
+matched nothing and 653 declarations — every global token — went silently uncompared while the
+check reported success on the 591 that happened to be single-selector components. The count is
+now printed, including what could not be compared.
+
 Still to do: the same end-to-end check for `eject` on a theme that *adds* a key.
 
 ### B2. Say when a change cannot be expressed · ✅ **done**

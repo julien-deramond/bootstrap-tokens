@@ -6,7 +6,7 @@
  * representation, the two stylesheets are identical.
  */
 
-import { mkdtempSync, writeFileSync, readFileSync } from 'node:fs'
+import { mkdtempSync, writeFileSync, readFileSync, existsSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
@@ -17,7 +17,7 @@ import { index } from '../lib/tokens.mjs'
 import { expandColorScales } from '../lib/color-scale.mjs'
 import { resolveBootstrapSource, tokensDir } from '../lib/config.mjs'
 import { COMPONENTS } from '../lib/sass-targets.mjs'
-import { sourceVersion } from './build.mjs'
+import { sourceVersion, cssDeclarations } from './build.mjs'
 
 /** Where a map's tokens are emitted. Component maps land on their own class. */
 const selectorFor = (sassMap) =>
@@ -56,10 +56,33 @@ function firstDifferences(a, b, limit = 25) {
   return out
 }
 
+/**
+ * A theme file, or the built-in fixture.
+ *
+ * The fixture proves the *pipeline* works. It cannot prove that **your** theme works, which
+ * is the question anyone about to ship one actually has — and the answer is not obvious,
+ * because preview and export reach CSS by different routes. So the same check runs on
+ * whatever you hand it.
+ */
+function themeToVerify(path) {
+  if (!path) return { overrides: FIXTURE, name: 'the built-in fixture' }
+  if (!existsSync(path)) throw new Error(`No such theme file: ${path}`)
+
+  const parsed = JSON.parse(readFileSync(path, 'utf8'))
+  if (!parsed || typeof parsed.overrides !== 'object') {
+    throw new Error(`${path} is not a theme file — expected an "overrides" object.`)
+  }
+  if (Object.keys(parsed.overrides).length === 0) {
+    throw new Error(`${path} overrides nothing, so there is nothing to verify.`)
+  }
+  return { overrides: parsed.overrides, name: parsed.name ?? path }
+}
+
 export async function verify({ flags }) {
   const source = resolveBootstrapSource(flags.src)
   const doc = loadTokens(tokensDir)
   const version = sourceVersion()
+  const theme = themeToVerify(flags.theme)
 
   const work = mkdtempSync(join(tmpdir(), 'bstokens-'))
   const entry = join(work, 'custom.scss')
@@ -86,9 +109,72 @@ export async function verify({ flags }) {
 
   console.log(`✓ Identical output — ${lines(upstream).length} lines of CSS.`)
 
+  const cssRoute = verifyCssExport(upstream, doc)
+  if (cssRoute !== 0) return cssRoute
+
   // The full config above is not the path anyone uses. A theme carries only the keys it
   // changed, and that path is where preview and export can silently disagree.
-  return verifyPartial(source, work)
+  return verifyPartial(source, work, theme)
+}
+
+/**
+ * `build/css/tokens.css` never goes through Sass, and nothing was checking it.
+ *
+ * The Sass export is proved byte-identical, which is a strong result and covers exactly one
+ * of the three routes out of this document. The CSS export is assembled here in JavaScript,
+ * and it shipped two whole classes of broken value before anything compared it: Sass strings
+ * emitted with their quotes, so `font-family` named one family with commas in it and matched
+ * nothing; and `#{…}` interpolation left in, so every icon and every box shadow was
+ * `#{url(…)}`.
+ *
+ * Both are invisible unless you look at a browser or at upstream's own output. So compare
+ * against upstream's output, per selector, modulo the ways Sass reformats.
+ */
+function verifyCssExport(upstreamCss, doc) {
+  const theirs = customProperties(upstreamCss)
+  const { root, scoped } = cssDeclarations(doc)
+
+  const ours = [
+    ...root.map((declaration) => [':root, :host', declaration]),
+    ...[...scoped].flatMap(([selector, declarations]) =>
+      declarations.map((declaration) => [selector, declaration])
+    )
+  ]
+
+  const mismatches = []
+  const unmatched = []
+  let compared = 0
+
+  for (const [selector, [property, value]] of ours) {
+    const upstreamValue = valueOn(theirs, selector, property)
+    // Upstream declares some of these under a compound selector we do not model one-to-one.
+    // That is a modelling question rather than a value question — but it is counted and
+    // printed, because a check that quietly skips half its subject is how this one reported
+    // success while every global token went uncompared.
+    if (upstreamValue === undefined) {
+      unmatched.push(`${property} (${selector})`)
+      continue
+    }
+
+    compared++
+    if (normalise(upstreamValue) !== normalise(value)) {
+      mismatches.push({ selector, property, upstream: upstreamValue, ours: value })
+    }
+  }
+
+  if (mismatches.length === 0) {
+    const skipped = unmatched.length > 0 ? `; ${unmatched.length} not declared there to compare` : ''
+    console.log(`✓ The CSS export matches upstream on all ${compared} shared declarations${skipped}.`)
+    return 0
+  }
+
+  console.error(`\n✗ ${mismatches.length} of ${compared} CSS declarations differ from upstream:`)
+  for (const { selector, property, upstream, ours: mine } of mismatches.slice(0, 20)) {
+    console.error(`  ${property}  (${selector})`)
+    console.error(`    upstream: ${String(upstream).slice(0, 150)}`)
+    console.error(`    ours:     ${String(mine).slice(0, 150)}`)
+  }
+  return 1
 }
 
 /**
@@ -101,19 +187,22 @@ export async function verify({ flags }) {
  * hardcodes, and `--shadow-strength`, which dark mode pins outside any token map. Nothing
  * checked for a third.
  */
-async function verifyPartial(source, work) {
+async function verifyPartial(source, work, theme) {
   const sass = await import('sass')
   const { tree } = loadTree(tokensDir)
   const base = index(expandColorScales(clone(tree)))
-  const themed = withOverrides(tree, FIXTURE)
+  const themed = withOverrides(tree, theme.overrides)
 
   const entry = join(work, 'partial.scss')
   writeFileSync(
     entry,
-    themeScss(themed, FIXTURE, { version: sourceVersion(), importPath: join(source, 'scss', 'bootstrap') })
+    themeScss(themed, theme.overrides, {
+      version: sourceVersion(),
+      importPath: join(source, 'scss', 'bootstrap')
+    })
   )
 
-  console.log('\nCompiling a partial theme export…')
+  console.log(`\nCompiling ${theme.name} as a partial theme export…`)
   const css = sass.compile(entry, { loadPaths: [source], style: 'expanded', sourceMap: false }).css
   const compiled = customProperties(css)
 
@@ -135,7 +224,8 @@ async function verifyPartial(source, work) {
   }
 
   if (mismatches.length === 0) {
-    console.log(`✓ All ${predicted.length} previewed properties match the compiled export.`)
+    const count = predicted.length
+    console.log(`✓ All ${count} previewed ${count === 1 ? 'property matches' : 'properties match'} the compiled export.`)
     return 0
   }
 
@@ -215,21 +305,59 @@ function customProperties(css) {
 const CONDITIONAL = /^@(media|supports|container)\b/
 
 /** The value a selector actually ends up with, following the base rule for `:root`. */
+/**
+ * Upstream writes `:root,\n:host` and the parser records those as two rules, so a lookup for
+ * the combined selector we emit finds nothing. Silently — which is how 653 of the 1328
+ * declarations, every global token, went uncompared while the check reported success on the
+ * 591 that happened to be single-selector components.
+ */
 function valueOn(bySelector, selector, property) {
-  return bySelector.get(selector)?.get(property)
+  for (const part of String(selector).split(',')) {
+    const found = bySelector.get(part.trim())?.get(property)
+    if (found !== undefined) return found
+  }
+  return undefined
 }
 
 /**
- * Sass re-serialises numbers on output: `.25rem` becomes `0.25rem` and a bare hue gains
- * `deg`. Both sides are normalised the same way so those differences do not read as bugs,
- * while a genuine value change still does.
+ * Sass re-serialises on output, and none of it changes what a browser paints.
+ *
+ * `.25rem` becomes `0.25rem`, a bare hue gains `deg`, modern colour syntax is rewritten as
+ * `rgba()`, redundant parentheses inside `calc()` are dropped, and a division of two
+ * constants is folded. Both sides are normalised the same way, so none of that reads as a
+ * bug — while a genuine value change still does.
  */
 function normalise(value) {
-  return String(value)
-    .replace(/(^|[\s(,])\.(\d)/g, '$10.$2')
-    .replace(/(\d)deg\b/g, '$1')
-    .replace(/\s+/g, ' ')
-    .trim()
+  return (
+    String(value)
+      .replace(/(^|[\s(,\/-])\.(\d)/g, '$10.$2')
+      .replace(/(\d)deg\b/g, '$1')
+      // `rgb(0 0 0 / 50%)` and `rgba(0, 0, 0, 0.5)` are the same colour written twice.
+      .replace(
+        /\brgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)\s*(?:[,\/]\s*([\d.]+%?))?\s*\)/g,
+        (_, r, g, b, a) => `rgb(${r} ${g} ${b} / ${alphaOf(a)})`
+      )
+      .replace(/\s*\/\s*/g, ' / ')
+      .replace(/\(\s*(var\(--[\w-]+\)\s*[*/]\s*[\d.]+)\s*\)/g, '$1')
+      // Sass folds a division of two constants; CSS leaves it for the browser. Same number.
+      .replace(/\bcalc\(\s*([\d.]+)\s*([*/+-])\s*([\d.]+)\s*\)/g, (whole, a, operator, b) => {
+        const result = { '*': (x, y) => x * y, '/': (x, y) => x / y, '+': (x, y) => x + y, '-': (x, y) => x - y }
+        return round(result[operator](Number(a), Number(b)))
+      })
+      // Sass rounds to ten decimal places on output, so compare at a precision below that.
+      .replace(/\d+\.\d{5,}/g, (number) => round(Number(number)))
+      .replace(/\s+/g, ' ')
+      .trim()
+  )
+}
+
+const round = (n) => String(Number(n.toFixed(6)))
+
+/** Alpha as a fraction, whichever of the two ways it was written. */
+function alphaOf(text) {
+  if (text === undefined) return '1'
+  const number = Number.parseFloat(text)
+  return String(text.endsWith('%') ? number / 100 : number)
 }
 
 function reportDifference(upstream, ours, work) {

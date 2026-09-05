@@ -150,6 +150,22 @@ never reported as bugs.
 
 ## P — This project
 
+### P8 · 73 CSS declarations have no upstream counterpart to compare against
+
+`verify` now checks `build/css/tokens.css` against upstream's compiled output per selector,
+and matches 1244 of 1317 declarations. The rest are ones upstream emits under a compound
+selector we model as a simple one — `--check-*` under `.form-check-input`, `--switch-*` under
+`.form-switch`, `--calendar-*`, `--otp-*`, `--label-*` and a few more, across 12 selectors.
+
+**Consequence:** those values are covered by the Sass route, which is byte-identical, but not
+by the CSS route — which is exactly where the last three bugs were.
+
+**Fix:** record the emitting selector on the component rather than inferring it, so the
+comparison can look in the right place. `sync` already reads the selector out of the source
+for most maps.
+
+---
+
 ### P7 · The pasted-markup sanitiser has no automated test
 
 `sanitise()` in `web/preview.js` strips scripts, event handlers and `javascript:` URLs before

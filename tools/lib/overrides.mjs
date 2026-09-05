@@ -11,6 +11,7 @@ import { expandColorScales } from './color-scale.mjs'
 import { emitUseWith } from './emit-scss.mjs'
 import { SCALARS, COMPONENTS } from './sass-targets.mjs'
 import { PINNED_SELECTORS } from './curation.mjs'
+import { cssLiteral } from './value.mjs'
 
 const scalarByPath = new Map(SCALARS.map((s) => [s.path, s.sassVar]))
 const selectorByMap = new Map(COMPONENTS.map((c) => [c.sassMap, c.selector]))
@@ -89,8 +90,8 @@ export function diffResolved(base, next) {
     let after
     let before
     try {
-      after = next.cssValueOf(path)
-      before = base.tokens.has(path) ? base.cssValueOf(path) : null
+      after = cssLiteral(next.cssValueOf(path))
+      before = base.tokens.has(path) ? cssLiteral(base.cssValueOf(path)) : null
     } catch {
       continue
     }
@@ -264,7 +265,7 @@ export function themeScss(
     '// alone will not reach a page with an explicit theme. Add this CSS as well:',
     '//',
     ...gaps.flatMap(({ path, cssVar }) => [
-      `//   [data-bs-theme="light"] { ${cssVar}: ${doc.cssValueOf(path)}; }`
+      `//   [data-bs-theme="light"] { ${cssVar}: ${cssLiteral(doc.cssValueOf(path))}; }`
     ]),
     ''
   ].join('\n')
