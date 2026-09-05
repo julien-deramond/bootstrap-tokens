@@ -44,11 +44,22 @@ configuration surface in PLAN.md A2.
 spacer moves the whole scale but leaves `--spacer` behind. Documented in the token
 document's `$description` for `spacing.root`; probably an upstream oversight.
 
-### U4 · Dark-mode `--shadow-strength` is unreachable
+### U4 · `--shadow-strength` is effectively unthemeable
 
-Pinned to `2.4` by a media query in `scss/_root.scss` that sits after `:root`, so no token
-map can change it. Modelled here as `fixedDark` so the preview stays honest. Upstream could
-expose it as a token.
+`scss/_root.scss` declares it four times: on `:root`, in a `prefers-color-scheme: dark`
+media query, on `[data-bs-theme="dark"]` and on `[data-bs-theme="light"]` — all after the
+`:root` block.
+
+The last one is the problem. A token override lands on `:root`, and `:root` loses to a rule
+on the element that actually carries the attribute. So on any page with an explicit
+`data-bs-theme` — which is most pages, and every preview this tool renders — overriding the
+token does **nothing**. The dial appeared to work only because the value was never checked
+at the selector the preview uses.
+
+Modelled here as `pinnedModes`, so the runtime `theme.css` re-asserts the value at every
+selector upstream pins, and the Sass export names what it cannot express. Neither is a fix:
+upstream should either make the strength a `light-dark()`-friendly pair or stop re-declaring
+it for the explicit-light case, where it is already the default.
 
 ---
 
@@ -64,13 +75,10 @@ token silently loses that value on import, with no warning.
 The theme-health chip puts its detail in a `title` attribute. Tooltips do not open on
 keyboard focus and are not announced reliably. Should be a disclosure or popover.
 
-### P3 · No test asserts the preview and the export agree
+### ~~P3 · No test asserts the preview and the export agree~~ · done
 
-`themeCss` (what the preview shows) and `themeScss` (what compiles) are built from the same
-resolver, but nothing checks that a given override produces the same computed value on both
-paths. Two bugs of exactly this kind have already shipped and been fixed (`--spacer`,
-`--shadow-strength`). PLAN.md B1 covers the compile half; the assertion should compare
-declaration by declaration.
+`verify` now compiles a partial theme export and compares every previewed custom property
+against the compiled value, selector by selector. It found the U4 pin on its first run.
 
 ### P4 · `build/` is committed and can go stale
 

@@ -10,7 +10,7 @@ import { ext, index, walk, NS } from './tokens.mjs'
 import { expandColorScales } from './color-scale.mjs'
 import { emitUseWith } from './emit-scss.mjs'
 import { SCALARS, COMPONENTS } from './sass-targets.mjs'
-import { FIXED_DARK_SELECTORS } from './curation.mjs'
+import { PINNED_SELECTORS } from './curation.mjs'
 
 const scalarByPath = new Map(SCALARS.map((s) => [s.path, s.sassVar]))
 const selectorByMap = new Map(COMPONENTS.map((c) => [c.sassMap, c.selector]))
@@ -73,7 +73,7 @@ export function diffResolved(base, next) {
         cssVar: meta.cssVar,
         sassMap: meta.sassMap,
         value: after,
-        fixedDark: meta.fixedDark ?? null
+        pinnedModes: meta.pinnedModes ?? null
       })
     }
   }
@@ -101,28 +101,49 @@ export function themeCss(changes) {
     blocks.push(`${selector} {\n${body}\n}`)
   }
 
-  blocks.push(...reassertFixedDark(changes))
+  blocks.push(...reassertPinned(changes))
   return `${blocks.join('\n\n')}\n`
 }
 
 /**
- * Some tokens are re-declared for dark mode by rules that sit *after* `:root` in Bootstrap's
- * own stylesheet, so overriding the token only moves the light value. Re-assert those fixed
- * values here; without this the preview would show a dark mode the compiled CSS never
- * produces. See FIXED_DARK in curation.mjs.
+ * Re-declare the tokens Bootstrap pins per colour scheme, at the selectors it pins them on.
+ *
+ * Two different failures without this. Skip the dark pins and the preview shows a dark mode
+ * no build produces. Skip the *light* pin and the override does nothing at all on any page
+ * carrying an explicit `data-bs-theme` — which is every page this tool previews.
+ * See PINNED_MODES in curation.mjs.
  */
-function reassertFixedDark(changes) {
+function reassertPinned(changes) {
   const blocks = []
 
   for (const change of changes) {
-    if (!change.fixedDark) continue
-    for (const { media, selector } of FIXED_DARK_SELECTORS) {
-      const rule = `${selector} {\n  ${change.cssVar}: ${change.fixedDark};\n}`
+    if (!change.pinnedModes) continue
+
+    for (const { media, selector, mode } of PINNED_SELECTORS) {
+      // A null pin means upstream fixes it to the default, so the token's value stands.
+      const value = change.pinnedModes[mode] ?? change.value
+      const rule = `${selector} {\n  ${change.cssVar}: ${value};\n}`
       blocks.push(media ? `@media ${media} {\n${indent(rule)}\n}` : rule)
     }
   }
 
   return blocks
+}
+
+/**
+ * Overrides that a `@use … with ()` configuration cannot fully express, because upstream
+ * re-declares them at selectors no token map reaches. The Sass export names them rather than
+ * quietly doing less than the preview showed.
+ */
+export function unexpressible(doc, overrides) {
+  const out = []
+
+  for (const path of Object.keys(overrides)) {
+    const meta = ext(doc.tokens.get(path))
+    if (meta.pinnedModes) out.push({ path, cssVar: meta.cssVar })
+  }
+
+  return out
 }
 
 const indent = (text) => text.split('\n').map((line) => `  ${line}`).join('\n')
@@ -174,7 +195,24 @@ export function themeScss(doc, overrides, { version, importPath = '../node_modul
   if (only.size === 0) {
     return `// No token overrides yet — this is stock Bootstrap.\n@use "${importPath}";\n`
   }
-  return emitUseWith(doc, { version, importPath, only, changedKeys: changedKeysOf(doc, overrides) })
+
+  const scss = emitUseWith(doc, { version, importPath, only, changedKeys: changedKeysOf(doc, overrides) })
+  const gaps = unexpressible(doc, overrides)
+  if (gaps.length === 0) return scss
+
+  // Silence here would mean shipping a file that does less than the preview showed.
+  const note = [
+    '',
+    '// Bootstrap re-declares these under [data-bs-theme] after :root, so a Sass override',
+    '// alone will not reach a page with an explicit theme. Add this CSS as well:',
+    '//',
+    ...gaps.flatMap(({ path, cssVar }) => [
+      `//   [data-bs-theme="light"] { ${cssVar}: ${doc.cssValueOf(path)}; }`
+    ]),
+    ''
+  ].join('\n')
+
+  return scss + note
 }
 
 /** A portable theme file that loads straight back into the chooser. */

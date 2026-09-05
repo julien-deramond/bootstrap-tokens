@@ -104,23 +104,29 @@ export const ROOT_TOKEN_PATHS = [
 export const ALIAS_REWRITES = new Map()
 
 /**
- * Tokens that upstream re-declares for dark mode *outside* any token map.
+ * Tokens that upstream re-declares outside any token map, per colour scheme.
  *
  * `--shadow-strength` is a plain number, so it cannot use `light-dark()`. `scss/_root.scss`
- * instead re-declares it in a `prefers-color-scheme` media query and under
- * `[data-bs-theme="dark"]`, both after the `:root` block — which means overriding the token
- * changes the light value only. Recording that here keeps the preview honest: it re-asserts
- * the fixed dark value exactly as the compiled stylesheet does, instead of showing a dark
- * mode that no build would ever produce.
+ * re-declares it four times — a `prefers-color-scheme` media query, `[data-bs-theme="dark"]`
+ * *and* `[data-bs-theme="light"]` — all after the `:root` block.
+ *
+ * The `[data-bs-theme="light"]` one is the awkward part. A token override lands on `:root`,
+ * and `:root` loses to a rule on the element that actually carries the attribute. So on any
+ * page with an explicit theme — including this project's own preview panes — changing the
+ * token has no effect at all unless the value is re-asserted at that selector.
+ *
+ * `dark` holds the value upstream pins. `light: null` means "upstream pins it to the default,
+ * so re-assert whatever the token now says".
  */
-export const FIXED_DARK = {
-  'elevation.strength': '2.4'
+export const PINNED_MODES = {
+  'elevation.strength': { dark: '2.4', light: null }
 }
 
-/** Where upstream re-declares a `FIXED_DARK` token. */
-export const FIXED_DARK_SELECTORS = [
-  { media: '(prefers-color-scheme: dark)', selector: ':root' },
-  { media: null, selector: '[data-bs-theme="dark"]' }
+/** Where upstream re-declares a pinned token, in cascade order. */
+export const PINNED_SELECTORS = [
+  { media: '(prefers-color-scheme: dark)', selector: ':root', mode: 'dark' },
+  { media: null, selector: '[data-bs-theme="dark"]', mode: 'dark' },
+  { media: null, selector: '[data-bs-theme="light"]', mode: 'light' }
 ]
 
 /** Per-token notes, surfaced in the chooser and in the resolved JSON. */
@@ -129,7 +135,7 @@ export const TOKEN_DESCRIPTIONS = {
     'Upstream hardcodes this rather than deriving it from $spacer, so changing the base spacer does not move it.',
   'radius.pill': 'A fixed 50rem, set on $root-tokens after the $radii loop.',
   'elevation.strength':
-    'Multiplies every shadow layer’s alpha. Light mode only: dark mode is pinned to 2.4 by a media query in scss/_root.scss, which no token map can reach.',
+    'Multiplies every shadow layer’s alpha. Dark mode is pinned to 2.4 by scss/_root.scss and no token map can reach it; a page with an explicit data-bs-theme needs a CSS rule as well as the Sass override. See docs/BACKLOG.md U4.',
   'color-mix.space': 'The interpolation space every generated colour step is mixed in.'
 }
 

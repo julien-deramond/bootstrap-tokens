@@ -125,14 +125,20 @@ apply migrations on import.
 
 ## Track B — Export
 
-### B1. Verify the path people actually use
+### B1. Verify the path people actually use · ✅ **done**
 
-`verify` compiles a **full** `@use … with ()` config. Since exports switched to carrying only
-changed keys, the default path is covered by unit tests but never by an end-to-end compile.
-That is a gap introduced by an improvement.
+`verify` now compiles a partial theme export and asserts every previewed custom property
+matches the compiled value, **at the selector it is declared on**. That last part matters:
+comparing by property name alone gives false failures, because upstream re-declares some
+properties under `[data-bs-theme]`.
 
-Extend `verify` to compile a **partial** export and assert it produces the CSS the chooser
-previewed. Same for `eject` on a theme that adds a key rather than changing one.
+It found a real bug on its first run — see [`BACKLOG.md`](./BACKLOG.md) U4. `--shadow-strength`
+is pinned by upstream at `[data-bs-theme="light"]` as well as for dark, so a token override
+never reached any page with an explicit theme, including this tool's own preview. The
+`fixedDark` extension generalised to `pinnedModes`, the runtime CSS re-asserts at every
+selector upstream pins, and the Sass export now names what it cannot express.
+
+Still to do: the same end-to-end check for `eject` on a theme that *adds* a key.
 
 ### B2. Say when a change cannot be expressed
 
