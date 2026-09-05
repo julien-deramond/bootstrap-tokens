@@ -96,6 +96,15 @@ const BARE_VAR = /^#?\{?\s*(\$[\w-]+)\s*\}?$/
  * `$colors: ("blue": $blue)` and `--white: #{$white}` do not hold a value — they point at
  * one. Editing the map entry there would be wrong: the real declaration is the scalar, and
  * that is where a maintainer expects the change to land.
+ *
+ * Unless the scalar is the base of a scale. `$radii: (5: $radius)` looks identical, but the
+ * eight sibling entries are `$radius * .25`, `$radius * 1.5` and so on — so patching
+ * `$radius` because someone changed step 5 moves all nine, while the consumer export moves
+ * one. `eject --verify` caught exactly that: `--rounded-size` came out half what the
+ * consumer route produced.
+ *
+ * The test is whether anything else in the same map leans on the same scalar. A map that is
+ * a pure re-export names it once; a scale names it in every entry.
  */
 function followIndirection(files, target, depth = 0) {
   if (!target || depth > 4) return target
@@ -107,9 +116,22 @@ function followIndirection(files, target, depth = 0) {
 
   const bare = BARE_VAR.exec(text.trim())
   if (!bare) return target
+  if (siblingsDependOn(target, bare[1])) return target
 
   const scalar = findScalar(files, bare[1])
   return scalar ? followIndirection(files, scalar, depth + 1) : target
+}
+
+/** Does another entry of this map reference `name`? */
+function siblingsDependOn(target, name) {
+  if (!target.entry || !Array.isArray(target.entries)) return false
+
+  const reference = new RegExp(`\\${name}(?![\\w-])`)
+  return target.entries.some(
+    (candidate) =>
+      candidate !== target.entry &&
+      reference.test(target.source.text.slice(candidate.valueStart, candidate.valueEnd))
+  )
 }
 
 /* ------------------------------------------------------------------ planning */

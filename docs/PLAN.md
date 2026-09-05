@@ -217,6 +217,14 @@ them, so byte-identical output stayed byte-identical.
 `sync` now checks placement against the compiled stylesheet, and coverage of the CSS route is
 1313 of 1313.
 
+Running `eject --verify` on a realistic theme rather than the fixture found a disagreement
+between the two routes. `$colors: ("blue": $blue)` and `$radii: (5: $radius)` look identical
+in the source, and the right answer differs: the colour map is a pure re-export so the edit
+belongs on the scalar, while `$radii` is a scale whose eight other entries derive from
+`$radius`, so patching it because step 5 moved would move all nine. The eject route did the
+latter and the consumer route did the former, and `--rounded-size` came out half. The
+indirection is now followed only when nothing else in the same map leans on the same scalar.
+
 Still to do: the same end-to-end check for `eject` on a theme that *adds* a key.
 
 ### B2. Say when a change cannot be expressed · ✅ **done**

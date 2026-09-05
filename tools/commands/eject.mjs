@@ -9,7 +9,7 @@ import { cpSync, mkdirSync, mkdtempSync, readFileSync, writeFileSync } from 'nod
 import { tmpdir } from 'node:os'
 import { dirname, join } from 'node:path'
 
-import { loadTree } from '../lib/load-fs.mjs'
+import { loadTree, loadMigrations } from '../lib/load-fs.mjs'
 import { index } from '../lib/tokens.mjs'
 import { expandColorScales } from '../lib/color-scale.mjs'
 import { clone, withOverrides } from '../lib/overrides.mjs'

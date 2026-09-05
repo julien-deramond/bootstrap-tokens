@@ -82,6 +82,35 @@ test('an eject edits the declaration a maintainer would expect', { skip: !source
   assert.ok(!changes.some((change) => change.file === 'scss/_config.scss' && change.key === '1'))
 })
 
+test('an indirection is followed only when nothing else leans on it', { skip: !source }, () => {
+  /*
+   * `$colors: ("blue": $blue)` and `$radii: (5: $radius)` look identical, and the right
+   * answer is different for each. The colour map is a pure re-export, so the edit belongs
+   * on `$blue`. `$radii` is a scale: its eight other entries are `$radius * .25`,
+   * `$radius * 1.5` and so on, so patching `$radius` because step 5 moved would move all
+   * nine — while the consumer export moves one. `eject --verify` caught the disagreement:
+   * `--rounded-size` came out half what the consumer route produced.
+   */
+  const overrides = { 'radius.5': { value: '.25rem' } }
+  const { changes } = planEject(source, withOverrides(tree, overrides), overrides)
+
+  assert.equal(changes.length, 1)
+  assert.equal(changes[0].key, '5', 'the map entry, not the scalar it points at')
+  assert.equal(changes[0].to, '.25rem')
+  assert.ok(!changes.some((change) => change.key === '$radius'))
+})
+
+test('the base of a scale still moves the whole scale', { skip: !source }, () => {
+  // The other half of the rule: overriding `radius.base` *is* an edit to `$radius`, and the
+  // derived entries stay symbolic so they follow it.
+  const overrides = { 'radius.base': { value: '0' } }
+  const { changes, patched } = planEject(source, withOverrides(tree, overrides), overrides)
+
+  assert.deepEqual(changes.map((change) => change.key), ['$radius'])
+  assert.match(patched.get('scss/_config.scss'), /^\$radius: 0 !default;$/m)
+  assert.match(patched.get('scss/_config.scss'), /7: \$radius \* 1\.5,/)
+})
+
 test('an eject preserves !default and everything it did not change', { skip: !source }, () => {
   const doc = withOverrides(tree, OVERRIDES)
   const { files, patched } = planEject(source, doc, OVERRIDES)
