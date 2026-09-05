@@ -50,6 +50,17 @@
       </div>
     </header>
 
+    <!--
+      Things that happened to your theme without you asking. Today that is one thing: a
+      saved theme naming a token upstream has renamed or removed. It used to go to
+      `console.info`, which nobody reads, so values disappeared from a theme in silence —
+      the worst failure a theme file can have, because nothing tells you to look.
+    -->
+    <div class="notice" id="notice" role="status" hidden>
+      <p id="notice-text"></p>
+      <button type="button" class="chip-button" id="notice-dismiss">Dismiss</button>
+    </div>
+
     <main class="layout">
       <section class="panel" aria-label="Theme controls">
         <div class="panel-tabs" role="tablist" id="mode">
@@ -62,7 +73,7 @@
 
           <div id="advanced" role="tabpanel" aria-labelledby="tab-advanced" tabindex="0" hidden>
             <div class="rail-search">
-              <input type="search" id="search" placeholder="Search 1197 tokens…" aria-label="Search tokens" autocomplete="off" />
+              <input type="search" id="search" placeholder="Search 1203 tokens…" aria-label="Search tokens" autocomplete="off" />
             </div>
             <div class="advanced-split">
               <nav class="rail" id="rail" aria-label="Token groups"></nav>

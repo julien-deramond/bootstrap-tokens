@@ -10,21 +10,13 @@
  * document from the browser.
  */
 
-import { readFileSync, writeFileSync } from 'node:fs'
+import { writeFileSync } from 'node:fs'
 
-import { loadTokens, loadTree } from '../lib/load-fs.mjs'
+import { loadTokens, loadTree, loadMigrations } from '../lib/load-fs.mjs'
 import { tokensDir } from '../lib/config.mjs'
+import { readThemeFile, reportTheme } from '../lib/theme-file.mjs'
 import { reportFor, markdown, html } from '../lib/report.mjs'
 import { sourceVersion } from './build.mjs'
-
-function readTheme(path) {
-  if (!path) return { overrides: {}, name: 'Bootstrap defaults' }
-  const parsed = JSON.parse(readFileSync(path, 'utf8'))
-  if (!parsed || typeof parsed.overrides !== 'object') {
-    throw new Error(`${path} is not a theme file — expected an "overrides" object.`)
-  }
-  return { overrides: parsed.overrides, name: parsed.name ?? path }
-}
 
 const FORMATS = { md: markdown, html, json: (data) => `${JSON.stringify(data, null, 2)}\n` }
 
@@ -41,10 +33,13 @@ const GATES = {
 }
 
 export async function report({ flags }) {
-  const { overrides, name } = readTheme(flags.theme)
+  const base = loadTokens(tokensDir)
+  const theme = readThemeFile(flags.theme, { doc: base, migrations: loadMigrations(tokensDir) })
+  if (reportTheme(theme, { skipUnknown: Boolean(flags['skip-unknown']) })) return 1
+
   const { tree } = loadTree(tokensDir)
-  const data = reportFor(tree, loadTokens(tokensDir), overrides, {
-    theme: name,
+  const data = reportFor(tree, base, theme.overrides, {
+    theme: theme.name,
     version: sourceVersion()
   })
 

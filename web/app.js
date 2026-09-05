@@ -1992,6 +1992,13 @@ function renderExport() {
   syncTabs($('#export-tabs'), (tab) => tab.dataset.tab === state.exportTab)
 }
 
+/** A page-level message about something that happened to the theme on its own. */
+function showNotice(text) {
+  const notice = $('#notice')
+  $('#notice-text').textContent = text
+  notice.hidden = false
+}
+
 /* ------------------------------------------------------------ your markup */
 
 function openMarkup() {
@@ -2062,12 +2069,23 @@ function wireMarkup() {
  * have, because nothing tells you to look.
  */
 function migrate(overrides) {
-  if (state.migrations.length === 0 || !state.baseDoc) return overrides
+  if (!state.baseDoc) return overrides
 
   const { overrides: migrated, renamed, dropped } = applyMigrations(overrides, state.migrations, state.baseDoc)
-  if (renamed.length + dropped.length > 0) {
-    console.info('[bootstrap-tokens] theme migrated', { renamed, dropped })
-  }
+  if (renamed.length + dropped.length === 0) return migrated
+
+  // Say it on the page, not in the console. A value vanishing from a saved theme is the
+  // one thing about a theme file that has to be noticed, and nobody has devtools open.
+  const parts = [
+    renamed.length > 0 ? `${renamed.length} value(s) followed a rename upstream` : null,
+    dropped.length > 0
+      ? `${dropped.length} value(s) referred to tokens that no longer exist and were dropped: ${dropped
+          .map((entry) => entry.path)
+          .join(', ')}`
+      : null
+  ].filter(Boolean)
+
+  showNotice(`This theme was written against an older Bootstrap. ${parts.join('; ')}.`)
   return migrated
 }
 
@@ -2269,6 +2287,10 @@ function wire() {
 
   wireMarkup()
 
+  $('#notice-dismiss').addEventListener('click', () => {
+    $('#notice').hidden = true
+  })
+
   /*
    * Colour-vision simulation, on the artboard only.
    *
@@ -2460,13 +2482,17 @@ async function start() {
   state.baseOptions = options
   await adoptSharedTheme()
 
+  state.baseTree = tree
+  state.meta = meta
+  // Before migrating, not after: `migrate` needs the document to tell a renamed token from
+  // one that is simply gone, and with it unset it returned every override untouched — so
+  // the startup path, the one every visitor takes, had never migrated anything.
+  state.baseDoc = index(expandColorScales(clone(tree)))
+
   const theme = activeTheme(state.store)
   state.overrides = migrate(theme.overrides ?? {})
   state.options = theme.options ?? {}
 
-  state.baseTree = tree
-  state.meta = meta
-  state.baseDoc = index(expandColorScales(clone(tree)))
   state.doc = withOverrides(tree, state.overrides)
 
   $('#brand-sub').textContent = `Bootstrap ${meta.bootstrap}`

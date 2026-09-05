@@ -10,7 +10,8 @@ import { mkdtempSync, writeFileSync, readFileSync, existsSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
-import { loadTokens, loadTree, loadOptions } from '../lib/load-fs.mjs'
+import { loadTokens, loadTree, loadOptions, loadMigrations } from '../lib/load-fs.mjs'
+import { readThemeFile, reportTheme } from '../lib/theme-file.mjs'
 import { emitUseWith } from '../lib/emit-scss.mjs'
 import { withOverrides, diffResolved, themeCss, themeScss, clone } from '../lib/overrides.mjs'
 import { index } from '../lib/tokens.mjs'
@@ -65,25 +66,25 @@ function firstDifferences(a, b, limit = 25) {
  * because preview and export reach CSS by different routes. So the same check runs on
  * whatever you hand it.
  */
-function themeToVerify(path) {
-  if (!path) return { overrides: FIXTURE, name: 'the built-in fixture' }
-  if (!existsSync(path)) throw new Error(`No such theme file: ${path}`)
+function themeToVerify(path, doc) {
+  if (!path) return { overrides: FIXTURE, name: 'the built-in fixture', renamed: [], dropped: [] }
 
-  const parsed = JSON.parse(readFileSync(path, 'utf8'))
-  if (!parsed || typeof parsed.overrides !== 'object') {
-    throw new Error(`${path} is not a theme file — expected an "overrides" object.`)
-  }
-  if (Object.keys(parsed.overrides).length === 0) {
+  const theme = readThemeFile(path, { doc, migrations: loadMigrations(tokensDir) })
+  if (Object.keys(theme.overrides).length === 0 && theme.dropped.length === 0) {
     throw new Error(`${path} overrides nothing, so there is nothing to verify.`)
   }
-  return { overrides: parsed.overrides, name: parsed.name ?? path }
+  return theme
 }
 
 export async function verify({ flags }) {
   const source = resolveBootstrapSource(flags.src)
   const doc = loadTokens(tokensDir)
   const version = sourceVersion()
-  const theme = themeToVerify(flags.theme)
+
+  const theme = themeToVerify(flags.theme, doc)
+  // Before compiling anything: a theme that has quietly lost half its overrides would
+  // otherwise be reported as verified, which is the one thing this command must never do.
+  if (reportTheme(theme, { skipUnknown: Boolean(flags['skip-unknown']) })) return 1
 
   const work = mkdtempSync(join(tmpdir(), 'bstokens-'))
   const entry = join(work, 'custom.scss')

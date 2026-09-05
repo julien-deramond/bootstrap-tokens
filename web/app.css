@@ -49,7 +49,9 @@ body {
   background: var(--surface-sunken);
   height: 100dvh;
   display: grid;
-  grid-template-rows: auto minmax(0, 1fr);
+  /* Header, an optional notice, then the workspace. The notice row collapses to nothing
+     when it is hidden, so the layout is the same when there is nothing to say. */
+  grid-template-rows: auto auto minmax(0, 1fr);
 }
 
 /* --- top bar ------------------------------------------------------------ */
@@ -1053,3 +1055,19 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   color: var(--ink);
   font: inherit;
 }
+
+/* A page-level notice. Sits between the header and the workspace so it is impossible to
+   miss and impossible to mistake for part of either. */
+.notice {
+  display: flex;
+  gap: .75rem;
+  align-items: center;
+  justify-content: space-between;
+  padding: .625rem .875rem;
+  border-block-end: 1px solid var(--line-strong);
+  background: light-dark(#fff7e0, #33290d);
+  color: light-dark(#4a3600, #f4e3b4);
+  font-size: .8125rem;
+}
+
+.notice p { margin: 0; }

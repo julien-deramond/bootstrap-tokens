@@ -16,23 +16,19 @@ import { clone, withOverrides } from '../lib/overrides.mjs'
 import { planEject } from '../lib/eject.mjs'
 import { emitUseWith } from '../lib/emit-scss.mjs'
 import { resolveBootstrapSource, tokensDir, buildDir } from '../lib/config.mjs'
+import { readThemeFile, reportTheme } from '../lib/theme-file.mjs'
 import { sourceVersion } from './build.mjs'
-
-function readTheme(path) {
-  if (!path) return {}
-  const parsed = JSON.parse(readFileSync(path, 'utf8'))
-  if (!parsed || typeof parsed.overrides !== 'object') {
-    throw new Error(`${path} is not a theme file — expected an "overrides" object.`)
-  }
-  return parsed.overrides
-}
 
 export async function eject({ flags }) {
   const source = resolveBootstrapSource(flags.src)
-  const overrides = readTheme(flags.theme)
 
   const { tree } = loadTree(tokensDir)
   const base = index(expandColorScales(clone(tree)))
+
+  const theme = readThemeFile(flags.theme, { doc: base, migrations: loadMigrations(tokensDir) })
+  if (reportTheme(theme, { skipUnknown: Boolean(flags['skip-unknown']) })) return 1
+  const overrides = theme.overrides
+
   const doc = withOverrides(tree, overrides)
 
   const { patched, changes, skipped } = planEject(source, doc, overrides)

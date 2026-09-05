@@ -62,6 +62,10 @@ const USAGE = `bstokens <command> [options]
              --force        write into a non-empty directory
              --bootstrap    the dependency spec (default: the v6-dev branch, since v6 is
                             not yet on npm)
+
+Every command that takes --theme applies recorded renames first, then refuses to run if the
+theme still names a token that does not exist — silently dropping an override is how a theme
+loses values nobody notices. Pass --skip-unknown to proceed without them.
 `
 
 const { flags, positional } = parseArgs(process.argv.slice(2))

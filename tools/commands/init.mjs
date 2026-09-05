@@ -11,8 +11,11 @@
 import { mkdirSync, writeFileSync, readFileSync, existsSync, readdirSync } from 'node:fs'
 import { dirname, join, resolve } from 'node:path'
 
-import { loadTree, loadOptions } from '../lib/load-fs.mjs'
-import { withOverrides, themeScss, changedKeysOf, mapsTouched } from '../lib/overrides.mjs'
+import { loadTree, loadOptions, loadMigrations } from '../lib/load-fs.mjs'
+import { withOverrides, themeScss, changedKeysOf, mapsTouched, clone } from '../lib/overrides.mjs'
+import { index } from '../lib/tokens.mjs'
+import { expandColorScales } from '../lib/color-scale.mjs'
+import { readThemeFile, reportTheme } from '../lib/theme-file.mjs'
 import { changedOptions } from '../lib/config-surface.mjs'
 import { tokensDir } from '../lib/config.mjs'
 import { sourceVersion } from './build.mjs'
@@ -33,16 +36,6 @@ const BOOTSTRAP_DEFAULT = 'github:twbs/bootstrap#v6-dev'
  * feature meant to prove the export works.
  */
 const BOOTSTRAP_TOKENS_DEFAULT = 'github:julien-deramond/bootstrap-tokens'
-
-function readTheme(path) {
-  if (!path) return { overrides: {}, options: {} }
-
-  const parsed = JSON.parse(readFileSync(path, 'utf8'))
-  if (!parsed || typeof parsed.overrides !== 'object') {
-    throw new Error(`${path} is not a theme file — expected an "overrides" object.`)
-  }
-  return { overrides: parsed.overrides, options: parsed.options ?? {} }
-}
 
 const INDEX_HTML = (name) => `<!doctype html>
 <html lang="en">
@@ -112,8 +105,14 @@ export async function init({ flags, positional }) {
     throw new Error(`${target} already exists and is not empty. Pass --force to write into it anyway.`)
   }
 
-  const { overrides, options } = readTheme(flags.theme)
   const { tree } = loadTree(tokensDir)
+  const theme = readThemeFile(flags.theme, {
+    doc: index(expandColorScales(clone(tree))),
+    migrations: loadMigrations(tokensDir)
+  })
+  if (reportTheme(theme, { skipUnknown: Boolean(flags['skip-unknown']) })) return 1
+  const { overrides, options } = theme
+
   const doc = withOverrides(tree, overrides)
   const baseOptions = loadOptions(tokensDir)
 

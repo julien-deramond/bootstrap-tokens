@@ -158,6 +158,18 @@ Nothing is dropped silently. An override with nowhere to go is reported with a r
 a theme that comes back a little more like stock Bootstrap than you left it, with no warning,
 is the worst failure a theme file can have.
 
+Every command that takes `--theme` now applies migrations and then **refuses to run** if the
+theme still names a token that does not exist, unless told `--skip-unknown`. It used to
+proceed: `withOverrides` ignores an unknown path, so `init` scaffolded a project quietly
+missing those values, `report` audited a theme nobody wrote, and `verify` — the command whose
+whole job is to say what you will get — announced "all 1 previewed property matches" for a
+three-token theme.
+
+The chooser had the same hole from the other end. Migration ran *after* the base document was
+built, so its guard short-circuited and the startup path, the one every visitor takes, had
+never migrated anything. Fixed, and the result is now said on the page rather than in
+`console.info`, which nobody reads.
+
 Still to do: DTCG `$deprecated`, once a token is actually deprecated rather than moved.
 
 ---

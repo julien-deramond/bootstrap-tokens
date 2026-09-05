@@ -134,6 +134,11 @@ preset.
 * **Every change is listed and revertible.** The change counter opens the full diff — tokens
   and build options together, previous value beside new, one Revert per row. *Before / after*
   shows the same page rendered stock beside themed.
+* **A theme that has aged is repaired, or named.** Bootstrap 6 is an alpha and token names
+  move. A saved theme follows recorded renames, and anything still unplaceable is said out
+  loud rather than dropped — losing a value silently is the worst thing a theme file can do,
+  because nothing tells you to look. The CLI refuses to run on such a theme unless you pass
+  `--skip-unknown`.
 * **Themes are things you keep.** Name them, hold several, duplicate one to try a variation.
   *Copy share link* packs the whole theme into the URL fragment — 571 characters for a
   22-token theme, compressed in the browser, uploaded nowhere.
