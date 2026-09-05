@@ -27,8 +27,16 @@ import { sourceEdits } from '../tools/lib/source-value.mjs'
 import { DIALS, PRESETS, HUES, availableHues, addedHues, hueOfRole, repointRole, selectedOption } from './easy.js'
 import { OPTIONS, changedOptions, optionByName } from '../tools/lib/config-surface.mjs'
 import { parseComputedColor, formatColor, hexToRgb, rgbToHex, contrastRatio, contrastGrade } from './color.js'
+import {
+  loadStore,
+  saveStore,
+  activeTheme,
+  blankTheme,
+  uniqueName,
+  toFragment,
+  fromFragment
+} from './themes.js'
 
-const STORAGE_KEY = 'bootstrap-tokens.chooser.v1'
 const MODE_KEY = 'bootstrap-tokens.chooser.mode'
 
 const PRIMITIVE_ORDER = [
@@ -91,7 +99,8 @@ const state = {
   baseDoc: null,
   doc: null,
   meta: { bootstrap: 'unknown' },
-  overrides: load().overrides ?? {},
+  store: loadStore(),
+  overrides: {},
   mode: loadMode(),
   section: 'theme-color',
   // Side by side is the point on a wide screen; on a narrow one it halves an already small
@@ -108,22 +117,34 @@ const state = {
   options: {}
 }
 
-function load() {
-  try {
-    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}')
-    // Older sessions stored the overrides object directly.
-    return stored.overrides || stored.options ? stored : { overrides: stored, options: {} }
-  } catch {
-    return { overrides: {}, options: {} }
-  }
+/** Write the working state back into the active theme and persist the store. */
+function save() {
+  const theme = activeTheme(state.store)
+  theme.overrides = state.overrides
+  theme.options = state.options
+  theme.updatedAt = new Date().toISOString()
+  saveStore(state.store)
 }
 
-function save() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify({ overrides: state.overrides, options: state.options }))
-  } catch {
-    /* private browsing — the session still works, it just won't persist */
-  }
+/** Make `theme` the one being edited. History does not survive the switch, by design. */
+function openTheme(id) {
+  const theme = state.store.themes.find((candidate) => candidate.id === id)
+  if (!theme) return
+
+  state.store.activeId = id
+  state.overrides = theme.overrides ?? {}
+  state.options = theme.options ?? {}
+  state.past.length = 0
+  state.future.length = 0
+
+  saveStore(state.store)
+  recompute()
+  render()
+}
+
+function addTheme(theme) {
+  state.store.themes.push(theme)
+  openTheme(theme.id)
 }
 
 /** Simple is the default: most people want a theme, not a token browser. */
@@ -1435,6 +1456,7 @@ function render() {
   }
 
   renderHealth()
+  renderThemes()
 }
 
 function recompute() {
@@ -1596,6 +1618,120 @@ function renderExport() {
   syncTabs($('#export-tabs'), (tab) => tab.dataset.tab === state.exportTab)
 }
 
+/* ------------------------------------------------------------------ themes */
+
+function renderThemes() {
+  const theme = activeTheme(state.store)
+  $('#theme-name-text').textContent = theme.name
+
+  const list = $('#theme-list')
+  list.textContent = ''
+
+  for (const candidate of state.store.themes) {
+    const item = document.createElement('li')
+    const button = document.createElement('button')
+    button.type = 'button'
+    button.setAttribute('aria-current', String(candidate.id === state.store.activeId))
+
+    const name = document.createElement('span')
+    name.textContent = candidate.name
+
+    const count = document.createElement('span')
+    count.className = 'count'
+    const edits = Object.keys(candidate.overrides ?? {}).length + Object.keys(candidate.options ?? {}).length
+    count.textContent = edits === 0 ? 'stock' : `${edits}`
+
+    button.append(name, count)
+    button.addEventListener('click', () => {
+      closeThemeMenu()
+      openTheme(candidate.id)
+    })
+
+    item.append(button)
+    list.append(item)
+  }
+
+  $('#theme-delete').disabled = state.store.themes.length < 2
+}
+
+const closeThemeMenu = () => {
+  $('#theme-name').setAttribute('aria-expanded', 'false')
+  $('#theme-menu').hidden = true
+}
+
+function wireThemes() {
+  $('#theme-name').addEventListener('click', () => {
+    const open = $('#theme-name').getAttribute('aria-expanded') === 'true'
+    $('#theme-name').setAttribute('aria-expanded', String(!open))
+    $('#theme-menu').hidden = open
+  })
+
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('.theme-picker')) closeThemeMenu()
+  })
+
+  $('#theme-new').addEventListener('click', () => {
+    closeThemeMenu()
+    addTheme(blankTheme(uniqueName(state.store, 'Untitled theme')))
+  })
+
+  $('#theme-duplicate').addEventListener('click', () => {
+    const current = activeTheme(state.store)
+    closeThemeMenu()
+    addTheme({
+      ...blankTheme(uniqueName(state.store, `${current.name} copy`)),
+      overrides: JSON.parse(JSON.stringify(current.overrides)),
+      options: JSON.parse(JSON.stringify(current.options))
+    })
+  })
+
+  $('#theme-rename').addEventListener('click', () => {
+    const current = activeTheme(state.store)
+    const name = prompt('Name this theme', current.name)
+    closeThemeMenu()
+    if (!name?.trim()) return
+
+    current.name = name.trim()
+    saveStore(state.store)
+    render()
+  })
+
+  $('#theme-delete').addEventListener('click', () => {
+    if (state.store.themes.length < 2) return
+
+    const current = activeTheme(state.store)
+    closeThemeMenu()
+    if (!confirm(`Delete “${current.name}”? This cannot be undone.`)) return
+
+    state.store.themes = state.store.themes.filter((theme) => theme.id !== current.id)
+    openTheme(state.store.themes[0].id)
+  })
+}
+
+/**
+ * Load a theme someone shared.
+ *
+ * Called at startup and again on `hashchange`, because pasting a link into the address bar
+ * of a page that is already open changes the fragment without reloading — so a listener is
+ * the difference between a share link that works and one that works only in a fresh tab.
+ */
+async function adoptSharedTheme() {
+  const fragment = location.hash.startsWith('#theme=') ? location.hash.slice('#theme='.length) : ''
+  if (!fragment) return false
+
+  const shared = await fromFragment(fragment)
+  // Clear the fragment either way: a link that silently does nothing on reload is worse
+  // than one that failed once.
+  history.replaceState(null, '', location.pathname + location.search)
+  if (!shared) return false
+
+  shared.name = uniqueName(state.store, shared.name)
+  state.store.themes.push(shared)
+  state.store.activeId = shared.id
+  saveStore(state.store)
+  return true
+}
+
 /* -------------------------------------------------------------------- wire */
 
 /**
@@ -1663,6 +1799,21 @@ function wire() {
     state.overrides = {}
     state.options = {}
   }))
+
+  wireThemes()
+
+  window.addEventListener('hashchange', async () => {
+    if (await adoptSharedTheme()) openTheme(state.store.activeId)
+  })
+
+  $('#share').addEventListener('click', async () => {
+    const fragment = await toFragment(activeTheme(state.store))
+    const url = `${location.origin}${location.pathname}#theme=${fragment}`
+
+    await navigator.clipboard.writeText(url)
+    $('#share').textContent = url.length > 2000 ? 'Copied (long link)' : 'Link copied'
+    setTimeout(() => ($('#share').textContent = 'Copy share link'), 1600)
+  })
 
   $('#health').addEventListener('click', () => {
     const open = $('#health').getAttribute('aria-expanded') === 'true'
@@ -1769,7 +1920,11 @@ async function start() {
   ])
 
   state.baseOptions = options
-  state.options = load().options ?? {}
+  await adoptSharedTheme()
+
+  const theme = activeTheme(state.store)
+  state.overrides = theme.overrides ?? {}
+  state.options = theme.options ?? {}
 
   state.baseTree = tree
   state.meta = meta

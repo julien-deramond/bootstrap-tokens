@@ -108,6 +108,9 @@ preset.
   section and flashes it, so you never have to hunt for the difference.
 * **Undo, always.** ⌘Z / ⇧⌘Z, and Reset is just another undoable step — no confirmation
   dialog guarding a reversible action.
+* **Themes are things you keep.** Name them, hold several, duplicate one to try a variation.
+  *Copy share link* packs the whole theme into the URL fragment — 571 characters for a
+  22-token theme, compressed in the browser, uploaded nowhere.
 * **A theme-level contrast readout**, which separates issues you introduced from ones
   Bootstrap's defaults already have. A warning you didn't cause teaches you to ignore
   warnings.

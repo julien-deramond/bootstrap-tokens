@@ -224,11 +224,23 @@ an added colour is invisible in the two places it most needs to appear.
 
 Still to do: adding a *component* token, and adding a size to a component that has none.
 
-### C2. Themes as objects
+### C2. Themes as objects · ✅ **done**
 
-One implicit theme in `localStorage` today. Needed: name it, keep several, duplicate,
-compare two side by side, share by URL (compressed state in the fragment). "Show me A next to
-B" is the core design-tool affordance we do not have.
+A theme now has a name and an identity. Keep several, switch between them, duplicate, rename,
+delete — and share one as a link.
+
+Sharing packs the theme into the URL fragment with the platform's own `CompressionStream`,
+so it stays dependency-free. A theme is mostly repeated token paths, which deflate hard: the
+22-token Editorial preset comes out at **571 characters**, short enough to paste into a
+message. Nothing is uploaded anywhere.
+
+Two things had to be right. The store migrates both older shapes forward — losing someone's
+work to a refactor is not an upgrade path — and share links are adopted on `hashchange` as
+well as at startup, because pasting a link into a page that is already open changes the
+fragment without reloading.
+
+Still to do: **comparing two themes side by side**, which is the other half of "show me A next
+to B" and needs the preview to render from two documents at once.
 
 ### C3. A preview that proves the theme works
 

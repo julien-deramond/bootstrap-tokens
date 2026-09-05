@@ -12,7 +12,21 @@
       <div class="brand">
         <span class="brand-mark" aria-hidden="true"></span>
         <div class="brand-text">
-          <h1>Bootstrap theme</h1>
+          <div class="theme-picker">
+            <button type="button" class="theme-name" id="theme-name" aria-expanded="false" aria-controls="theme-menu">
+              <span id="theme-name-text">Loading…</span>
+              <svg viewBox="0 0 12 12" width="9" height="9" aria-hidden="true"><path d="m2 4.5 4 4 4-4" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>
+            </button>
+            <div class="theme-menu" id="theme-menu" hidden>
+              <ul id="theme-list"></ul>
+              <div class="theme-menu-actions">
+                <button type="button" class="chip-button" id="theme-new">New</button>
+                <button type="button" class="chip-button" id="theme-duplicate">Duplicate</button>
+                <button type="button" class="chip-button" id="theme-rename">Rename</button>
+                <button type="button" class="chip-button" id="theme-delete">Delete</button>
+              </div>
+            </div>
+          </div>
           <p class="brand-sub" id="brand-sub">Loading…</p>
         </div>
       </div>
@@ -103,6 +117,7 @@
       <div class="export-actions">
         <button type="button" class="button button-primary" id="download">Download</button>
         <button type="button" class="button" id="copy">Copy</button>
+        <button type="button" class="button" id="share">Copy share link</button>
         <label class="button">
           Import theme.json
           <input type="file" id="import" accept="application/json,.json" hidden />
