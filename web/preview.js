@@ -209,25 +209,26 @@ function render() {
   const schemes = mode === 'split' ? ['light', 'dark'] : [mode]
   root.className = mode === 'split' ? 'preview-split' : 'preview-single'
   root.innerHTML = schemes.map(board).join('')
+  syncScrolling()
 }
 
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)')
 
 /**
- * Scroll the document ourselves rather than leaning on `scroll-behavior: smooth` or
+ * Scroll a container ourselves rather than leaning on `scroll-behavior: smooth` or
  * `scrollIntoView({ behavior: 'smooth' })`: both are silently ignored in some embedded
  * frames, and a control that appears to do nothing is worse than one that jumps.
  */
-function scrollToOffset(top) {
-  const max = document.documentElement.scrollHeight - document.documentElement.clientHeight
+function scrollToOffset(container, top) {
+  const max = container.scrollHeight - container.clientHeight
   const target = Math.max(0, Math.min(top, max))
 
   if (reducedMotion.matches) {
-    window.scrollTo({ top: target, behavior: 'instant' })
+    container.scrollTop = target
     return
   }
 
-  const from = window.scrollY
+  const from = container.scrollTop
   const distance = target - from
   if (Math.abs(distance) < 2) return
 
@@ -238,7 +239,7 @@ function scrollToOffset(top) {
     const progress = Math.min(1, (now - start) / duration)
     // easeOutCubic: quick to move, gentle to land.
     const eased = 1 - (1 - progress) ** 3
-    window.scrollTo({ top: from + distance * eased, behavior: 'instant' })
+    container.scrollTop = from + distance * eased
     if (progress < 1) requestAnimationFrame(step)
   }
 
@@ -250,15 +251,35 @@ function focusSection(id) {
   const targets = root.querySelectorAll(`[data-section="${id}"]`)
   if (targets.length === 0) return
 
-  // Leave room for the sticky pane label in split view.
-  const offset = mode === 'split' ? 44 : 12
-  scrollToOffset(targets[0].getBoundingClientRect().top + window.scrollY - offset)
-
   for (const target of targets) {
+    const frame = target.closest('.artboard')
+    if (frame) {
+      scrollToOffset(frame, target.offsetTop - 12)
+    }
+
     target.classList.remove('is-focused')
     // Force a reflow so the animation restarts when the same section is focused twice.
     void target.offsetWidth
     target.classList.add('is-focused')
+  }
+}
+
+/**
+ * Keep the two artboards on the same row of the sample. Comparing light against dark only
+ * works if you are comparing the same thing, and scrolling them independently is fiddly.
+ */
+function syncScrolling() {
+  const frames = [...root.querySelectorAll('.artboard')]
+  if (frames.length < 2) return
+
+  let syncing = false
+  for (const frame of frames) {
+    frame.addEventListener('scroll', () => {
+      if (syncing) return
+      syncing = true
+      for (const other of frames) if (other !== frame) other.scrollTop = frame.scrollTop
+      requestAnimationFrame(() => { syncing = false })
+    })
   }
 }
 

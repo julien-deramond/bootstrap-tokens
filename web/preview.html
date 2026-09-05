@@ -41,14 +41,40 @@
         font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
       }
 
-      #preview-root { display: grid; gap: 1rem; padding: 1rem; align-items: start; }
-      .preview-split { grid-template-columns: 1fr 1fr; }
-
-      @media (width < 52rem) {
-        .preview-split { grid-template-columns: 1fr; }
+      /*
+       * The artboards are bounded and scroll internally, rather than running off the bottom
+       * of the viewport. An object whose top and bottom edges you can both see reads as a
+       * thing being looked at; one that fills the column edge to edge reads as another panel
+       * of the application — which was the complaint.
+       */
+      #preview-root {
+        display: grid;
+        gap: 1.25rem;
+        padding: 1.25rem;
+        block-size: 100vh;
+        box-sizing: border-box;
+        align-items: stretch;
       }
 
-      .board { min-width: 0; margin: 0; }
+      .preview-split { grid-template-columns: 1fr 1fr; }
+
+      /* Stacked, the two artboards cannot both fill the frame — so each keeps a bounded
+         height and the canvas scrolls between them, rather than one running off the end. */
+      @media (width < 52rem) {
+        /* `#preview-root` outranks a class selector, so the height override has to carry
+           the id too or the stacked boards are squashed into one viewport and overlap. */
+        #preview-root { block-size: auto; }
+        .preview-split { grid-template-columns: 1fr; }
+        .preview-split .artboard { block-size: 70vh; flex: none; }
+      }
+
+      .board {
+        display: flex;
+        flex-direction: column;
+        min-inline-size: 0;
+        min-block-size: 0;
+        margin: 0;
+      }
 
       /* On the canvas, not inside the artboard — otherwise it reads as one of the sample's
          own section headings, which are set in the same small caps. */
@@ -75,7 +101,10 @@
       .board-dark .board-swatch { background: #16181d; }
 
       .artboard {
-        overflow: hidden;
+        flex: 1;
+        min-block-size: 0;
+        overflow: auto;
+        background: var(--bg-body);
         border: 1px solid var(--canvas-line);
         border-radius: .625rem;
         box-shadow: var(--artboard-shadow);

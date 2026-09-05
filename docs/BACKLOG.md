@@ -65,6 +65,14 @@ it for the explicit-light case, where it is already the default.
 
 ## P — This project
 
+### P6 · The tool's own controls still borrow Bootstrap's shapes
+
+Reduced, not eliminated. The hue grid is sixteen rounded colour chips and the contrast
+readouts are small tinted labels — both of which have Bootstrap counterparts a few hundred
+pixels away. They earn their shape (a colour picker has to show colour), but if the
+"which of these is the interface?" confusion returns, this is where the remaining overlap is.
+Denser, more instrument-like treatments are the next lever.
+
 ### P1 · `sync --check` cannot tell a rename from a delete-plus-add
 
 Covered as PLAN.md A7. Noting the concrete failure: a `theme.json` referencing a renamed
