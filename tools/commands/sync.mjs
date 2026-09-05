@@ -5,7 +5,7 @@ import { join } from 'node:path'
 import { extract } from '../lib/extract.mjs'
 import { writeTokenFiles } from '../lib/write-tokens.mjs'
 import { discover } from '../lib/discover.mjs'
-import { loadTokens } from '../lib/load-fs.mjs'
+import { loadTokens, loadOptions } from '../lib/load-fs.mjs'
 import { resolveBootstrapSource, tokensDir } from '../lib/config.mjs'
 
 /** The upstream commit the token document was extracted from, when git can tell us. */
@@ -67,9 +67,16 @@ function reportCoverage(source, dir) {
     return false
   }
 
-  const { tokenMaps, tokenMapsModelled, unaccounted, stale, flags } = discover(source, doc)
+  const { tokenMaps, tokenMapsModelled, unaccounted, stale, flags } = discover(
+    source,
+    doc,
+    loadOptions(dir ?? tokensDir)
+  )
 
-  console.log(`\nCoverage: ${tokenMapsModelled}/${tokenMaps} component token maps, ${flags.length} $enable-* flags not modelled (PLAN.md A2).`)
+  console.log(
+    `\nCoverage: ${tokenMapsModelled}/${tokenMaps} component token maps, ${flags.length} $enable-* flags, ` +
+      `${unaccounted.length} unaccounted.`
+  )
 
   for (const { name } of stale.map((name) => ({ name }))) {
     console.error(`  error   we model ${name}, which upstream no longer declares`)

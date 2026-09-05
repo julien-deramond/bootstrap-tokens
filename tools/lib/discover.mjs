@@ -40,29 +40,17 @@ export const NOT_TOKENS = {
   '$caret-vertical-align': 'In scss/mixins/, which bootstrap.scss does not forward. See BACKLOG U1.',
   '$transition-base': 'In scss/mixins/, which bootstrap.scss does not forward. See BACKLOG U1.',
 
-  // --- build configuration, not design values (see docs/PLAN.md A2) ---
+  /*
+   * Build configuration that is deliberately *not* modelled, even as an option. These are
+   * nested definitions of what Bootstrap generates rather than values anyone tunes; editing
+   * them is editing the framework, not theming it.
+   */
   $utilities: 'The utility API is a code structure, not a set of design values.',
   '$escaped-characters': 'Input to escape-svg(), which we evaluate at extraction time.',
-  '$validation-states': 'Maps a state name to a theme colour. Configuration — PLAN.md A2.',
   '$button-variants': 'Which button variants are generated. Configuration — PLAN.md A2.',
   '$badge-variants': 'Which badge variants are generated. Configuration — PLAN.md A2.',
   '$btn-variant-selectors': 'Selector list for the button variant loop. Configuration.',
-  '$strength-levels': 'Names of the strength meter levels. Configuration — PLAN.md A2.',
-  '$button-sizes': 'Which size classes are generated. Configuration — PLAN.md A2.',
-  '$avatar-sizes': 'Which size classes are generated. Configuration — PLAN.md A2.',
-  '$dialog-sizes': 'Which size classes are generated. Configuration — PLAN.md A2.',
-  '$form-control-sizes': 'Which size classes are generated. Configuration — PLAN.md A2.',
-  '$input-group-sizes': 'Which size classes are generated. Configuration — PLAN.md A2.',
-  '$otp-sizes': 'Which size classes are generated. Configuration — PLAN.md A2.',
-  '$pagination-sizes': 'Which size classes are generated. Configuration — PLAN.md A2.',
-  '$color-mode-type': 'Selects media-query vs attribute colour modes. Configuration.',
-  '$color-contrast-dark': 'Input to the colour-contrast() function. Configuration.',
-  '$color-contrast-light': 'Input to the colour-contrast() function. Configuration.',
-  '$min-contrast-ratio': 'Threshold for colour-contrast(). Configuration.',
-  '$table-striped-order': 'Which rows stripe. Configuration.',
-  '$table-striped-columns-order': 'Which columns stripe. Configuration.',
-  '$navbar-breakpoints': 'Which breakpoints get an expanded navbar. Configuration.',
-  '$stretched-link-pseudo-element': 'Which pseudo-element the helper uses. Configuration.',
+  '$navbar-breakpoints': 'Aliases $breakpoints; changing those moves it.',
 
   // --- dead or test-only ---
   '$border-color': 'Declared in _config.scss but referenced nowhere outside it.',
@@ -120,11 +108,11 @@ export function declaredVariables(root) {
 }
 
 /**
- * What the token document actually claims, read from the document rather than the routing
- * table. The table is an implementation detail; the document is the claim being checked.
+ * What the project actually claims to cover, read from the documents rather than the routing
+ * table. The table is an implementation detail; the documents are the claim being checked.
  */
-function modelled(doc) {
-  const known = new Set(['$root-tokens'])
+function modelled(doc, options) {
+  const known = new Set(['$root-tokens', ...Object.keys(options ?? {})])
 
   for (const [, token] of walk(doc.tree)) {
     const meta = ext(token)
@@ -141,19 +129,16 @@ function modelled(doc) {
  * `unaccounted` is the finding that matters: a surface upstream offers that we neither model
  * nor have a stated reason for ignoring.
  */
-export function discover(root, doc) {
+export function discover(root, doc, options = {}) {
   const declared = declaredVariables(root)
-  const known = modelled(doc)
+  const known = modelled(doc, options)
 
   const unaccounted = []
   const flags = []
   const stale = []
 
   for (const [name, file] of declared) {
-    if (ENABLE_FLAG.test(name)) {
-      flags.push({ name, file })
-      continue
-    }
+    if (ENABLE_FLAG.test(name)) flags.push({ name, file })
     if (known.has(name) || name in NOT_TOKENS) continue
     unaccounted.push({ name, file })
   }

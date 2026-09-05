@@ -56,15 +56,28 @@ The classification that came out of it:
 **Why first:** every other correctness claim in this repository is conditional on coverage
 being complete. Right now that condition is unverified.
 
-### A2. Separate *tokens* from *configuration*
+### A2. Separate *tokens* from *configuration* · ✅ **done**
 
 `$enable-rounded: false` is a one-line change with enormous visual impact, and
 `$button-sizes: ("xs", "sm", "lg")` decides which classes exist. Neither is a design value,
 so neither belongs in a DTCG document — but both belong in an exported theme.
 
-Introduce a sibling surface, `config/`, with its own schema, its own section in the chooser
-and its own emission into `@use … with ()`. Keeping it *out* of `tokens/` is what stops the
-DTCG document turning into a Sass config dump.
+Done. `tokens/config/options.json` holds **28** build options — the twelve `$enable-*` flags,
+the size and variant lists, the validation states and the colour-mode settings — each with the
+Sass source text of its value, its kind and a note on what it does. `sync` extracts them,
+`verify` emits all 28 at their defaults and still produces byte-identical CSS, and the chooser
+gives them their own section.
+
+Keeping them *out* of `tokens/` is what stops the DTCG document turning into a Sass config
+dump, and the coverage guard now counts them as modelled rather than ignored — so the
+`NOT_TOKENS` list shrank to the handful of things that genuinely are not configuration.
+
+Values are stored as Sass source text rather than parsed into JS types, which keeps emission
+lossless: `"media-query"` keeps its quotes, `4.5` stays a number, a list stays a list.
+
+**Build options cannot be previewed**, and the chooser says so. They change which CSS
+Bootstrap generates rather than what values it holds, and no amount of overriding custom
+properties can un-write a `border-radius` declaration that was never emitted.
 
 ### A3. Every token carries a resolvable `$type`
 
@@ -159,10 +172,9 @@ Built alongside B1. `unexpressible()` finds overrides a `@use … with ()` confi
 cannot reach, and `themeScss` appends the CSS the consumer also needs, rather than producing
 a file that quietly does less than the preview showed.
 
-### B3. Expose the configuration surface
+### B3. Expose the configuration surface · ✅ **done**
 
-Once A2 exists: `$enable-*`, the size maps and `$validation-states` become editable in the
-chooser and emitted in the export. `$enable-rounded: false` alone is a whole visual identity.
+Delivered with A2 — the two are the same work seen from either end.
 
 ### B4. More consumer shapes
 

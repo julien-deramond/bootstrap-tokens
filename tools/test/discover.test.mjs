@@ -14,7 +14,7 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
 import { discover, declaredVariables, NOT_TOKENS } from '../lib/discover.mjs'
-import { loadTokens } from '../lib/load-fs.mjs'
+import { loadTokens, loadOptions } from '../lib/load-fs.mjs'
 import { tokensDir, resolveBootstrapSource } from '../lib/config.mjs'
 
 /** A checkout-shaped directory with the given `scss/` files. */
@@ -73,7 +73,12 @@ try {
 }
 
 test('the committed document covers every upstream token map', { skip: !source }, () => {
-  const { tokenMaps, tokenMapsModelled, unaccounted, stale } = discover(source, loadTokens(tokensDir))
+  // Options count as modelled: they live in config/, not in the DTCG document.
+  const { tokenMaps, tokenMapsModelled, unaccounted, stale } = discover(
+    source,
+    loadTokens(tokensDir),
+    loadOptions(tokensDir)
+  )
 
   assert.equal(tokenMapsModelled, tokenMaps, `${tokenMaps - tokenMapsModelled} token map(s) not modelled`)
   assert.deepEqual(unaccounted.map((u) => `${u.name} (${u.file})`), [])

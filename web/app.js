@@ -21,6 +21,7 @@ import {
 } from '../tools/lib/overrides.mjs'
 import { sourceEdits } from '../tools/lib/source-value.mjs'
 import { DIALS, PRESETS, HUES, hueOfRole, repointRole, selectedOption } from './easy.js'
+import { OPTIONS, changedOptions, optionByName } from '../tools/lib/config-surface.mjs'
 import { parseComputedColor, formatColor, hexToRgb, rgbToHex, contrastRatio, contrastGrade } from './color.js'
 
 const STORAGE_KEY = 'bootstrap-tokens.chooser.v1'
@@ -86,7 +87,7 @@ const state = {
   baseDoc: null,
   doc: null,
   meta: { bootstrap: 'unknown' },
-  overrides: load(),
+  overrides: load().overrides ?? {},
   mode: loadMode(),
   section: 'theme-color',
   // Side by side is the point on a wide screen; on a narrow one it halves an already small
@@ -98,20 +99,24 @@ const state = {
   exportTab: 'scss',
   previewReady: false,
   past: [],
-  future: []
+  future: [],
+  baseOptions: {},
+  options: {}
 }
 
 function load() {
   try {
-    return JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}')
+    const stored = JSON.parse(localStorage.getItem(STORAGE_KEY) ?? '{}')
+    // Older sessions stored the overrides object directly.
+    return stored.overrides || stored.options ? stored : { overrides: stored, options: {} }
   } catch {
-    return {}
+    return { overrides: {}, options: {} }
   }
 }
 
 function save() {
   try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(state.overrides))
+    localStorage.setItem(STORAGE_KEY, JSON.stringify({ overrides: state.overrides, options: state.options }))
   } catch {
     /* private browsing — the session still works, it just won't persist */
   }
@@ -236,7 +241,7 @@ const isChanged = (path) => Object.hasOwn(state.overrides, path)
  * stop experimenting.
  */
 function mutate(change) {
-  state.past.push(JSON.stringify(state.overrides))
+  state.past.push(JSON.stringify({ overrides: state.overrides, options: state.options }))
   if (state.past.length > 100) state.past.shift()
   state.future.length = 0
 
@@ -247,26 +252,29 @@ function mutate(change) {
   render()
 }
 
-function undo() {
-  const previous = state.past.pop()
-  if (previous === undefined) return
+const snapshot = () => JSON.stringify({ overrides: state.overrides, options: state.options })
 
-  state.future.push(JSON.stringify(state.overrides))
-  state.overrides = JSON.parse(previous)
+function restore(json) {
+  const { overrides, options } = JSON.parse(json)
+  state.overrides = overrides ?? {}
+  state.options = options ?? {}
   save()
   recompute()
   render()
 }
 
+function undo() {
+  const previous = state.past.pop()
+  if (previous === undefined) return
+  state.future.push(snapshot())
+  restore(previous)
+}
+
 function redo() {
   const next = state.future.pop()
   if (next === undefined) return
-
-  state.past.push(JSON.stringify(state.overrides))
-  state.overrides = JSON.parse(next)
-  save()
-  recompute()
-  render()
+  state.past.push(snapshot())
+  restore(next)
 }
 
 /** Record one edit without touching the DOM, so batches apply as a single update. */
@@ -699,7 +707,116 @@ function renderSimple() {
     container.append(dial.kind === 'hue' ? renderHueDial(dial) : renderChoiceDial(dial))
   }
 
+  container.append(renderOptions())
   container.append(renderSimpleFooter())
+}
+
+/** Whether an option has been moved away from Bootstrap's default. */
+const optionValue = (name) => state.options[name]?.value ?? state.baseOptions[name]?.value
+
+function setOption(name, value) {
+  mutate(() => {
+    if (value === state.baseOptions[name]?.value) delete state.options[name]
+    else state.options[name] = { ...state.baseOptions[name], value }
+  })
+}
+
+/**
+ * Build options change *what CSS Bootstrap generates*, not what values it holds — so unlike
+ * every other control here, they cannot be shown in the preview. Overriding custom
+ * properties cannot un-write a `border-radius` declaration that was never emitted. Saying so
+ * is better than a switch that appears to do nothing.
+ */
+function renderOptions() {
+  const section = document.createElement('div')
+  section.className = 'options'
+
+  const heading = document.createElement('h3')
+  heading.className = 'dial-section'
+  heading.textContent = 'Build options'
+  section.append(heading)
+
+  const note = document.createElement('p')
+  note.className = 'options-note'
+  note.textContent =
+    'These change which CSS Bootstrap generates, so the preview cannot show them — they appear in the export. Turning one off also makes the stylesheet smaller.'
+  section.append(note)
+
+  let group = null
+  for (const option of OPTIONS) {
+    if (!state.baseOptions[option.name]) continue
+
+    if (option.group !== group) {
+      group = option.group
+      const label = document.createElement('p')
+      label.className = 'options-group'
+      label.textContent = group
+      section.append(label)
+    }
+
+    section.append(option.kind === 'flag' ? renderFlag(option) : renderOptionValue(option))
+  }
+
+  return section
+}
+
+function renderFlag(option) {
+  const row = document.createElement('label')
+  row.className = 'option-row'
+
+  const input = document.createElement('input')
+  input.type = 'checkbox'
+  input.checked = optionValue(option.name) === 'true'
+  input.addEventListener('change', () => setOption(option.name, String(input.checked)))
+
+  const text = document.createElement('span')
+  const name = document.createElement('code')
+  name.textContent = option.name
+  const help = document.createElement('span')
+  help.className = 'option-help'
+  help.textContent = option.describe
+  text.append(name, help)
+
+  row.append(input, text)
+  if (state.options[option.name]) row.classList.add('is-changed')
+  return row
+}
+
+function renderOptionValue(option) {
+  const row = document.createElement('div')
+  row.className = 'option-row option-row-value'
+  if (state.options[option.name]) row.classList.add('is-changed')
+
+  const text = document.createElement('span')
+  const name = document.createElement('code')
+  name.textContent = option.name
+  const help = document.createElement('span')
+  help.className = 'option-help'
+  help.textContent = option.describe
+  text.append(name, help)
+
+  const control =
+    option.kind === 'choice'
+      ? Object.assign(document.createElement('select'), {})
+      : Object.assign(document.createElement('input'), { type: 'text', spellcheck: false })
+
+  if (option.kind === 'choice') {
+    for (const choice of option.choices) {
+      const item = document.createElement('option')
+      item.value = choice
+      item.textContent = choice.replace(/"/g, '')
+      control.append(item)
+    }
+    control.value = optionValue(option.name)
+    control.addEventListener('change', () => setOption(option.name, control.value))
+  } else {
+    control.value = optionValue(option.name)
+    control.addEventListener('change', () => setOption(option.name, control.value.trim()))
+  }
+
+  control.setAttribute('aria-label', option.name)
+  row.append(text, control)
+  return row
 }
 
 function renderPresets() {
@@ -1179,7 +1296,7 @@ function render() {
 
   $('#undo').disabled = state.past.length === 0
   $('#redo').disabled = state.future.length === 0
-  $('#reset').disabled = Object.keys(state.overrides).length === 0
+  $('#reset').disabled = Object.keys(state.overrides).length + Object.keys(state.options).length === 0
 
   if (simple) renderSimple()
   else {
@@ -1201,9 +1318,15 @@ function recompute() {
   const changes = diffResolved(state.baseDoc, state.doc)
   const count = Object.keys(state.overrides).length
 
+  const optionCount = Object.keys(state.options).length
   const chip = $('#change-count')
-  chip.textContent = count === 0 ? 'no changes' : `${count} edited · ${changes.length} properties`
-  chip.classList.toggle('is-active', count > 0)
+  chip.textContent =
+    count + optionCount === 0
+      ? 'no changes'
+      : [count && `${count} edited`, optionCount && `${optionCount} option${optionCount === 1 ? '' : 's'}`]
+          .filter(Boolean)
+          .join(' · ')
+  chip.classList.toggle('is-active', count + optionCount > 0)
   $('#reset').disabled = count === 0
 
   postToPreview({ css: themeCss(changes) })
@@ -1222,16 +1345,20 @@ function exportContent() {
   if (state.exportTab === 'scss') {
     return {
       filename: 'custom.scss',
-      note: mapsTouched(state.doc, state.overrides).size
-        ? 'The usual choice. Bootstrap merges these keys over its own defaults, so this carries only what you changed.'
-        : 'Nothing is overridden yet, so this is stock Bootstrap.',
+      note:
+        mapsTouched(state.doc, state.overrides).size || Object.keys(state.options).length
+          ? 'The usual choice. Bootstrap merges these keys over its own defaults, so this carries only what you changed.'
+          : 'Nothing is overridden yet, so this is stock Bootstrap.',
       steps: [
         'Save it as <code>scss/custom.scss</code> in your project.',
         'Install what it needs: <code>npm i bootstrap@6</code> and <code>npm i -D sass</code>.',
         'Compile it: <code>npx sass scss/custom.scss css/app.css</code>.',
         'Link <code>css/app.css</code> instead of Bootstrap’s own stylesheet.'
       ],
-      text: themeScss(state.doc, state.overrides, { version })
+      text: themeScss(state.doc, state.overrides, {
+        version,
+        options: changedOptions(state.baseOptions, { ...state.baseOptions, ...state.options })
+      })
     }
   }
 
@@ -1402,7 +1529,10 @@ function wire() {
 
   // No confirm(): the action is undoable, and a modal to guard a reversible action just
   // trains people to dismiss modals.
-  $('#reset').addEventListener('click', () => mutate(() => { state.overrides = {} }))
+  $('#reset').addEventListener('click', () => mutate(() => {
+    state.overrides = {}
+    state.options = {}
+  }))
 
   $('#health').addEventListener('click', () => {
     const open = $('#health').getAttribute('aria-expanded') === 'true'
@@ -1502,10 +1632,14 @@ frame.addEventListener('load', markPreviewReady)
 if (frame.contentDocument?.readyState === 'complete') markPreviewReady()
 
 async function start() {
-  const [tree, meta] = await Promise.all([
+  const [tree, meta, options] = await Promise.all([
     fetch('../build/json/tokens.tree.json').then((r) => r.json()),
-    fetch('../tokens/meta.json').then((r) => r.json()).catch(() => ({ bootstrap: 'unknown' }))
+    fetch('../tokens/meta.json').then((r) => r.json()).catch(() => ({ bootstrap: 'unknown' })),
+    fetch('../tokens/config/options.json').then((r) => r.json()).catch(() => ({}))
   ])
+
+  state.baseOptions = options
+  state.options = load().options ?? {}
 
   state.baseTree = tree
   state.meta = meta

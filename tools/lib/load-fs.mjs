@@ -6,7 +6,7 @@
  * the Sass exporter uses instead of a second, drifting implementation.
  */
 
-import { readdirSync, readFileSync, statSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { join, relative, sep } from 'node:path'
 
 import { expandColorScales } from './color-scale.mjs'
@@ -48,6 +48,13 @@ function mergeTree(target, source, origin, at = '') {
   }
 }
 
+/** Read the build options recorded next to the token document. */
+export function loadOptions(dir) {
+  const path = join(dir, 'config', 'options.json')
+  if (!existsSync(path)) return {}
+  return JSON.parse(readFileSync(path, 'utf8'))
+}
+
 /** Read `tokens/` into one merged tree, before the colour scale is expanded. */
 export function loadTree(dir) {
   const tree = {}
@@ -55,7 +62,8 @@ export function loadTree(dir) {
 
   for (const file of jsonFiles(dir)) {
     const origin = relative(dir, file).split(sep).join('/')
-    if (origin === 'meta.json') continue
+    // meta.json is provenance and config/ is build options; neither is a token file.
+    if (origin === 'meta.json' || origin.startsWith('config/')) continue
     let parsed
     try {
       parsed = JSON.parse(readFileSync(file, 'utf8'))

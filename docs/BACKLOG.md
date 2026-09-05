@@ -63,6 +63,25 @@ it for the explicit-light case, where it is already the default.
 
 ---
 
+### U5 · `defaults()` cannot merge a list override
+
+`scss/_config.scss` converts its **defaults** argument from a list into a map, then merges:
+
+```scss
+@if meta.type-of($defaults) == "list" { … convert … }
+$merged: map.merge($defaults, $overrides);
+```
+
+The override is never converted. So `$button-sizes`, documented as accepting "a simple list
+of size names", cannot be overridden with a list — `@use … with ($button-sizes: ("sm", "lg"))`
+reaches `map.merge(map, list)` and fails to compile.
+
+**Workaround here:** emit the map form `defaults()` would have produced, `("sm": true)`.
+Removing a size additionally needs an explicit `null`, since the merge is additive.
+
+**Fix:** convert `$overrides` as well when it is a list. Two lines, and it would make the
+documented usage work.
+
 ## P — This project
 
 ### P6 · The tool's own controls still borrow Bootstrap's shapes

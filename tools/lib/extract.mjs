@@ -26,6 +26,7 @@ import { splitLightDark, cssToRefs, isPureAlias, typeLiteral } from './value.mjs
 import { hintFor, GROUP_HINTS } from './hints.mjs'
 import { evaluateSassFunctions } from './sass-functions.mjs'
 import { describe, describeRole, describeThemeHook } from './descriptions.mjs'
+import { extractOptions } from './config-surface.mjs'
 
 const NS = 'dev.bootstrap.tokens'
 
@@ -518,6 +519,10 @@ export function extract(bootstrapRoot) {
   for (const tree of Object.values(files)) applyOrders(tree, orders)
 
   decorate(files, warnings)
+
+  // Build options live beside the token document, not inside it: they are configuration,
+  // not design values. See docs/PLAN.md A2.
+  files['config/options.json'] = extractOptions((file) => sources.read(file), sources.all())
 
   return { files, records, index, warnings, version: readVersion(sources) }
 }

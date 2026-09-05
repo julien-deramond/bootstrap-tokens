@@ -10,7 +10,7 @@ import { mkdtempSync, writeFileSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
-import { loadTokens, loadTree } from '../lib/load-fs.mjs'
+import { loadTokens, loadTree, loadOptions } from '../lib/load-fs.mjs'
 import { emitUseWith } from '../lib/emit-scss.mjs'
 import { withOverrides, diffResolved, themeCss, themeScss, clone } from '../lib/overrides.mjs'
 import { index } from '../lib/tokens.mjs'
@@ -63,7 +63,16 @@ export async function verify({ flags }) {
 
   const work = mkdtempSync(join(tmpdir(), 'bstokens-'))
   const entry = join(work, 'custom.scss')
-  writeFileSync(entry, emitUseWith(doc, { version, importPath: join(source, 'scss', 'bootstrap') }))
+  // Options are included at their defaults: if emitting one changes the output, we have
+  // captured it wrongly.
+  writeFileSync(
+    entry,
+    emitUseWith(doc, {
+      version,
+      importPath: join(source, 'scss', 'bootstrap'),
+      options: loadOptions(tokensDir)
+    })
+  )
 
   console.log(`Compiling upstream (${source})…`)
   const upstream = await compile(join(source, 'scss', 'bootstrap.scss'), [source])

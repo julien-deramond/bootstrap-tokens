@@ -190,13 +190,25 @@ export function changedKeysOf(doc, overrides) {
 }
 
 /** The `custom.scss` a user drops into their project. */
-export function themeScss(doc, overrides, { version, importPath = '../node_modules/bootstrap/scss/bootstrap' } = {}) {
+export function themeScss(
+  doc,
+  overrides,
+  { version, importPath = '../node_modules/bootstrap/scss/bootstrap', options = null } = {}
+) {
   const only = mapsTouched(doc, overrides)
-  if (only.size === 0) {
+  const changedOptions = options ?? {}
+
+  if (only.size === 0 && Object.keys(changedOptions).length === 0) {
     return `// No token overrides yet — this is stock Bootstrap.\n@use "${importPath}";\n`
   }
 
-  const scss = emitUseWith(doc, { version, importPath, only, changedKeys: changedKeysOf(doc, overrides) })
+  const scss = emitUseWith(doc, {
+    version,
+    importPath,
+    only,
+    changedKeys: changedKeysOf(doc, overrides),
+    options: changedOptions
+  })
   const gaps = unexpressible(doc, overrides)
   if (gaps.length === 0) return scss
 

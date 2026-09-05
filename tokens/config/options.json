@@ -1,0 +1,170 @@
+{
+  "$enable-rounded": {
+    "value": "true",
+    "kind": "flag",
+    "file": "scss/_config.scss",
+    "description": "Off squares every corner in the system, including components that set their own radius."
+  },
+  "$enable-shadows": {
+    "value": "true",
+    "kind": "flag",
+    "file": "scss/_config.scss",
+    "description": "Off removes the depth cues from buttons and inputs. The elevation scale still exists for components that ask for it."
+  },
+  "$enable-gradients": {
+    "value": "true",
+    "kind": "flag",
+    "file": "scss/_config.scss",
+    "description": "Adds a subtle sheen over filled components. Off gives flat fills."
+  },
+  "$enable-caret": {
+    "value": "true",
+    "kind": "flag",
+    "file": "scss/_config.scss",
+    "description": "The little triangle on dropdown toggles."
+  },
+  "$enable-transitions": {
+    "value": "true",
+    "kind": "flag",
+    "file": "scss/_config.scss",
+    "description": "Off removes every transition. Prefer `$enable-reduced-motion`, which respects the reader’s own setting."
+  },
+  "$enable-reduced-motion": {
+    "value": "true",
+    "kind": "flag",
+    "file": "scss/_config.scss",
+    "description": "Honours `prefers-reduced-motion`. Leave this on: turning it off overrides an accessibility preference the reader set deliberately."
+  },
+  "$enable-smooth-scroll": {
+    "value": "false",
+    "kind": "flag",
+    "file": "scss/_config.scss",
+    "description": "Smooth scrolling for in-page links. Off by default, and still gated on `prefers-reduced-motion` when on."
+  },
+  "$enable-grid-classes": {
+    "value": "true",
+    "kind": "flag",
+    "file": "scss/_config.scss",
+    "description": "Generates `.row` and `.col-*`. Off if you lay out with CSS grid or your own system."
+  },
+  "$enable-container-classes": {
+    "value": "true",
+    "kind": "flag",
+    "file": "scss/_config.scss",
+    "description": "Generates `.container` and its responsive variants."
+  },
+  "$enable-cssgrid": {
+    "value": "true",
+    "kind": "flag",
+    "file": "scss/_config.scss",
+    "description": "Generates the CSS-grid layout classes alongside the flex ones."
+  },
+  "$enable-button-pointers": {
+    "value": "true",
+    "kind": "flag",
+    "file": "scss/_config.scss",
+    "description": "Gives buttons `cursor: pointer`. Off matches the native platform behaviour."
+  },
+  "$enable-deprecation-messages": {
+    "value": "true",
+    "kind": "flag",
+    "file": "scss/_config.scss",
+    "description": "Warns at compile time when you use something scheduled for removal. Worth leaving on."
+  },
+  "$color-mode-type": {
+    "value": "\"media-query\"",
+    "kind": "choice",
+    "file": "scss/_config.scss",
+    "description": "Whether dark mode follows the system setting or a `data-bs-theme` attribute you control."
+  },
+  "$min-contrast-ratio": {
+    "value": "4.5",
+    "kind": "number",
+    "file": "scss/_config.scss",
+    "description": "The ratio `color-contrast()` aims for when picking text to sit on a fill. 4.5 is WCAG AA for body text."
+  },
+  "$color-contrast-dark": {
+    "value": "#000",
+    "kind": "color",
+    "file": "scss/_config.scss",
+    "description": "The dark option `color-contrast()` chooses between when deciding what to put on a fill."
+  },
+  "$color-contrast-light": {
+    "value": "#fff",
+    "kind": "color",
+    "file": "scss/_config.scss",
+    "description": "The light option `color-contrast()` chooses between."
+  },
+  "$button-sizes": {
+    "value": "(\"xs\", \"sm\", \"lg\")",
+    "kind": "list",
+    "file": "scss/buttons/_button.scss",
+    "description": "Which button size classes are generated. Dropping one removes `.btn-xs` and its CSS entirely."
+  },
+  "$pagination-sizes": {
+    "value": "(\"sm\", \"lg\")",
+    "kind": "list",
+    "file": "scss/_pagination.scss",
+    "description": "Which pagination size classes are generated."
+  },
+  "$otp-sizes": {
+    "value": "(\"sm\", \"lg\")",
+    "kind": "list",
+    "file": "scss/forms/_otp-input.scss",
+    "description": "Which one-time-code input size classes are generated."
+  },
+  "$strength-levels": {
+    "value": "weak, fair, good, strong",
+    "kind": "sequence",
+    "file": "scss/forms/_strength.scss",
+    "description": "The names of the password strength meter’s levels, weakest first."
+  },
+  "$avatar-sizes": {
+    "value": "( \"xs\": ( size: 1.5rem, status-size: .625rem, ), \"sm\": ( size: 2rem, ), \"lg\": ( size: 3rem, status-size: 1rem, border-width: 3px, ), \"xl\": ( size: 4rem, status-size: 1.25rem, border-width: 4px, ), )",
+    "kind": "map",
+    "file": "scss/_avatar.scss",
+    "description": "Which avatar size classes are generated, and how big each one is."
+  },
+  "$dialog-sizes": {
+    "value": "( sm: 280px, lg: 800px, xl: 1140px, )",
+    "kind": "map",
+    "file": "scss/_dialog.scss",
+    "description": "Which dialog size classes are generated, and the max-width of each."
+  },
+  "$form-control-sizes": {
+    "value": "(\"sm\", \"lg\")",
+    "kind": "list",
+    "file": "scss/forms/_form-control.scss",
+    "description": "Which form control size classes are generated. Keep in step with `$otp-sizes`."
+  },
+  "$input-group-sizes": {
+    "value": "(\"sm\", \"lg\")",
+    "kind": "list",
+    "file": "scss/forms/_input-group.scss",
+    "description": "Which input group size classes are generated."
+  },
+  "$validation-states": {
+    "value": "( \"valid\": \"success\", \"invalid\": \"danger\", )",
+    "kind": "map",
+    "file": "scss/forms/_validation.scss",
+    "description": "Maps each validation state to the theme colour it borrows. Add a state here and its feedback classes are generated for you."
+  },
+  "$table-striped-order": {
+    "value": "odd",
+    "kind": "choice",
+    "file": "scss/content/_tables.scss",
+    "description": "Which rows a striped table shades."
+  },
+  "$table-striped-columns-order": {
+    "value": "even",
+    "kind": "choice",
+    "file": "scss/content/_tables.scss",
+    "description": "Which columns a column-striped table shades."
+  },
+  "$stretched-link-pseudo-element": {
+    "value": "after",
+    "kind": "choice",
+    "file": "scss/helpers/_stretched-link.scss",
+    "description": "Which pseudo-element `.stretched-link` uses, in case it collides with your own."
+  }
+}

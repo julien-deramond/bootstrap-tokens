@@ -14,6 +14,7 @@
 import { ext, walk, childKeys } from './tokens.mjs'
 import { SCALARS, LOOPED_INTO_ROOT } from './sass-targets.mjs'
 import { ROOT_TOKEN_PATHS } from './curation.mjs'
+import { renderOption } from './config-surface.mjs'
 
 /** Maps emitted, in the order a reader wants to meet them. */
 export const MAP_ORDER = [
@@ -224,12 +225,18 @@ export function emitTokensModule(doc, { version }) {
  */
 export function emitUseWith(
   doc,
-  { version, importPath = 'bootstrap/scss/bootstrap', only = null, changedKeys = null } = {}
+  { version, importPath = 'bootstrap/scss/bootstrap', only = null, changedKeys = null, options = null } = {}
 ) {
   const maps = mapEntries(doc)
   const blocks = []
 
   const wanted = (name) => only === null || only.has(name)
+
+  // Build options first: they decide what Bootstrap generates at all, so they read as the
+  // shape of the build before the values that fill it.
+  for (const [name, entry] of Object.entries(options ?? {})) {
+    blocks.push(`  ${name}: ${renderOption(name, entry)}`)
+  }
 
   for (const [name, value] of buildScalars(doc)) {
     // A comma-separated value is a Sass list, but inside `with (…)` a top-level comma
