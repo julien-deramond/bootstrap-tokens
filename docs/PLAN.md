@@ -283,10 +283,18 @@ The sample is a component gallery. It cannot answer "does my theme survive a rea
 * **Colour-vision simulation** over the preview.
 * **An exportable report** to attach to a pull request.
 
-### C5. Show what changed
+### C5. Show what changed · 🚧 **list done, visual diff not**
 
-A readable diff — which tokens, which values, before and after — and a visual before/after
-against stock Bootstrap. Right now the only answer to "what have I done?" is the export tab.
+The change counter is now a disclosure listing every edit: token or build option, its
+previous value struck through, its new one, and a Revert button per row. Reverting is an
+ordinary mutation, so undo takes it back.
+
+Build options matter here more than the tokens do — they never appeared as tokens anywhere,
+so before this there was no way at all to see that a theme had turned `$enable-rounded` off
+short of reading the exported Sass.
+
+Still to do: the **visual** before/after — the same preview rendered from the base document
+beside the themed one.
 
 ### C6. First run and delight
 

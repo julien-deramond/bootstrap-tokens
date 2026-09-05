@@ -87,7 +87,13 @@
             <button type="button" data-scheme="dark">Dark</button>
             <button type="button" data-scheme="split">Side by side</button>
           </div>
-          <span class="chip" id="change-count">no changes</span>
+          <div class="changes-wrap">
+            <button type="button" class="chip" id="change-count" aria-expanded="false" aria-controls="changes-detail">no changes</button>
+            <div class="changes-detail" id="changes-detail" hidden>
+              <p class="changes-head" id="changes-head"></p>
+              <ul id="changes-list"></ul>
+            </div>
+          </div>
         </div>
         <iframe id="preview" title="Bootstrap components preview" src="./preview.html"></iframe>
       </section>

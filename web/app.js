@@ -1292,6 +1292,99 @@ function renderSimpleFooter() {
   return footer
 }
 
+/* ----------------------------------------------------------------- changes */
+
+/**
+ * Everything this theme changes, as a list you can read and undo one row at a time.
+ *
+ * The only previous answer to "what have I actually done?" was to open the export and read
+ * Sass, which is a poor question to have to answer that way — and no answer at all for the
+ * build options, which do not appear as tokens.
+ */
+function themeChanges() {
+  const rows = []
+
+  for (const path of Object.keys(state.overrides)) {
+    const token = state.doc.tokens.get(path)
+    if (!token) continue
+
+    const added = Boolean(ext(token).added)
+    rows.push({
+      kind: 'token',
+      key: path,
+      before: added ? null : authoredValue(state.baseDoc.tokens.get(path), 'value'),
+      after: editableValue(path, 'value'),
+      added,
+      revert: () => clearOverride(path)
+    })
+  }
+
+  for (const [name, option] of Object.entries(state.options)) {
+    rows.push({
+      kind: 'option',
+      key: name,
+      before: state.baseOptions[name]?.value ?? null,
+      after: option.value,
+      revert: () => setOption(name, state.baseOptions[name]?.value)
+    })
+  }
+
+  return rows.sort((a, b) => a.key.localeCompare(b.key))
+}
+
+function renderChanges() {
+  const button = $('#change-count')
+  const detail = $('#changes-detail')
+  const rows = themeChanges()
+
+  button.textContent = rows.length === 0 ? 'no changes' : `${rows.length} change${rows.length === 1 ? '' : 's'}`
+  button.classList.toggle('is-active', rows.length > 0)
+  button.disabled = rows.length === 0
+
+  if (rows.length === 0) {
+    detail.hidden = true
+    button.setAttribute('aria-expanded', 'false')
+    return
+  }
+
+  $('#changes-head').textContent = `${rows.length} change${rows.length === 1 ? '' : 's'} in this theme. Everything else is Bootstrap's default.`
+
+  const list = $('#changes-list')
+  list.textContent = ''
+
+  for (const row of rows) {
+    const item = document.createElement('li')
+    item.className = 'change-row'
+
+    const key = document.createElement('code')
+    key.className = 'change-key'
+    key.textContent = row.key
+
+    const values = document.createElement('span')
+    values.className = 'change-values'
+    if (row.added) {
+      const badge = document.createElement('span')
+      badge.className = 'change-added'
+      badge.textContent = 'added'
+      values.append(badge, document.createTextNode(` ${row.after}`))
+    } else {
+      const before = document.createElement('s')
+      before.textContent = row.before ?? '—'
+      values.append(before, document.createTextNode(' → '), document.createTextNode(row.after))
+    }
+
+    const revert = document.createElement('button')
+    revert.type = 'button'
+    revert.className = 'change-revert'
+    revert.textContent = 'Revert'
+    revert.setAttribute('aria-label', `Revert ${row.key}`)
+    revert.addEventListener('click', () => row.revert())
+
+    item.append(key, values, revert)
+    list.append(item)
+  }
+}
+
 /* ------------------------------------------------------------------ health */
 
 /**
@@ -1471,18 +1564,9 @@ function recompute() {
   }
 
   const changes = diffResolved(state.baseDoc, state.doc)
-  const count = Object.keys(state.overrides).length
 
-  const optionCount = Object.keys(state.options).length
-  const chip = $('#change-count')
-  chip.textContent =
-    count + optionCount === 0
-      ? 'no changes'
-      : [count && `${count} edited`, optionCount && `${optionCount} option${optionCount === 1 ? '' : 's'}`]
-          .filter(Boolean)
-          .join(' · ')
-  chip.classList.toggle('is-active', count + optionCount > 0)
-  $('#reset').disabled = count === 0
+  renderChanges()
+  $('#reset').disabled = Object.keys(state.overrides).length + Object.keys(state.options).length === 0
 
   postToPreview({ css: themeCss(changes), hues: availableHues(state.doc) })
 }
@@ -1833,6 +1917,19 @@ function wire() {
     await navigator.clipboard.writeText(url)
     $('#share').textContent = url.length > 2000 ? 'Copied (long link)' : 'Link copied'
     setTimeout(() => ($('#share').textContent = 'Copy share link'), 1600)
+  })
+
+  $('#change-count').addEventListener('click', () => {
+    const open = $('#change-count').getAttribute('aria-expanded') === 'true'
+    $('#change-count').setAttribute('aria-expanded', String(!open))
+    $('#changes-detail').hidden = open
+  })
+
+  document.addEventListener('click', (event) => {
+    if (!event.target.closest('.changes-wrap')) {
+      $('#change-count').setAttribute('aria-expanded', 'false')
+      $('#changes-detail').hidden = true
+    }
   })
 
   $('#health').addEventListener('click', () => {

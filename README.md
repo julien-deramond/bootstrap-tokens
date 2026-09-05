@@ -108,6 +108,8 @@ preset.
   section and flashes it, so you never have to hunt for the difference.
 * **Undo, always.** ⌘Z / ⇧⌘Z, and Reset is just another undoable step — no confirmation
   dialog guarding a reversible action.
+* **Every change is listed and revertible.** The change counter opens the full diff — tokens
+  and build options together, previous value beside new, one Revert per row.
 * **Themes are things you keep.** Name them, hold several, duplicate one to try a variation.
   *Copy share link* packs the whole theme into the URL fragment — 571 characters for a
   22-token theme, compressed in the browser, uploaded nowhere.
