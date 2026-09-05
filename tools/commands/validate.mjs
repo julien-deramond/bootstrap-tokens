@@ -4,8 +4,9 @@ import { tokensDir } from '../lib/config.mjs'
 
 export async function validate({ flags }) {
   const doc = loadTokens(tokensDir)
-  const { errors, warnings } = run(doc, { strict: Boolean(flags.strict) })
+  const { errors, warnings, findings } = run(doc, { strict: Boolean(flags.strict) })
 
+  for (const finding of findings) console.warn(`  upstream ${finding}`)
   for (const warning of warnings) console.warn(`  warning  ${warning}`)
   for (const error of errors) console.error(`  error    ${error}`)
 
@@ -14,6 +15,11 @@ export async function validate({ flags }) {
     return 1
   }
 
-  console.log(`✓ ${doc.tokens.size} tokens valid${warnings.length ? ` (${warnings.length} warning(s))` : ''}.`)
+  const notes = [
+    warnings.length ? `${warnings.length} warning(s)` : null,
+    findings.length ? `${findings.length} upstream finding(s)` : null
+  ].filter(Boolean)
+
+  console.log(`✓ ${doc.tokens.size} tokens valid${notes.length ? ` (${notes.join(', ')})` : ''}.`)
   return 0
 }

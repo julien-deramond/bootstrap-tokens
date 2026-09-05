@@ -8,6 +8,7 @@
  */
 
 import { ext, walk, referencesOf, isToken, isGroup } from './tokens.mjs'
+import { lintValue } from './css-lint.mjs'
 import { COMPONENTS } from './sass-targets.mjs'
 import { FILE_FOR_GROUP } from './curation.mjs'
 
@@ -42,6 +43,7 @@ export function layerOf(path) {
 export function validate(doc, { strict = false } = {}) {
   const errors = []
   const warnings = []
+  const findings = []
   const seenCssVars = new Map()
 
   for (const [path, token] of walk(doc.tree)) {
@@ -104,8 +106,11 @@ export function validate(doc, { strict = false } = {}) {
     }
 
     // --- resolution (also catches cycles) ---
+    // A resolved value is also the first point at which we can ask whether the CSS actually
+    // works, as opposed to whether we copied it correctly. See `css-lint.mjs`.
     try {
-      doc.cssValueOf(path)
+      const resolved = doc.cssValueOf(path)
+      for (const finding of lintValue(resolved)) findings.push(`${path}: ${finding}`)
     } catch (error) {
       errors.push(`${path}: ${error.message}`)
     }
@@ -124,5 +129,5 @@ export function validate(doc, { strict = false } = {}) {
   }
   checkShape(doc.tree)
 
-  return { errors, warnings }
+  return { errors, warnings, findings }
 }

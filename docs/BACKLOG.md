@@ -82,6 +82,38 @@ Removing a size additionally needs an explicit `null`, since the merge is additi
 **Fix:** convert `$overrides` as well when it is a list. Two lines, and it would make the
 documented usage work.
 
+---
+
+### U6 · `.navbar-dark` link colours are silently dropped
+
+Four declarations in `scss/_navbar.scss` (lines 54–60) weight `color-mix()` with a bare
+number instead of a percentage:
+
+```scss
+--navbar-color: color-mix(in oklch, var(--white) .55, transparent),
+--navbar-hover-color: color-mix(in oklch, var(--white) .75, transparent),
+--navbar-disabled-color: color-mix(in oklch, var(--white) .25, transparent),
+--navbar-toggler-border-color: color-mix(in oklch, var(--white) .1, transparent),
+```
+
+CSS Color 5 requires `<percentage>` there. A bare number parses fine *as a custom property* —
+any token sequence does — and fails at substitution time, so `color: var(--navbar-color)`
+becomes invalid at computed-value time and the element **inherits** its colour instead.
+
+Measured in Chrome 148: with `.55` the probe inherits its parent's `rgb(255, 0, 0)`; with
+`55%` it computes `oklch(0.999994 0.0000497986 none / 0.55)`. No console warning either way.
+
+These are the only four bare weights in the whole stylesheet — the other 28 `color-mix()`
+calls all use percentages — so it reads as a typo rather than a choice.
+
+**Fix:** `.55` → `55%`, `.75` → `75%`, `.25` → `25%`, `.1` → `10%`.
+
+**Here:** the document keeps upstream's text, because fidelity is the point and `verify`
+would fail otherwise. `bstokens validate` reports the four as *upstream findings* — the
+document is valid, the value it mirrors is not. The rule lives in
+[`tools/lib/css-lint.mjs`](../tools/lib/css-lint.mjs), which is where any further "faithful
+but broken in a browser" check goes.
+
 ## P — This project
 
 ### P6 · The tool's own controls still borrow Bootstrap's shapes
