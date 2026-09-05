@@ -4067,67 +4067,67 @@
     "sassMap": "$tooltip-tokens"
   },
   "color.blue.100": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 80%, oklch(60% 0.24 240))",
     "cssVar": "--blue-100",
     "sassMap": "$color-tokens"
   },
   "color.blue.200": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 60%, oklch(60% 0.24 240))",
     "cssVar": "--blue-200",
     "sassMap": "$color-tokens"
   },
   "color.blue.300": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 40%, oklch(60% 0.24 240))",
     "cssVar": "--blue-300",
     "sassMap": "$color-tokens"
   },
   "color.blue.400": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 20%, oklch(60% 0.24 240))",
     "cssVar": "--blue-400",
     "sassMap": "$color-tokens"
   },
   "color.blue.500": {
-    "$type": null,
+    "$type": "color",
     "$value": "oklch(60% 0.24 240)",
     "cssVar": "--blue-500",
     "sassMap": "$color-tokens"
   },
   "color.blue.600": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 16%, oklch(60% 0.24 240))",
     "cssVar": "--blue-600",
     "sassMap": "$color-tokens"
   },
   "color.blue.700": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 32%, oklch(60% 0.24 240))",
     "cssVar": "--blue-700",
     "sassMap": "$color-tokens"
   },
   "color.blue.800": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 48%, oklch(60% 0.24 240))",
     "cssVar": "--blue-800",
     "sassMap": "$color-tokens"
   },
   "color.blue.900": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 64%, oklch(60% 0.24 240))",
     "cssVar": "--blue-900",
     "sassMap": "$color-tokens"
   },
   "color.blue.950": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 70%, oklch(60% 0.24 240))",
     "cssVar": "--blue-950",
     "sassMap": "$color-tokens"
   },
   "color.blue.975": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 76%, oklch(60% 0.24 240))",
     "cssVar": "--blue-975",
     "sassMap": "$color-tokens"
@@ -4138,79 +4138,79 @@
     "sassMap": "$colors"
   },
   "color.blue.025": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 94%, oklch(60% 0.24 240))",
     "cssVar": "--blue-025",
     "sassMap": "$color-tokens"
   },
   "color.blue.050": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 90%, oklch(60% 0.24 240))",
     "cssVar": "--blue-050",
     "sassMap": "$color-tokens"
   },
   "color.indigo.100": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 80%, oklch(56% 0.26 288))",
     "cssVar": "--indigo-100",
     "sassMap": "$color-tokens"
   },
   "color.indigo.200": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 60%, oklch(56% 0.26 288))",
     "cssVar": "--indigo-200",
     "sassMap": "$color-tokens"
   },
   "color.indigo.300": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 40%, oklch(56% 0.26 288))",
     "cssVar": "--indigo-300",
     "sassMap": "$color-tokens"
   },
   "color.indigo.400": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 20%, oklch(56% 0.26 288))",
     "cssVar": "--indigo-400",
     "sassMap": "$color-tokens"
   },
   "color.indigo.500": {
-    "$type": null,
+    "$type": "color",
     "$value": "oklch(56% 0.26 288)",
     "cssVar": "--indigo-500",
     "sassMap": "$color-tokens"
   },
   "color.indigo.600": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 16%, oklch(56% 0.26 288))",
     "cssVar": "--indigo-600",
     "sassMap": "$color-tokens"
   },
   "color.indigo.700": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 32%, oklch(56% 0.26 288))",
     "cssVar": "--indigo-700",
     "sassMap": "$color-tokens"
   },
   "color.indigo.800": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 48%, oklch(56% 0.26 288))",
     "cssVar": "--indigo-800",
     "sassMap": "$color-tokens"
   },
   "color.indigo.900": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 64%, oklch(56% 0.26 288))",
     "cssVar": "--indigo-900",
     "sassMap": "$color-tokens"
   },
   "color.indigo.950": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 70%, oklch(56% 0.26 288))",
     "cssVar": "--indigo-950",
     "sassMap": "$color-tokens"
   },
   "color.indigo.975": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 76%, oklch(56% 0.26 288))",
     "cssVar": "--indigo-975",
     "sassMap": "$color-tokens"
@@ -4221,79 +4221,79 @@
     "sassMap": "$colors"
   },
   "color.indigo.025": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 94%, oklch(56% 0.26 288))",
     "cssVar": "--indigo-025",
     "sassMap": "$color-tokens"
   },
   "color.indigo.050": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 90%, oklch(56% 0.26 288))",
     "cssVar": "--indigo-050",
     "sassMap": "$color-tokens"
   },
   "color.violet.100": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 80%, oklch(56% 0.24 300))",
     "cssVar": "--violet-100",
     "sassMap": "$color-tokens"
   },
   "color.violet.200": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 60%, oklch(56% 0.24 300))",
     "cssVar": "--violet-200",
     "sassMap": "$color-tokens"
   },
   "color.violet.300": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 40%, oklch(56% 0.24 300))",
     "cssVar": "--violet-300",
     "sassMap": "$color-tokens"
   },
   "color.violet.400": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 20%, oklch(56% 0.24 300))",
     "cssVar": "--violet-400",
     "sassMap": "$color-tokens"
   },
   "color.violet.500": {
-    "$type": null,
+    "$type": "color",
     "$value": "oklch(56% 0.24 300)",
     "cssVar": "--violet-500",
     "sassMap": "$color-tokens"
   },
   "color.violet.600": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 16%, oklch(56% 0.24 300))",
     "cssVar": "--violet-600",
     "sassMap": "$color-tokens"
   },
   "color.violet.700": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 32%, oklch(56% 0.24 300))",
     "cssVar": "--violet-700",
     "sassMap": "$color-tokens"
   },
   "color.violet.800": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 48%, oklch(56% 0.24 300))",
     "cssVar": "--violet-800",
     "sassMap": "$color-tokens"
   },
   "color.violet.900": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 64%, oklch(56% 0.24 300))",
     "cssVar": "--violet-900",
     "sassMap": "$color-tokens"
   },
   "color.violet.950": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 70%, oklch(56% 0.24 300))",
     "cssVar": "--violet-950",
     "sassMap": "$color-tokens"
   },
   "color.violet.975": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 76%, oklch(56% 0.24 300))",
     "cssVar": "--violet-975",
     "sassMap": "$color-tokens"
@@ -4304,79 +4304,79 @@
     "sassMap": "$colors"
   },
   "color.violet.025": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 94%, oklch(56% 0.24 300))",
     "cssVar": "--violet-025",
     "sassMap": "$color-tokens"
   },
   "color.violet.050": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 90%, oklch(56% 0.24 300))",
     "cssVar": "--violet-050",
     "sassMap": "$color-tokens"
   },
   "color.purple.100": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 80%, oklch(56% 0.24 320))",
     "cssVar": "--purple-100",
     "sassMap": "$color-tokens"
   },
   "color.purple.200": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 60%, oklch(56% 0.24 320))",
     "cssVar": "--purple-200",
     "sassMap": "$color-tokens"
   },
   "color.purple.300": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 40%, oklch(56% 0.24 320))",
     "cssVar": "--purple-300",
     "sassMap": "$color-tokens"
   },
   "color.purple.400": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 20%, oklch(56% 0.24 320))",
     "cssVar": "--purple-400",
     "sassMap": "$color-tokens"
   },
   "color.purple.500": {
-    "$type": null,
+    "$type": "color",
     "$value": "oklch(56% 0.24 320)",
     "cssVar": "--purple-500",
     "sassMap": "$color-tokens"
   },
   "color.purple.600": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 16%, oklch(56% 0.24 320))",
     "cssVar": "--purple-600",
     "sassMap": "$color-tokens"
   },
   "color.purple.700": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 32%, oklch(56% 0.24 320))",
     "cssVar": "--purple-700",
     "sassMap": "$color-tokens"
   },
   "color.purple.800": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 48%, oklch(56% 0.24 320))",
     "cssVar": "--purple-800",
     "sassMap": "$color-tokens"
   },
   "color.purple.900": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 64%, oklch(56% 0.24 320))",
     "cssVar": "--purple-900",
     "sassMap": "$color-tokens"
   },
   "color.purple.950": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 70%, oklch(56% 0.24 320))",
     "cssVar": "--purple-950",
     "sassMap": "$color-tokens"
   },
   "color.purple.975": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 76%, oklch(56% 0.24 320))",
     "cssVar": "--purple-975",
     "sassMap": "$color-tokens"
@@ -4387,79 +4387,79 @@
     "sassMap": "$colors"
   },
   "color.purple.025": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 94%, oklch(56% 0.24 320))",
     "cssVar": "--purple-025",
     "sassMap": "$color-tokens"
   },
   "color.purple.050": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 90%, oklch(56% 0.24 320))",
     "cssVar": "--purple-050",
     "sassMap": "$color-tokens"
   },
   "color.pink.100": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 80%, oklch(60% 0.22 4))",
     "cssVar": "--pink-100",
     "sassMap": "$color-tokens"
   },
   "color.pink.200": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 60%, oklch(60% 0.22 4))",
     "cssVar": "--pink-200",
     "sassMap": "$color-tokens"
   },
   "color.pink.300": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 40%, oklch(60% 0.22 4))",
     "cssVar": "--pink-300",
     "sassMap": "$color-tokens"
   },
   "color.pink.400": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 20%, oklch(60% 0.22 4))",
     "cssVar": "--pink-400",
     "sassMap": "$color-tokens"
   },
   "color.pink.500": {
-    "$type": null,
+    "$type": "color",
     "$value": "oklch(60% 0.22 4)",
     "cssVar": "--pink-500",
     "sassMap": "$color-tokens"
   },
   "color.pink.600": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 16%, oklch(60% 0.22 4))",
     "cssVar": "--pink-600",
     "sassMap": "$color-tokens"
   },
   "color.pink.700": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 32%, oklch(60% 0.22 4))",
     "cssVar": "--pink-700",
     "sassMap": "$color-tokens"
   },
   "color.pink.800": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 48%, oklch(60% 0.22 4))",
     "cssVar": "--pink-800",
     "sassMap": "$color-tokens"
   },
   "color.pink.900": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 64%, oklch(60% 0.22 4))",
     "cssVar": "--pink-900",
     "sassMap": "$color-tokens"
   },
   "color.pink.950": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 70%, oklch(60% 0.22 4))",
     "cssVar": "--pink-950",
     "sassMap": "$color-tokens"
   },
   "color.pink.975": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 76%, oklch(60% 0.22 4))",
     "cssVar": "--pink-975",
     "sassMap": "$color-tokens"
@@ -4470,79 +4470,79 @@
     "sassMap": "$colors"
   },
   "color.pink.025": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 94%, oklch(60% 0.22 4))",
     "cssVar": "--pink-025",
     "sassMap": "$color-tokens"
   },
   "color.pink.050": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 90%, oklch(60% 0.22 4))",
     "cssVar": "--pink-050",
     "sassMap": "$color-tokens"
   },
   "color.red.100": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 80%, oklch(60% 0.22 20))",
     "cssVar": "--red-100",
     "sassMap": "$color-tokens"
   },
   "color.red.200": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 60%, oklch(60% 0.22 20))",
     "cssVar": "--red-200",
     "sassMap": "$color-tokens"
   },
   "color.red.300": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 40%, oklch(60% 0.22 20))",
     "cssVar": "--red-300",
     "sassMap": "$color-tokens"
   },
   "color.red.400": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 20%, oklch(60% 0.22 20))",
     "cssVar": "--red-400",
     "sassMap": "$color-tokens"
   },
   "color.red.500": {
-    "$type": null,
+    "$type": "color",
     "$value": "oklch(60% 0.22 20)",
     "cssVar": "--red-500",
     "sassMap": "$color-tokens"
   },
   "color.red.600": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 16%, oklch(60% 0.22 20))",
     "cssVar": "--red-600",
     "sassMap": "$color-tokens"
   },
   "color.red.700": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 32%, oklch(60% 0.22 20))",
     "cssVar": "--red-700",
     "sassMap": "$color-tokens"
   },
   "color.red.800": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 48%, oklch(60% 0.22 20))",
     "cssVar": "--red-800",
     "sassMap": "$color-tokens"
   },
   "color.red.900": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 64%, oklch(60% 0.22 20))",
     "cssVar": "--red-900",
     "sassMap": "$color-tokens"
   },
   "color.red.950": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 70%, oklch(60% 0.22 20))",
     "cssVar": "--red-950",
     "sassMap": "$color-tokens"
   },
   "color.red.975": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 76%, oklch(60% 0.22 20))",
     "cssVar": "--red-975",
     "sassMap": "$color-tokens"
@@ -4553,79 +4553,79 @@
     "sassMap": "$colors"
   },
   "color.red.025": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 94%, oklch(60% 0.22 20))",
     "cssVar": "--red-025",
     "sassMap": "$color-tokens"
   },
   "color.red.050": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 90%, oklch(60% 0.22 20))",
     "cssVar": "--red-050",
     "sassMap": "$color-tokens"
   },
   "color.orange.100": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 80%, oklch(70% 0.22 52))",
     "cssVar": "--orange-100",
     "sassMap": "$color-tokens"
   },
   "color.orange.200": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 60%, oklch(70% 0.22 52))",
     "cssVar": "--orange-200",
     "sassMap": "$color-tokens"
   },
   "color.orange.300": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 40%, oklch(70% 0.22 52))",
     "cssVar": "--orange-300",
     "sassMap": "$color-tokens"
   },
   "color.orange.400": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 20%, oklch(70% 0.22 52))",
     "cssVar": "--orange-400",
     "sassMap": "$color-tokens"
   },
   "color.orange.500": {
-    "$type": null,
+    "$type": "color",
     "$value": "oklch(70% 0.22 52)",
     "cssVar": "--orange-500",
     "sassMap": "$color-tokens"
   },
   "color.orange.600": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 16%, oklch(70% 0.22 52))",
     "cssVar": "--orange-600",
     "sassMap": "$color-tokens"
   },
   "color.orange.700": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 32%, oklch(70% 0.22 52))",
     "cssVar": "--orange-700",
     "sassMap": "$color-tokens"
   },
   "color.orange.800": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 48%, oklch(70% 0.22 52))",
     "cssVar": "--orange-800",
     "sassMap": "$color-tokens"
   },
   "color.orange.900": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 64%, oklch(70% 0.22 52))",
     "cssVar": "--orange-900",
     "sassMap": "$color-tokens"
   },
   "color.orange.950": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 70%, oklch(70% 0.22 52))",
     "cssVar": "--orange-950",
     "sassMap": "$color-tokens"
   },
   "color.orange.975": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 76%, oklch(70% 0.22 52))",
     "cssVar": "--orange-975",
     "sassMap": "$color-tokens"
@@ -4636,79 +4636,79 @@
     "sassMap": "$colors"
   },
   "color.orange.025": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 94%, oklch(70% 0.22 52))",
     "cssVar": "--orange-025",
     "sassMap": "$color-tokens"
   },
   "color.orange.050": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 90%, oklch(70% 0.22 52))",
     "cssVar": "--orange-050",
     "sassMap": "$color-tokens"
   },
   "color.amber.100": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 80%, oklch(79% 0.2 78))",
     "cssVar": "--amber-100",
     "sassMap": "$color-tokens"
   },
   "color.amber.200": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 60%, oklch(79% 0.2 78))",
     "cssVar": "--amber-200",
     "sassMap": "$color-tokens"
   },
   "color.amber.300": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 40%, oklch(79% 0.2 78))",
     "cssVar": "--amber-300",
     "sassMap": "$color-tokens"
   },
   "color.amber.400": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 20%, oklch(79% 0.2 78))",
     "cssVar": "--amber-400",
     "sassMap": "$color-tokens"
   },
   "color.amber.500": {
-    "$type": null,
+    "$type": "color",
     "$value": "oklch(79% 0.2 78)",
     "cssVar": "--amber-500",
     "sassMap": "$color-tokens"
   },
   "color.amber.600": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 16%, oklch(79% 0.2 78))",
     "cssVar": "--amber-600",
     "sassMap": "$color-tokens"
   },
   "color.amber.700": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 32%, oklch(79% 0.2 78))",
     "cssVar": "--amber-700",
     "sassMap": "$color-tokens"
   },
   "color.amber.800": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 48%, oklch(79% 0.2 78))",
     "cssVar": "--amber-800",
     "sassMap": "$color-tokens"
   },
   "color.amber.900": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 64%, oklch(79% 0.2 78))",
     "cssVar": "--amber-900",
     "sassMap": "$color-tokens"
   },
   "color.amber.950": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 70%, oklch(79% 0.2 78))",
     "cssVar": "--amber-950",
     "sassMap": "$color-tokens"
   },
   "color.amber.975": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 76%, oklch(79% 0.2 78))",
     "cssVar": "--amber-975",
     "sassMap": "$color-tokens"
@@ -4719,79 +4719,79 @@
     "sassMap": "$colors"
   },
   "color.amber.025": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 94%, oklch(79% 0.2 78))",
     "cssVar": "--amber-025",
     "sassMap": "$color-tokens"
   },
   "color.amber.050": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 90%, oklch(79% 0.2 78))",
     "cssVar": "--amber-050",
     "sassMap": "$color-tokens"
   },
   "color.yellow.100": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 80%, oklch(88% 0.24 88))",
     "cssVar": "--yellow-100",
     "sassMap": "$color-tokens"
   },
   "color.yellow.200": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 60%, oklch(88% 0.24 88))",
     "cssVar": "--yellow-200",
     "sassMap": "$color-tokens"
   },
   "color.yellow.300": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 40%, oklch(88% 0.24 88))",
     "cssVar": "--yellow-300",
     "sassMap": "$color-tokens"
   },
   "color.yellow.400": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 20%, oklch(88% 0.24 88))",
     "cssVar": "--yellow-400",
     "sassMap": "$color-tokens"
   },
   "color.yellow.500": {
-    "$type": null,
+    "$type": "color",
     "$value": "oklch(88% 0.24 88)",
     "cssVar": "--yellow-500",
     "sassMap": "$color-tokens"
   },
   "color.yellow.600": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 16%, oklch(88% 0.24 88))",
     "cssVar": "--yellow-600",
     "sassMap": "$color-tokens"
   },
   "color.yellow.700": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 32%, oklch(88% 0.24 88))",
     "cssVar": "--yellow-700",
     "sassMap": "$color-tokens"
   },
   "color.yellow.800": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 48%, oklch(88% 0.24 88))",
     "cssVar": "--yellow-800",
     "sassMap": "$color-tokens"
   },
   "color.yellow.900": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 64%, oklch(88% 0.24 88))",
     "cssVar": "--yellow-900",
     "sassMap": "$color-tokens"
   },
   "color.yellow.950": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 70%, oklch(88% 0.24 88))",
     "cssVar": "--yellow-950",
     "sassMap": "$color-tokens"
   },
   "color.yellow.975": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 76%, oklch(88% 0.24 88))",
     "cssVar": "--yellow-975",
     "sassMap": "$color-tokens"
@@ -4802,79 +4802,79 @@
     "sassMap": "$colors"
   },
   "color.yellow.025": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 94%, oklch(88% 0.24 88))",
     "cssVar": "--yellow-025",
     "sassMap": "$color-tokens"
   },
   "color.yellow.050": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 90%, oklch(88% 0.24 88))",
     "cssVar": "--yellow-050",
     "sassMap": "$color-tokens"
   },
   "color.lime.100": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 80%, oklch(65% 0.24 135))",
     "cssVar": "--lime-100",
     "sassMap": "$color-tokens"
   },
   "color.lime.200": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 60%, oklch(65% 0.24 135))",
     "cssVar": "--lime-200",
     "sassMap": "$color-tokens"
   },
   "color.lime.300": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 40%, oklch(65% 0.24 135))",
     "cssVar": "--lime-300",
     "sassMap": "$color-tokens"
   },
   "color.lime.400": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 20%, oklch(65% 0.24 135))",
     "cssVar": "--lime-400",
     "sassMap": "$color-tokens"
   },
   "color.lime.500": {
-    "$type": null,
+    "$type": "color",
     "$value": "oklch(65% 0.24 135)",
     "cssVar": "--lime-500",
     "sassMap": "$color-tokens"
   },
   "color.lime.600": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 16%, oklch(65% 0.24 135))",
     "cssVar": "--lime-600",
     "sassMap": "$color-tokens"
   },
   "color.lime.700": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 32%, oklch(65% 0.24 135))",
     "cssVar": "--lime-700",
     "sassMap": "$color-tokens"
   },
   "color.lime.800": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 48%, oklch(65% 0.24 135))",
     "cssVar": "--lime-800",
     "sassMap": "$color-tokens"
   },
   "color.lime.900": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 64%, oklch(65% 0.24 135))",
     "cssVar": "--lime-900",
     "sassMap": "$color-tokens"
   },
   "color.lime.950": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 70%, oklch(65% 0.24 135))",
     "cssVar": "--lime-950",
     "sassMap": "$color-tokens"
   },
   "color.lime.975": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 76%, oklch(65% 0.24 135))",
     "cssVar": "--lime-975",
     "sassMap": "$color-tokens"
@@ -4885,79 +4885,79 @@
     "sassMap": "$colors"
   },
   "color.lime.025": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 94%, oklch(65% 0.24 135))",
     "cssVar": "--lime-025",
     "sassMap": "$color-tokens"
   },
   "color.lime.050": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 90%, oklch(65% 0.24 135))",
     "cssVar": "--lime-050",
     "sassMap": "$color-tokens"
   },
   "color.green.100": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 80%, oklch(64% 0.22 160))",
     "cssVar": "--green-100",
     "sassMap": "$color-tokens"
   },
   "color.green.200": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 60%, oklch(64% 0.22 160))",
     "cssVar": "--green-200",
     "sassMap": "$color-tokens"
   },
   "color.green.300": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 40%, oklch(64% 0.22 160))",
     "cssVar": "--green-300",
     "sassMap": "$color-tokens"
   },
   "color.green.400": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 20%, oklch(64% 0.22 160))",
     "cssVar": "--green-400",
     "sassMap": "$color-tokens"
   },
   "color.green.500": {
-    "$type": null,
+    "$type": "color",
     "$value": "oklch(64% 0.22 160)",
     "cssVar": "--green-500",
     "sassMap": "$color-tokens"
   },
   "color.green.600": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 16%, oklch(64% 0.22 160))",
     "cssVar": "--green-600",
     "sassMap": "$color-tokens"
   },
   "color.green.700": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 32%, oklch(64% 0.22 160))",
     "cssVar": "--green-700",
     "sassMap": "$color-tokens"
   },
   "color.green.800": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 48%, oklch(64% 0.22 160))",
     "cssVar": "--green-800",
     "sassMap": "$color-tokens"
   },
   "color.green.900": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 64%, oklch(64% 0.22 160))",
     "cssVar": "--green-900",
     "sassMap": "$color-tokens"
   },
   "color.green.950": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 70%, oklch(64% 0.22 160))",
     "cssVar": "--green-950",
     "sassMap": "$color-tokens"
   },
   "color.green.975": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 76%, oklch(64% 0.22 160))",
     "cssVar": "--green-975",
     "sassMap": "$color-tokens"
@@ -4968,79 +4968,79 @@
     "sassMap": "$colors"
   },
   "color.green.025": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 94%, oklch(64% 0.22 160))",
     "cssVar": "--green-025",
     "sassMap": "$color-tokens"
   },
   "color.green.050": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 90%, oklch(64% 0.22 160))",
     "cssVar": "--green-050",
     "sassMap": "$color-tokens"
   },
   "color.teal.100": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 80%, oklch(68% 0.22 190))",
     "cssVar": "--teal-100",
     "sassMap": "$color-tokens"
   },
   "color.teal.200": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 60%, oklch(68% 0.22 190))",
     "cssVar": "--teal-200",
     "sassMap": "$color-tokens"
   },
   "color.teal.300": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 40%, oklch(68% 0.22 190))",
     "cssVar": "--teal-300",
     "sassMap": "$color-tokens"
   },
   "color.teal.400": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 20%, oklch(68% 0.22 190))",
     "cssVar": "--teal-400",
     "sassMap": "$color-tokens"
   },
   "color.teal.500": {
-    "$type": null,
+    "$type": "color",
     "$value": "oklch(68% 0.22 190)",
     "cssVar": "--teal-500",
     "sassMap": "$color-tokens"
   },
   "color.teal.600": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 16%, oklch(68% 0.22 190))",
     "cssVar": "--teal-600",
     "sassMap": "$color-tokens"
   },
   "color.teal.700": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 32%, oklch(68% 0.22 190))",
     "cssVar": "--teal-700",
     "sassMap": "$color-tokens"
   },
   "color.teal.800": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 48%, oklch(68% 0.22 190))",
     "cssVar": "--teal-800",
     "sassMap": "$color-tokens"
   },
   "color.teal.900": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 64%, oklch(68% 0.22 190))",
     "cssVar": "--teal-900",
     "sassMap": "$color-tokens"
   },
   "color.teal.950": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 70%, oklch(68% 0.22 190))",
     "cssVar": "--teal-950",
     "sassMap": "$color-tokens"
   },
   "color.teal.975": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 76%, oklch(68% 0.22 190))",
     "cssVar": "--teal-975",
     "sassMap": "$color-tokens"
@@ -5051,79 +5051,79 @@
     "sassMap": "$colors"
   },
   "color.teal.025": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 94%, oklch(68% 0.22 190))",
     "cssVar": "--teal-025",
     "sassMap": "$color-tokens"
   },
   "color.teal.050": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 90%, oklch(68% 0.22 190))",
     "cssVar": "--teal-050",
     "sassMap": "$color-tokens"
   },
   "color.cyan.100": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 80%, oklch(69% 0.22 220))",
     "cssVar": "--cyan-100",
     "sassMap": "$color-tokens"
   },
   "color.cyan.200": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 60%, oklch(69% 0.22 220))",
     "cssVar": "--cyan-200",
     "sassMap": "$color-tokens"
   },
   "color.cyan.300": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 40%, oklch(69% 0.22 220))",
     "cssVar": "--cyan-300",
     "sassMap": "$color-tokens"
   },
   "color.cyan.400": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 20%, oklch(69% 0.22 220))",
     "cssVar": "--cyan-400",
     "sassMap": "$color-tokens"
   },
   "color.cyan.500": {
-    "$type": null,
+    "$type": "color",
     "$value": "oklch(69% 0.22 220)",
     "cssVar": "--cyan-500",
     "sassMap": "$color-tokens"
   },
   "color.cyan.600": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 16%, oklch(69% 0.22 220))",
     "cssVar": "--cyan-600",
     "sassMap": "$color-tokens"
   },
   "color.cyan.700": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 32%, oklch(69% 0.22 220))",
     "cssVar": "--cyan-700",
     "sassMap": "$color-tokens"
   },
   "color.cyan.800": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 48%, oklch(69% 0.22 220))",
     "cssVar": "--cyan-800",
     "sassMap": "$color-tokens"
   },
   "color.cyan.900": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 64%, oklch(69% 0.22 220))",
     "cssVar": "--cyan-900",
     "sassMap": "$color-tokens"
   },
   "color.cyan.950": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 70%, oklch(69% 0.22 220))",
     "cssVar": "--cyan-950",
     "sassMap": "$color-tokens"
   },
   "color.cyan.975": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 76%, oklch(69% 0.22 220))",
     "cssVar": "--cyan-975",
     "sassMap": "$color-tokens"
@@ -5134,79 +5134,79 @@
     "sassMap": "$colors"
   },
   "color.cyan.025": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 94%, oklch(69% 0.22 220))",
     "cssVar": "--cyan-025",
     "sassMap": "$color-tokens"
   },
   "color.cyan.050": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 90%, oklch(69% 0.22 220))",
     "cssVar": "--cyan-050",
     "sassMap": "$color-tokens"
   },
   "color.brown.100": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 80%, oklch(60% 0.12 54))",
     "cssVar": "--brown-100",
     "sassMap": "$color-tokens"
   },
   "color.brown.200": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 60%, oklch(60% 0.12 54))",
     "cssVar": "--brown-200",
     "sassMap": "$color-tokens"
   },
   "color.brown.300": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 40%, oklch(60% 0.12 54))",
     "cssVar": "--brown-300",
     "sassMap": "$color-tokens"
   },
   "color.brown.400": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 20%, oklch(60% 0.12 54))",
     "cssVar": "--brown-400",
     "sassMap": "$color-tokens"
   },
   "color.brown.500": {
-    "$type": null,
+    "$type": "color",
     "$value": "oklch(60% 0.12 54)",
     "cssVar": "--brown-500",
     "sassMap": "$color-tokens"
   },
   "color.brown.600": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 16%, oklch(60% 0.12 54))",
     "cssVar": "--brown-600",
     "sassMap": "$color-tokens"
   },
   "color.brown.700": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 32%, oklch(60% 0.12 54))",
     "cssVar": "--brown-700",
     "sassMap": "$color-tokens"
   },
   "color.brown.800": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 48%, oklch(60% 0.12 54))",
     "cssVar": "--brown-800",
     "sassMap": "$color-tokens"
   },
   "color.brown.900": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 64%, oklch(60% 0.12 54))",
     "cssVar": "--brown-900",
     "sassMap": "$color-tokens"
   },
   "color.brown.950": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 70%, oklch(60% 0.12 54))",
     "cssVar": "--brown-950",
     "sassMap": "$color-tokens"
   },
   "color.brown.975": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 76%, oklch(60% 0.12 54))",
     "cssVar": "--brown-975",
     "sassMap": "$color-tokens"
@@ -5217,79 +5217,79 @@
     "sassMap": "$colors"
   },
   "color.brown.025": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 94%, oklch(60% 0.12 54))",
     "cssVar": "--brown-025",
     "sassMap": "$color-tokens"
   },
   "color.brown.050": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 90%, oklch(60% 0.12 54))",
     "cssVar": "--brown-050",
     "sassMap": "$color-tokens"
   },
   "color.gray.100": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 80%, oklch(60% 0.02 245))",
     "cssVar": "--gray-100",
     "sassMap": "$color-tokens"
   },
   "color.gray.200": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 60%, oklch(60% 0.02 245))",
     "cssVar": "--gray-200",
     "sassMap": "$color-tokens"
   },
   "color.gray.300": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 40%, oklch(60% 0.02 245))",
     "cssVar": "--gray-300",
     "sassMap": "$color-tokens"
   },
   "color.gray.400": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 20%, oklch(60% 0.02 245))",
     "cssVar": "--gray-400",
     "sassMap": "$color-tokens"
   },
   "color.gray.500": {
-    "$type": null,
+    "$type": "color",
     "$value": "oklch(60% 0.02 245)",
     "cssVar": "--gray-500",
     "sassMap": "$color-tokens"
   },
   "color.gray.600": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 16%, oklch(60% 0.02 245))",
     "cssVar": "--gray-600",
     "sassMap": "$color-tokens"
   },
   "color.gray.700": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 32%, oklch(60% 0.02 245))",
     "cssVar": "--gray-700",
     "sassMap": "$color-tokens"
   },
   "color.gray.800": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 48%, oklch(60% 0.02 245))",
     "cssVar": "--gray-800",
     "sassMap": "$color-tokens"
   },
   "color.gray.900": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 64%, oklch(60% 0.02 245))",
     "cssVar": "--gray-900",
     "sassMap": "$color-tokens"
   },
   "color.gray.950": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 70%, oklch(60% 0.02 245))",
     "cssVar": "--gray-950",
     "sassMap": "$color-tokens"
   },
   "color.gray.975": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 76%, oklch(60% 0.02 245))",
     "cssVar": "--gray-975",
     "sassMap": "$color-tokens"
@@ -5300,79 +5300,79 @@
     "sassMap": "$colors"
   },
   "color.gray.025": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 94%, oklch(60% 0.02 245))",
     "cssVar": "--gray-025",
     "sassMap": "$color-tokens"
   },
   "color.gray.050": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 90%, oklch(60% 0.02 245))",
     "cssVar": "--gray-050",
     "sassMap": "$color-tokens"
   },
   "color.pewter.100": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 80%, oklch(65% 0.01 290))",
     "cssVar": "--pewter-100",
     "sassMap": "$color-tokens"
   },
   "color.pewter.200": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 60%, oklch(65% 0.01 290))",
     "cssVar": "--pewter-200",
     "sassMap": "$color-tokens"
   },
   "color.pewter.300": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 40%, oklch(65% 0.01 290))",
     "cssVar": "--pewter-300",
     "sassMap": "$color-tokens"
   },
   "color.pewter.400": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 20%, oklch(65% 0.01 290))",
     "cssVar": "--pewter-400",
     "sassMap": "$color-tokens"
   },
   "color.pewter.500": {
-    "$type": null,
+    "$type": "color",
     "$value": "oklch(65% 0.01 290)",
     "cssVar": "--pewter-500",
     "sassMap": "$color-tokens"
   },
   "color.pewter.600": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 16%, oklch(65% 0.01 290))",
     "cssVar": "--pewter-600",
     "sassMap": "$color-tokens"
   },
   "color.pewter.700": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 32%, oklch(65% 0.01 290))",
     "cssVar": "--pewter-700",
     "sassMap": "$color-tokens"
   },
   "color.pewter.800": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 48%, oklch(65% 0.01 290))",
     "cssVar": "--pewter-800",
     "sassMap": "$color-tokens"
   },
   "color.pewter.900": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 64%, oklch(65% 0.01 290))",
     "cssVar": "--pewter-900",
     "sassMap": "$color-tokens"
   },
   "color.pewter.950": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 70%, oklch(65% 0.01 290))",
     "cssVar": "--pewter-950",
     "sassMap": "$color-tokens"
   },
   "color.pewter.975": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--black) 76%, oklch(65% 0.01 290))",
     "cssVar": "--pewter-975",
     "sassMap": "$color-tokens"
@@ -5383,13 +5383,13 @@
     "sassMap": "$colors"
   },
   "color.pewter.025": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 94%, oklch(65% 0.01 290))",
     "cssVar": "--pewter-025",
     "sassMap": "$color-tokens"
   },
   "color.pewter.050": {
-    "$type": null,
+    "$type": "color",
     "$value": "color-mix(in oklch, var(--white) 90%, oklch(65% 0.01 290))",
     "cssVar": "--pewter-050",
     "sassMap": "$color-tokens"

@@ -25,6 +25,7 @@ export function scaleFor(hue, { base, tints, shades, space, tintColor, shadeColo
 
     if (kind === 'base') {
       out[stop] = {
+        $type: 'color',
         $value: `{color.${hue}.base}`,
         $extensions: {
           'dev.bootstrap.tokens': { cssVar, sassMap: '$color-tokens', generated: 'color-scale' }
@@ -35,6 +36,7 @@ export function scaleFor(hue, { base, tints, shades, space, tintColor, shadeColo
 
     const mixWith = kind === 'tint' ? tintColor : shadeColor
     out[stop] = {
+      $type: 'color',
       $value: `color-mix(in ${space}, ${mixWith} ${percent}, {color.${hue}.base})`,
       $extensions: {
         'dev.bootstrap.tokens': {

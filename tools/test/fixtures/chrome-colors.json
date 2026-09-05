@@ -1,0 +1,41 @@
+{
+  "$comment": "What Chrome actually computed for these tokens, measured by declaring every custom property on an element and reading getComputedStyle. The flattener has to agree with this, or the hex we hand a designer is not the pixel a user sees. Regenerate with `node tools/cli.mjs verify --colors` and a browser; see docs/flattening.md.",
+  "browser": "Chrome/148.0.7778.280",
+  "measured": "2026-09-05",
+  "bootstrap": "6.0.0-alpha1",
+  "light": {
+    "alert.bg": "#f6f7f8", "btn.color": "#171a1d", "card.bg": "#ffffff",
+    "dialog.backdrop-bg": "#00000080", "navbar.color": "#444b51", "progress.bg": "#f1f2f3",
+    "prose.heading-color": "#171a1d", "reboot-mark.mark-bg": "#fff7e2", "tooltip.bg": "#171a1d",
+    "color.blue.025": "#f0f8ff", "color.blue.050": "#e6f4ff", "color.blue.100": "#cce9ff",
+    "color.blue.200": "#94d3ff", "color.blue.300": "#51bcff", "color.blue.400": "#00a2ee",
+    "color.blue.500": "#0089c9", "color.blue.600": "#006b9f", "color.blue.700": "#004f77",
+    "color.blue.800": "#003551", "color.blue.900": "#001c2e", "color.blue.950": "#001322",
+    "color.blue.975": "#000b16",
+    "color.yellow.025": "#fffcf6", "color.yellow.050": "#fffbf1", "color.yellow.100": "#fff7e2",
+    "color.yellow.200": "#ffeec5", "color.yellow.300": "#ffe5a5", "color.yellow.400": "#ffdb83",
+    "color.yellow.500": "#ffd15a", "color.yellow.600": "#d2a300", "color.yellow.700": "#9e7a00",
+    "color.yellow.800": "#6d5300", "color.yellow.900": "#403000", "color.yellow.950": "#302300",
+    "color.yellow.975": "#211700",
+    "color.gray.025": "#f6f7f8", "color.gray.050": "#f1f2f3", "color.gray.100": "#e2e5e7",
+    "color.gray.200": "#c6cbcf", "color.gray.300": "#abb2b8", "color.gray.400": "#909aa2",
+    "color.gray.500": "#77828c", "color.gray.600": "#5d666e", "color.gray.700": "#444b51",
+    "color.gray.800": "#2d3136", "color.gray.900": "#171a1d", "color.gray.950": "#0f1214",
+    "color.gray.975": "#080a0c",
+    "border.body": "#abb2b8", "bg.body": "#ffffff", "bg.1": "#f6f7f8", "bg.2": "#f1f2f3",
+    "fg.body": "#171a1d", "fg.1": "#2d3136", "fg.2": "#444b51"
+  },
+  "dark": {
+    "alert.bg": "#0f1214", "btn.color": "#f1f2f3", "card.bg": "#080a0c",
+    "dialog.backdrop-bg": "#000000a6", "drawer.backdrop-bg": "#080a0c40",
+    "navbar.color": "#abb2b8", "progress.bg": "#171a1d", "prose.heading-color": "#ffffff",
+    "reboot-mark.mark-bg": "#403000", "tooltip.bg": "#f1f2f3",
+    "color.blue.025": "#f0f8ff", "color.blue.050": "#e6f4ff", "color.blue.100": "#cce9ff",
+    "color.blue.200": "#94d3ff", "color.blue.300": "#51bcff", "color.blue.400": "#00a2ee",
+    "color.blue.500": "#0089c9", "color.blue.600": "#006b9f", "color.blue.700": "#004f77",
+    "color.blue.800": "#003551", "color.blue.900": "#001c2e", "color.blue.950": "#001322",
+    "color.blue.975": "#000b16",
+    "border.body": "#2d3136", "bg.body": "#080a0c", "bg.1": "#0f1214", "bg.2": "#171a1d",
+    "fg.body": "#f1f2f3", "fg.1": "#c6cbcf", "fg.2": "#abb2b8"
+  }
+}

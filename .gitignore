@@ -4,3 +4,6 @@ node_modules/
 
 # `bstokens eject` output — a per-run artifact, not a build product
 build/v6-dev/
+
+# `bstokens probe` output — a browser harness, regenerated on demand
+build/probe.html

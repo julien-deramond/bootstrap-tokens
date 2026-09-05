@@ -8,7 +8,7 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 
-import { oklchToRgb, rgbToOklch, rgbToHex, hexToRgb, formatColor, parseComputedColor } from '../../web/color.js'
+import { oklchToRgb, rgbToOklch, rgbToHex, hexToRgb, formatColor, parseComputedColor } from '../lib/color.mjs'
 
 /** Bootstrap's actual base hues, from tokens/primitive/color.json. */
 const HUES = {

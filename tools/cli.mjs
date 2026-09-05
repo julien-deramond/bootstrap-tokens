@@ -6,6 +6,7 @@ const COMMANDS = {
   build: () => import('./commands/build.mjs').then((m) => m.build),
   validate: () => import('./commands/validate.mjs').then((m) => m.validate),
   verify: () => import('./commands/verify.mjs').then((m) => m.verify),
+  probe: () => import('./commands/probe.mjs').then((m) => m.probe),
   vendor: () => import('./commands/vendor.mjs').then((m) => m.vendor),
   eject: () => import('./commands/eject.mjs').then((m) => m.eject),
   init: () => import('./commands/init.mjs').then((m) => m.init),
@@ -26,6 +27,9 @@ const USAGE = `bstokens <command> [options]
 
   verify     Compile upstream Bootstrap and our export, and diff the CSS
              --src <path>   the checkout to compile against
+
+  probe      Write a page that checks the flattened colours against a real browser
+             --out <f>      where to write it (default build/probe.html)
 
   vendor     Compile upstream Bootstrap into web/vendor/bootstrap.css for the chooser
              --src <path>   the checkout to compile
