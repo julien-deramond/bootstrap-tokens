@@ -15,10 +15,19 @@ import { compileUpstream, includedMaps } from '../lib/declared.mjs'
 import { selectorDrift } from '../lib/selectors.mjs'
 import { COMPONENTS } from '../lib/sass-targets.mjs'
 
-/** The upstream commit the token document was extracted from, when git can tell us. */
+/**
+ * The upstream commit the token document was extracted from, when git can tell us.
+ *
+ * `stdio: pipe` because a source that is not a git checkout — a tarball, a vendored copy —
+ * is an ordinary situation, and letting git's "fatal: not a git repository" through to the
+ * terminal makes a successful sync look like it went wrong.
+ */
 function upstreamCommit(source) {
   try {
-    return execFileSync('git', ['-C', source, 'rev-parse', 'HEAD'], { encoding: 'utf8' }).trim()
+    return execFileSync('git', ['-C', source, 'rev-parse', 'HEAD'], {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore']
+    }).trim()
   } catch {
     return null
   }
@@ -57,8 +66,13 @@ export async function sync({ flags }) {
       const previous = JSON.parse(readFileSync(path, 'utf8'))
       files['meta.json'].extractedAt = previous.extractedAt
       files['meta.json'].commit = previous.commit
-      if (upstreamCommit(source) !== previous.commit) {
-        console.log(`Upstream is at ${upstreamCommit(source)?.slice(0, 8)}, document says ${String(previous.commit).slice(0, 8)}.`)
+      const head = upstreamCommit(source)
+      if (head !== previous.commit) {
+        console.log(
+          head
+            ? `Upstream is at ${head.slice(0, 8)}, document says ${String(previous.commit).slice(0, 8)}.`
+            : 'This source is not a git checkout, so the recorded commit is left as it is.'
+        )
       }
     }
   }
