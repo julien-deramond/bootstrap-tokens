@@ -319,6 +319,15 @@ The sample is a component gallery. It cannot answer "does my theme survive a rea
   which is the question anyone actually has. Spacing against real prose is where a density or
   radius choice succeeds or falls apart.
 * ⬜ Hover states, which cannot be forced from outside the document.
+* ✅ **Markup that is actually v6's.** The preview is a fidelity claim — "this is what your
+  theme looks like on Bootstrap" — and it is only true while the markup is Bootstrap's own.
+  It had drifted: the forms section used v5's `.form-check`, `.form-check-input` and
+  `.form-switch`, none of which v6 styles, so checkboxes, radios and switches rendered as
+  bare browser controls and a theme's check and switch tokens appeared to do nothing.
+  `.lead`, which v6's migration guide explicitly removed, was there too. Drift like this is
+  silent by nature — a class that no longer exists renders an unstyled element, which reads
+  as a plain control rather than as a bug — so it is now a test against the vendored
+  stylesheet the preview itself loads.
 * ✅ **Your own markup**, pasted in. The gallery answers "do Bootstrap's components look
   right?"; this answers the question anyone actually has, which is whether the theme survives
   *their* page — their nesting, their utilities, their content lengths. Stored per browser

@@ -129,21 +129,29 @@ const forms = (uid) => section(
       </div>
     </div>
     <div>
-      <div class="form-check">
-        <input class="form-check-input" type="checkbox" id="check-${uid}" checked />
-        <label class="form-check-label" for="check-${uid}">Checkbox</label>
+      <!--
+        v6 markup, not v5's. Checks are \`.check\` on the input itself and switches are a
+        \`.switch\` wrapper — \`.form-check\`/\`.form-check-input\`/\`.form-switch\` no longer
+        style anything, so this section rendered as bare browser controls and a theme's
+        check and switch tokens appeared to do nothing.
+      -->
+      <div class="form-field">
+        <input class="check" type="checkbox" id="check-${uid}" checked />
+        <label for="check-${uid}">Checkbox</label>
       </div>
-      <div class="form-check">
+      <div class="form-field">
         <input class="radio" type="radio" name="radio-${uid}" id="radio-${uid}" checked />
-        <label class="form-check-label" for="radio-${uid}">Radio</label>
+        <label for="radio-${uid}">Radio</label>
       </div>
       <div class="form-adorn mt">
         <span class="form-adorn-text">$</span>
         <input type="text" class="form-control" aria-label="Amount" value="12.00" />
       </div>
-      <div class="form-check form-switch">
-        <input class="form-check-input" type="checkbox" role="switch" id="switch-${uid}" checked />
-        <label class="form-check-label" for="switch-${uid}">Switch</label>
+      <div class="form-field">
+        <div class="switch">
+          <input type="checkbox" role="switch" id="switch-${uid}" checked />
+        </div>
+        <label for="switch-${uid}">Switch</label>
       </div>
     </div>
   </div>`
@@ -189,7 +197,7 @@ const content = () => section(
   </p>
 
   <figure class="figure mb">
-    <img class="figure-img" src="${IMG}" alt="" width="72" height="72" />
+    <img class="img-fluid" src="${IMG}" alt="" width="72" height="72" />
     <figcaption class="figure-caption">A caption below the figure.</figcaption>
   </figure>
 
@@ -320,7 +328,7 @@ const page = (uid) => `
 
   <section class="preview-hero">
     <h1>Everything in one place</h1>
-    <p class="lead">A short paragraph of the kind of copy that actually ships, long enough that
+    <p class="fs-lg fw-light">A short paragraph of the kind of copy that actually ships, long enough that
       the line height and measure have somewhere to show themselves.</p>
     <div class="cluster">
       <a href="#" class="btn btn-solid theme-primary btn-lg">Get started</a>
@@ -338,7 +346,7 @@ const page = (uid) => `
         ([title, figure, theme, note]) => `
         <section class="card">
           <div class="card-body">
-            <p class="card-text"><small class="text-body-secondary">${title}</small></p>
+            <p class="card-text"><small style="color: var(--fg-3)">${title}</small></p>
             <h3 class="card-title">${figure}</h3>
             <span class="badge badge-subtle theme-${theme}">${note}</span>
           </div>
@@ -443,7 +451,7 @@ const states = (uid) => `
       <p class="state-label">Empty</p>
       <div class="state-empty">
         <p class="m-0"><strong>No customers yet</strong></p>
-        <p class="m-0"><small class="text-body-secondary">They will appear here once you add one.</small></p>
+        <p class="m-0"><small style="color: var(--fg-3)">They will appear here once you add one.</small></p>
       </div>
     </div>
     <div>
