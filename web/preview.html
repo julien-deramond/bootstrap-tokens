@@ -110,7 +110,25 @@
         box-shadow: var(--artboard-shadow);
       }
 
-      .pane { padding: 1.125rem; background: var(--bg-body); color: var(--fg-body); }
+      /*
+       * The artboard stands in for `body`, so it has to carry what Bootstrap puts on `body`.
+       *
+       * The canvas font above is the label chrome's, and it was winning: both rules target
+       * `body`, the preview's comes last, and the `font` shorthand resets family, size and
+       * line height together. So the artboards rendered at 13px system sans whatever the
+       * theme said — which made every typography token invisible in the one place they are
+       * meant to be visible.
+       */
+      .pane {
+        padding: 1.125rem;
+        font-family: var(--body-font-family);
+        font-size: var(--body-font-size);
+        font-weight: var(--body-font-weight);
+        line-height: var(--body-line-height);
+        color: var(--fg-body);
+        text-align: var(--body-text-align);
+        background: var(--bg-body);
+      }
 
       .preview-section { scroll-margin-block-start: 1.5rem; border-radius: .5rem; }
       .preview-section + .preview-section { margin-block-start: 1.75rem; }

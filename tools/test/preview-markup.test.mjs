@@ -20,6 +20,7 @@ import { repoRoot } from '../lib/config.mjs'
  */
 const vendor = readFileSync(join(repoRoot, 'web', 'vendor', 'bootstrap.css'), 'utf8')
 const preview = readFileSync(join(repoRoot, 'web', 'preview.js'), 'utf8')
+const previewHtml = readFileSync(join(repoRoot, 'web', 'preview.html'), 'utf8')
 
 /** Every class Bootstrap's stylesheet mentions, escapes undone. */
 const defined = new Set(
@@ -98,4 +99,28 @@ test('the forms section uses v6 markup', () => {
   assert.match(preview, /class="check"/)
   assert.match(preview, /class="radio"/)
   assert.match(preview, /<div class="switch">/)
+})
+
+test('the artboard carries the typography Bootstrap puts on body', () => {
+  /*
+   * The preview document has two fonts in it: the canvas chrome's, on `body`, and the
+   * theme's, inside the artboard. The chrome's was winning — both rules target `body`, the
+   * preview's own stylesheet comes last, and the `font` shorthand resets family, size and
+   * line height in one go — so artboards rendered at 13px system sans whatever the theme
+   * said, and every typography token was invisible in the one place it should be visible.
+   *
+   * Anything the `font` shorthand resets has to be re-declared on `.pane` from the token
+   * that owns it, or the bug comes back the moment someone touches the canvas font.
+   */
+  const rule = /\.pane\s*\{([^}]*)\}/.exec(previewHtml)
+  assert.ok(rule, 'no .pane rule in preview.html')
+
+  for (const [property, token] of [
+    ['font-family', '--body-font-family'],
+    ['font-size', '--body-font-size'],
+    ['font-weight', '--body-font-weight'],
+    ['line-height', '--body-line-height']
+  ]) {
+    assert.match(rule[1], new RegExp(`${property}:\\s*var\\(${token}\\)`), `${property} on .pane`)
+  }
 })
