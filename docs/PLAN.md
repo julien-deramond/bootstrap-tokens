@@ -199,11 +199,21 @@ Today there is exactly one: `@use … with ()`. Add, in this order:
 
 Each needs a fixture test asserting the third-party tool actually consumes it.
 
-### B5. Import an existing `custom.scss`
+### B5. Import an existing `custom.scss` · ✅ **done**
 
-Parse a consumer's existing overrides and pre-fill the chooser. We already have the Sass
-parser and the locator; this is mostly mapping declarations back to token paths. It is what
-turns the tool from "start a theme" into "continue mine".
+`bstokens import <custom.scss>` writes a `theme.json`, and the chooser's import button now
+accepts either shape — a hand-written stylesheet, formatted any way, not only one we
+produced.
+
+Two things make it trustworthy rather than approximate. Custom properties come back as token
+references, so an imported theme still follows the scale it came from instead of becoming a
+wall of literals. And values that merely restate a default are dropped: a nested map merges
+one level deep, so changing one sub-key obliges the export to carry all nine, and reading
+those back as nine edits would be faithful to the file and wrong about the intent. With that,
+**export → import → export is byte-stable**.
+
+Anything unplaceable is named rather than dropped, because a half-read theme that looks
+complete is worse than one that says what it missed.
 
 ---
 

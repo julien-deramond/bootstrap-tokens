@@ -8,7 +8,8 @@ const COMMANDS = {
   verify: () => import('./commands/verify.mjs').then((m) => m.verify),
   vendor: () => import('./commands/vendor.mjs').then((m) => m.vendor),
   eject: () => import('./commands/eject.mjs').then((m) => m.eject),
-  init: () => import('./commands/init.mjs').then((m) => m.init)
+  init: () => import('./commands/init.mjs').then((m) => m.init),
+  import: () => import('./commands/import.mjs').then((m) => m.importCommand)
 }
 
 const USAGE = `bstokens <command> [options]
@@ -35,6 +36,10 @@ const USAGE = `bstokens <command> [options]
              --out <dir>    where to write (default build/v6-dev)
              --in-place     patch the checkout directly
              --verify       compile the patched sources and diff against the consumer route
+
+  import     Read an existing custom.scss back into a theme.json
+             <file>         the stylesheet to read
+             --out <f>      where to write it (default theme.json)
 
   init       Scaffold a project that compiles a theme, so the only step left is npm install
              <dir>          where to write it (default ./bootstrap-theme)

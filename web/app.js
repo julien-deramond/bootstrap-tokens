@@ -26,6 +26,7 @@ import {
 import { sourceEdits } from '../tools/lib/source-value.mjs'
 import { DIALS, PRESETS, HUES, availableHues, addedHues, hueOfRole, repointRole, selectedOption } from './easy.js'
 import { OPTIONS, changedOptions, optionByName } from '../tools/lib/config-surface.mjs'
+import { importScss } from '../tools/lib/import-scss.mjs'
 import { parseComputedColor, formatColor, hexToRgb, rgbToHex, contrastRatio, contrastGrade } from './color.js'
 import {
   loadStore,
@@ -1868,18 +1869,48 @@ function wire() {
     URL.revokeObjectURL(url)
   })
 
+  /**
+   * Accepts either shape. A `theme.json` is ours; a `custom.scss` is what someone already
+   * has — and being able to open the second is the difference between a tool you adopt and
+   * a tool you evaluate.
+   */
   $('#import').addEventListener('change', async (event) => {
     const file = event.target.files?.[0]
     if (!file) return
+
     try {
-      const parsed = JSON.parse(await file.text())
-      if (!parsed || typeof parsed.overrides !== 'object') throw new Error('missing "overrides"')
-      mutate(() => {
-        state.overrides = parsed.overrides
+      const text = await file.text()
+      const scss = file.name.endsWith('.scss') || text.includes('@use')
+
+      const theme = scss
+        ? importScss(text, state.baseDoc)
+        : (() => {
+            const parsed = JSON.parse(text)
+            if (!parsed || typeof parsed.overrides !== 'object') throw new Error('not a theme file')
+            return { overrides: parsed.overrides, options: parsed.options ?? {}, unmapped: [] }
+          })()
+
+      const edits = Object.keys(theme.overrides).length + Object.keys(theme.options).length
+      if (edits === 0 && theme.unmapped.length === 0) {
+        showExportMessage(`${file.name} configures nothing — it is stock Bootstrap.`)
+        return
+      }
+
+      // Land it as its own theme rather than overwriting the open one.
+      addTheme({
+        ...blankTheme(uniqueName(state.store, file.name.replace(/\.(json|scss)$/, ''))),
+        overrides: theme.overrides,
+        options: theme.options
       })
       renderExport()
+
+      showExportMessage(
+        theme.unmapped.length > 0
+          ? `Imported ${edits} setting${edits === 1 ? '' : 's'}. ${theme.unmapped.length} could not be placed: ${theme.unmapped.slice(0, 3).map((u) => u.name).join(', ')}.`
+          : ''
+      )
     } catch {
-      showExportMessage('Unable to read that file. Choose a theme.json exported from this page.')
+      showExportMessage('Unable to read that file. Choose a theme.json or a custom.scss.')
     }
     event.target.value = ''
   })

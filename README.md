@@ -187,6 +187,8 @@ npx bstokens validate --strict   # also flag component→primitive shortcuts
 npx bstokens build      # emit Sass, CSS and JSON into build/
 npx bstokens verify     # compile upstream vs. our export, diff the CSS
 npx bstokens vendor     # compile upstream Bootstrap for the chooser preview
+npx bstokens import     # read an existing custom.scss back into a theme.json
+npx bstokens init       # scaffold a project that compiles a theme
 npx bstokens eject      # write the tokens into v6-dev's own Sass sources (maintainers)
                         #   --theme <f> --src <path> [--in-place | --out <dir>] [--verify]
 npm test                # unit tests
