@@ -1,0 +1,378 @@
+{
+  "dialog": {
+    "backdrop-bg": {
+      "$type": "color",
+      "$value": "rgb(0 0 0 / 65%)"
+    }
+  },
+  "prose": {
+    "heading-color": {
+      "$type": "color",
+      "$value": "{color.white}"
+    }
+  },
+  "reboot-mark": {
+    "mark-bg": {
+      "$type": "color",
+      "$value": "{color.yellow.900}"
+    }
+  },
+  "border": {
+    "body": {
+      "$type": "color",
+      "$value": "{color.gray.800}",
+      "$description": "The standard visible border. Stronger than `subtle`, calmer than `emphasized`."
+    },
+    "muted": {
+      "$type": "color",
+      "$value": "{color.gray.800}",
+      "$description": "A quieter border for grouping without drawing a line the eye stops at."
+    },
+    "subtle": {
+      "$type": "color",
+      "$value": "color-mix(in oklch, {color.gray.800}, {color.gray.900})",
+      "$description": "The faintest border. For separating areas that are already distinguished by space."
+    },
+    "emphasized": {
+      "$type": "color",
+      "$value": "{color.gray.600}",
+      "$description": "A deliberately visible border, for focus targets and selected states."
+    },
+    "color": {
+      "$type": "color",
+      "$value": "{color.gray.700}",
+      "$description": "The default border colour, for anything that does not choose a more specific one."
+    }
+  },
+  "bg": {
+    "1": {
+      "$type": "color",
+      "$value": "{color.gray.950}",
+      "$description": "The first raised surface — card headers, table stripes, anything a step above the page."
+    },
+    "2": {
+      "$type": "color",
+      "$value": "{color.gray.900}",
+      "$description": "A second step up, for a surface raised above one that is already raised."
+    },
+    "3": {
+      "$type": "color",
+      "$value": "{color.gray.800}",
+      "$description": "A third step, used mostly for disabled controls and inset wells."
+    },
+    "4": {
+      "$type": "color",
+      "$value": "{color.gray.700}",
+      "$description": "The strongest neutral fill before you reach an inverted surface."
+    },
+    "body": {
+      "$type": "color",
+      "$value": "{color.gray.975}",
+      "$description": "The page background. Every other surface is measured against it."
+    }
+  },
+  "fg": {
+    "1": {
+      "$type": "color",
+      "$value": "{color.gray.200}",
+      "$description": "Slightly de-emphasised text — secondary lines that still have to be read comfortably."
+    },
+    "2": {
+      "$type": "color",
+      "$value": "{color.gray.300}",
+      "$description": "Supporting text: captions, helper text under a field, table metadata."
+    },
+    "3": {
+      "$type": "color",
+      "$value": "{color.gray.500}",
+      "$description": "Faint text for labels and placeholders. Below WCAG AA for body copy, so keep it off long prose."
+    },
+    "4": {
+      "$type": "color",
+      "$value": "{color.gray.600}",
+      "$description": "The faintest step, for decorative or disabled text only. It does not meet WCAG AA at any size."
+    },
+    "body": {
+      "$type": "color",
+      "$value": "{color.gray.050}",
+      "$description": "Primary body text. The default reading colour."
+    }
+  },
+  "theme-color": {
+    "primary": {
+      "fg": {
+        "$type": "color",
+        "$value": "{color.blue.400}",
+        "$description": "Primary text on the page background — darkened in light mode and lightened in dark, so it stays readable in both."
+      },
+      "fg-emphasis": {
+        "$type": "color",
+        "$value": "{color.blue.200}",
+        "$description": "A higher-contrast primary text colour, for headings or for text sitting on a primary-tinted surface."
+      },
+      "bg-subtle": {
+        "$type": "color",
+        "$value": "{color.blue.900}",
+        "$description": "A lightly tinted primary surface — the usual background for alerts and subtle badges."
+      },
+      "bg-muted": {
+        "$type": "color",
+        "$value": "{color.blue.800}",
+        "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces."
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.blue.600}",
+        "$description": "A primary border against the page background — tinted enough to read as primary, calm enough not to compete with the fill."
+      },
+      "focus-ring": {
+        "$type": "color",
+        "$value": "color-mix(in oklch, {color.blue.500} 75%, {bg.body})",
+        "$description": "The focus ring for primary controls. Mixed with the page background, so it stays visible in either scheme."
+      }
+    },
+    "accent": {
+      "fg": {
+        "$type": "color",
+        "$value": "color-mix(in oklch, {color.indigo.400}, {color.indigo.300})",
+        "$description": "Accent text on the page background — darkened in light mode and lightened in dark, so it stays readable in both."
+      },
+      "fg-emphasis": {
+        "$type": "color",
+        "$value": "{color.indigo.300}",
+        "$description": "A higher-contrast accent text colour, for headings or for text sitting on a accent-tinted surface."
+      },
+      "bg-subtle": {
+        "$type": "color",
+        "$value": "{color.indigo.900}",
+        "$description": "A lightly tinted accent surface — the usual background for alerts and subtle badges."
+      },
+      "bg-muted": {
+        "$type": "color",
+        "$value": "{color.indigo.800}",
+        "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces."
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.indigo.600}",
+        "$description": "A accent border against the page background — tinted enough to read as accent, calm enough not to compete with the fill."
+      },
+      "focus-ring": {
+        "$type": "color",
+        "$value": "color-mix(in oklch, {color.indigo.500} 75%, {bg.body})",
+        "$description": "The focus ring for accent controls. Mixed with the page background, so it stays visible in either scheme."
+      }
+    },
+    "success": {
+      "fg": {
+        "$type": "color",
+        "$value": "{color.green.400}",
+        "$description": "Success text on the page background — darkened in light mode and lightened in dark, so it stays readable in both."
+      },
+      "fg-emphasis": {
+        "$type": "color",
+        "$value": "{color.green.300}",
+        "$description": "A higher-contrast success text colour, for headings or for text sitting on a success-tinted surface."
+      },
+      "bg-subtle": {
+        "$type": "color",
+        "$value": "{color.green.900}",
+        "$description": "A lightly tinted success surface — the usual background for alerts and subtle badges."
+      },
+      "bg-muted": {
+        "$type": "color",
+        "$value": "{color.green.800}",
+        "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces."
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.green.600}",
+        "$description": "A success border against the page background — tinted enough to read as success, calm enough not to compete with the fill."
+      },
+      "focus-ring": {
+        "$type": "color",
+        "$value": "color-mix(in oklch, {color.green.500} 75%, {bg.body})",
+        "$description": "The focus ring for success controls. Mixed with the page background, so it stays visible in either scheme."
+      }
+    },
+    "danger": {
+      "fg": {
+        "$type": "color",
+        "$value": "{color.red.400}",
+        "$description": "Danger text on the page background — darkened in light mode and lightened in dark, so it stays readable in both."
+      },
+      "fg-emphasis": {
+        "$type": "color",
+        "$value": "{color.red.300}",
+        "$description": "A higher-contrast danger text colour, for headings or for text sitting on a danger-tinted surface."
+      },
+      "bg-subtle": {
+        "$type": "color",
+        "$value": "{color.red.900}",
+        "$description": "A lightly tinted danger surface — the usual background for alerts and subtle badges."
+      },
+      "bg-muted": {
+        "$type": "color",
+        "$value": "{color.red.800}",
+        "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces."
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.red.600}",
+        "$description": "A danger border against the page background — tinted enough to read as danger, calm enough not to compete with the fill."
+      },
+      "focus-ring": {
+        "$type": "color",
+        "$value": "color-mix(in oklch, {color.red.500} 75%, {bg.body})",
+        "$description": "The focus ring for danger controls. Mixed with the page background, so it stays visible in either scheme."
+      }
+    },
+    "warning": {
+      "fg": {
+        "$type": "color",
+        "$value": "{color.yellow.400}",
+        "$description": "Warning text on the page background — darkened in light mode and lightened in dark, so it stays readable in both."
+      },
+      "fg-emphasis": {
+        "$type": "color",
+        "$value": "{color.yellow.300}",
+        "$description": "A higher-contrast warning text colour, for headings or for text sitting on a warning-tinted surface."
+      },
+      "bg-subtle": {
+        "$type": "color",
+        "$value": "{color.yellow.900}",
+        "$description": "A lightly tinted warning surface — the usual background for alerts and subtle badges."
+      },
+      "bg-muted": {
+        "$type": "color",
+        "$value": "{color.yellow.800}",
+        "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces."
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.yellow.600}",
+        "$description": "A warning border against the page background — tinted enough to read as warning, calm enough not to compete with the fill."
+      },
+      "focus-ring": {
+        "$type": "color",
+        "$value": "color-mix(in oklch, {color.yellow.400} 85%, {bg.body})",
+        "$description": "The focus ring for warning controls. Mixed with the page background, so it stays visible in either scheme."
+      }
+    },
+    "info": {
+      "fg": {
+        "$type": "color",
+        "$value": "{color.cyan.400}",
+        "$description": "Info text on the page background — darkened in light mode and lightened in dark, so it stays readable in both."
+      },
+      "fg-emphasis": {
+        "$type": "color",
+        "$value": "{color.cyan.300}",
+        "$description": "A higher-contrast info text colour, for headings or for text sitting on a info-tinted surface."
+      },
+      "bg-subtle": {
+        "$type": "color",
+        "$value": "{color.cyan.900}",
+        "$description": "A lightly tinted info surface — the usual background for alerts and subtle badges."
+      },
+      "bg-muted": {
+        "$type": "color",
+        "$value": "{color.cyan.800}",
+        "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces."
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.cyan.600}",
+        "$description": "A info border against the page background — tinted enough to read as info, calm enough not to compete with the fill."
+      },
+      "focus-ring": {
+        "$type": "color",
+        "$value": "color-mix(in oklch, {color.cyan.500} 75%, {bg.body})",
+        "$description": "The focus ring for info controls. Mixed with the page background, so it stays visible in either scheme."
+      }
+    },
+    "inverse": {
+      "fg": {
+        "$type": "color",
+        "$value": "{color.gray.200}",
+        "$description": "Inverse text on the page background — darkened in light mode and lightened in dark, so it stays readable in both."
+      },
+      "fg-emphasis": {
+        "$type": "color",
+        "$value": "{color.white}",
+        "$description": "A higher-contrast inverse text colour, for headings or for text sitting on a inverse-tinted surface."
+      },
+      "bg": {
+        "$type": "color",
+        "$value": "{color.gray.025}",
+        "$description": "A solid inverse fill. Pair it with `contrast` for anything placed on top."
+      },
+      "bg-subtle": {
+        "$type": "color",
+        "$value": "{color.gray.900}",
+        "$description": "A lightly tinted inverse surface — the usual background for alerts and subtle badges."
+      },
+      "bg-muted": {
+        "$type": "color",
+        "$value": "{color.gray.300}",
+        "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces."
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.gray.100}",
+        "$description": "A inverse border against the page background — tinted enough to read as inverse, calm enough not to compete with the fill."
+      },
+      "contrast": {
+        "$type": "color",
+        "$value": "{color.gray.900}",
+        "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black."
+      }
+    },
+    "secondary": {
+      "fg": {
+        "$type": "color",
+        "$value": "{color.gray.400}",
+        "$description": "Secondary text on the page background — darkened in light mode and lightened in dark, so it stays readable in both."
+      },
+      "fg-emphasis": {
+        "$type": "color",
+        "$value": "{color.gray.200}",
+        "$description": "A higher-contrast secondary text colour, for headings or for text sitting on a secondary-tinted surface."
+      },
+      "bg": {
+        "$type": "color",
+        "$value": "{color.gray.600}",
+        "$description": "A solid secondary fill. Pair it with `contrast` for anything placed on top."
+      },
+      "bg-subtle": {
+        "$type": "color",
+        "$value": "{color.gray.800}",
+        "$description": "A lightly tinted secondary surface — the usual background for alerts and subtle badges."
+      },
+      "bg-muted": {
+        "$type": "color",
+        "$value": "{color.gray.700}",
+        "$description": "A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces."
+      },
+      "border": {
+        "$type": "color",
+        "$value": "{color.gray.600}",
+        "$description": "A secondary border against the page background — tinted enough to read as secondary, calm enough not to compete with the fill."
+      },
+      "contrast": {
+        "$type": "color",
+        "$value": "{color.white}",
+        "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black."
+      }
+    }
+  },
+  "type": {
+    "link": {
+      "color": {
+        "$type": "color",
+        "$value": "{theme-color.primary.fg}",
+        "$description": "Link colour. Uses the solid brand colour in light mode and the lighter text variant in dark."
+      }
+    }
+  }
+}

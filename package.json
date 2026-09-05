@@ -20,10 +20,13 @@
     "init": "node tools/cli.mjs init",
     "web": "node web/dev-server.mjs",
     "test": "node --test \"tools/test/**/*.test.mjs\"",
-    "prepublishOnly": "npm run validate && npm run build && npm test"
+    "prepublishOnly": "npm run validate && npm run build && npm test",
+    "probe": "node tools/cli.mjs probe"
   },
   "devDependencies": {
-    "sass": "^1.93.0"
+    "sass": "^1.93.0",
+    "style-dictionary": "^5.5.2",
+    "typescript": "^7.0.2"
   },
   "keywords": [
     "bootstrap",
@@ -51,6 +54,11 @@
     "./json/resolved": "./build/json/tokens.resolved.json",
     "./json/tree": "./build/json/tokens.tree.json",
     "./options": "./tokens/config/options.json",
+    "./ts": "./build/ts/tokens.js",
+    "./ts/*": "./build/ts/*",
+    "./style-dictionary/*": "./build/style-dictionary/*",
+    "./figma": "./build/figma/tokens.json",
+    "./figma/*": "./build/figma/*",
     "./package.json": "./package.json"
   },
   "files": [
@@ -58,10 +66,14 @@
     "build/scss/",
     "build/css/",
     "build/json/",
+    "build/ts/",
+    "build/style-dictionary/",
+    "build/figma/",
     "tools/",
     "docs/",
     "README.md"
   ],
   "sass": "build/scss/_tokens.scss",
-  "style": "build/css/tokens.css"
+  "style": "build/css/tokens.css",
+  "types": "build/ts/tokens.d.ts"
 }

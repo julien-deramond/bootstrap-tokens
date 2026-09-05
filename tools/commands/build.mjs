@@ -4,6 +4,7 @@ import { join } from 'node:path'
 import { ext, walk } from '../lib/tokens.mjs'
 import { loadTokens, loadTree } from '../lib/load-fs.mjs'
 import { emitTokensModule, emitUseWith, mapEntries } from '../lib/emit-scss.mjs'
+import { emitTypeScript, emitStyleDictionary, emitTokensStudio } from '../lib/emit-consumers.mjs'
 import { tokensDir, buildDir, repoRoot } from '../lib/config.mjs'
 import { COMPONENTS } from '../lib/sass-targets.mjs'
 
@@ -95,6 +96,18 @@ export async function build({ flags }) {
 
   // The web chooser loads the unexpanded tree and runs the very same resolver in the browser.
   outputs['json/tokens.tree.json'] = `${JSON.stringify(loadTree(tokensDir).tree)}\n`
+
+  // Three more shapes, for consumers that are not Sass. See tools/lib/emit-consumers.mjs
+  // for why each is different rather than one export renamed three times.
+  for (const [file, content] of Object.entries(emitTypeScript(doc, { version }))) {
+    outputs[`ts/${file}`] = content
+  }
+  for (const [file, content] of Object.entries(emitStyleDictionary(doc, { version }))) {
+    outputs[`style-dictionary/${file}`] = content
+  }
+  for (const [file, content] of Object.entries(emitTokensStudio(doc, { version }))) {
+    outputs[`figma/${file}`] = content
+  }
 
   for (const [relative, content] of Object.entries(outputs)) {
     const path = join(buildDir, relative)

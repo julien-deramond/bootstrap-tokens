@@ -189,7 +189,7 @@ a file that quietly does less than the preview showed.
 
 Delivered with A2 — the two are the same work seen from either end.
 
-### B4. More consumer shapes · 🚧 **npm package done**
+### B4. More consumer shapes · ✅ **done**
 
 Today there is exactly one: `@use … with ()`. Add, in this order:
 
@@ -203,11 +203,24 @@ Today there is exactly one: `@use … with ()`. Add, in this order:
    clean directory through `npm install` to a themed stylesheet. It exposed that Bootstrap 6
    is not on npm at all, so a semver range would have failed on install in the very feature
    meant to prove the export works; the scaffold points at the branch and says why.
-2. **Typed JS/TS** — `tokens.ts` for people theming React or JS-in-CSS.
-3. **Style Dictionary config** — plugs into pipelines that already exist.
-4. **Figma / Tokens Studio JSON** — closes the designer loop.
+2. ✅ **Typed JS/TS** — a runtime module plus declarations rather than a `.ts` source, so it
+   works from plain JavaScript too. `TokenPath` is a union of all 1203 paths, which is the
+   point of shipping types at all: a typo becomes a compile error instead of a `var()` that
+   silently does nothing.
+3. ✅ **Style Dictionary** — DTCG with `{aliases}` intact, because a pipeline that cannot see
+   `theme.primary` following `color.blue.500` can only re-print. Two configs rather than two
+   platforms, since a config has one source set; the dark one uses `include` plus an
+   `isSource` filter so `[data-bs-theme=dark]` holds only what changes.
+4. ✅ **Tokens Studio** — flat sRGB, light and dark as two sets, DTCG types mapped to the
+   vocabulary that decides which Figma property a token can bind to.
 
-Each needs a fixture test asserting the third-party tool actually consumes it.
+Each has a fixture test that runs the real tool: `tsc` over a consumer file and over one with
+a deliberate typo, Style Dictionary over both configs as emitted. Asserting the shape of our
+own output would only prove we emitted what we meant to.
+
+Doing it needed a colour resolver, which is the part that reimplements a browser and is
+therefore checked against one — 1084 of 1092 values matching Chrome exactly. See
+[`exports.md`](./exports.md) for what each shape is for and what flattening cannot do.
 
 ### B5. Import an existing `custom.scss` · ✅ **done**
 

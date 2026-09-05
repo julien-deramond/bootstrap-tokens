@@ -10,7 +10,7 @@ tokens/  (DTCG, source of truth)  ──build──▶  Sass maps · CSS custom 
     └────────────sync────── twbs/bootstrap@v6-dev ◀──────verify
 ```
 
-**Status:** tracks Bootstrap `6.0.0-alpha1`. 1197 tokens. `bstokens verify` compiles upstream
+**Status:** tracks Bootstrap `6.0.0-alpha1`. 1203 tokens. `bstokens verify` compiles upstream
 `bootstrap.scss` and the exported configuration and asserts the CSS is byte-identical — today
 it is, across all 17021 lines.
 
@@ -66,7 +66,16 @@ npm run build
 | `scss/bootstrap-custom.scss` | a ready-to-compile `@use "bootstrap" with (…)` configuration |
 | `css/tokens.css` | the flat custom-property surface, no Sass required |
 | `json/tokens.resolved.json` | every token with its `$value` resolved to CSS |
-| `json/chooser.json` | the data the web chooser loads |
+| `json/tokens.tree.json` | the document the web chooser loads |
+| `ts/tokens.js` + `tokens.d.ts` | typed access for React and CSS-in-JS, with a union of all token paths |
+| `style-dictionary/` | DTCG sources and configs, aliases intact, for pipelines that already exist |
+| `figma/tokens.json` | Tokens Studio sets, flat sRGB, light and dark |
+
+They are not one export renamed five times. Anything consumed by CSS keeps `var()` and
+`color-mix()`, so a theme stays live; anything consumed by a tool with no cascade — Figma, a
+chart library — is resolved to the colour a browser would have painted, checked against a
+real one. [`docs/exports.md`](docs/exports.md) covers which to reach for and what resolving
+cannot do.
 
 ## The token chooser
 
@@ -85,7 +94,7 @@ properties, so re-declaring them is the whole mechanism.
 accent colour, corner radius, density, border weight, typeface, text size, shadow depth —
 plus four presets to start from. Most themes are a few of these and nothing else.
 
-**All tokens** is the browser: all 1197 tokens, grouped, searchable, with a light and a dark
+**All tokens** is the browser: all 1203 tokens, grouped, searchable, with a light and a dark
 field each.
 
 They are two *views*, not two models. Every control writes ordinary token overrides into the
