@@ -118,18 +118,31 @@ export function declarationsBySelector(changes) {
   return bySelector
 }
 
-/** A stylesheet that layers the changed custom properties over compiled Bootstrap. */
-export function themeCss(changes) {
+/**
+ * A stylesheet that layers the changed custom properties over compiled Bootstrap.
+ *
+ * `scope` confines the whole thing to one subtree, which is what makes a before/after view
+ * possible: the same page rendered twice, themed on one side and stock on the other. Custom
+ * properties inherit, so declaring them on a wrapper themes everything inside it and nothing
+ * outside.
+ */
+export function themeCss(changes, { scope = null } = {}) {
   if (changes.length === 0) return ''
 
   const blocks = []
   for (const [selector, declarations] of declarationsBySelector(changes)) {
     const body = declarations.map(([name, value]) => `  ${name}: ${value};`).join('\n')
-    blocks.push(`${selector} {\n${body}\n}`)
+    blocks.push(`${scoped(selector, scope)} {\n${body}\n}`)
   }
 
-  blocks.push(...reassertPinned(changes))
+  blocks.push(...reassertPinned(changes, scope))
   return `${blocks.join('\n\n')}\n`
+}
+
+/** `:root` becomes the wrapper itself; everything else becomes a descendant of it. */
+function scoped(selector, scope) {
+  if (!scope) return selector
+  return selector === ':root' ? scope : `${scope} ${selector}`
 }
 
 /**
@@ -140,7 +153,7 @@ export function themeCss(changes) {
  * carrying an explicit `data-bs-theme` — which is every page this tool previews.
  * See PINNED_MODES in curation.mjs.
  */
-function reassertPinned(changes) {
+function reassertPinned(changes, scope = null) {
   const blocks = []
 
   for (const change of changes) {
@@ -149,7 +162,12 @@ function reassertPinned(changes) {
     for (const { media, selector, mode } of PINNED_SELECTORS) {
       // A null pin means upstream fixes it to the default, so the token's value stands.
       const value = change.pinnedModes[mode] ?? change.value
-      const rule = `${selector} {\n  ${change.cssVar}: ${value};\n}`
+      const target = scope
+        ? selector === ':root'
+          ? scope
+          : `${scope}${selector}`
+        : selector
+      const rule = `${target} {\n  ${change.cssVar}: ${value};\n}`
       blocks.push(media ? `@media ${media} {\n${indent(rule)}\n}` : rule)
     }
   }

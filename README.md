@@ -115,7 +115,8 @@ preset.
   relates to it, one shape idea applied throughout, then any contrast the combination broke
   is repaired automatically.
 * **Every change is listed and revertible.** The change counter opens the full diff — tokens
-  and build options together, previous value beside new, one Revert per row.
+  and build options together, previous value beside new, one Revert per row. *Before / after*
+  shows the same page rendered stock beside themed.
 * **Themes are things you keep.** Name them, hold several, duplicate one to try a variation.
   *Copy share link* packs the whole theme into the URL fragment — 571 characters for a
   22-token theme, compressed in the browser, uploaded nowhere.

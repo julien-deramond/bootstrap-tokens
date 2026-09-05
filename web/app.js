@@ -113,6 +113,7 @@ const state = {
     : (globalThis.matchMedia?.('(prefers-color-scheme: dark)').matches ? 'dark' : 'light'),
   query: '',
   scenario: 'components',
+  compareScheme: 'light',
   exportTab: 'scss',
   previewReady: false,
   past: [],
@@ -689,7 +690,8 @@ function splitTop(value) {
 const read = (path, side = 'value') => editableValue(path, side)
 
 /** Which colour schemes the panel should report on, following the preview. */
-const shownSchemes = () => (state.scheme === 'split' ? ['light', 'dark'] : [state.scheme])
+const shownSchemes = () =>
+  state.scheme === 'split' ? ['light', 'dark'] : [state.scheme === 'compare' ? state.compareScheme : state.scheme]
 
 /** The token paths every dial owns, so we can tell "edited elsewhere" from "edited here". */
 function dialTokens() {
@@ -1805,7 +1807,12 @@ function recompute() {
   renderChanges()
   $('#reset').disabled = Object.keys(state.overrides).length + Object.keys(state.options).length === 0
 
-  postToPreview({ css: themeCss(changes), hues: availableHues(state.doc), scenario: state.scenario })
+  postToPreview({
+    css: themeCss(changes, { scope: state.scheme === 'compare' ? '.pane-after' : null }),
+    hues: availableHues(state.doc),
+    scenario: state.scenario,
+    compareScheme: state.compareScheme
+  })
 }
 
 function postToPreview(message) {
@@ -2127,7 +2134,10 @@ function wire() {
       for (const other of document.querySelectorAll('#scheme button')) {
         other.setAttribute('aria-pressed', String(other === button))
       }
+      // The scope of the override stylesheet changes with the mode, so recompute rather
+      // than only telling the preview which mode to draw.
       postToPreview({ scheme: state.scheme })
+      recompute()
       render()
     })
   }

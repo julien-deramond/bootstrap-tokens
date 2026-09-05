@@ -488,21 +488,35 @@ const overrides = document.getElementById('token-overrides')
 
 let mode = 'light'
 
-/** One framed, labelled artboard for a colour scheme. */
-const board = (scheme) => `
+/** One framed, labelled artboard. `variant` marks the themed side of a comparison. */
+const board = (scheme, { label = scheme, variant = null } = {}) => `
   <figure class="board board-${scheme}">
-    <figcaption class="board-label"><span class="board-swatch"></span>${scheme}</figcaption>
+    <figcaption class="board-label"><span class="board-swatch"></span>${label}</figcaption>
     <div class="artboard">
-      <div class="pane" data-bs-theme="${scheme}">${sample(scheme)}</div>
+      <div class="pane${variant ? ` ${variant}` : ''}" data-bs-theme="${scheme}">${sample(`${label}-${scheme}`)}</div>
     </div>
   </figure>`
 
 function render() {
+  if (mode === 'compare') {
+    // The same scheme twice: Bootstrap's defaults on the left, this theme on the right.
+    // Only the right pane carries the override styles, which are scoped to it.
+    root.className = 'preview-split'
+    root.innerHTML =
+      board(compareScheme, { label: 'default', variant: 'pane-before' }) +
+      board(compareScheme, { label: 'this theme', variant: 'pane-after' })
+    syncScrolling()
+    return
+  }
+
   const schemes = mode === 'split' ? ['light', 'dark'] : [mode]
   root.className = mode === 'split' ? 'preview-split' : 'preview-single'
-  root.innerHTML = schemes.map(board).join('')
+  root.innerHTML = schemes.map((scheme) => board(scheme)).join('')
   syncScrolling()
 }
+
+/** Which scheme a comparison is shown in. */
+let compareScheme = 'light'
 
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)')
 
@@ -590,6 +604,11 @@ window.addEventListener('message', (event) => {
   }
 
   if (typeof message.css === 'string') overrides.textContent = message.css
+
+  if (message.compareScheme && message.compareScheme !== compareScheme) {
+    compareScheme = message.compareScheme
+    if (mode === 'compare') render()
+  }
 
   if (message.scheme && message.scheme !== mode) {
     mode = message.scheme

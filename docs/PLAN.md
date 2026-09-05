@@ -294,7 +294,7 @@ The sample is a component gallery. It cannot answer "does my theme survive a rea
 * **Colour-vision simulation** over the preview.
 * **An exportable report** to attach to a pull request.
 
-### C5. Show what changed · 🚧 **list done, visual diff not**
+### C5. Show what changed · ✅ **done**
 
 The change counter is now a disclosure listing every edit: token or build option, its
 previous value struck through, its new one, and a Revert button per row. Reverting is an
@@ -304,8 +304,11 @@ Build options matter here more than the tokens do — they never appeared as tok
 so before this there was no way at all to see that a theme had turned `$enable-rounded` off
 short of reading the exported Sass.
 
-Still to do: the **visual** before/after — the same preview rendered from the base document
-beside the themed one.
+**Before / after** renders the same page twice in the same colour scheme, Bootstrap's
+defaults on one side and this theme on the other. The override stylesheet is scoped to the
+themed pane — custom properties inherit, so declaring them on a wrapper themes everything
+inside it and nothing outside — which is what makes the comparison possible without a second
+document or a second iframe.
 
 ### C6. First run and delight · ✅ **done**
 
