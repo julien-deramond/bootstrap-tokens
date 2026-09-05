@@ -782,3 +782,73 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   background: var(--surface);
   color: var(--ink);
 }
+
+/* --- adding a colour ----------------------------------------------------- */
+
+.add-colour { display: flex; flex-wrap: wrap; gap: .375rem; align-items: center; margin-block-start: .75rem; }
+
+.added-chip {
+  display: inline-flex;
+  gap: .3125rem;
+  align-items: center;
+  padding: .1875rem .3125rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  font-size: .6875rem;
+}
+
+.added-chip-swatch { inline-size: .875rem; block-size: .875rem; border-radius: 3px; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 15%); }
+.added-chip code { font: .625rem/1.4 var(--mono); }
+
+.added-chip-remove {
+  font: inherit;
+  font-size: .8125rem;
+  line-height: 1;
+  padding: 0 .125rem;
+  border: 0;
+  background: none;
+  color: var(--ink-faint);
+  cursor: pointer;
+}
+
+.added-chip-remove:hover { color: light-dark(#b91c1c, #fca5a5); }
+
+.add-colour-form {
+  flex-basis: 100%;
+  display: flex;
+  flex-wrap: wrap;
+  gap: .375rem;
+  align-items: center;
+  margin-block-start: .375rem;
+  padding: .5rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 7px;
+  background: var(--surface-sunken);
+}
+
+.add-colour-form input[type="text"] {
+  inline-size: 8rem;
+  font: .75rem/1.4 var(--mono);
+  padding: .3125rem .375rem;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  background: var(--surface);
+  color: var(--ink);
+}
+
+.add-colour-form input[type="color"] {
+  inline-size: 2rem;
+  block-size: 1.875rem;
+  padding: 0;
+  border: 1px solid var(--line-strong);
+  border-radius: 5px;
+  background: var(--surface);
+  cursor: pointer;
+}
+
+.add-colour-form .button { padding: .3125rem .5rem; font-size: .75rem; }
+.add-colour-role { display: flex; gap: .25rem; align-items: center; font-size: .6875rem; color: var(--ink-muted); }
+.add-colour-error { flex-basis: 100%; margin: 0; font-size: .6875rem; color: light-dark(#b91c1c, #fca5a5); }
+
+/* An added scale is marked, so it is clear which colours are yours. */
+.hue.is-added { box-shadow: inset 0 0 0 1px rgb(0 0 0 / 12%), 0 0 0 2px var(--accent); }

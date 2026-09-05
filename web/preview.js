@@ -9,7 +9,9 @@
  */
 
 const THEMES = ['primary', 'accent', 'success', 'danger', 'warning', 'info', 'secondary', 'inverse']
-const HUES = ['blue', 'indigo', 'violet', 'purple', 'pink', 'red', 'orange', 'amber', 'yellow', 'lime', 'green', 'teal', 'cyan', 'brown', 'gray', 'pewter']
+/* Replaced by the chooser whenever the set of scales changes, so a colour someone added
+   shows up in the palette rather than being invisible in the one place it should be. */
+let HUES = ['blue', 'indigo', 'violet', 'purple', 'pink', 'red', 'orange', 'amber', 'yellow', 'lime', 'green', 'teal', 'cyan', 'brown', 'gray', 'pewter']
 const STOPS = ['025', '050', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950', '975']
 
 const section = (id, title, body) => `
@@ -404,6 +406,11 @@ function syncScrolling() {
 window.addEventListener('message', (event) => {
   const message = event.data
   if (!message || typeof message !== 'object') return
+
+  if (Array.isArray(message.hues) && message.hues.join() !== HUES.join()) {
+    HUES = message.hues
+    render()
+  }
 
   if (typeof message.css === 'string') overrides.textContent = message.css
 

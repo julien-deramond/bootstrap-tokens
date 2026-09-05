@@ -17,10 +17,14 @@ import {
   themeCss,
   themeScss,
   themeJson,
-  mapsTouched
+  mapsTouched,
+  createHue,
+  createRole,
+  validateNewName,
+  pathsOfAddition
 } from '../tools/lib/overrides.mjs'
 import { sourceEdits } from '../tools/lib/source-value.mjs'
-import { DIALS, PRESETS, HUES, hueOfRole, repointRole, selectedOption } from './easy.js'
+import { DIALS, PRESETS, HUES, availableHues, addedHues, hueOfRole, repointRole, selectedOption } from './easy.js'
 import { OPTIONS, changedOptions, optionByName } from '../tools/lib/config-surface.mjs'
 import { parseComputedColor, formatColor, hexToRgb, rgbToHex, contrastRatio, contrastGrade } from './color.js'
 
@@ -298,6 +302,13 @@ function applyValues(values, { focus = null } = {}) {
   mutate(() => {
     for (const [path, entry] of Object.entries(values)) {
       const override = typeof entry === 'string' ? { value: entry } : entry
+
+      // A creation has to be recorded before its value, or `writeOverride` sees a token
+      // that does not exist, finds no default to compare against, and drops the payload.
+      if (override.create) {
+        state.overrides[path] = { ...(state.overrides[path] ?? {}), create: override.create }
+      }
+
       if ('value' in override) writeOverride(path, 'value', override.value)
       if ('dark' in override) writeOverride(path, 'dark', override.dark)
     }
@@ -1019,11 +1030,11 @@ function renderHueDial(dial) {
   const grid = document.createElement('div')
   grid.className = 'hue-grid'
 
-  for (const hue of HUES) {
+  for (const hue of availableHues(state.doc)) {
     const button = document.createElement('button')
     button.type = 'button'
-    button.className = 'hue'
-    button.title = hue
+    button.className = `hue${HUES.includes(hue) ? '' : ' is-added'}`
+    button.title = HUES.includes(hue) ? hue : `${hue} (added by this theme)`
     button.setAttribute('aria-label', hue)
     button.setAttribute('aria-pressed', String(hue === activeHue))
 
@@ -1036,7 +1047,126 @@ function renderHueDial(dial) {
   row.append(grid)
   if (activeHue) row.append(renderRoleContrast(dial))
   if (activeHue) row.append(renderCustomHue(dial, activeHue))
+  if (dial.role === 'primary') row.append(renderAddColour())
   return row
+}
+
+/**
+ * Adding a scale rather than painting over one of Bootstrap's.
+ *
+ * Until this existed, a custom brand colour had to overwrite `color.blue.base`, which also
+ * recoloured every `--blue-*` utility on the page. A new scale gets its own thirteen steps,
+ * its own `--brand-*` properties and its own `.theme-brand` class, and Bootstrap's sixteen
+ * are left alone.
+ */
+function renderAddColour() {
+  const wrap = document.createElement('div')
+  wrap.className = 'add-colour'
+
+  for (const hue of addedHues(state.doc)) {
+    const chip = document.createElement('span')
+    chip.className = 'added-chip'
+
+    const swatch = document.createElement('span')
+    const rgb = hueColor(hue)
+    swatch.className = 'added-chip-swatch'
+    swatch.style.background = rgb ? rgbToHex(rgb) : 'transparent'
+
+    const name = document.createElement('code')
+    name.textContent = hue
+
+    const remove = document.createElement('button')
+    remove.type = 'button'
+    remove.className = 'added-chip-remove'
+    remove.textContent = '×'
+    remove.setAttribute('aria-label', `Remove the ${hue} colour`)
+    remove.addEventListener('click', () => removeAddition(hue))
+
+    chip.append(swatch, name, remove)
+    wrap.append(chip)
+  }
+
+  const add = document.createElement('button')
+  add.type = 'button'
+  add.className = 'chip-button add-colour-button'
+  add.textContent = '+ Add a colour'
+  add.addEventListener('click', () => openAddColour(wrap))
+  wrap.append(add)
+
+  return wrap
+}
+
+function openAddColour(wrap) {
+  if (wrap.querySelector('.add-colour-form')) return
+
+  const form = document.createElement('form')
+  form.className = 'add-colour-form'
+
+  const name = document.createElement('input')
+  name.type = 'text'
+  name.placeholder = 'brand'
+  name.setAttribute('aria-label', 'Colour name')
+  name.autocomplete = 'off'
+
+  const colour = document.createElement('input')
+  colour.type = 'color'
+  colour.value = '#6d4aff'
+  colour.setAttribute('aria-label', 'Colour')
+
+  const submit = document.createElement('button')
+  submit.type = 'submit'
+  submit.className = 'button button-primary'
+  submit.textContent = 'Add'
+
+  const cancel = document.createElement('button')
+  cancel.type = 'button'
+  cancel.className = 'button'
+  cancel.textContent = 'Cancel'
+  cancel.addEventListener('click', () => form.remove())
+
+  const error = document.createElement('p')
+  error.className = 'add-colour-error'
+  error.hidden = true
+
+  const asRole = document.createElement('label')
+  asRole.className = 'add-colour-role'
+  const roleBox = document.createElement('input')
+  roleBox.type = 'checkbox'
+  roleBox.checked = true
+  asRole.append(roleBox, document.createTextNode(' Also add a matching theme role'))
+
+  form.addEventListener('submit', (event) => {
+    event.preventDefault()
+
+    const chosen = name.value.trim().toLowerCase()
+    const problem = validateNewName(chosen, availableHues(state.doc))
+    error.textContent = problem ?? ''
+    error.hidden = !problem
+    if (problem) return
+
+    const value = formatColor(hexToRgb(colour.value), 'oklch(0 0 0)')
+    const additions = {
+      ...createHue(chosen, value),
+      ...(roleBox.checked ? createRole(chosen, chosen, { contrast: contrastTokenFor(chosen) }) : {})
+    }
+
+    form.remove()
+    applyValues(additions, { focus: 'palette' })
+  })
+
+  form.append(name, colour, asRole, submit, cancel, error)
+  wrap.append(form)
+  name.focus()
+}
+
+/** Remove an added scale, and any role built from it. */
+function removeAddition(hue) {
+  mutate(() => {
+    for (const path of pathsOfAddition(state.overrides, `color.${hue}`)) delete state.overrides[path]
+    for (const path of Object.keys(state.overrides)) {
+      if (path.startsWith(`theme-color.${hue}.`)) delete state.overrides[path]
+    }
+  })
 }
 
 /**
@@ -1329,7 +1459,7 @@ function recompute() {
   chip.classList.toggle('is-active', count + optionCount > 0)
   $('#reset').disabled = count === 0
 
-  postToPreview({ css: themeCss(changes) })
+  postToPreview({ css: themeCss(changes), hues: availableHues(state.doc) })
 }
 
 function postToPreview(message) {

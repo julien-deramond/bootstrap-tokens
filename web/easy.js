@@ -8,11 +8,29 @@
  * something it cannot represent — rather than silently snapping them back to a preset.
  */
 
-/** The 16 hues a theme role can be built from. */
+/** Bootstrap's own sixteen hues, in its order. */
 export const HUES = [
   'blue', 'indigo', 'violet', 'purple', 'pink', 'red', 'orange', 'amber',
   'yellow', 'lime', 'green', 'teal', 'cyan', 'brown', 'gray', 'pewter'
 ]
+
+/**
+ * Every scale a role can be built from, read from the document rather than the list above,
+ * so a colour the user added is a first-class choice rather than a special case.
+ */
+export function availableHues(doc) {
+  const group = doc.tree.color ?? {}
+  const found = Object.keys(group).filter(
+    (key) => !key.startsWith('$') && group[key] && group[key].base?.$value !== undefined
+  )
+
+  // Bootstrap's own first, in its order; anything added after, in the order it was added.
+  const extra = found.filter((hue) => !HUES.includes(hue))
+  return [...HUES.filter((hue) => found.includes(hue)), ...extra]
+}
+
+/** Scales this theme added, which upstream does not ship. */
+export const addedHues = (doc) => availableHues(doc).filter((hue) => !HUES.includes(hue))
 
 const FONT_STACKS = {
   system:

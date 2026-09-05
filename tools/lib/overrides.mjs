@@ -19,10 +19,22 @@ export const clone = (value) => JSON.parse(JSON.stringify(value))
 
 /**
  * Return a new document with `overrides` applied.
+ *
  * An override is `{ value, dark }`; `dark: null` removes an existing light/dark pairing.
+ * An override carrying `create` brings a token into existence that upstream does not have —
+ * a new hue, a new theme role — which is what lets someone add a brand colour instead of
+ * painting over `blue`.
  */
 export function withOverrides(baseTree, overrides) {
   const tree = clone(baseTree)
+
+  // Creations first: a later override may target a token one of them just made. The value
+  // is seeded here rather than in the payload, because a node without `$value` is a group,
+  // not a token, and would be walked straight past.
+  for (const [path, override] of Object.entries(overrides)) {
+    if (!override.create) continue
+    createAt(tree, path, { ...override.create, $value: override.value ?? '' })
+  }
 
   for (const [path, override] of Object.entries(overrides)) {
     const token = nodeAt(tree, path)
@@ -50,6 +62,21 @@ function nodeAt(tree, path) {
     node = node[part]
   }
   return node && node.$value !== undefined ? node : null
+}
+
+/** Place a brand-new token at `path`, building any groups it needs on the way. */
+function createAt(tree, path, token) {
+  const parts = path.split('.')
+  let node = tree
+
+  for (const part of parts.slice(0, -1)) {
+    if (node[part] === undefined) node[part] = {}
+    if (node[part].$value !== undefined) return // a token already sits where a group must go
+    node = node[part]
+  }
+
+  const leaf = parts.at(-1)
+  if (node[leaf] === undefined) node[leaf] = clone(token)
 }
 
 /** Tokens whose resolved CSS differs between two documents. */
@@ -239,4 +266,87 @@ export function themeJson(overrides, { version }) {
     null,
     2
   )}\n`
+}
+
+
+/* -------------------------------------------------------------------------- */
+
+const NS_KEY = 'dev.bootstrap.tokens'
+
+/** A Sass map key must be a plain identifier, and must not already exist. */
+export function validateNewName(name, taken) {
+  const trimmed = String(name ?? '').trim().toLowerCase()
+
+  if (!trimmed) return 'Give it a name.'
+  if (!/^[a-z][a-z0-9-]*$/.test(trimmed)) {
+    return 'Use lowercase letters, digits and hyphens, starting with a letter.'
+  }
+  if (taken.includes(trimmed)) return `“${trimmed}” already exists.`
+  return null
+}
+
+/**
+ * The overrides that add a new colour scale.
+ *
+ * Only the base hue has to be created: `expandColorScales` generates the thirteen steps from
+ * it exactly as it does for Bootstrap's own sixteen, so the new scale gets `--brand-500` and
+ * the rest for free, and `$colors` picks it up because the exporter reads the tree.
+ */
+export function createHue(name, value) {
+  return {
+    [`color.${name}.base`]: {
+      value,
+      create: {
+        $type: 'color',
+        $description: `A colour scale added to this theme. Bootstrap does not ship it.`,
+        $extensions: {
+          [NS_KEY]: { sassMap: '$colors', sassKey: name, sassQuoted: true, css: true, added: true }
+        }
+      }
+    }
+  }
+}
+
+/** The nine sub-keys of a new theme role, built from an existing scale. */
+export function createRole(name, hue, { contrast = '{color.white}' } = {}) {
+  const sub = (key, light, dark) => ({
+    [`theme-color.${name}.${key}`]: {
+      value: light,
+      ...(dark ? { dark } : {}),
+      create: {
+        $type: 'color',
+        $extensions: {
+          [NS_KEY]: {
+            cssVar: `--${name}-${key}`,
+            sassMap: '$theme-colors',
+            sassKey: name,
+            sassQuoted: true,
+            sassSubKey: key,
+            added: true
+          }
+        }
+      }
+    }
+  })
+
+  return {
+    ...sub('base', `{color.${hue}.500}`),
+    ...sub('fg', `{color.${hue}.600}`, `{color.${hue}.400}`),
+    ...sub('fg-emphasis', `{color.${hue}.800}`, `{color.${hue}.200}`),
+    ...sub('bg', `{color.${hue}.500}`),
+    ...sub('bg-subtle', `{color.${hue}.100}`, `{color.${hue}.900}`),
+    ...sub('bg-muted', `{color.${hue}.200}`, `{color.${hue}.800}`),
+    ...sub('border', `{color.${hue}.300}`, `{color.${hue}.600}`),
+    ...sub(
+      'focus-ring',
+      `color-mix(in oklch, {color.${hue}.500} 50%, {bg.body})`,
+      `color-mix(in oklch, {color.${hue}.500} 75%, {bg.body})`
+    ),
+    ...sub('contrast', contrast)
+  }
+}
+
+/** Every override that belongs to a created hue or role, for removal. */
+export function pathsOfAddition(overrides, prefix) {
+  return Object.keys(overrides).filter((path) => path === prefix || path.startsWith(`${prefix}.`))
 }

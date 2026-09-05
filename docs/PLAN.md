@@ -198,16 +198,23 @@ turns the tool from "start a theme" into "continue mine".
 
 ## Track C — The chooser
 
-### C1. Create tokens, not just edit them · **highest value in this track**
+### C1. Create tokens, not just edit them · ✅ **done**
 
-The override model replaces values on existing tokens. It cannot add one. So a custom brand
-colour has to overwrite `color.blue.base` — the UI admits this in a note, which is honest but
-is not the right answer.
+An override may now carry a `create` payload, which brings a token into existence that
+upstream does not have. Adding a colour gives you a real scale — thirteen generated steps,
+`--brand-*` custom properties, a `.theme-brand` class — and leaves Bootstrap's sixteen alone.
 
-Support creation, and three things become possible at once: **add a hue** (`color.brand.*`,
-scale generated, `--brand-500` emitted), **add a theme colour role**, **add a component
-token**. `expandColorScales` and `eject`'s insertion path already handle new keys; the work is
-in the override model and the UI.
+Most of the machinery already worked once the model could create: `expandColorScales`
+generates the steps for any hue in the tree, and the exporter reads the tree rather than a
+list, so `$colors` and `$theme-colors` picked the addition up for free. The export is minimal
+and idiomatic — the new scale and the new role, nothing else.
+
+Two details were load-bearing. A created node needs its `$value` seeded at creation, or it is
+a group rather than a token and gets walked straight past. And the hue lists in both the
+chooser and the preview had to start reading the document instead of a hardcoded sixteen, or
+an added colour is invisible in the two places it most needs to appear.
+
+Still to do: adding a *component* token, and adding a size to a component that has none.
 
 ### C2. Themes as objects
 
