@@ -167,7 +167,10 @@ export const FILE_FOR_GROUP = {
   focus: 'semantic/focus.json',
   control: 'semantic/control.json',
   motion: 'semantic/motion.json',
-  decoration: 'semantic/decoration.json'
+  decoration: 'semantic/decoration.json',
+
+  // A scalar that belongs to a component rather than a global group.
+  strength: 'component/strength.json'
 }
 
 /** Human-readable blurbs, attached as `$description` on groups. */

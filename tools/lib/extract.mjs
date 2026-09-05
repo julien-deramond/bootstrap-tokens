@@ -9,8 +9,8 @@
  * decide that, and anything they don't account for is reported rather than silently dropped.
  */
 
-import { readFileSync, existsSync } from 'node:fs'
-import { join } from 'node:path'
+import { readdirSync, readFileSync, existsSync, statSync } from 'node:fs'
+import { join, relative, sep } from 'node:path'
 
 import { parseMapVariable, parseScalarVariable } from './sass-parser.mjs'
 import { GROUPS, SCALARS, COMPONENTS, SASS_VAR_PATHS } from './sass-targets.mjs'
@@ -60,8 +60,29 @@ class Sources {
     return null
   }
 
+  /** Every `.scss` file in the checkout, so a lookup is never limited to the core four. */
+  all() {
+    if (!this.files) {
+      this.files = []
+      const walk = (dir) => {
+        for (const entry of readdirSync(dir).sort()) {
+          const path = join(dir, entry)
+          if (statSync(path).isDirectory()) walk(path)
+          else if (entry.endsWith('.scss')) this.files.push(relative(this.root, path).split(sep).join('/'))
+        }
+      }
+      walk(join(this.root, 'scss'))
+    }
+    return this.files
+  }
+
+  /**
+   * Core files first, then the rest of the checkout. Some configuration points live outside
+   * the four we read by default — `$strength-transition` is in `scss/forms/_strength.scss` —
+   * and searching only the core four silently returned null for them.
+   */
   scalar(name, file) {
-    const files = file ? [file] : Object.values(SOURCES)
+    const files = file ? [file] : [...Object.values(SOURCES), ...this.all()]
     for (const relative of files) {
       const parsed = parseScalarVariable(this.read(relative), name)
       if (parsed !== null) return parsed

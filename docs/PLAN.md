@@ -20,7 +20,7 @@ Property 1 is currently **false** — measurably. That is why Track A comes firs
 
 ## Track A — The token document
 
-### A1. Coverage cannot silently drop things · **do first**
+### A1. Coverage cannot silently drop things · ✅ **done**
 
 `tools/lib/sass-targets.mjs` lists the maps we model. The extractor warns when a listed map
 is *missing* from the checkout, but never when the checkout has a map we do not list. So a
@@ -30,13 +30,16 @@ It already bit us: upstream declares **64** `$*-tokens` maps and we model **62**
 `$fade-tokens` and `$collapse-tokens` (`scss/_transitions.scss`) have never been in the
 document, and no test, no warning and no CI run noticed.
 
-1. Add a **discovery check** to `sync`: scan every `.scss` file for `$*-tokens` declarations
-   and for `!default` scalars, and fail on anything not in `sass-targets.mjs` or an explicit
-   `IGNORED` list with a stated reason. Turn the existing warnings into errors under
-   `--check`.
-2. Add the two missing maps.
-3. Work through the other uncovered surfaces, deciding for each whether it is a *token* or
-   *configuration* (see A2):
+Done in `tools/lib/discover.mjs`, wired into `sync --check` and CI. It scans every `.scss`
+file for variables carrying `!default` — the flag that makes a variable reachable through
+`@use … with ()` — and fails on anything that is neither modelled nor listed in `NOT_TOKENS`
+with a reason. Coverage is now **64/64** token maps and **0** unaccounted surfaces.
+
+Finding along the way: `$caret-*` and `$transition-base` carry `!default` but live in
+`scss/mixins/`, which `bootstrap.scss` does not forward — they are not configurable through
+the documented entrypoint at all. See [`BACKLOG.md`](./BACKLOG.md) U1.
+
+The classification that came out of it:
 
    | Surface | Where | Verdict |
    | --- | --- | --- |

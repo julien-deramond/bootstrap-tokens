@@ -1253,6 +1253,24 @@
     "cssVar": "--chip-selected-border-color",
     "sassMap": "$chip-tokens"
   },
+  "collapse.transition-collapse-property": {
+    "$type": null,
+    "$value": "\"block-size, display\"",
+    "cssVar": "--transition-collapse-property",
+    "sassMap": "$collapse-tokens"
+  },
+  "collapse.transition-collapse-duration": {
+    "$type": "duration",
+    "$value": ".35s",
+    "cssVar": "--transition-collapse-duration",
+    "sassMap": "$collapse-tokens"
+  },
+  "collapse.transition-collapse-timing": {
+    "$type": "cubicBezier",
+    "$value": "ease",
+    "cssVar": "--transition-collapse-timing",
+    "sassMap": "$collapse-tokens"
+  },
   "datepicker.padding": {
     "$type": "dimension",
     "$value": "1rem",
@@ -1552,6 +1570,18 @@
     "$value": "8px",
     "cssVar": "--drawer-backdrop-blur",
     "sassMap": "$drawer-tokens"
+  },
+  "fade.transition-fade-duration": {
+    "$type": "duration",
+    "$value": ".15s",
+    "cssVar": "--transition-fade-duration",
+    "sassMap": "$fade-tokens"
+  },
+  "fade.transition-fade-timing": {
+    "$type": "cubicBezier",
+    "$value": "linear",
+    "cssVar": "--transition-fade-timing",
+    "sassMap": "$fade-tokens"
   },
   "figure.gap": {
     "$type": "dimension",
@@ -3496,6 +3526,10 @@
     "$value": "var(--primary-bg)",
     "cssVar": "--stepper-active-bg",
     "sassMap": "$stepper-tokens"
+  },
+  "strength.transition": {
+    "$type": null,
+    "$value": "background-color .2s ease-in-out, width .3s ease-in-out"
   },
   "strength.height": {
     "$type": "dimension",

@@ -16,6 +16,7 @@ $grid-row-columns: 6 !default;
 $grid-gutter-x: 1.5rem !default;
 $grid-gutter-y: 0 !default;
 $container-padding-x: 1.5rem !default;
+$strength-transition: background-color .2s ease-in-out, width .3s ease-in-out !default;
 $color-mix-space: oklch !default;
 $tint-color: var(--white) !default;
 $shade-color: var(--black) !default;
@@ -691,6 +692,12 @@ $chip-tokens: (
   --chip-selected-border-color: var(--theme-bg, var(--primary-bg))
 ) !default;
 
+$collapse-tokens: (
+  --transition-collapse-property: "block-size, display",
+  --transition-collapse-duration: .35s,
+  --transition-collapse-timing: ease
+) !default;
+
 $color-tokens: () !default;
 
 $datepicker-tokens: (
@@ -753,6 +760,11 @@ $drawer-tokens: (
   --drawer-title-line-height: 1.5,
   --drawer-backdrop-bg: color-mix(in oklch, var(--bg-body) 25%, transparent),
   --drawer-backdrop-blur: 8px
+) !default;
+
+$fade-tokens: (
+  --transition-fade-duration: .15s,
+  --transition-fade-timing: linear
 ) !default;
 
 $figure-tokens: (

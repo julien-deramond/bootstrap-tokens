@@ -232,7 +232,10 @@ export function emitUseWith(
   const wanted = (name) => only === null || only.has(name)
 
   for (const [name, value] of buildScalars(doc)) {
-    if (wanted(name)) blocks.push(`  ${name}: ${value}`)
+    // A comma-separated value is a Sass list, but inside `with (…)` a top-level comma
+    // separates arguments — `$strength-transition: a, b` reads as two configurations and
+    // fails to parse. Parenthesising restores the list without changing its meaning.
+    if (wanted(name)) blocks.push(`  ${name}: ${hasTopLevelComma(value) ? `(${value})` : value}`)
   }
 
   for (const name of [...MAP_ORDER, ...componentMaps(maps)]) {

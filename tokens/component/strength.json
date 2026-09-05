@@ -1,5 +1,14 @@
 {
   "strength": {
+    "transition": {
+      "$value": "background-color .2s ease-in-out, width .3s ease-in-out",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "sassVar": "$strength-transition",
+          "css": true
+        }
+      }
+    },
     "height": {
       "$type": "dimension",
       "$value": {

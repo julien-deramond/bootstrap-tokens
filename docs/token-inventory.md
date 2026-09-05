@@ -6,8 +6,8 @@
 | --- | ---: |
 | primitive | 359 |
 | semantic | 168 |
-| component | 670 |
-| **total** | **1197** |
+| component | 676 |
+| **total** | **1203** |
 
 Primitive counts include the generated colour scale (16 hues × 13 stops).
 
@@ -58,10 +58,12 @@ Primitive counts include the generated colour scale (16 hues × 13 stops).
 | `check` | `$check-tokens` | `.form-check-input` | 15 |
 | `chip` | `$chip-tokens` | `.chip` | 15 |
 | `chip-input` | `$chip-input-tokens` | `.chip-input` | 9 |
+| `collapse` | `$collapse-tokens` | `.collapse` | 3 |
 | `datepicker` | `$datepicker-tokens` | `.datepicker` | 8 |
 | `dialog` | `$dialog-tokens` | `.dialog` | 21 |
 | `drawer` | `$drawer-tokens` | `.drawer` | 18 |
 | `drawer-backdrop` <sup>variant of `drawer`</sup> | `$drawer-backdrop-tokens` | `.drawer-backdrop` | 3 |
+| `fade` | `$fade-tokens` | `.fade` | 2 |
 | `figure` | `$figure-tokens` | `.figure` | 3 |
 | `form-adorn` | `$form-adorn-tokens` | `.form-adorn` | 3 |
 | `form-control` | `$form-control-tokens` | `.form-control` | 24 |

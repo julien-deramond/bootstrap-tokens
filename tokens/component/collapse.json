@@ -1,0 +1,49 @@
+{
+  "collapse": {
+    "transition-collapse-property": {
+      "$value": "\"block-size, display\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--transition-collapse-property",
+          "sassMap": "$collapse-tokens",
+          "sassKey": "--transition-collapse-property",
+          "css": true
+        }
+      }
+    },
+    "transition-collapse-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.35,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--transition-collapse-duration",
+          "sassMap": "$collapse-tokens",
+          "sassKey": "--transition-collapse-duration"
+        }
+      }
+    },
+    "transition-collapse-timing": {
+      "$type": "cubicBezier",
+      "$value": "ease",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--transition-collapse-timing",
+          "sassMap": "$collapse-tokens",
+          "sassKey": "--transition-collapse-timing",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.collapse`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$collapse-tokens",
+        "selector": ".collapse",
+        "source": "scss/_transitions.scss"
+      }
+    }
+  }
+}

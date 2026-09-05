@@ -33,6 +33,12 @@ jobs:
       - name: Validate the token document
         run: node tools/cli.mjs validate
 
+      # Fails when upstream offers a configurable surface we neither model nor have
+      # explicitly decided to ignore. Two token maps went missing for the life of the
+      # project before this check existed.
+      - name: Check coverage against upstream
+        run: node tools/cli.mjs sync --check --src "$GITHUB_WORKSPACE/bootstrap-v6-dev"
+
       - run: npm test
         env:
           BOOTSTRAP_SRC: ${{ github.workspace }}/bootstrap-v6-dev

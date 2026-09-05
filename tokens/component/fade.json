@@ -1,0 +1,38 @@
+{
+  "fade": {
+    "transition-fade-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.15,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--transition-fade-duration",
+          "sassMap": "$fade-tokens",
+          "sassKey": "--transition-fade-duration"
+        }
+      }
+    },
+    "transition-fade-timing": {
+      "$type": "cubicBezier",
+      "$value": "linear",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--transition-fade-timing",
+          "sassMap": "$fade-tokens",
+          "sassKey": "--transition-fade-timing",
+          "css": true
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.fade`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$fade-tokens",
+        "selector": ".fade",
+        "source": "scss/_transitions.scss"
+      }
+    }
+  }
+}
