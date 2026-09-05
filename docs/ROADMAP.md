@@ -3,8 +3,7 @@
 Status legend: ✅ done · 🚧 in progress · ⬜ not started
 
 > This file records what is **done**. [`PLAN.md`](./PLAN.md) records what is wrong, what is
-> missing and the order to fix it in — including two upstream token maps this document's
-> "✅ Component layer" claim does not actually cover.
+> missing and the order to fix it in.
 
 ## Phase 0 — Knowledge base ✅
 
@@ -41,7 +40,14 @@ consumer (`@use … with ()`) and maintainer (patched v6-dev sources).
   * `build/json/tokens.resolved.json` — fully resolved DTCG, for other tools.
 * ✅ Correct routing of loop-generated `--*` keys to their owning map instead of
   `$root-tokens` (`tools/lib/sass-targets.mjs`).
-* ✅ `bstokens verify` — compile upstream vs. exported, assert identical CSS.
+* ✅ `bstokens verify` — compile upstream vs. exported, assert identical CSS. Also compares
+  the **CSS** export against upstream's compiled output declaration by declaration (1313 of
+  1313), and `--theme <file>` runs the same check on your own theme.
+* ✅ A static resolution of the whole palette to sRGB, for everything that is not a browser —
+  checked against one, 1084 of 1092 values matching Chrome exactly (`bstokens probe`).
+* ✅ `bstokens report` — contrast by WCAG 2 and APCA, plus which semantic roles stop being
+  distinguishable under simulated colour vision. Markdown, HTML or JSON, with `--fail-on`
+  for CI.
 
 ## Phase 3 — Token chooser (web) ✅
 
@@ -80,19 +86,35 @@ A static page with no build step and no dependencies. `npm run web`.
 * ✅ Maintainer export: `bstokens eject` patches v6-dev's own Sass sources in place, and the
   chooser's fourth export tab shows exactly which declarations will change.
   See [`maintainer-export.md`](./maintainer-export.md).
-* ⬜ Share-by-URL (compressed state in the fragment).
+* ✅ Share-by-URL: the whole theme packed into the fragment with the platform's own
+  `CompressionStream`, so it stays dependency-free and nothing is uploaded. 571 characters
+  for a 22-token theme.
+* ✅ Themes as objects — several kept side by side, named, duplicated, renamed.
+* ✅ *Before / after*: the same page rendered from Bootstrap's defaults beside the theme, in
+  one document, by scoping the override stylesheet to one pane.
+* ✅ *Your markup*: a chunk of your own HTML previewed with the theme applied, stripped of
+  anything that executes.
+* ✅ Colour-vision simulation over the artboards, and the corresponding check in the report.
+* ✅ Every component that has tokens has a sample, overlays included.
 * ✅ WCAG contrast badges on the pairs that matter: a role's `contrast` against its
   `bg`, and its `fg`/`fg-emphasis` against the page. Shown per scheme, since a palette can
   pass in light and fail in dark.
-* ⬜ Import an existing `custom.scss` and pre-fill the chooser.
+* ✅ Import an existing `custom.scss` and pre-fill the chooser — any formatting, not only
+  ours, with custom properties read back as token references so the theme keeps its links.
+  Export → import → export is byte-stable.
 
 ## Phase 4 — Upstream-facing polish 🚧
 
 * ✅ CI: validate, test, build-is-current and `verify` on every push; a nightly
   `sync --check` against `v6-dev` that opens an issue on drift.
-* ⬜ Publish `@bootstrap/tokens`-shaped npm package with the resolved JSON + Sass.
-* ⬜ Figma Tokens / Style Dictionary compatibility pass (they read plain DTCG; verify the
-  `expression` extension degrades sanely).
+* ✅ npm package shape: an explicit `exports` map over `tokens/`, `build/scss/`,
+  `build/css/`, `build/json/`, `build/ts/`, `build/style-dictionary/` and `build/figma/`,
+  plus `bstokens init`, which scaffolds a project that compiles *and* can verify its own
+  theme against the Bootstrap it installed.
+* ✅ Style Dictionary and Tokens Studio, each shaped for what it is for rather than one
+  export renamed twice — references kept for the pipeline, flat sRGB for Figma. Both have
+  fixture tests that run the real tool. See [`exports.md`](./exports.md).
+* ✅ Typed JS/TS: a runtime module plus declarations, with a union of all 1203 token paths.
 * ⬜ Propose the token document upstream. `eject` makes this concrete: the proposal is not
   "replace your Sass with generated files" but "here is a tool that edits them for you".
 
@@ -101,4 +123,16 @@ A static page with no build step and no dependencies. `npm run web`.
 * `$utilities`, mixins and the `@layer` order are out of scope by design.
 * `light-dark()` pairs are modelled as a single token with a `dark` extension; a third
   mode (e.g. high-contrast) would need the extension to become a `modes` map.
-* Upstream is `6.0.0-alpha1`. Token names *will* move. `sync` is the mitigation.
+* Hover states cannot be forced from outside the document, so the preview cannot show them.
+* The calendar and datepicker have no sample: their markup is vanilla-calendar's, not
+  Bootstrap's.
+* Upstream is `6.0.0-alpha1`. Token names *will* move. `sync` is the mitigation, and every
+  command that reads a theme now applies recorded renames and refuses to run on a theme
+  still naming a token that does not exist.
+
+## What this pipeline found in Bootstrap
+
+Eight findings, each with the measurement that produced it, in
+[`BACKLOG.md`](./BACKLOG.md) under **U1**–**U8**. None is visible by reading the Sass. They
+are the strongest argument that modelling a system precisely enough to re-emit it is worth
+doing.
