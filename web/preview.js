@@ -154,6 +154,41 @@ const forms = (uid) => section(
         <label for="switch-${uid}">Switch</label>
       </div>
     </div>
+    <div>
+      <!--
+        The three v6 form components with no sample before this: a one-time code, a chip
+        input and a password-strength meter. The OTP is written in its rendered form, with
+        real slot elements, because the plugin builds those from a single input — a preview
+        with no JavaScript would otherwise show a bare text box while its eight tokens
+        appeared to do nothing.
+      -->
+      <label class="form-label" for="otp-${uid}">One-time code</label>
+      <div class="otp otp-connected otp-rendered">
+        <input type="text" class="otp-input" id="otp-${uid}" maxlength="6" aria-label="Verification code" />
+        <div class="otp-slots" aria-hidden="true">
+          ${['4', '8', '2', '', '', ''].map((digit, i) =>
+            `<div class="otp-slot${digit ? ' otp-slot-filled' : ''}${i === 3 ? ' otp-slot-active' : ''}">${digit}</div>`
+          ).join('')}
+        </div>
+      </div>
+
+      <label class="form-label mt" for="chips-${uid}">Skills</label>
+      <div class="chip-input">
+        <span class="chip">JavaScript</span>
+        <span class="chip">Sass<button type="button" class="chip-dismiss" aria-label="Remove"></button></span>
+        <input type="text" class="form-control" id="chips-${uid}" placeholder="Add one…" />
+      </div>
+
+      <label class="form-label mt" for="password-${uid}">Password</label>
+      <input type="password" class="form-control" id="password-${uid}" value="correct horse" />
+      <div class="strength">
+        <div class="strength-segment theme-success"></div>
+        <div class="strength-segment theme-success"></div>
+        <div class="strength-segment theme-success"></div>
+        <div class="strength-segment"></div>
+      </div>
+      <div class="strength-text">Strong</div>
+    </div>
   </div>`
 )
 
@@ -210,10 +245,83 @@ const content = () => section(
   <div class="fade show"><p class="m-0">A fade, shown.</p></div>`
 )
 
+/*
+ * Overlays, shown in place.
+ *
+ * Menus, tooltips, popovers, dialogs and drawers are positioned against the viewport and
+ * hidden until JavaScript shows them, so a preview of Bootstrap's own markup shows nothing
+ * at all — and fourteen of the sixty-two token maps had no sample here for exactly that
+ * reason. Theming any of them looked like it did nothing.
+ *
+ * Each one therefore sits in a `.specimen`, which contains its positioning and nothing else.
+ * Position is not something a theme sets, so every token these components carry — colour,
+ * radius, shadow, padding, border, font — is still the theme's.
+ */
+const specimen = (label, body, { tall = false } = {}) => `
+  <figure class="specimen${tall ? ' specimen-tall' : ''}">
+    <figcaption>${label}</figcaption>
+    ${body}
+  </figure>`
+
+const menus = () => specimen(
+  'Menu',
+  `<div class="menu show">
+    <h6 class="menu-header">Account</h6>
+    <a class="menu-item" href="#">Profile</a>
+    <a class="menu-item" href="#">Settings</a>
+    <hr class="menu-divider" />
+    <a class="menu-item" href="#">Sign out</a>
+  </div>`
+)
+
+const tips = () => `
+  ${specimen('Tooltip', `<div class="tooltip show" role="tooltip"><div class="tooltip-inner">A short hint</div></div>`)}
+  ${specimen(
+    'Popover',
+    `<div class="popover show" role="tooltip">
+      <h3 class="popover-header">Popover title</h3>
+      <div class="popover-body">And a sentence of body copy that wraps onto a second line.</div>
+    </div>`
+  )}`
+
+const sheets = () => `
+  ${specimen(
+    'Dialog',
+    `<dialog class="dialog" open>
+      <div class="dialog-header">
+        <h1 class="dialog-title">Dialog title</h1>
+        <button type="button" class="btn-close" aria-label="Close"></button>
+      </div>
+      <div class="dialog-body"><p class="m-0">Body copy, so the surface and its border show.</p></div>
+      <div class="dialog-footer">
+        <button type="button" class="btn btn-solid theme-secondary">Cancel</button>
+        <button type="button" class="btn btn-solid theme-primary">Save</button>
+      </div>
+    </dialog>`,
+    { tall: true }
+  )}
+  ${specimen(
+    'Drawer',
+    `<dialog class="drawer drawer-start" open>
+      <div class="drawer-header">
+        <h5 class="drawer-title">Drawer</h5>
+        <button type="button" class="btn-close" aria-label="Close"></button>
+      </div>
+      <div class="drawer-body">Anything can go in here.</div>
+    </dialog>`,
+    { tall: true }
+  )}`
+
 const overlays = () => section(
   'overlays',
   'Toasts and overlays',
-  `<div class="toast show mb" role="alert">
+  `<div class="preview-row">
+    ${menus()}
+    ${tips()}
+  </div>
+  <div class="preview-row mt">${sheets()}</div>
+
+  <div class="toast show mb mt" role="alert">
     <div class="toast-header"><strong class="me-auto">Bootstrap</strong><small>11 mins ago</small></div>
     <div class="toast-body">Hello, world! This is a toast message.</div>
   </div>
@@ -231,7 +339,22 @@ const overlays = () => section(
   </div>`
 )
 
-const navigation = () => section(
+const carousel = (uid) => `
+  <div class="carousel mt" id="carousel-${uid}">
+    <div class="carousel-inner">
+      ${['One', 'Two', 'Three'].map((label, i) => `
+        <div class="carousel-item${i === 0 ? ' active' : ''}">
+          <div class="card"><div class="card-body"><p class="m-0">Slide ${label}</p></div></div>
+        </div>`).join('')}
+    </div>
+    <div class="carousel-indicators">
+      ${[0, 1, 2].map((i) =>
+        `<button type="button" data-bs-target="#carousel-${uid}" data-bs-slide-to="${i}"${i === 0 ? ' class="active" aria-current="true"' : ''} aria-label="Slide ${i + 1}"></button>`
+      ).join('')}
+    </div>
+  </div>`
+
+const navigation = (uid) => section(
   'navigation',
   'Navigation',
   `<nav class="navbar bg-1 fg-2 mb">
@@ -240,6 +363,19 @@ const navigation = () => section(
       <ul class="navbar-nav">
         <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
         <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- The dark variant is a token map of its own, and it is the one carrying U6's four
+       broken color-mix() weights, so it is worth being able to look at. -->
+  <nav class="navbar mb" data-bs-theme="dark">
+    <div class="container-fluid">
+      <a class="navbar-brand" href="#">Dark navbar</a>
+      <ul class="navbar-nav">
+        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Home</a></li>
+        <li class="nav-item"><a class="nav-link" href="#">Features</a></li>
+        <li class="nav-item"><a class="nav-link disabled" aria-disabled="true">Disabled</a></li>
       </ul>
     </div>
   </nav>
@@ -276,7 +412,9 @@ const navigation = () => section(
       <li class="page-item"><a class="page-link" href="#">2</a></li>
       <li class="page-item"><a class="page-link" href="#">Next</a></li>
     </ul>
-  </nav>`
+  </nav>
+
+  ${carousel(uid)}`
 )
 
 const typography = () => section(
@@ -529,7 +667,7 @@ const componentGallery = (uid) =>
     content(),
     overlays(),
     elevation(),
-    navigation(),
+    navigation(uid),
     typography(),
     palette()
   ].join('')

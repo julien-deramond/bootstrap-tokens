@@ -144,6 +144,50 @@
 
       .preview-section.is-focused { animation: flash 1.4s ease-out; }
 
+      /*
+       * A specimen box. Overlays are positioned against the viewport and hidden until
+       * JavaScript shows them, so they are put in flow here to be looked at. `transform`
+       * makes the box a containing block for `position: fixed`, and `contain: layout`
+       * keeps an absolutely positioned child inside it.
+       *
+       * Only positioning and visibility are touched. Neither is something a theme sets, so
+       * every token these components carry is still the theme's.
+       */
+      .specimen {
+        min-inline-size: 12rem;
+        margin: 0;
+        transform: translate(0);
+      }
+
+      .specimen > figcaption {
+        margin-block-end: .375rem;
+        font-size: .6875rem;
+        font-weight: 600;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+        color: var(--fg-3);
+      }
+
+      .specimen .menu,
+      .specimen .tooltip,
+      .specimen .popover,
+      .specimen .dialog,
+      .specimen .drawer {
+        position: static;
+        inset: auto;
+        visibility: visible;
+        opacity: 1;
+        max-inline-size: none;
+        max-block-size: none;
+        margin: 0;
+        transform: none;
+      }
+
+      /* The tooltip and popover arrows point at nothing here, and an arrow with no anchor
+         reads as a rendering fault rather than as part of the component. */
+      .specimen .tooltip-arrow,
+      .specimen .popover-arrow { display: none; }
+
       /* Only the artboard is simulated; the frame and its label stay legible. */
       .pane[data-vision] { filter: var(--vision-filter); }
 

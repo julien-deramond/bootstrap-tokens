@@ -119,6 +119,10 @@ preset.
   screen. Each scheme renders as a framed, labelled artboard on a neutral canvas that belongs
   to neither theme — otherwise, in a dark chooser, the dark preview reads as one more panel of
   the tool.
+* **Every component that has tokens is in the gallery.** Including the ones you cannot
+  normally see standing still: menus, tooltips, popovers, dialogs and drawers sit in specimen
+  boxes that contain their positioning and change nothing a theme sets, so their colours,
+  radii and shadows are all the theme's.
 * **Four things to preview.** *Components* is the gallery, *Page* is a realistic layout —
   navbar, hero, cards, form, table — *States* is every state a theme can break in (disabled,
   invalid, focused, loading, empty, selected), and *Your markup* is a chunk of your own HTML

@@ -1071,3 +1071,8 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 }
 
 .notice p { margin: 0; }
+
+/* `display: flex` outranks the user-agent's `[hidden] { display: none }`, so without this
+   the row is always drawn — an empty coloured band on every load. Any rule that sets
+   `display` on something toggled with `hidden` needs this pair. */
+.notice[hidden] { display: none; }

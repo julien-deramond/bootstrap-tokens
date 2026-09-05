@@ -4,6 +4,7 @@ import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { repoRoot } from '../lib/config.mjs'
+import { COMPONENTS } from '../lib/sass-targets.mjs'
 
 /*
  * The preview is a fidelity claim: "this is what your theme looks like on Bootstrap". It is
@@ -40,6 +41,7 @@ const NOT_BOOTSTRAP = new Set([
   // The preview's own layout, defined in preview.html.
   'preview-section', 'preview-row', 'preview-grid', 'preview-hero', 'preview-empty',
   'board', 'board-label', 'board-swatch', 'board-light', 'board-dark',
+  'specimen', 'specimen-tall',
   'artboard', 'pane', 'pane-before', 'pane-after',
   'cluster', 'mt', 'mb', 'surface', 'surface-row',
   'state-grid', 'state-label', 'state-empty',
@@ -123,4 +125,35 @@ test('the artboard carries the typography Bootstrap puts on body', () => {
   ]) {
     assert.match(rule[1], new RegExp(`${property}:\\s*var\\(${token}\\)`), `${property} on .pane`)
   }
+})
+
+test('every component with tokens has something to look at', () => {
+  /*
+   * A component with no sample is a component whose tokens appear to do nothing. Fourteen
+   * of the sixty-two were in that state — every overlay, because they are positioned
+   * against the viewport and hidden until JavaScript shows them, plus the OTP, chip input
+   * and strength meter, whose markup a plugin builds.
+   *
+   * Checked against the preview source rather than a rendered page, which means it is
+   * coarse: it asks whether the selector appears at all, not whether it renders. The
+   * rendered count was measured in a browser at 59 of 62.
+   */
+  const allowed = new Set([
+    // Third-party markup: the calendar and datepicker are vanilla-calendar's own DOM,
+    // which we would have to reproduce from its internals rather than from Bootstrap's.
+    'calendar',
+    'datepicker',
+    // `:root` — the body typography, which the artboard carries and every section shows.
+    'reboot-type'
+  ])
+
+  const unpreviewed = COMPONENTS.filter((component) => {
+    if (allowed.has(component.name)) return false
+    // The bare class, so `.navbar[data-bs-theme=dark]` matches a `.navbar` in the sample.
+    const [first] = component.selector.split(',')
+    const anchor = /^[.[]?([\w-]+)/.exec(first.replace(/^\[data-vc=/, ''))?.[1]
+    return anchor ? !preview.includes(anchor) : false
+  })
+
+  assert.deepEqual(unpreviewed.map((component) => component.name), [])
 })
