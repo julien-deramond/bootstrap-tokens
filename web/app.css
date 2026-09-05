@@ -1076,3 +1076,16 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
    the row is always drawn — an empty coloured band on every load. Any rule that sets
    `display` on something toggled with `hidden` needs this pair. */
 .notice[hidden] { display: none; }
+
+/* A token Bootstrap itself drops. Sits under the field rather than beside the name, because
+   it explains why the field you just typed into did nothing. */
+.token-finding {
+  grid-column: 1 / -1;
+  margin: .375rem 0 0;
+  padding: .4rem .55rem;
+  border-radius: 6px;
+  background: light-dark(#fff3e0, #3a2a10);
+  color: light-dark(#5b3a00, #f0d9ae);
+  font-size: .75rem;
+  line-height: 1.45;
+}

@@ -63,6 +63,31 @@ function danglingReferences(value, declared) {
   return problems
 }
 
+/**
+ * Tokens whose value is faithful to upstream and still does not work, keyed by path.
+ *
+ * The CLI prints these as lines. The chooser needs them attached to the token, because the
+ * person editing `navbar-dark.navbar-color` is the one who most needs to know that nothing
+ * they type there will have any effect — otherwise the tool looks broken when Bootstrap is.
+ */
+export function upstreamFindings(doc, { declared = null } = {}) {
+  const findings = new Map()
+
+  for (const [path] of walk(doc.tree)) {
+    let resolved
+    try {
+      resolved = doc.cssValueOf(path)
+    } catch {
+      continue
+    }
+
+    const problems = [...lintValue(resolved), ...danglingReferences(resolved, declared)]
+    if (problems.length > 0) findings.set(path, problems)
+  }
+
+  return findings
+}
+
 export function validate(doc, { strict = false, declared = null } = {}) {
   const errors = []
   const warnings = []
@@ -132,12 +157,14 @@ export function validate(doc, { strict = false, declared = null } = {}) {
     // A resolved value is also the first point at which we can ask whether the CSS actually
     // works, as opposed to whether we copied it correctly. See `css-lint.mjs`.
     try {
-      const resolved = doc.cssValueOf(path)
-      for (const finding of lintValue(resolved)) findings.push(`${path}: ${finding}`)
-      for (const finding of danglingReferences(resolved, declared)) findings.push(`${path}: ${finding}`)
+      doc.cssValueOf(path)
     } catch (error) {
       errors.push(`${path}: ${error.message}`)
     }
+  }
+
+  for (const [path, problems] of upstreamFindings(doc, { declared })) {
+    for (const problem of problems) findings.push(`${path}: ${problem}`)
   }
 
   // --- structural: a node is a token or a group, never both ---

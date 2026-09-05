@@ -28,6 +28,7 @@ import { DIALS, PRESETS, HUES, availableHues, addedHues, hueOfRole, repointRole,
 import { OPTIONS, changedOptions, optionByName } from '../tools/lib/config-surface.mjs'
 import { importScss } from '../tools/lib/import-scss.mjs'
 import { applyMigrations } from '../tools/lib/migrations.mjs'
+import { upstreamFindings } from '../tools/lib/validate.mjs'
 import { parseComputedColor, formatColor, hexToRgb, rgbToHex, contrastRatio, contrastGrade } from './color.js'
 import { contrastPartner, apcaLc, apcaLevel } from '../tools/lib/contrast.mjs'
 import { audit, reportFor, markdown as contrastReport } from '../tools/lib/report.mjs'
@@ -107,6 +108,7 @@ const state = {
   migrations: [],
   overrides: {},
   markup: loadMarkup(),
+  findings: new Map(),
   vision: 'normal',
   mode: loadMode(),
   section: 'theme-color',
@@ -504,12 +506,23 @@ function renderEditor() {
     ? `Emitted on ${component.selector} · ${component.sassMap}`
     : (GROUP_DESCRIPTIONS[state.section] ?? '')
 
+  /*
+   * Two different disappointments, and telling them apart matters.
+   *
+   * A component the sample does not draw still exports and still works in your project. A
+   * map Bootstrap defines and never `@include`s does not: the export is written, Sass
+   * accepts it, and nothing happens anywhere. Saying "they still export" about the second
+   * would be true and useless — the value never reaches CSS. See BACKLOG U8.
+   */
   const warning = $('#section-warning')
-  const unpreviewed = component && !isPreviewed(component)
-  warning.hidden = !unpreviewed
-  if (unpreviewed) {
-    warning.textContent = `The sample does not render ${component.selector}, so changes here will not show in the preview. They still export.`
-  }
+  const problem = component?.inert
+    ? `Bootstrap defines ${component.sassMap} and never uses it, so changes here have no effect — not in the preview, and not in your project either. Reported upstream as U8.`
+    : component && !isPreviewed(component)
+      ? `The sample does not render ${component.selector}, so changes here will not show in the preview. They still export.`
+      : null
+
+  warning.hidden = !problem
+  if (problem) warning.textContent = problem
 
   const editor = $('#editor')
   editor.textContent = ''
@@ -585,6 +598,14 @@ function renderToken(path) {
     const hasDark = Boolean(ext(state.baseDoc.tokens.get(path)).dark) || Boolean(state.overrides[path]?.dark)
     controls.append(renderField(path, 'value', hasDark ? 'light' : '', token))
     if (hasDark) controls.append(renderField(path, 'dark', 'dark', token))
+  }
+
+  const finding = state.findings.get(path)
+  if (finding) {
+    const note = document.createElement('p')
+    note.className = 'token-finding'
+    note.textContent = `Bootstrap drops this value: ${finding[0]} Editing it changes nothing, here or in your project.`
+    controls.append(note)
   }
 
   if (isChanged(path)) {
@@ -2488,6 +2509,17 @@ async function start() {
   // one that is simply gone, and with it unset it returned every override untouched — so
   // the startup path, the one every visitor takes, had never migrated anything.
   state.baseDoc = index(expandColorScales(clone(tree)))
+
+  /*
+   * Which of Bootstrap's own values do not work. Computed from the base document, because
+   * these are facts about upstream rather than about a theme, and shown on the token itself
+   * — the person editing `navbar-dark.navbar-color` is exactly the person who needs to know
+   * that nothing typed there will have any effect. Without it the tool looks broken when
+   * Bootstrap is, which is the worst way for a fidelity tool to be wrong.
+   */
+  state.findings = upstreamFindings(state.baseDoc, {
+    declared: meta.declaredCustomProperties ? new Set(meta.declaredCustomProperties) : null
+  })
 
   const theme = activeTheme(state.store)
   state.overrides = migrate(theme.overrides ?? {})
