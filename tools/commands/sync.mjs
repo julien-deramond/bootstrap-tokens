@@ -11,6 +11,7 @@ import { ext, walk } from '../lib/tokens.mjs'
 import { index } from '../lib/tokens.mjs'
 import { expandColorScales } from '../lib/color-scale.mjs'
 import { resolveBootstrapSource, tokensDir } from '../lib/config.mjs'
+import { declaredCustomProperties } from '../lib/declared.mjs'
 
 /** The upstream commit the token document was extracted from, when git can tell us. */
 function upstreamCommit(source) {
@@ -32,7 +33,11 @@ export async function sync({ flags }) {
     branch: 'v6-dev',
     commit: upstreamCommit(source),
     extractedAt: new Date().toISOString().slice(0, 10),
-    tokens: records.length
+    tokens: records.length,
+    // Everything Bootstrap declares, token maps and runtime helpers alike. Recorded here
+    // because it is the only way `validate` can tell a deliberate opt-in hook — a `var()`
+    // a theme class fills in — from a reference to a property that simply does not exist.
+    declaredCustomProperties: await declaredCustomProperties(source)
   }
 
   console.log(`Bootstrap ${version} at ${source}`)

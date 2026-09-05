@@ -61,9 +61,11 @@ export function computeColor(css, { lookup, mode = 'light', seen = new Set() } =
     // is "no colour", not a plausible one computed from a weight nobody wrote. See U6.
     if (lintValue(text).length > 0) return null
 
+    // The interpolation method is optional in CSS Color 5; without it a browser uses oklab.
     const parts = splitTopLevel(body)
-    const space = parts[0]?.trim().replace(/^in\s+/, '')
-    const [first, second] = parts.slice(1)
+    const named = /^in\s+/.test(parts[0]?.trim() ?? '')
+    const space = named ? parts[0].trim().replace(/^in\s+/, '') : 'oklab'
+    const [first, second] = named ? parts.slice(1) : parts
     if (!first || !second) return null
 
     const weighted = (part) => {
@@ -83,15 +85,16 @@ export function computeColor(css, { lookup, mode = 'light', seen = new Set() } =
   return null
 }
 
-/** Why a token has no swatch, for consumers that must say so. */
-function reasonFor(css) {
+/** Why a token has no flat value, for consumers that must say so. */
+function reasonFor(css, { kind = 'colour' } = {}) {
   const text = String(css ?? '').trim()
+  if (text === 'null' || text === '') return 'has no value'
   if (/currentcolor/i.test(text)) return 'depends on currentcolor'
   if (/^(inherit|unset|initial|revert)$/i.test(text)) return `is the CSS keyword \`${text}\``
   if (/^#\{?url\(/i.test(text)) return 'is an embedded image, not a colour'
   if (lintValue(text).length > 0) return 'is invalid CSS upstream (BACKLOG U6)'
-  if (text === 'null' || text === '') return 'has no value'
-  return 'is not a colour this exporter can compute'
+  if (VAR_CALL.test(text)) return 'reads a custom property no token declares'
+  return `is not a ${kind} this exporter can compute`
 }
 
 /** Custom properties that more than one token declares, each under its own selector. */
@@ -154,3 +157,131 @@ export function flattenColors(doc, { mode = 'light' } = {}) {
 
 /** The custom property a token is published under, if it has one. */
 export const cssVarOf = (token) => ext(token).cssVar ?? null
+
+/* -------------------------------------------------------------------------- */
+
+/**
+ * Inline every `var()` and pick a side of every `light-dark()`, leaving CSS a tool with no
+ * cascade can use. Colours additionally become hex; everything else keeps its CSS text,
+ * because `.15s` and `1.25rem` mean the same thing to a browser and to a designer.
+ */
+export function flattenValues(doc, { mode = 'light' } = {}) {
+  const ambiguous = declaredMoreThanOnce(doc)
+  const values = new Map()
+  const contextual = new Map()
+  const unresolved = new Map()
+
+  for (const [path, token] of walk(doc.tree)) {
+    const touched = new Set()
+    const lookup = (property) => {
+      if (ambiguous.has(property)) touched.add(property)
+      const target = doc.byCssVar.get(property)
+      return target ? doc.cssValueOf(target) : null
+    }
+
+    let css
+    try {
+      css = doc.cssValueOf(path)
+    } catch {
+      unresolved.set(path, 'does not resolve')
+      continue
+    }
+
+    const literal = inline(css, { lookup, mode })
+    if (literal === null) {
+      unresolved.set(path, reasonFor(css, { kind: token.$type ?? 'value' }))
+    } else if (token.$type === 'color') {
+      const computed = computeColor(literal, { lookup: () => null, mode })
+      if (computed) values.set(path, toHex(computed))
+      else unresolved.set(path, reasonFor(css))
+    } else {
+      // A colour can sit inside a composite: a border, a shadow, a gradient stop. Those
+      // have to be computed too, or a "flat" export still contains a color-mix().
+      const folded = foldColors(unquote(literal), mode)
+      if (folded === null) unresolved.set(path, reasonFor(css, { kind: token.$type ?? 'value' }))
+      else values.set(path, folded)
+    }
+    if (touched.size > 0) contextual.set(path, [...touched])
+  }
+
+  return { values, contextual, unresolved, mode }
+}
+
+/** Replace every `color-mix()` inside a composite value with the colour it computes to. */
+function foldColors(text, mode) {
+  return replaceCall(text, 'color-mix', (args) => {
+    const computed = computeColor(`color-mix(${args})`, { lookup: () => null, mode })
+    return computed ? toHex(computed) : null
+  })
+}
+
+/** Sass keeps some values quoted so they survive as strings; nothing downstream wants that. */
+const unquote = (text) =>
+  /^"(.*)"$/s.test(text) ? text.replace(/^"(.*)"$/s, '$1') : text
+
+const VAR_CALL = /\bvar\(/
+
+/**
+ * Substitute `var()` and `light-dark()` throughout a value, anywhere they appear — a border
+ * is `var(--border-width) solid var(--alert-border-color)`, so this cannot just look at the
+ * whole string. Returns `null` when a reference has no declaration and no fallback.
+ */
+export function inline(css, { lookup, mode = 'light', depth = 0 } = {}) {
+  let text = String(css ?? '').trim()
+  if (!text || text === 'null') return null
+  if (depth > 24) return null // a cycle; the CSS would be invalid too
+
+  text = replaceCall(text, 'light-dark', (args) => {
+    const sides = splitTopLevel(args)
+    return sides.length === 2 ? (mode === 'dark' ? sides[1] : sides[0]).trim() : null
+  })
+  if (text === null) return null
+
+  if (!VAR_CALL.test(text)) return text
+
+  const substituted = replaceCall(text, 'var', (args) => {
+    const [reference, ...fallback] = splitTopLevel(args)
+    const declared = lookup?.(reference.trim())
+    if (declared != null) return declared
+    return fallback.length > 0 ? fallback.join(',').trim() : null
+  })
+  if (substituted === null) return null
+
+  return inline(substituted, { lookup, mode, depth: depth + 1 })
+}
+
+/**
+ * Rewrite every `name(...)` call in `text` through `replace`. Written by hand rather than
+ * with a regex because the arguments nest: `var(--a, var(--b))` needs balanced matching.
+ */
+function replaceCall(text, name, replace) {
+  const needle = `${name}(`
+  let out = ''
+  let at = 0
+
+  for (;;) {
+    const start = text.indexOf(needle, at)
+    if (start === -1) return out + text.slice(at)
+
+    // Only a call, not the tail of a longer identifier.
+    if (start > 0 && /[\w-]/.test(text[start - 1])) {
+      out += text.slice(at, start + needle.length)
+      at = start + needle.length
+      continue
+    }
+
+    let depth = 1
+    let i = start + needle.length
+    while (i < text.length && depth > 0) {
+      if (text[i] === '(') depth++
+      else if (text[i] === ')') depth--
+      i++
+    }
+    if (depth !== 0) return null // unbalanced; not something to guess at
+
+    const replaced = replace(text.slice(start + needle.length, i - 1))
+    if (replaced === null) return null
+    out += text.slice(at, start) + replaced
+    at = i
+  }
+}

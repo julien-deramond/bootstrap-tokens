@@ -114,6 +114,40 @@ document is valid, the value it mirrors is not. The rule lives in
 [`tools/lib/css-lint.mjs`](../tools/lib/css-lint.mjs), which is where any further "faithful
 but broken in a browser" check goes.
 
+---
+
+### U7 · Three tokens read custom properties that do not exist
+
+`--btn-font-weight: var(--btn-input-font-weight)` in `scss/buttons/_button.scss`, and
+`--nav-tabs-link-active-color` / `--nav-underline-link-active-color`, both
+`var(--fg-color)`. None of those three properties is declared anywhere in the compiled
+stylesheet — measured by compiling `bootstrap.scss` and diffing every `var()` reference
+against every declaration.
+
+This is not the same as Bootstrap's deliberate opt-in hooks. `var(--accordion-radius,
+var(--radius-7))` is undeclared on purpose so a consumer can fill it in, and it carries a
+fallback. These three have none, so the declaration is dropped: `.btn` inherits its font
+weight rather than taking one, and an active tab inherits its colour rather than the
+emphasised foreground.
+
+`--btn-input-font-weight` stands out because every one of its siblings —
+`--btn-input-gap`, `--btn-input-min-height`, `--btn-input-padding-x/y`,
+`--btn-input-font-size`, `--btn-input-line-height`, `--btn-input-border-radius` — is
+declared. `--fg-color` looks like `--fg-body` with a word missing; Bootstrap's foreground
+tokens are `--fg-body`, `--fg-1` and `--fg-2`.
+
+Eleven properties in total are referenced without a fallback and never declared. The other
+eight are the "unset by default" pattern (`text-align: var(--body-text-align)`), where a
+dropped declaration is the intended no-op.
+
+**Fix:** declare `--btn-input-font-weight` alongside its siblings; point the two tab tokens
+at a foreground token that exists.
+
+**Here:** `bstokens validate` reports all three. The check needs to know what Bootstrap
+declares, which only a compile can answer, so `sync` records the full list in
+`tokens/meta.json` and `validate` reads it from there — that way the deliberate hooks are
+never reported as bugs.
+
 ## P — This project
 
 ### P6 · The tool's own controls still borrow Bootstrap's shapes

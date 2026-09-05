@@ -1,6 +1,9 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
+
 import { lintValue, splitTopLevel } from '../lib/css-lint.mjs'
 import { loadTokens } from '../lib/load-fs.mjs'
 import { validate } from '../lib/validate.mjs'
@@ -31,10 +34,22 @@ test('splitTopLevel ignores commas inside parentheses', () => {
   ])
 })
 
-test('the document carries exactly the four known upstream findings', () => {
-  // If this number moves, either upstream fixed the navbar or something new broke. Both are
-  // worth being told about, which is the point of pinning it.
-  const { findings } = validate(loadTokens(tokensDir))
-  assert.equal(findings.length, 4)
+test('the document carries exactly the known upstream findings', () => {
+  // If these move, either upstream fixed something or something new broke. Both are worth
+  // being told about, which is the point of pinning them.
+  const doc = loadTokens(tokensDir)
+  const declared = new Set(
+    JSON.parse(readFileSync(join(tokensDir, 'meta.json'), 'utf8')).declaredCustomProperties
+  )
+
+  const { findings } = validate(doc)
+  assert.equal(findings.length, 4, 'four invalid color-mix() weights (BACKLOG U6)')
   assert.ok(findings.every((finding) => finding.startsWith('navbar-dark.')))
+
+  const withDeclarations = validate(doc, { declared }).findings
+  assert.equal(withDeclarations.length, 7, 'plus three dangling references (BACKLOG U7)')
+  assert.deepEqual(
+    withDeclarations.filter((f) => f.includes('never declares')).map((f) => f.split(':')[0]),
+    ['btn.font-weight', 'nav-tabs.link-active-color', 'nav-underline.link-active-color']
+  )
 })

@@ -40,7 +40,30 @@ export function layerOf(path) {
   return 'primitive'
 }
 
-export function validate(doc, { strict = false } = {}) {
+/**
+ * `var(--x)` with no fallback, where nothing declares `--x`.
+ *
+ * Bootstrap uses undeclared properties deliberately — `var(--accordion-radius,
+ * var(--radius-7))` lets a consumer opt in without Bootstrap having to pick a default. That
+ * pattern always carries a fallback. Without one the declaration is simply dropped, and the
+ * token that looked configurable has no value at all.
+ *
+ * Needs the list of everything Bootstrap declares, which only a compile can produce; `sync`
+ * records it in `tokens/meta.json`. Absent that list the check does not run, because
+ * guessing which properties exist would report the deliberate hooks as bugs.
+ */
+function danglingReferences(value, declared) {
+  if (!declared) return []
+  const problems = []
+  for (const [, property] of String(value).matchAll(/\bvar\(\s*(--[\w-]+)\s*\)/g)) {
+    if (!declared.has(property)) {
+      problems.push(`reads \`${property}\`, which Bootstrap never declares, with no fallback — the declaration is dropped and the token has no value`)
+    }
+  }
+  return problems
+}
+
+export function validate(doc, { strict = false, declared = null } = {}) {
   const errors = []
   const warnings = []
   const findings = []
@@ -111,6 +134,7 @@ export function validate(doc, { strict = false } = {}) {
     try {
       const resolved = doc.cssValueOf(path)
       for (const finding of lintValue(resolved)) findings.push(`${path}: ${finding}`)
+      for (const finding of danglingReferences(resolved, declared)) findings.push(`${path}: ${finding}`)
     } catch (error) {
       errors.push(`${path}: ${error.message}`)
     }

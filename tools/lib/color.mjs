@@ -274,14 +274,33 @@ const shortestArc = (from, to) => {
   return from + delta
 }
 
+const toOklab = ({ l, c, h }) => {
+  const radians = (h * Math.PI) / 180
+  return { l, a: c * Math.cos(radians), b: c * Math.sin(radians) }
+}
+
+const fromOklab = ({ l, a, b }) => {
+  const chroma = Math.hypot(a, b)
+  let hue = (Math.atan2(b, a) * 180) / Math.PI
+  if (hue < 0) hue += 360
+  return { l, c: chroma, h: chroma < 1e-6 ? 0 : hue }
+}
+
 /**
  * `color-mix(in <space>, a <weight>, b)`, with premultiplied alpha.
  *
- * Only `oklch` and `srgb` are implemented, because those are the only spaces Bootstrap asks
- * for. An unknown space returns `null` rather than quietly interpolating in the wrong one —
- * a colour that is subtly off is harder to notice than one that is missing.
+ * `oklab`, `oklch` and `srgb` are implemented — the spaces Bootstrap asks for, plus the
+ * default. The interpolation method became optional in CSS Color 5 and Bootstrap's
+ * `$gradient` relies on that, so an omitted space means `oklab`, exactly as a browser reads
+ * it. Anything else returns `null` rather than quietly interpolating in the wrong space: a
+ * colour that is subtly off is harder to notice than one that is missing.
+ *
+ * Rectangular (oklab) and polar (oklch) interpolation differ. Between two saturated hues
+ * oklab cuts through the middle of the space and oklch travels around it, so they are not
+ * interchangeable, and picking one for the other is the kind of error nobody sees until a
+ * gradient looks muddy.
  */
-export function mixColors(a, b, weight, space = 'oklch') {
+export function mixColors(a, b, weight, space = 'oklab') {
   if (!a || !b) return null
   const t = clamp01(weight)
 
@@ -303,6 +322,18 @@ export function mixColors(a, b, weight, space = 'oklch') {
       [0, 1, 2].map((i) => Math.round(clamp01((one[i] * wa + two[i] * wb) / 255) * 255)),
       alpha
     )
+  }
+  if (space === 'oklab') {
+    const one = toOklab(left)
+    const two = toOklab(right)
+    return {
+      ...fromOklab({
+        l: one.l * wa + two.l * wb,
+        a: one.a * wa + two.a * wb,
+        b: one.b * wa + two.b * wb
+      }),
+      alpha
+    }
   }
   if (space !== 'oklch') return null
 

@@ -1,10 +1,26 @@
+import { readFileSync } from 'node:fs'
+import { join } from 'node:path'
+
 import { loadTokens } from '../lib/load-fs.mjs'
 import { validate as run } from '../lib/validate.mjs'
 import { tokensDir } from '../lib/config.mjs'
 
+/** What `sync` saw Bootstrap declare, or null when the document predates that record. */
+function declaredProperties() {
+  try {
+    const meta = JSON.parse(readFileSync(join(tokensDir, 'meta.json'), 'utf8'))
+    return meta.declaredCustomProperties ? new Set(meta.declaredCustomProperties) : null
+  } catch {
+    return null
+  }
+}
+
 export async function validate({ flags }) {
   const doc = loadTokens(tokensDir)
-  const { errors, warnings, findings } = run(doc, { strict: Boolean(flags.strict) })
+  const { errors, warnings, findings } = run(doc, {
+    strict: Boolean(flags.strict),
+    declared: declaredProperties()
+  })
 
   for (const finding of findings) console.warn(`  upstream ${finding}`)
   for (const warning of warnings) console.warn(`  warning  ${warning}`)
