@@ -7,32 +7,83 @@
     <link rel="stylesheet" href="./vendor/bootstrap.css" />
     <style id="token-overrides"></style>
     <style>
-      body { margin: 0; }
-
-      .preview-single .pane { padding: 1.25rem; }
-      .preview-split { display: grid; grid-template-columns: 1fr 1fr; align-items: start; }
-      .preview-split .pane { padding: 1rem; min-width: 0; }
-      .preview-split .pane + .pane { border-inline-start: 1px solid var(--border-subtle); }
-
-      /* Each pane paints its own scheme's page colour, which is the whole point of split. */
-      .pane { background: var(--bg-body); color: var(--fg-body); min-height: 100vh; }
-
-      .pane-label {
-        position: sticky;
-        top: 0;
-        z-index: 2;
-        margin: -1rem -1rem .75rem;
-        padding: .375rem 1rem;
-        font-size: .625rem;
-        font-weight: 700;
-        letter-spacing: .1em;
-        text-transform: uppercase;
-        color: var(--fg-3);
-        background: var(--bg-1);
-        border-block-end: 1px solid var(--border-subtle);
+      /*
+       * The canvas.
+       *
+       * The previews used to be full-bleed panels, which read as more of the tool — three
+       * adjacent surfaces of similar tone, with nothing saying which one was the interface
+       * and which was the output. They are artefacts being looked at, so they now sit on a
+       * neutral ground belonging to neither colour scheme, framed and labelled, the way any
+       * design tool renders an artboard.
+       *
+       * These values deliberately do not come from Bootstrap's tokens: the ground has to
+       * stay put while the theme standing on it changes.
+       */
+      :root {
+        --canvas: #e6e8ec;
+        --canvas-line: #cfd4dc;
+        --canvas-ink: #5c6370;
+        --artboard-shadow: 0 1px 2px rgb(16 18 22 / 10%), 0 10px 28px rgb(16 18 22 / 10%);
       }
 
-      .preview-section { scroll-margin-block-start: .5rem; border-radius: .5rem; }
+      @media (prefers-color-scheme: dark) {
+        :root {
+          --canvas: #22252b;
+          --canvas-line: #3a3f48;
+          --canvas-ink: #9aa2b1;
+          --artboard-shadow: 0 1px 2px rgb(0 0 0 / 50%), 0 10px 28px rgb(0 0 0 / 45%);
+        }
+      }
+
+      body {
+        margin: 0;
+        background: var(--canvas);
+        font: 13px/1.4 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+      }
+
+      #preview-root { display: grid; gap: 1rem; padding: 1rem; align-items: start; }
+      .preview-split { grid-template-columns: 1fr 1fr; }
+
+      @media (width < 52rem) {
+        .preview-split { grid-template-columns: 1fr; }
+      }
+
+      .board { min-width: 0; margin: 0; }
+
+      /* On the canvas, not inside the artboard — otherwise it reads as one of the sample's
+         own section headings, which are set in the same small caps. */
+      .board-label {
+        display: flex;
+        gap: .4375rem;
+        align-items: center;
+        margin: 0 0 .4375rem .125rem;
+        font-size: .6875rem;
+        font-weight: 600;
+        letter-spacing: .06em;
+        text-transform: uppercase;
+        color: var(--canvas-ink);
+      }
+
+      .board-swatch {
+        inline-size: .625rem;
+        block-size: .625rem;
+        border: 1px solid var(--canvas-line);
+        border-radius: 50%;
+      }
+
+      .board-light .board-swatch { background: #fff; }
+      .board-dark .board-swatch { background: #16181d; }
+
+      .artboard {
+        overflow: hidden;
+        border: 1px solid var(--canvas-line);
+        border-radius: .625rem;
+        box-shadow: var(--artboard-shadow);
+      }
+
+      .pane { padding: 1.125rem; background: var(--bg-body); color: var(--fg-body); }
+
+      .preview-section { scroll-margin-block-start: 1.5rem; border-radius: .5rem; }
       .preview-section + .preview-section { margin-block-start: 1.75rem; }
 
       .preview-section > h2 {
@@ -44,7 +95,6 @@
         color: var(--fg-3);
       }
 
-      /* The flash that ties a control to what it changed. */
       .preview-section.is-focused { animation: flash 1.4s ease-out; }
 
       @keyframes flash {
@@ -93,11 +143,6 @@
       .swatch-grid > div { height: 1.5rem; border-radius: 2px; }
       .swatch-row { display: grid; grid-template-columns: 3.25rem 1fr; gap: .5rem; align-items: center; margin-block-end: 2px; }
       .swatch-row > span { font-size: .6875rem; color: var(--fg-3); }
-
-      @media (width < 48rem) {
-        .preview-split { grid-template-columns: 1fr; }
-        .preview-split .pane + .pane { border-inline-start: 0; border-block-start: 1px solid var(--border-subtle); }
-      }
     </style>
   </head>
   <body>

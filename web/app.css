@@ -15,6 +15,8 @@
   --accent: light-dark(#5b3df5, #a894ff);
   --accent-ink: light-dark(#ffffff, #14121f);
   --shadow: light-dark(0 1px 2px rgb(16 18 22 / 8%), 0 1px 2px rgb(0 0 0 / 40%));
+  /* Matches the ground inside the preview frame, so there is no seam at its edge. */
+  --canvas: light-dark(#e6e8ec, #22252b);
   --radius: 8px;
   --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
 }
@@ -157,7 +159,15 @@ body {
 body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem) minmax(20rem, 1fr); }
 
 .panel, .preview { min-height: 0; display: flex; flex-direction: column; }
-.panel { background: var(--surface); border-inline-end: 1px solid var(--line); }
+/* The panel is chrome and the preview is content, so the panel casts onto the canvas
+   rather than merely sitting next to it behind a hairline. */
+.panel {
+  position: relative;
+  z-index: 1;
+  background: var(--surface);
+  border-inline-end: 1px solid var(--line-strong);
+  box-shadow: 2px 0 12px light-dark(rgb(16 18 22 / 6%), rgb(0 0 0 / 40%));
+}
 
 /* The mode switch governs this panel, so it sits on it — not next to the preview's own
    scheme switch, where two identical segmented controls read as one setting. */
@@ -324,16 +334,30 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 
 /* --- preview ------------------------------------------------------------ */
 
-.preview { background: var(--surface); }
+.preview { background: var(--canvas); }
 
 .preview-head {
   display: flex;
   flex-wrap: wrap;
   gap: .5rem;
   align-items: center;
-  justify-content: space-between;
+  justify-content: flex-start;
   padding: .5rem .875rem;
-  border-block-end: 1px solid var(--line);
+  background: var(--surface);
+  border-block-end: 1px solid var(--line-strong);
+}
+
+.preview-head .chip { margin-inline-start: auto; }
+
+/* Names the region outright. The framing does most of the work, but there is no reason to
+   leave "which of these is the tool?" to inference. */
+.preview-title {
+  margin-inline-end: .25rem;
+  font-size: .6875rem;
+  font-weight: 650;
+  letter-spacing: .07em;
+  text-transform: uppercase;
+  color: var(--ink-faint);
 }
 
 .chip {
@@ -346,7 +370,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 
 .chip.is-active { background: color-mix(in oklab, var(--accent) 15%, transparent); color: var(--ink); }
 
-#preview { flex: 1; border: 0; inline-size: 100%; background: var(--surface); }
+#preview { flex: 1; border: 0; inline-size: 100%; background: var(--canvas); }
 
 /* --- export dialog ------------------------------------------------------ */
 

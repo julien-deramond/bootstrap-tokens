@@ -196,21 +196,19 @@ const overrides = document.getElementById('token-overrides')
 
 let mode = 'light'
 
-function render() {
-  if (mode !== 'split') {
-    root.className = 'preview-single'
-    root.innerHTML = `<div class="pane" data-bs-theme="${mode}">${sample(mode)}</div>`
-    return
-  }
+/** One framed, labelled artboard for a colour scheme. */
+const board = (scheme) => `
+  <figure class="board board-${scheme}">
+    <figcaption class="board-label"><span class="board-swatch"></span>${scheme}</figcaption>
+    <div class="artboard">
+      <div class="pane" data-bs-theme="${scheme}">${sample(scheme)}</div>
+    </div>
+  </figure>`
 
-  root.className = 'preview-split'
-  root.innerHTML = ['light', 'dark']
-    .map((scheme) => `
-      <div class="pane" data-bs-theme="${scheme}">
-        <p class="pane-label">${scheme}</p>
-        ${sample(scheme)}
-      </div>`)
-    .join('')
+function render() {
+  const schemes = mode === 'split' ? ['light', 'dark'] : [mode]
+  root.className = mode === 'split' ? 'preview-split' : 'preview-single'
+  root.innerHTML = schemes.map(board).join('')
 }
 
 const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)')

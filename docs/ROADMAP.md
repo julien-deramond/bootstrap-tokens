@@ -56,7 +56,9 @@ A static page with no build step and no dependencies. `npm run web`.
   control reports "Custom" rather than overwriting work it cannot represent.
 * ✅ Controls that look like what they do: radius as shapes, density as spacing, typefaces set
   in themselves, shadow depths casting their own shadow.
-* ✅ Light and dark side by side, since `light-dark()` makes every v6 theme two themes.
+* ✅ Light and dark side by side, since `light-dark()` makes every v6 theme two themes —
+  rendered as framed, labelled artboards on a neutral canvas, so the output cannot be
+  mistaken for more of the tool.
 * ✅ Touching a control scrolls the preview to what it changed and flashes it.
 * ✅ Undo/redo (⌘Z / ⇧⌘Z); Reset is an undoable step, not a confirm dialog.
 * ✅ A theme-level contrast readout that distinguishes issues you introduced from ones

@@ -73,7 +73,9 @@ preset.
   row of words would make you click, look elsewhere, and infer.
 * **Light and dark, side by side.** `light-dark()` means a v6 theme is always two themes, so
   comparing them should not require flipping a switch. Side by side is the default on a wide
-  screen.
+  screen. Each scheme renders as a framed, labelled artboard on a neutral canvas that belongs
+  to neither theme — otherwise, in a dark chooser, the dark preview reads as one more panel of
+  the tool.
 * **Touching a control shows you what it changed.** The preview scrolls to the affected
   section and flashes it, so you never have to hunt for the difference.
 * **Undo, always.** ⌘Z / ⇧⌘Z, and Reset is just another undoable step — no confirmation
