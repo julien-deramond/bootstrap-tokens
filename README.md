@@ -22,6 +22,34 @@ custom properties. What it does not have is that system in a portable form. This
 lifts it into DTCG so it can be read by design tools, diffed, validated, and re-emitted — and
 so a theme can be built by editing values rather than by reading Sass.
 
+## Use it in a project
+
+```bash
+npx bstokens init my-theme --theme theme.json
+cd my-theme && npm install && npm run watch
+```
+
+That writes a project that compiles: the entry stylesheet, a `package.json` with the right
+dependencies and scripts, a page that uses the result, and the `theme.json` so you can reopen
+it in the chooser later. Verified end to end — clean directory, `npm install`, `npm run
+build`, a 355 KB themed stylesheet.
+
+> Bootstrap 6 is not on npm yet — the registry has nothing above 5.x — so the scaffold depends
+> on the `v6-dev` branch, which installs cleanly because upstream ships `scss/**` and defines
+> no prepare script. Pass `--bootstrap` to pin a release once one exists.
+
+As a dependency:
+
+```js
+import { loadTokens, themeScss, createHue } from 'bootstrap-tokens'
+```
+```scss
+@use "bootstrap-tokens/scss";   // every Sass map, !default-flagged
+```
+```css
+@import "bootstrap-tokens/css"; /* the flat custom-property surface */
+```
+
 ## Quick start
 
 ```bash

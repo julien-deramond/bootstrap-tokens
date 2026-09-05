@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-tokens",
   "version": "0.1.0",
-  "description": "DTCG design tokens for Bootstrap v6, exportable to Sass.",
+  "description": "Design tokens for Bootstrap v6 in DTCG format, with a Sass exporter and a theme designer.",
   "type": "module",
   "license": "MIT",
   "engines": {
@@ -16,10 +16,52 @@
     "validate": "node tools/cli.mjs validate",
     "verify": "node tools/cli.mjs verify",
     "vendor": "node tools/cli.mjs vendor",
+    "eject": "node tools/cli.mjs eject",
+    "init": "node tools/cli.mjs init",
     "web": "node web/dev-server.mjs",
-    "test": "node --test \"tools/test/**/*.test.mjs\""
+    "test": "node --test \"tools/test/**/*.test.mjs\"",
+    "prepublishOnly": "npm run validate && npm run build && npm test"
   },
   "devDependencies": {
     "sass": "^1.93.0"
-  }
+  },
+  "keywords": [
+    "bootstrap",
+    "design-tokens",
+    "dtcg",
+    "sass",
+    "theme",
+    "css-custom-properties"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/julien-deramond/bootstrap-tokens.git"
+  },
+  "homepage": "https://github.com/julien-deramond/bootstrap-tokens#readme",
+  "bugs": {
+    "url": "https://github.com/julien-deramond/bootstrap-tokens/issues"
+  },
+  "exports": {
+    ".": "./tools/lib/index.mjs",
+    "./tokens": "./tokens/index.json",
+    "./tokens/*": "./tokens/*",
+    "./scss": "./build/scss/_tokens.scss",
+    "./scss/*": "./build/scss/*",
+    "./css": "./build/css/tokens.css",
+    "./json/resolved": "./build/json/tokens.resolved.json",
+    "./json/tree": "./build/json/tokens.tree.json",
+    "./options": "./tokens/config/options.json",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "tokens/",
+    "build/scss/",
+    "build/css/",
+    "build/json/",
+    "tools/",
+    "docs/",
+    "README.md"
+  ],
+  "sass": "build/scss/_tokens.scss",
+  "style": "build/css/tokens.css"
 }

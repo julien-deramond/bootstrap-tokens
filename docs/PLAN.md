@@ -176,12 +176,20 @@ a file that quietly does less than the preview showed.
 
 Delivered with A2 — the two are the same work seen from either end.
 
-### B4. More consumer shapes
+### B4. More consumer shapes · 🚧 **npm package done**
 
 Today there is exactly one: `@use … with ()`. Add, in this order:
 
-1. **npm package** — `exports` map over `tokens/`, `build/scss/`, `build/json/`. Without this
-   nobody can consume any of it without cloning.
+1. ✅ **npm package** — an explicit `exports` map over `tokens/`, `build/scss/`, `build/css/`
+   and `build/json/`, plus a library entry point, so the shape of the package is a decision
+   rather than whatever happens to be on disk. `prepublishOnly` validates, rebuilds and
+   tests, so nothing ships that has not been regenerated from the document it claims to come
+   from.
+
+   Also `bstokens init`, which scaffolds a project that compiles — verified end to end from a
+   clean directory through `npm install` to a themed stylesheet. It exposed that Bootstrap 6
+   is not on npm at all, so a semver range would have failed on install in the very feature
+   meant to prove the export works; the scaffold points at the branch and says why.
 2. **Typed JS/TS** — `tokens.ts` for people theming React or JS-in-CSS.
 3. **Style Dictionary config** — plugs into pipelines that already exist.
 4. **Figma / Tokens Studio JSON** — closes the designer loop.
