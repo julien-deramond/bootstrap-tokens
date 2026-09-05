@@ -806,7 +806,7 @@
   --btn-active-shadow: inset 0 2px 4px rgb(0 0 0 / .15);
 }
 
-.calendar {
+[data-vc=calendar] {
   --calendar-padding: 0;
   --calendar-color: var(--fg-body);
   --calendar-font-size: var(--font-size-sm);
@@ -864,7 +864,7 @@
   --carousel-fade-timing: ease;
 }
 
-.form-check-input {
+.check {
   --check-size: 1.25rem;
   --check-margin-block: .125rem;
   --check-bg: var(--bg-body);
@@ -918,7 +918,7 @@
   --transition-collapse-timing: ease;
 }
 
-.datepicker {
+[data-vc=calendar][data-vc-input] {
   --datepicker-padding: 1rem;
   --datepicker-bg: var(--bg-body);
   --datepicker-border-color: var(--border-color-translucent);
@@ -951,12 +951,6 @@
   --dialog-footer-border-color: var(--border-color-translucent);
   --dialog-footer-border-width: var(--border-width);
   --dialog-footer-gap: .5rem;
-}
-
-.drawer-backdrop {
-  --drawer-backdrop-bg: var(--bg-body);
-  --drawer-backdrop-opacity: 25%;
-  --drawer-backdrop-blur: 8px;
 }
 
 .drawer {
@@ -1042,10 +1036,6 @@
   --form-floating-transition-timing: ease-in-out;
 }
 
-.form-label {
-  --label-margin-bottom: calc(var(--spacer) / 2);
-}
-
 .form-text {
   --form-text-margin-top: .25rem;
   --form-text-font-size: var(--font-size-sm);
@@ -1067,7 +1057,7 @@
   --icon-link-icon-transform: translate3d(.25em, 0, 0);
 }
 
-.input-group-text {
+.input-group {
   --input-group-addon-padding-y: var(--btn-input-padding-y);
   --input-group-addon-padding-x: var(--btn-input-padding-x);
   --input-group-addon-font-size: var(--btn-input-font-size);
@@ -1227,7 +1217,7 @@
   --navbar-toggler-icon: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath stroke='black' stroke-linecap='round' stroke-width='1' d='M1 3.5h14M1 8h14M1 12.5h14'/%3e%3c/svg%3e");
 }
 
-.otp-input {
+.otp {
   --otp-size: var(--btn-input-lg-min-height);
   --otp-font-size: var(--btn-input-font-size);
   --otp-gap: .5rem;
@@ -1413,7 +1403,7 @@ mark {
   --stretched-link-z-index: 1;
 }
 
-.form-switch {
+.switch {
   --switch-height: 1.25rem;
   --switch-width: calc(var(--switch-height) * 1.75);
   --switch-padding: .0625rem;
@@ -1433,7 +1423,7 @@ mark {
   --switch-disabled-indicator-bg: var(--fg-3);
 }
 
-.tab-pane {
+.tab-content > .tab-pane {
   --tab-pane-transition-property: opacity;
   --tab-pane-transition-duration: .15s;
   --tab-pane-transition-timing: linear;

@@ -37,11 +37,11 @@
         }
       }
     },
-    "$description": "Tokens emitted on `.tab-pane`.",
+    "$description": "Tokens emitted on `.tab-content > .tab-pane`.",
     "$extensions": {
       "dev.bootstrap.tokens": {
         "sassMap": "$tab-pane-tokens",
-        "selector": ".tab-pane",
+        "selector": ".tab-content > .tab-pane",
         "source": "scss/_nav.scss",
         "variantOf": "nav"
       }

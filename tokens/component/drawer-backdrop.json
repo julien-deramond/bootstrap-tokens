@@ -37,11 +37,11 @@
         }
       }
     },
-    "$description": "Tokens emitted on `.drawer-backdrop`.",
+    "$description": "Tokens emitted on `.drawer`.",
     "$extensions": {
       "dev.bootstrap.tokens": {
         "sassMap": "$drawer-backdrop-tokens",
-        "selector": ".drawer-backdrop",
+        "selector": ".drawer",
         "source": "scss/_drawer.scss",
         "variantOf": "drawer"
       }

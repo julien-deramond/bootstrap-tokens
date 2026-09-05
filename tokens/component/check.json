@@ -171,11 +171,11 @@
         }
       }
     },
-    "$description": "Tokens emitted on `.form-check-input`.",
+    "$description": "Tokens emitted on `.check`.",
     "$extensions": {
       "dev.bootstrap.tokens": {
         "sassMap": "$check-tokens",
-        "selector": ".form-check-input",
+        "selector": ".check",
         "source": "scss/forms/_check.scss"
       }
     }

@@ -199,11 +199,11 @@
         }
       }
     },
-    "$description": "Tokens emitted on `.form-switch`.",
+    "$description": "Tokens emitted on `.switch`.",
     "$extensions": {
       "dev.bootstrap.tokens": {
         "sassMap": "$switch-tokens",
-        "selector": ".form-switch",
+        "selector": ".switch",
         "source": "scss/forms/_switch.scss"
       }
     }

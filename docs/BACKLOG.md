@@ -148,23 +148,37 @@ declares, which only a compile can answer, so `sync` records the full list in
 `tokens/meta.json` and `validate` reads it from there — that way the deliberate hooks are
 never reported as bugs.
 
-## P — This project
-
-### P8 · 73 CSS declarations have no upstream counterpart to compare against
-
-`verify` now checks `build/css/tokens.css` against upstream's compiled output per selector,
-and matches 1244 of 1317 declarations. The rest are ones upstream emits under a compound
-selector we model as a simple one — `--check-*` under `.form-check-input`, `--switch-*` under
-`.form-switch`, `--calendar-*`, `--otp-*`, `--label-*` and a few more, across 12 selectors.
-
-**Consequence:** those values are covered by the Sass route, which is byte-identical, but not
-by the CSS route — which is exactly where the last three bugs were.
-
-**Fix:** record the emitting selector on the component rather than inferring it, so the
-comparison can look in the right place. `sync` already reads the selector out of the source
-for most maps.
-
 ---
+
+### U8 · Two token maps are documented, configurable, and never emitted
+
+`$drawer-backdrop-tokens` (`scss/_drawer.scss`) and `$form-label-tokens`
+(`scss/forms/_labels.scss`) are declared `!default`, wrapped in `defaults()`, marked with
+scss-docs start/end comments — and never passed to `@include tokens()`. Nothing they contain
+reaches CSS.
+
+So `@use "bootstrap" with ($form-label-tokens: (--label-font-weight: 700))` compiles cleanly
+and does nothing. That is the worst way for a documented configuration point to fail: it
+type-checks, it produces no warning, and the value simply never appears.
+
+`--drawer-backdrop-opacity` exists nowhere in the compiled stylesheet at all. The other two
+keys of that map are shadowed by `$drawer-tokens`, which declares `--drawer-backdrop-bg` and
+`--drawer-backdrop-blur` itself — with a *different* value for the background
+(`color-mix(in oklch, var(--bg-body) 25%, transparent)` against the dead map's
+`var(--bg-body)`).
+
+`$form-label-tokens` is the milder case: every one of its properties is read with a fallback
+(`var(--label-font-size, inherit)`), so the fallbacks are the real defaults and the map is
+redundant rather than contradictory.
+
+**Fix:** `@include` both maps where they belong, or delete them and the docs markers.
+
+**Here:** both are marked `inert` in `sass-targets.mjs` and skipped when emitting CSS. That
+matters more than it sounds — written out, `$drawer-backdrop-tokens` lands after
+`$drawer-tokens` and makes the drawer backdrop fully opaque instead of 25%. `sync` now checks
+the flag in both directions, so if upstream starts including one the flag has to move with it.
+
+## P — This project
 
 ### P7 · The pasted-markup sanitiser has no automated test
 

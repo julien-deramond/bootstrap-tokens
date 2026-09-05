@@ -94,11 +94,11 @@
         }
       }
     },
-    "$description": "Tokens emitted on `.datepicker`.",
+    "$description": "Tokens emitted on `[data-vc=calendar][data-vc-input]`.",
     "$extensions": {
       "dev.bootstrap.tokens": {
         "sassMap": "$datepicker-tokens",
-        "selector": ".datepicker",
+        "selector": "[data-vc=calendar][data-vc-input]",
         "source": "scss/_datepicker.scss"
       }
     }

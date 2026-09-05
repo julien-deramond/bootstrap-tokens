@@ -26,6 +26,12 @@ export function cssDeclarations(doc) {
   const maps = mapEntries(doc)
   for (const [mapName, entries] of maps) {
     const component = COMPONENTS.find((c) => c.sassMap === mapName)
+    // A map upstream never includes emits nothing upstream, and must emit nothing here:
+    // `$drawer-backdrop-tokens` sets `--drawer-backdrop-bg: var(--bg-body)`, which written
+    // out lands after `$drawer-tokens`' `color-mix(… 25%, transparent)` and makes the
+    // backdrop fully opaque. See BACKLOG U8.
+    if (component?.inert) continue
+
     for (const entry of entries) {
       const token = doc.tokens.get(entry.path)
       if (!token) continue

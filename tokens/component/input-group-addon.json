@@ -77,11 +77,11 @@
         }
       }
     },
-    "$description": "Tokens emitted on `.input-group-text`.",
+    "$description": "Tokens emitted on `.input-group`.",
     "$extensions": {
       "dev.bootstrap.tokens": {
         "sassMap": "$input-group-addon-tokens",
-        "selector": ".input-group-text",
+        "selector": ".input-group",
         "source": "scss/forms/_input-group.scss"
       }
     }

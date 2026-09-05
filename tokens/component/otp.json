@@ -91,11 +91,11 @@
         }
       }
     },
-    "$description": "Tokens emitted on `.otp-input`.",
+    "$description": "Tokens emitted on `.otp`.",
     "$extensions": {
       "dev.bootstrap.tokens": {
         "sassMap": "$otp-tokens",
-        "selector": ".otp-input",
+        "selector": ".otp",
         "source": "scss/forms/_otp-input.scss"
       }
     }

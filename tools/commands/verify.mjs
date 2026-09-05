@@ -17,6 +17,7 @@ import { index } from '../lib/tokens.mjs'
 import { expandColorScales } from '../lib/color-scale.mjs'
 import { resolveBootstrapSource, tokensDir } from '../lib/config.mjs'
 import { COMPONENTS } from '../lib/sass-targets.mjs'
+import { customProperties, valueOn } from '../lib/css-parse.mjs'
 import { sourceVersion, cssDeclarations } from './build.mjs'
 
 /** Where a map's tokens are emitted. Component maps land on their own class. */
@@ -238,87 +239,8 @@ async function verifyPartial(source, work, theme) {
   return 1
 }
 
-/**
- * Custom properties grouped by the selector they are declared on, ignoring anything inside a
- * conditional at-rule.
- *
- * Taking the last declaration in the file is wrong and produced a false failure on the first
- * run: upstream re-declares `--shadow-strength` under `[data-bs-theme=light]` and
- * `[data-bs-theme=dark]`, which are different rules, not overrides of `:root`.
- */
-function customProperties(css) {
-  const bySelector = new Map()
-  const stack = []
-  const conditionalDepth = []
-  let buffer = ''
-  let conditional = 0
-
-  for (let i = 0; i < css.length; i++) {
-    const ch = css[i]
-
-    if (ch === '{') {
-      // Comments accumulate into the prelude, so the banner above `:root, :host` became
-      // part of the selector and nothing matched.
-      const prelude = buffer.replace(/\/\*[\s\S]*?\*\//g, '').trim()
-      buffer = ''
-
-      const atRule = prelude.startsWith('@')
-      // `@layer` is not conditional — what is inside it always applies, it just sits lower
-      // in the cascade. Treating it as conditional hid every token in `@layer colors`.
-      if (atRule) {
-        const isConditional = CONDITIONAL.test(prelude)
-        conditionalDepth.push(isConditional ? 1 : 0)
-        if (isConditional) conditional++
-      }
-      stack.push(atRule ? null : prelude)
-      continue
-    }
-
-    if (ch === '}') {
-      const prelude = stack.pop()
-      if (prelude === null && conditionalDepth.length > 0) conditional -= conditionalDepth.pop()
-      buffer = ''
-      continue
-    }
-
-    if (ch === ';') {
-      // Inside an at-rule the top of the stack is null, so walk out to the nearest selector.
-      const selector = [...stack].reverse().find((entry) => entry !== null) ?? null
-      const declaration = /^\s*(--[\w-]+)\s*:\s*([\s\S]+)$/.exec(buffer.replace(/\/\*[\s\S]*?\*\//g, ''))
-
-      if (selector && declaration && conditional === 0) {
-        for (const part of selector.split(',').map((one) => one.trim())) {
-          if (!bySelector.has(part)) bySelector.set(part, new Map())
-          bySelector.get(part).set(declaration[1], declaration[2].trim())
-        }
-      }
-      buffer = ''
-      continue
-    }
-
-    buffer += ch
-  }
-
-  return bySelector
-}
-
-const CONDITIONAL = /^@(media|supports|container)\b/
 
 /** The value a selector actually ends up with, following the base rule for `:root`. */
-/**
- * Upstream writes `:root,\n:host` and the parser records those as two rules, so a lookup for
- * the combined selector we emit finds nothing. Silently — which is how 653 of the 1328
- * declarations, every global token, went uncompared while the check reported success on the
- * 591 that happened to be single-selector components.
- */
-function valueOn(bySelector, selector, property) {
-  for (const part of String(selector).split(',')) {
-    const found = bySelector.get(part.trim())?.get(property)
-    if (found !== undefined) return found
-  }
-  return undefined
-}
-
 /**
  * Sass re-serialises on output, and none of it changes what a browser paints.
  *
@@ -338,6 +260,9 @@ function normalise(value) {
         (_, r, g, b, a) => `rgb(${r} ${g} ${b} / ${alphaOf(a)})`
       )
       .replace(/\s*\/\s*/g, ' / ')
+      // Sass flattens a `calc()` inside a `calc()`, and drops parentheses a browser would
+      // have applied anyway. `calc(a - calc(b * 2))` and `calc(a - b * 2)` are one value.
+      .replace(/\bcalc\(\s*(var\(--[\w-]+\)\s*[*/]\s*[\d.]+)\s*\)/g, '$1')
       .replace(/\(\s*(var\(--[\w-]+\)\s*[*/]\s*[\d.]+)\s*\)/g, '$1')
       // Sass folds a division of two constants; CSS leaves it for the browser. Same number.
       .replace(/\bcalc\(\s*([\d.]+)\s*([*/+-])\s*([\d.]+)\s*\)/g, (whole, a, operator, b) => {

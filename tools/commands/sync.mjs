@@ -11,7 +11,9 @@ import { ext, walk } from '../lib/tokens.mjs'
 import { index } from '../lib/tokens.mjs'
 import { expandColorScales } from '../lib/color-scale.mjs'
 import { resolveBootstrapSource, tokensDir } from '../lib/config.mjs'
-import { declaredCustomProperties } from '../lib/declared.mjs'
+import { compileUpstream, includedMaps } from '../lib/declared.mjs'
+import { selectorDrift } from '../lib/selectors.mjs'
+import { COMPONENTS } from '../lib/sass-targets.mjs'
 
 /** The upstream commit the token document was extracted from, when git can tell us. */
 function upstreamCommit(source) {
@@ -27,6 +29,7 @@ export async function sync({ flags }) {
   const check = Boolean(flags.check)
 
   const { files, warnings, version, records } = extract(source)
+  const compiled = await compileUpstream(source)
 
   files['meta.json'] = {
     bootstrap: version,
@@ -37,7 +40,7 @@ export async function sync({ flags }) {
     // Everything Bootstrap declares, token maps and runtime helpers alike. Recorded here
     // because it is the only way `validate` can tell a deliberate opt-in hook — a `var()`
     // a theme class fills in — from a reference to a property that simply does not exist.
-    declaredCustomProperties: await declaredCustomProperties(source)
+    declaredCustomProperties: compiled?.declared ?? null
   }
 
   /*
@@ -75,6 +78,10 @@ export async function sync({ flags }) {
   // can never go missing without someone deciding, in writing, to ignore it.
   const coverage = reportCoverage(source, check ? null : tokensDir)
 
+  // Two things only a compile can settle, and both silently break an exported theme when
+  // they are wrong: which selector a map is emitted on, and whether it is emitted at all.
+  const placement = reportPlacement(source, compiled, check ? null : tokensDir)
+
   for (const { file, status } of changed) console.log(`  ${status.padEnd(7)} ${file}`)
 
   if (changed.length === 0) console.log('tokens/ is in sync with upstream.')
@@ -85,7 +92,62 @@ export async function sync({ flags }) {
     return 1
   }
 
-  return coverage ? 1 : 0
+  return coverage || placement ? 1 : 0
+}
+
+/**
+ * Check where each token map lands, and whether it lands anywhere.
+ *
+ * An exported theme scopes a component override to the recorded selector, so a wrong one
+ * writes a declaration Bootstrap never reads and the override does nothing. Eight of the
+ * sixty-two were wrong when this check was written, and nothing had noticed — the Sass
+ * export does not use these selectors, so byte-identical output stayed byte-identical.
+ *
+ * The `inert` flag is checked in both directions. It marks a map upstream defines and never
+ * includes; if upstream starts including one, or stops including another, the flag has to
+ * move with it or the CSS export drops values that now exist.
+ */
+function reportPlacement(source, compiled, dir) {
+  if (!compiled) {
+    console.warn('  warning: no Sass compiler available, so selector placement was not checked.')
+    return false
+  }
+
+  let doc
+  try {
+    doc = loadTokens(dir ?? tokensDir)
+  } catch {
+    return false
+  }
+
+  const problems = []
+
+  const included = includedMaps(source)
+  for (const component of COMPONENTS) {
+    const isIncluded = included.has(component.sassMap)
+    if (isIncluded && component.inert) {
+      problems.push(`${component.sassMap} is marked inert but upstream now includes it`)
+    }
+    if (!isIncluded && !component.inert) {
+      problems.push(`${component.sassMap} is never \`@include\`d, so none of its values reach CSS`)
+    }
+  }
+
+  for (const drift of selectorDrift(compiled.declarations, doc, COMPONENTS.filter((c) => !c.inert), ext)) {
+    problems.push(
+      `${drift.name} is recorded on \`${drift.recorded}\` but upstream emits it on ` +
+        (drift.actual ? `\`${drift.actual}\`` : 'no selector we can find')
+    )
+  }
+
+  if (problems.length === 0) {
+    console.log(`Placement: ${COMPONENTS.length} maps, each on the selector upstream emits it on.`)
+    return false
+  }
+
+  for (const problem of problems) console.error(`  error: ${problem}`)
+  console.error(`\n${problems.length} placement problem(s). See tools/lib/sass-targets.mjs.`)
+  return true
 }
 
 /**

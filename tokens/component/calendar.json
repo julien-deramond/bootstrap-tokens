@@ -121,11 +121,11 @@
         }
       }
     },
-    "$description": "Tokens emitted on `.calendar`.",
+    "$description": "Tokens emitted on `[data-vc=calendar]`.",
     "$extensions": {
       "dev.bootstrap.tokens": {
         "sassMap": "$calendar-tokens",
-        "selector": ".calendar",
+        "selector": "[data-vc=calendar]",
         "source": "scss/_calendar.scss"
       }
     }

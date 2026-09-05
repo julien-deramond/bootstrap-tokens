@@ -195,6 +195,16 @@ matched nothing and 653 declarations — every global token — went silently un
 check reported success on the 591 that happened to be single-selector components. The count is
 now printed, including what could not be compared.
 
+Checking the CSS route also exposed that eight of the sixty-two component maps were recorded
+against the wrong selector. That is not cosmetic: an exported theme scopes a component
+override to it, so overriding `--check-size` wrote `.form-check-input { … }` for a property
+Bootstrap reads on `.check`, and the override did nothing. Nothing had noticed, because the
+Sass export does not use these selectors — it hands values to Sass and lets Bootstrap place
+them, so byte-identical output stayed byte-identical.
+
+`sync` now checks placement against the compiled stylesheet, and coverage of the CSS route is
+1313 of 1313.
+
 Still to do: the same end-to-end check for `eject` on a theme that *adds* a key.
 
 ### B2. Say when a change cannot be expressed · ✅ **done**

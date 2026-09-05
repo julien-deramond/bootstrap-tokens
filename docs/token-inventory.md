@@ -52,17 +52,17 @@ Primitive counts include the generated colour scale (16 hues × 13 stops).
 | `btn-close` | `$btn-close-tokens` | `.btn-close` | 7 |
 | `button-link` <sup>variant of `btn`</sup> | `$button-link-tokens` | `.btn-link` | 12 |
 | `button-styled` <sup>variant of `btn`</sup> | `$button-styled-tokens` | `.btn-styled` | 8 |
-| `calendar` | `$calendar-tokens` | `.calendar` | 11 |
+| `calendar` | `$calendar-tokens` | `[data-vc=calendar]` | 11 |
 | `card` | `$card-tokens` | `.card` | 18 |
 | `carousel` | `$carousel-tokens` | `.carousel` | 20 |
-| `check` | `$check-tokens` | `.form-check-input` | 15 |
+| `check` | `$check-tokens` | `.check` | 15 |
 | `chip` | `$chip-tokens` | `.chip` | 15 |
 | `chip-input` | `$chip-input-tokens` | `.chip-input` | 9 |
 | `collapse` | `$collapse-tokens` | `.collapse` | 3 |
-| `datepicker` | `$datepicker-tokens` | `.datepicker` | 8 |
+| `datepicker` | `$datepicker-tokens` | `[data-vc=calendar][data-vc-input]` | 8 |
 | `dialog` | `$dialog-tokens` | `.dialog` | 21 |
 | `drawer` | `$drawer-tokens` | `.drawer` | 18 |
-| `drawer-backdrop` <sup>variant of `drawer`</sup> | `$drawer-backdrop-tokens` | `.drawer-backdrop` | 3 |
+| `drawer-backdrop` <sup>variant of `drawer`</sup> | `$drawer-backdrop-tokens` | `.drawer` | 3 |
 | `fade` | `$fade-tokens` | `.fade` | 2 |
 | `figure` | `$figure-tokens` | `.figure` | 3 |
 | `form-adorn` | `$form-adorn-tokens` | `.form-adorn` | 3 |
@@ -72,7 +72,7 @@ Primitive counts include the generated colour scale (16 hues × 13 stops).
 | `form-text` | `$form-text-tokens` | `.form-text` | 5 |
 | `hover-lift` | `$hover-lift-tokens` | `.hover-lift` | 4 |
 | `icon-link` | `$icon-link-tokens` | `.icon-link` | 5 |
-| `input-group-addon` | `$input-group-addon-tokens` | `.input-group-text` | 7 |
+| `input-group-addon` | `$input-group-addon-tokens` | `.input-group` | 7 |
 | `list-group` | `$list-group-tokens` | `.list-group` | 17 |
 | `menu` | `$menu-tokens` | `.menu` | 32 |
 | `nav` | `$nav-tokens` | `.nav` | 16 |
@@ -82,7 +82,7 @@ Primitive counts include the generated colour scale (16 hues × 13 stops).
 | `navbar` | `$navbar-tokens` | `.navbar` | 23 |
 | `navbar-dark` <sup>variant of `navbar`</sup> | `$navbar-dark-tokens` | `.navbar[data-bs-theme=dark]` | 7 |
 | `navbar-nav` <sup>variant of `navbar`</sup> | `$navbar-nav-tokens` | `.navbar-nav` | 11 |
-| `otp` | `$otp-tokens` | `.otp-input` | 8 |
+| `otp` | `$otp-tokens` | `.otp` | 8 |
 | `pagination` | `$pagination-tokens` | `.pagination` | 18 |
 | `placeholder` | `$placeholder-tokens` | `.placeholder` | 2 |
 | `popover` | `$popover-tokens` | `.popover` | 23 |
@@ -98,8 +98,8 @@ Primitive counts include the generated colour scale (16 hues × 13 stops).
 | `stepper` | `$stepper-tokens` | `.stepper` | 8 |
 | `strength` | `$strength-tokens` | `.strength` | 10 |
 | `stretched-link` | `$stretched-link-tokens` | `.stretched-link` | 1 |
-| `switch` | `$switch-tokens` | `.form-switch` | 17 |
-| `tab-pane` <sup>variant of `nav`</sup> | `$tab-pane-tokens` | `.tab-pane` | 3 |
+| `switch` | `$switch-tokens` | `.switch` | 17 |
+| `tab-pane` <sup>variant of `nav`</sup> | `$tab-pane-tokens` | `.tab-content > .tab-pane` | 3 |
 | `table` | `$table-tokens` | `.table` | 18 |
 | `thumbnail` | `$thumbnail-tokens` | `.img-thumbnail` | 6 |
 | `toast` | `$toast-tokens` | `.toast` | 18 |
