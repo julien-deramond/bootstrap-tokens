@@ -19,6 +19,7 @@
     "eject": "node tools/cli.mjs eject",
     "init": "node tools/cli.mjs init",
     "web": "node web/dev-server.mjs",
+    "site": "node tools/cli.mjs site",
     "test": "node --test \"tools/test/**/*.test.mjs\"",
     "prepublishOnly": "npm run validate && npm run build && npm test",
     "probe": "node tools/cli.mjs probe"

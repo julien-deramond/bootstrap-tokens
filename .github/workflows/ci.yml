@@ -80,3 +80,63 @@ jobs:
           }
           JSON
           node tools/cli.mjs eject --theme /tmp/theme.json --src "$GITHUB_WORKSPACE/bootstrap-v6-dev" --verify
+
+  # The Theme Builder is a static app that reads the built token document, so the deployable
+  # site is just the repository's own shape with the unused parts left out. Gated on `check`:
+  # a build that fails verification should not become the live one.
+  deploy:
+    name: Deploy the Theme Builder
+    needs: check
+    if: github.event_name == 'push' && github.ref == 'refs/heads/main'
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      pages: write
+      id-token: write
+
+    # One live site, so deployments queue rather than race — and never cancel a half-finished
+    # one, which would leave Pages serving whatever it had got to.
+    concurrency:
+      group: github-pages
+      cancel-in-progress: false
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Check out Bootstrap v6-dev
+        uses: actions/checkout@v4
+        with:
+          repository: twbs/bootstrap
+          ref: v6-dev
+          path: bootstrap-v6-dev
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      - name: Build the tokens
+        run: node tools/cli.mjs build
+
+      # The preview iframe renders real Bootstrap markup against real Bootstrap CSS.
+      - name: Compile the preview stylesheet
+        run: node tools/cli.mjs vendor --src "$GITHUB_WORKSPACE/bootstrap-v6-dev"
+
+      - name: Assemble the site
+        run: node tools/cli.mjs site
+
+      - uses: actions/configure-pages@v5
+
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: build/site
+
+      - id: deployment
+        uses: actions/deploy-pages@v4

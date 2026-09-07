@@ -9,6 +9,7 @@ const COMMANDS = {
   probe: () => import('./commands/probe.mjs').then((m) => m.probe),
   report: () => import('./commands/report.mjs').then((m) => m.report),
   vendor: () => import('./commands/vendor.mjs').then((m) => m.vendor),
+  site: () => import('./commands/site.mjs').then((m) => m.site),
   eject: () => import('./commands/eject.mjs').then((m) => m.eject),
   init: () => import('./commands/init.mjs').then((m) => m.init),
   import: () => import('./commands/import.mjs').then((m) => m.importCommand)
@@ -43,6 +44,9 @@ const USAGE = `bstokens <command> [options]
 
   vendor     Compile upstream Bootstrap into web/vendor/bootstrap.css for the chooser
              --src <path>   the checkout to compile
+
+  site       Assemble the Theme Builder into a static site, ready to deploy
+             --out <dir>    where to write it (default build/site)
 
   eject      Write the tokens back into Bootstrap's own Sass sources, for maintainers
              --theme <f>    a theme.json exported from the chooser
