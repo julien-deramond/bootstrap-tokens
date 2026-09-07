@@ -20,7 +20,7 @@ The page imports the same modules the CLI does, so the export is produced by the
 accent colour, corner radius, density, border weight, typeface, text size, shadow depth —
 plus four presets to start from. Most themes are a few of these and nothing else.
 
-**All tokens** is the browser: all 1203 tokens, grouped, searchable, with a light and a dark
+**All tokens** is the browser: all 1206 tokens, grouped, searchable, with a light and a dark
 field each.
 
 They are two *views*, not two models. Every control writes ordinary token overrides into the

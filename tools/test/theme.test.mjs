@@ -37,7 +37,7 @@ const themed = withOverrides(tree, OVERRIDES)
 test('an override reaches every token derived from it', () => {
   assert.equal(themed.cssValueOf('color.blue.500'), 'oklch(58% 0.19 28)')
   assert.equal(themed.cssValueOf('spacing.1'), '.3125rem')
-  assert.equal(themed.cssValueOf('spacing.9'), '3.75rem')
+  assert.equal(themed.cssValueOf('spacing.9'), '2.5rem')
   assert.equal(themed.cssValueOf('alert.border-radius'), 'var(--radius-9)')
 })
 
@@ -100,7 +100,7 @@ test('the exported custom.scss compiles to the previewed values', { skip: !sourc
 
   // Sass normalises a bare hue to `deg` on output; both compile paths do it alike.
   assert.match(css, /--blue-500: oklch\(58% 0\.19 28deg\)/)
-  assert.match(css, /--spacer-4: 1\.25rem/)
+  assert.match(css, /--spacer-4: 0\.9375rem/)
   assert.match(css, /--spacer-1: 0\.3125rem/)
   assert.match(css, /--alert-border-radius: var\(--radius-9\)/)
   // Untouched tokens keep upstream's values.

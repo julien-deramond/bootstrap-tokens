@@ -797,13 +797,13 @@
   },
   "card.spacer-y": {
     "$type": "dimension",
-    "$value": "var(--spacer-5)",
+    "$value": "var(--spacer-6)",
     "cssVar": "--card-spacer-y",
     "sassMap": "$card-tokens"
   },
   "card.spacer-x": {
     "$type": "dimension",
-    "$value": "var(--spacer-5)",
+    "$value": "var(--spacer-6)",
     "cssVar": "--card-spacer-x",
     "sassMap": "$card-tokens"
   },
@@ -821,13 +821,13 @@
   },
   "card.border-color": {
     "$type": "color",
-    "$value": "var(--border-color-translucent)",
+    "$value": "var(--border-color)",
     "cssVar": "--card-border-color",
     "sassMap": "$card-tokens"
   },
   "card.border-radius": {
     "$type": "dimension",
-    "$value": "var(--radius-8)",
+    "$value": "var(--radius-7)",
     "cssVar": "--card-border-radius",
     "sassMap": "$card-tokens"
   },
@@ -851,7 +851,7 @@
   },
   "card.cap-padding-x": {
     "$type": "dimension",
-    "$value": "var(--spacer)",
+    "$value": "var(--spacer-5)",
     "cssVar": "--card-cap-padding-x",
     "sassMap": "$card-tokens"
   },
@@ -5500,50 +5500,68 @@
   },
   "spacing.2": {
     "$type": "dimension",
-    "$value": ".5rem",
+    "$value": ".375rem",
     "cssVar": "--spacer-2",
     "sassMap": "$spacers"
   },
   "spacing.3": {
     "$type": "dimension",
-    "$value": ".75rem",
+    "$value": ".5rem",
     "cssVar": "--spacer-3",
     "sassMap": "$spacers"
   },
   "spacing.4": {
     "$type": "dimension",
-    "$value": "1rem",
+    "$value": ".75rem",
     "cssVar": "--spacer-4",
     "sassMap": "$spacers"
   },
   "spacing.5": {
     "$type": "dimension",
-    "$value": "1.25rem",
+    "$value": "1rem",
     "cssVar": "--spacer-5",
     "sassMap": "$spacers"
   },
   "spacing.6": {
     "$type": "dimension",
-    "$value": "1.5rem",
+    "$value": "1.25rem",
     "cssVar": "--spacer-6",
     "sassMap": "$spacers"
   },
   "spacing.7": {
     "$type": "dimension",
-    "$value": "2rem",
+    "$value": "1.5rem",
     "cssVar": "--spacer-7",
     "sassMap": "$spacers"
   },
   "spacing.8": {
     "$type": "dimension",
-    "$value": "2.5rem",
+    "$value": "1.75rem",
     "cssVar": "--spacer-8",
     "sassMap": "$spacers"
   },
   "spacing.9": {
     "$type": "dimension",
-    "$value": "3rem",
+    "$value": "2rem",
     "cssVar": "--spacer-9",
+    "sassMap": "$spacers"
+  },
+  "spacing.10": {
+    "$type": "dimension",
+    "$value": "2.25rem",
+    "cssVar": "--spacer-10",
+    "sassMap": "$spacers"
+  },
+  "spacing.11": {
+    "$type": "dimension",
+    "$value": "2.5rem",
+    "cssVar": "--spacer-11",
+    "sassMap": "$spacers"
+  },
+  "spacing.12": {
+    "$type": "dimension",
+    "$value": "3rem",
+    "cssVar": "--spacer-12",
     "sassMap": "$spacers"
   },
   "spacing.root": {
@@ -5608,13 +5626,13 @@
   },
   "radius.8": {
     "$type": "dimension",
-    "$value": "1rem",
+    "$value": ".875rem",
     "cssVar": "--radius-8",
     "sassMap": "$radii"
   },
   "radius.9": {
     "$type": "dimension",
-    "$value": "1.5rem",
+    "$value": "1rem",
     "cssVar": "--radius-9",
     "sassMap": "$radii"
   },

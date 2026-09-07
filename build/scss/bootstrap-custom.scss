@@ -56,14 +56,17 @@
   $spacers: (
     0: 0,
     1: .25rem,
-    2: .5rem,
-    3: .75rem,
-    4: 1rem,
-    5: 1.25rem,
-    6: 1.5rem,
-    7: 2rem,
-    8: 2.5rem,
-    9: 3rem
+    2: .375rem,
+    3: .5rem,
+    4: .75rem,
+    5: 1rem,
+    6: 1.25rem,
+    7: 1.5rem,
+    8: 1.75rem,
+    9: 2rem,
+    10: 2.25rem,
+    11: 2.5rem,
+    12: 3rem
   ),
   $negative-spacers: (
     "-1": -.25rem,
@@ -92,8 +95,8 @@
     5: .5rem,
     6: .625rem,
     7: .75rem,
-    8: 1rem,
-    9: 1.5rem
+    8: .875rem,
+    9: 1rem
   ),
   $border-widths: (
     keyline: .5px,
@@ -562,16 +565,16 @@
     --calendar-day-disabled-color: var(--fg-4)
   ),
   $card-tokens: (
-    --card-spacer-y: var(--spacer-5),
-    --card-spacer-x: var(--spacer-5),
+    --card-spacer-y: var(--spacer-6),
+    --card-spacer-x: var(--spacer-6),
     --card-subtitle-color: inherit,
     --card-border-width: var(--border-width),
-    --card-border-color: var(--border-color-translucent),
-    --card-border-radius: var(--radius-8),
+    --card-border-color: var(--border-color),
+    --card-border-radius: var(--radius-7),
     --card-box-shadow: none,
     --card-inner-border-radius: calc(var(--card-border-radius) - var(--border-width)),
     --card-cap-padding-y: var(--spacer-3),
-    --card-cap-padding-x: var(--spacer),
+    --card-cap-padding-x: var(--spacer-5),
     --card-cap-bg: var(--bg-1),
     --card-cap-color: inherit,
     --card-height: auto,

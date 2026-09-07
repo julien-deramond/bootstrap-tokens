@@ -4,10 +4,10 @@
 
 | layer | tokens |
 | --- | ---: |
-| primitive | 359 |
+| primitive | 362 |
 | semantic | 168 |
 | component | 676 |
-| **total** | **1203** |
+| **total** | **1206** |
 
 Primitive counts include the generated colour scale (16 hues × 13 stops).
 
@@ -18,7 +18,7 @@ Primitive counts include the generated colour scale (16 hues × 13 stops).
 | `$colors` | 16 |
 | `$color-tints` | 6 |
 | `$color-shades` | 6 |
-| `$spacers` | 10 |
+| `$spacers` | 13 |
 | `$negative-spacers` | 2 |
 | `$sizes` | 12 |
 | `$radii` | 10 |

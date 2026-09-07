@@ -61,7 +61,9 @@ try {
 test('validate runs and reports the upstream findings', async () => {
   const { code, out } = await run('validate')
   assert.equal(code, 0)
-  assert.match(out, /1203 tokens valid/)
+  // Not the exact count: it moves whenever upstream adds a token, and it is already
+  // pinned in tokens/meta.json and docs/token-inventory.md, which CI fails on if stale.
+  assert.match(out, /\d+ tokens valid/)
   assert.match(out, /upstream finding/)
 })
 

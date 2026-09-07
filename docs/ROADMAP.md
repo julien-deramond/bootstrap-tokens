@@ -116,7 +116,7 @@ A static page with no build step and no dependencies. `npm run web`.
 * ✅ Style Dictionary and Tokens Studio, each shaped for what it is for rather than one
   export renamed twice — references kept for the pipeline, flat sRGB for Figma. Both have
   fixture tests that run the real tool. See [`exports.md`](./exports.md).
-* ✅ Typed JS/TS: a runtime module plus declarations, with a union of all 1203 token paths.
+* ✅ Typed JS/TS: a runtime module plus declarations, with a union of all 1206 token paths.
 * ⬜ Propose the token document upstream. `eject` makes this concrete: the proposal is not
   "replace your Sass with generated files" but "here is a tool that edits them for you".
 

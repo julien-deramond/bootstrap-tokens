@@ -93,11 +93,11 @@ cd my-theme && npm install && npm run watch
 
 [![CI status](https://github.com/julien-deramond/bootstrap-tokens/actions/workflows/ci.yml/badge.svg)](https://github.com/julien-deramond/bootstrap-tokens/actions/workflows/ci.yml)
 
-Tracks Bootstrap `6.0.0-alpha1`. **1203 tokens**, covering all 64 of upstream's `$*-tokens`
+Tracks Bootstrap `6.0.0-alpha1`. **1206 tokens**, covering all 64 of upstream's `$*-tokens`
 maps.
 
 `bstokens verify` compiles upstream's `bootstrap.scss` and the configuration exported from
-these tokens, and asserts the resulting CSS is identical — today it is, across all 17021
+these tokens, and asserts the resulting CSS is identical — today it is, across all 18174
 lines. CI runs that on every push, alongside a nightly job that opens an issue when `v6-dev`
 drifts from the committed document.
 
@@ -155,7 +155,7 @@ Sass in the browser and no compile step in the loop: v6 drives everything throug
 properties, so re-declaring them is the whole mechanism.
 
 - **Two modes over one model.** *Design* is eight controls that each move a lot of the system
-  — brand colour, radius, density, type, shadow. *All tokens* is all 1203, grouped and
+  — brand colour, radius, density, type, shadow. *All tokens* is all 1206, grouped and
   searchable. Both write the same overrides, so switching is lossless.
 - **Light and dark side by side**, as framed artboards on a neutral canvas — a v6 theme is
   always two themes.

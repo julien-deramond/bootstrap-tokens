@@ -25,7 +25,7 @@ const base = index(expandColorScales(clone(tree)))
 
 test('source rendering keeps derivations symbolic instead of evaluating them', () => {
   assert.equal(sourceValueOf(base, 'spacing.1'), '$spacer * .25')
-  assert.equal(sourceValueOf(base, 'spacing.4'), '$spacer')
+  assert.equal(sourceValueOf(base, 'spacing.4'), '$spacer * .75')
   assert.equal(sourceValueOf(base, 'radius.2'), '$radius * .375')
   // Arithmetic destined for a custom-property map is interpolated, as upstream writes it.
   assert.equal(sourceValueOf(base, 'card.group-margin'), '#{$grid-gutter-x * .5}')

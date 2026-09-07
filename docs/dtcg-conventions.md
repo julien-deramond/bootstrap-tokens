@@ -100,7 +100,7 @@ A wrong type is worse than a missing one: a tool that trusts `$type: dimension` 
 mis-parse it, whereas a tool that sees no type knows it does not know.
 
 `validate` requires every token to be typed **or** marked `css: true`, so the escape hatch
-cannot quietly become the norm. It currently covers **58 of 1203** tokens, all of them in the
+cannot quietly become the norm. It currently covers **58 of 1206** tokens, all of them in the
 table above's shapes.
 
 ## The full extension schema

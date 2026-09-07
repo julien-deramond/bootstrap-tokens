@@ -259,7 +259,7 @@ Today there is exactly one: `@use … with ()`. Add, in this order:
    matters, and a dependency bump is exactly when you want to ask again. Run from a clean
    directory: 34 of 34 previewed properties matching against `node_modules/bootstrap`.
 2. ✅ **Typed JS/TS** — a runtime module plus declarations rather than a `.ts` source, so it
-   works from plain JavaScript too. `TokenPath` is a union of all 1203 paths, which is the
+   works from plain JavaScript too. `TokenPath` is a union of all 1206 paths, which is the
    point of shipping types at all: a typo becomes a compile error instead of a `var()` that
    silently does nothing.
 3. ✅ **Style Dictionary** — DTCG with `{aliases}` intact, because a pipeline that cannot see

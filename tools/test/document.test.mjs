@@ -28,7 +28,7 @@ test('references to tokens that have a custom property stay as var()', () => {
 })
 
 test('references to tokens without a custom property are inlined', () => {
-  assert.equal(doc.cssValueOf('spacing.4'), '1rem')
+  assert.equal(doc.cssValueOf('spacing.4'), '.75rem')
   assert.equal(doc.cssValueOf('spacing.1'), '.25rem')
 })
 

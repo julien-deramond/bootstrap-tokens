@@ -111,7 +111,7 @@ chart.setSeriesColor(literal('color.blue.500'))                    // '#0089c9'
 tokens['bg.body'].dark                                             // '#080a0c'
 ```
 
-`TokenPath` is a union of all 1203 paths, so a typo is a compile error rather than a `var()`
+`TokenPath` is a union of all 1206 paths, so a typo is a compile error rather than a `var()`
 that silently does nothing. `ref()` throws on an unknown path for the same reason, in the
 JavaScript case where there is no compiler to catch it.
 
@@ -121,7 +121,7 @@ freezes a value that Bootstrap intended to stay live.
 ## `build/style-dictionary/`
 
 DTCG with `{aliases}` intact, because a pipeline that can see `theme.primary` pointing at
-`color.blue.500` can re-skin, and one handed 1203 literals can only re-print.
+`color.blue.500` can re-skin, and one handed 1206 literals can only re-print.
 
 ```bash
 npx style-dictionary build --config config.json        # :root

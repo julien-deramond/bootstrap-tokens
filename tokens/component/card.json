@@ -2,7 +2,7 @@
   "card": {
     "spacer-y": {
       "$type": "dimension",
-      "$value": "{spacing.5}",
+      "$value": "{spacing.6}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--card-spacer-y",
@@ -13,7 +13,7 @@
     },
     "spacer-x": {
       "$type": "dimension",
-      "$value": "{spacing.5}",
+      "$value": "{spacing.6}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--card-spacer-x",
@@ -47,7 +47,7 @@
     },
     "border-color": {
       "$type": "color",
-      "$value": "{border.color-translucent}",
+      "$value": "{border.color}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--card-border-color",
@@ -58,7 +58,7 @@
     },
     "border-radius": {
       "$type": "dimension",
-      "$value": "{radius.8}",
+      "$value": "{radius.7}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--card-border-radius",
@@ -104,7 +104,7 @@
     },
     "cap-padding-x": {
       "$type": "dimension",
-      "$value": "{spacing.root}",
+      "$value": "{spacing.5}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--card-cap-padding-x",
