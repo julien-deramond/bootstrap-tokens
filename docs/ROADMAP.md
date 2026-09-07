@@ -1,5 +1,7 @@
 # Roadmap
 
+> Maintainer working notes — a status log, not reference documentation.
+
 Status legend: ✅ done · 🚧 in progress · ⬜ not started
 
 > This file records what is **done**. [`PLAN.md`](./PLAN.md) records what is wrong, what is

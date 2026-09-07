@@ -1,23 +1,24 @@
 # bootstrap-tokens
 
-**Bootstrap Theme Builder** — design a [Bootstrap 6](https://github.com/twbs/bootstrap/tree/v6-dev)
-theme visually and export it to Sass, byte-identical to what you'd hand-write.
-
-```bash
-npm install
-git clone --depth 1 -b v6-dev https://github.com/twbs/bootstrap.git ../bootstrap
-npm run vendor && npm run web   # http://localhost:4000
-```
-
-Built on the design tokens in this repository: [Bootstrap 6](https://github.com/twbs/bootstrap/tree/v6-dev)
-lifted into [DTCG format](https://tr.designtokens.org/format/), layered raw → semantic →
-component, and exportable to Sass, CSS, TypeScript, Style Dictionary and Figma —
-[how the tokens work ↓](#why).
+A [Bootstrap 6](https://github.com/twbs/bootstrap/tree/v6-dev) design-token pipeline: the
+whole system — colours, spacing, radii, every per-component `$*-tokens` map — extracted from
+upstream into [DTCG format](https://tr.designtokens.org/format/), layered primitive →
+semantic → component, and exported to Sass, CSS, TypeScript, Style Dictionary and Figma.
+[How the tokens work ↓](#why).
 
 ```
 tokens/  (DTCG, source of truth)  ──build──▶  Sass maps · CSS custom properties · resolved JSON
     ▲                                                        │
     └────────────sync────── twbs/bootstrap@v6-dev ◀──────verify
+```
+
+Built on top of that pipeline: **Bootstrap Theme Builder**, a visual editor for the same
+tokens that exports to Sass, byte-identical to what you'd hand-write.
+
+```bash
+npm install
+git clone --depth 1 -b v6-dev https://github.com/twbs/bootstrap.git ../bootstrap
+npm run vendor && npm run web   # http://localhost:4000
 ```
 
 **Status:** tracks Bootstrap `6.0.0-alpha1`. 1203 tokens. `bstokens verify` compiles upstream
@@ -310,20 +311,25 @@ correctly; `tools/lib/sass-targets.mjs` is where that knowledge lives.
 ## Repository layout
 
 ```
-docs/          architecture, layering, DTCG conventions, roadmap, generated inventory
+docs/          reference docs, plus the maintainer's own working notes (see below)
 tokens/        the token document — primitive/, semantic/, component/
 tools/         extractor, resolver, validator, exporters, CLI
 build/         generated output (committed, so it is browsable)
 web/           Bootstrap Theme Builder
 ```
 
-Start with [`docs/PLAN.md`](docs/PLAN.md) for what is missing and what comes next,
-[`docs/ROADMAP.md`](docs/ROADMAP.md) for what is done, then
-[`docs/bootstrap-v6-architecture.md`](docs/bootstrap-v6-architecture.md) for what upstream
-actually does and [`docs/dtcg-conventions.md`](docs/dtcg-conventions.md) for the four places
-we deviate from the DTCG spec and why. [`docs/exports.md`](docs/exports.md) covers the five
-output shapes and which to reach for; [`docs/BACKLOG.md`](docs/BACKLOG.md) holds what fell out
-along the way, including eight findings about upstream that this pipeline surfaced.
+Reference: [`docs/bootstrap-v6-architecture.md`](docs/bootstrap-v6-architecture.md) for what
+upstream actually does, [`docs/dtcg-conventions.md`](docs/dtcg-conventions.md) for the four
+places this pipeline deviates from the DTCG spec and why, and
+[`docs/exports.md`](docs/exports.md) for the five output shapes and which to reach for.
+[`docs/token-inventory.md`](docs/token-inventory.md) is a generated token count, refreshed by
+`bstokens build`.
+
+[`docs/PLAN.md`](docs/PLAN.md), [`docs/ROADMAP.md`](docs/ROADMAP.md) and
+[`docs/BACKLOG.md`](docs/BACKLOG.md) are the maintainer's own working notes — what's wrong and
+what's next, what's done, and what fell out along the way, including eight findings about
+upstream that this pipeline surfaced. Useful for the *why* behind a decision; not required
+reading to use the project.
 
 ## A note on the deviations
 

@@ -1,5 +1,7 @@
 # Plan: getting this right
 
+> Maintainer working notes — the author's running plan, not reference documentation.
+>
 > Written 2026-09-05 against Bootstrap `6.0.0-alpha1` and commit `d73f782`.
 > Companion to [`ROADMAP.md`](./ROADMAP.md), which records what is done. This records what
 > is wrong, what is missing, and the order to fix it in.

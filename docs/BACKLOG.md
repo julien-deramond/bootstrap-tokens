@@ -1,5 +1,10 @@
 # Backlog
 
+> Maintainer working notes — a running log of findings, not reference documentation. If
+> you're looking for how the token pipeline works, start with
+> [`bootstrap-v6-architecture.md`](./bootstrap-v6-architecture.md) or [`exports.md`](./exports.md)
+> instead.
+
 Things noticed while working, that were not worth stopping for. Companion to
 [`PLAN.md`](./PLAN.md), which holds the deliberate plan; this holds what fell out of doing it.
 
