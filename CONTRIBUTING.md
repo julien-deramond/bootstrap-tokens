@@ -29,7 +29,9 @@ npm run web        # the Theme Builder, on http://localhost:4000
 ## Before opening a pull request
 
 CI runs `validate`, `sync --check`, `test`, `build`, the contrast audit, `verify` and
-`eject --verify`. Running them locally first is much faster than a round trip.
+`eject --verify`. Running them locally first is much faster than a round trip. Once those
+pass on `main`, CI redeploys the Theme Builder to
+[julien-deramond.github.io/bootstrap-tokens](https://julien-deramond.github.io/bootstrap-tokens/).
 
 Two things catch people out:
 

@@ -1,7 +1,11 @@
 # Bootstrap Theme Builder
 
-A local web app for designing a Bootstrap 6 theme by editing its tokens, with real Bootstrap
+A web app for designing a Bootstrap 6 theme by editing its tokens, with real Bootstrap
 components re-theming beside you.
+
+**[julien-deramond.github.io/bootstrap-tokens](https://julien-deramond.github.io/bootstrap-tokens/)** is the
+deployed build of `main`, redeployed by CI on every push. To run it against your own `v6-dev`
+checkout:
 
 ```bash
 npm run vendor   # compile upstream Bootstrap into web/vendor/bootstrap.css (once)

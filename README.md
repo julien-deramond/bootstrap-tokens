@@ -10,9 +10,11 @@
   Bootstrap 6's design system as portable design tokens — and a visual theme builder that
   writes them.
   <br>
-  <a href="#quick-start"><strong>Quick start »</strong></a>
+  <a href="https://julien-deramond.github.io/bootstrap-tokens/"><strong>Open the Theme Builder »</strong></a>
   <br>
   <br>
+  <a href="#quick-start">Quick start</a>
+  ·
   <a href="docs/theme-builder.md">Theme Builder</a>
   ·
   <a href="docs/exports.md">Exports</a>
@@ -24,6 +26,7 @@
 
 <p align="center">
   <a href="https://github.com/julien-deramond/bootstrap-tokens/actions/workflows/ci.yml"><img src="https://github.com/julien-deramond/bootstrap-tokens/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
+  <a href="https://julien-deramond.github.io/bootstrap-tokens/"><img src="https://img.shields.io/badge/theme%20builder-live-7952b3.svg" alt="Theme Builder, live"></a>
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT licence"></a>
 </p>
 
@@ -67,18 +70,8 @@ tokens/  (DTCG, source of truth)  ──build──▶  Sass maps · CSS custom 
 
 ## Quick start
 
-Bootstrap 6 is not on npm yet, so the tooling reads a `v6-dev` checkout:
-
-```bash
-git clone --depth 1 -b v6-dev https://github.com/twbs/bootstrap.git ../bootstrap
-```
-
-**Design a theme** in the Theme Builder:
-
-```bash
-npm install
-npm run vendor && npm run web   # http://localhost:4000
-```
+**Design a theme** in the [Theme Builder](https://julien-deramond.github.io/bootstrap-tokens/). Nothing to
+install — it runs in the browser, and every push to `main` redeploys it.
 
 **Start a project** from a theme it exported:
 
@@ -88,6 +81,13 @@ cd my-theme && npm install && npm run watch
 ```
 
 **Or just consume the tokens** — see [using the tokens](#using-the-tokens).
+
+The rest of the tooling reads a `v6-dev` checkout, because Bootstrap 6 is not on npm yet:
+
+```bash
+git clone --depth 1 -b v6-dev https://github.com/twbs/bootstrap.git ../bootstrap
+npm install
+```
 
 ## Status
 
@@ -144,6 +144,9 @@ one. **[`docs/exports.md`](docs/exports.md)** covers which to reach for, how to 
 Bootstrap with your values, and what resolving cannot do.
 
 ## Theme Builder
+
+**[julien-deramond.github.io/bootstrap-tokens](https://julien-deramond.github.io/bootstrap-tokens/)** — the
+deployed build of `main`. To run it against your own checkout instead:
 
 ```bash
 npm run vendor   # compile upstream Bootstrap into web/vendor/bootstrap.css (once)
