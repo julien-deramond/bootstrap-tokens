@@ -122,6 +122,27 @@ preset.
   raw custom property (`var(--radius-9)`) all work; references keep the link, literals break
   it.
 
+## The link preview
+
+Sharing the site's URL renders a card, and the image on it is a real screenshot of the app
+rather than a drawn one — so it goes stale as soon as the interface moves:
+
+```bash
+npm run og      # re-captures web/og-image.png, then commit it
+```
+
+It needs a Google Chrome or Chromium on the machine (`$CHROME` points at one anywhere else),
+serves the app through the ordinary dev server, and captures 1200x630 at 2x. Two bits of
+state are seeded first — the intro card dismissed, the preview set to Light — because the
+default side-by-side view puts the fold through the middle of the dark half. The theme is
+Bootstrap's own defaults, so the capture is deterministic and shows what the link leads to.
+
+The tags themselves live in one place, `web/index.html`, between `<!-- open-graph -->`
+markers. `bstokens site` lifts that block into the redirect page it writes at the site root:
+that root is the URL the README hands out, and scrapers do not follow its meta refresh to
+find the tags on `/web/`. If the markers go missing the site build fails rather than deploy a
+root that previews as a bare link.
+
 ## Where a theme goes next
 
 The tool saves a `theme.json`. Every CLI command that takes `--theme` reads that file — see

@@ -14,9 +14,9 @@ import test from 'node:test'
 import assert from 'node:assert/strict'
 import { mkdtempSync, readFileSync, writeFileSync, existsSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { join } from 'node:path'
+import { join, relative } from 'node:path'
 
-import { resolveBootstrapSource } from '../lib/config.mjs'
+import { repoRoot, resolveBootstrapSource } from '../lib/config.mjs'
 
 const work = mkdtempSync(join(tmpdir(), 'bstokens-commands-'))
 
@@ -101,6 +101,26 @@ test('probe writes a self-contained page', async () => {
   // Self-contained: it has to open from disk with no server and no imports.
   assert.doesNotMatch(page, /\bimport\s+.*\bfrom\s+['"]/)
   assert.match(page, /export function parseComputedColor/)
+})
+
+test('site carries the link preview to the root, and leaves the dev scripts behind', async () => {
+  const out = join(work, 'site')
+  const { code } = await run('site', { out: relative(repoRoot, out) })
+  assert.equal(code, 0)
+
+  // The root is a redirect, and it is the URL people share. Scrapers do not follow a meta
+  // refresh, so tags that reached only /web/ would never be seen.
+  const root = readFileSync(join(out, 'index.html'), 'utf8')
+  assert.match(root, /property="og:image" content="https:\/\//, 'og:image must be absolute')
+  assert.match(root, /property="og:title"/)
+  assert.match(root, /name="twitter:card" content="summary_large_image"/)
+
+  // And the image those tags point at has to actually ship.
+  assert.ok(existsSync(join(out, 'web', 'og-image.png')), 'og:image must be deployed')
+
+  for (const script of ['dev-server.mjs', 'og-capture.mjs']) {
+    assert.ok(!existsSync(join(out, 'web', script)), `${script} has no business on a static host`)
+  }
 })
 
 test('every command that takes a theme rejects one naming a token that is gone', async () => {

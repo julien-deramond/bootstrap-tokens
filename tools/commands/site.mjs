@@ -9,7 +9,7 @@
  * is what `web/dev-server.mjs` serves at `/` too.
  */
 
-import { cpSync, existsSync, mkdirSync, rmSync, writeFileSync } from 'node:fs'
+import { cpSync, existsSync, mkdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join, relative } from 'node:path'
 
 import { repoRoot } from '../lib/config.mjs'
@@ -17,16 +17,49 @@ import { repoRoot } from '../lib/config.mjs'
 /** Everything `web/` reaches for, as repository-relative paths. */
 const TREES = ['web', 'tools/lib', 'tokens', 'build/json']
 
-/** The dev server has no business on a static host; everything else in the trees is used. */
-const keep = (from) => !from.endsWith(join('web', 'dev-server.mjs'))
+/** Development-only scripts have no business on a static host; the rest of the trees is used. */
+const DEV_ONLY = ['dev-server.mjs', 'og-capture.mjs'].map((file) => join('web', file))
+const keep = (from) => !DEV_ONLY.some((file) => from.endsWith(file))
 
-const REDIRECT = `<!doctype html>
+/**
+ * The link-preview tags, taken from `web/index.html` rather than written again here.
+ *
+ * The root of the site is a redirect, and it is also the URL the README hands out and the one
+ * people paste into Slack. Scrapers do not follow a meta refresh, so tags that live only on
+ * `/web/` would never be seen — but keeping a second copy in this file is how the two drift.
+ * So the redirect page borrows the real ones.
+ */
+function linkPreviewTags() {
+  const source = readFileSync(join(repoRoot, 'web', 'index.html'), 'utf8')
+  const block = source.match(/<!-- open-graph -->([\s\S]*?)<!-- \/open-graph -->/)
+
+  // Loud, not silent: a root page with no preview looks fine and is only discovered when a
+  // shared link renders bare, long after the deploy.
+  if (!block) {
+    throw new Error(
+      'No <!-- open-graph --> block in web/index.html, so the site root would have no link preview.'
+    )
+  }
+
+  return block[1].trim()
+}
+
+const redirect = (tags) => `<!doctype html>
 <html lang="en">
   <head>
     <meta charset="utf-8" />
     <title>Bootstrap Theme Builder</title>
+
+    ${tags.split('\n').map((line) => line.trim()).join('\n    ')}
+
     <meta http-equiv="refresh" content="0; url=./web/" />
-    <link rel="canonical" href="./web/" />
+    <!--
+      Self-referential, and web/index.html points here: the root is the address this tool is
+      published at and the one the README hands out, and /web/ is where the redirect happens
+      to land. Both pages have to name the same canonical URL as og:url or they contradict
+      each other about what was shared.
+    -->
+    <link rel="canonical" href="./" />
   </head>
   <body>
     <p><a href="./web/">Bootstrap Theme Builder</a></p>
@@ -44,6 +77,10 @@ export async function site({ flags }) {
     )
   }
 
+  // Read before writing anything: this throws when the tags have gone missing, and it should
+  // do so with the previous site still on disk rather than half-way through replacing it.
+  const tags = linkPreviewTags()
+
   rmSync(out, { recursive: true, force: true })
   mkdirSync(out, { recursive: true })
 
@@ -54,7 +91,7 @@ export async function site({ flags }) {
     console.log(`  ${tree}`)
   }
 
-  writeFileSync(join(out, 'index.html'), REDIRECT)
+  writeFileSync(join(out, 'index.html'), redirect(tags))
   console.log(`  index.html  →  ./web/`)
   console.log(`\nSite written to ${relative(repoRoot, out)}/`)
   return 0
