@@ -15,6 +15,23 @@ consequence stated is a note, not a task, and should be deleted rather than carr
 
 ## U — Upstream (`twbs/bootstrap`)
 
+Modelling a system precisely enough to re-emit it turns out to be a good way to find things
+wrong with it. Eight so far, none of them visible by reading the Sass — each came out of
+compiling it, resolving it, or comparing it against what a browser actually paints.
+
+| | What | Effect |
+| --- | --- | --- |
+| **U6** | Four `color-mix()` weights in `.navbar-dark` are bare numbers, not percentages | Those link colours are dropped and inherited instead. Measured in Chrome |
+| **U7** | Three tokens read custom properties nothing declares, with no fallback | `.btn` has no font weight of its own; active tabs have no colour |
+| **U8** | `$drawer-backdrop-tokens` and `$form-label-tokens` are documented, `!default`, and never `@include`d | Configuring either does nothing at all, silently |
+| **U5** | `defaults()` cannot merge a list override | `$button-sizes: ("sm", "lg")`, as documented, fails to compile |
+| **U3** | `--spacer` does not follow `$spacer` | The scale moves and the base does not |
+| **U4** | `--shadow-strength` is re-declared per colour mode outside any token map | Effectively unthemeable |
+| **U1** | `scss/mixins/` variables carry `!default` but are not forwarded | Not configurable through the documented entrypoint |
+| **U2** | Some tokens are CSS defaults rather than design values | Noise in the configurable surface |
+
+Each is written up below, with evidence.
+
 ### U1 · `scss/mixins/` variables are `!default` but unreachable
 
 `$caret-width`, `$caret-spacing`, `$caret-vertical-align` (`scss/mixins/_caret.scss`) and

@@ -16,6 +16,34 @@ one answers a different question, and collapsing them would make most of them wo
 | `build/style-dictionary/` | "How do I plug this into a pipeline I already have?" | DTCG `{aliases}` | CSS |
 | `build/figma/` | "What does this actually look like?" | none | flat sRGB |
 
+## `build/scss/` — compiling Bootstrap with your values
+
+```scss
+// custom.scss
+@use "../node_modules/bootstrap/scss/bootstrap" with (
+  $colors: (
+    "blue": oklch(58% 0.22 255)
+  ),
+  $spacers: (
+    4: 1.25rem
+  ),
+  $alert-tokens: (
+    --alert-border-radius: 1rem
+  )
+);
+```
+
+Bootstrap's `defaults()` merges these on top of its own, key by key, so a partial map is
+enough. `build/scss/_tokens.scss` is every map with `!default` flags intact — a drop-in
+starting point — and `build/scss/bootstrap-custom.scss` is a ready-to-compile configuration
+of exactly the values that differ from upstream.
+
+One rule to know: token names that Bootstrap generates in a loop — `--spacer-4`, `--radius-8`,
+`--font-size-lg`, `--primary-bg` — **cannot** be overridden through `$root-tokens`; they are
+re-set after the merge. Change them through their owning map (`$spacers`, `$radii`,
+`$font-sizes`, `$theme-colors`). The exporter already routes them correctly;
+[`tools/lib/sass-targets.mjs`](../tools/lib/sass-targets.mjs) is where that knowledge lives.
+
 ## The dividing line: runtime or resolved
 
 Bootstrap v6 computes its palette in the browser. `color.blue.100` is not a hex value, it is
