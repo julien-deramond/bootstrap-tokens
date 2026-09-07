@@ -1,3 +1,9 @@
+<p align="center">
+  <a href="https://github.com/twbs/bootstrap/tree/v6-dev">
+    <img src="web/vendor/bootstrap-logo-shadow.png" alt="Bootstrap logo" width="200" height="165">
+  </a>
+</p>
+
 <h3 align="center">bootstrap-tokens</h3>
 
 <p align="center">
