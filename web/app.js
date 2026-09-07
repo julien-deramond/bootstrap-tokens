@@ -1,5 +1,5 @@
 /**
- * The Bootstrap token chooser.
+ * Bootstrap Theme Builder — the web tool this repository ships.
  *
  * It imports the same resolver, the same routing table and the same Sass emitter the CLI
  * uses — `bstokens verify` proves that pipeline reproduces upstream byte for byte, so what

@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-tokens",
   "version": "0.1.0",
-  "description": "Design tokens for Bootstrap v6 in DTCG format, with a Sass exporter and a theme designer.",
+  "description": "Bootstrap Theme Builder \u2014 design a Bootstrap 6 theme visually and export it to Sass, byte-identical to hand-written config. Built on an open DTCG token pipeline for Bootstrap 6.",
   "type": "module",
   "license": "MIT",
   "engines": {
@@ -30,6 +30,8 @@
   },
   "keywords": [
     "bootstrap",
+    "bootstrap-6",
+    "theme-builder",
     "design-tokens",
     "dtcg",
     "sass",

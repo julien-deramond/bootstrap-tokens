@@ -1,8 +1,18 @@
 # bootstrap-tokens
 
-Design tokens for [Bootstrap v6](https://github.com/twbs/bootstrap/tree/v6-dev) in the
-[DTCG format](https://tr.designtokens.org/format/), layered raw → semantic → component, and
-exportable back to Sass.
+**Bootstrap Theme Builder** — design a [Bootstrap 6](https://github.com/twbs/bootstrap/tree/v6-dev)
+theme visually and export it to Sass, byte-identical to what you'd hand-write.
+
+```bash
+npm install
+git clone --depth 1 -b v6-dev https://github.com/twbs/bootstrap.git ../bootstrap
+npm run vendor && npm run web   # http://localhost:4000
+```
+
+Built on the design tokens in this repository: [Bootstrap 6](https://github.com/twbs/bootstrap/tree/v6-dev)
+lifted into [DTCG format](https://tr.designtokens.org/format/), layered raw → semantic →
+component, and exportable to Sass, CSS, TypeScript, Style Dictionary and Figma —
+[how the tokens work ↓](#why).
 
 ```
 tokens/  (DTCG, source of truth)  ──build──▶  Sass maps · CSS custom properties · resolved JSON
@@ -21,7 +31,8 @@ Bootstrap v6 already has a real token system: `oklch()` colour scales generated 
 `color-mix()`, semantic `$theme-colors`, and a per-component `$*-tokens` map emitted as CSS
 custom properties. What it does not have is that system in a portable form. This repository
 lifts it into DTCG so it can be read by design tools, diffed, validated, and re-emitted — and
-so a theme can be built by editing values rather than by reading Sass.
+so a theme can be built in Bootstrap Theme Builder by editing values rather than by reading
+Sass.
 
 ## Use it in a project
 
@@ -83,7 +94,7 @@ chart library — is resolved to the colour a browser would have painted, checke
 real one. [`docs/exports.md`](docs/exports.md) covers which to reach for and what resolving
 cannot do.
 
-## The token chooser
+## Bootstrap Theme Builder
 
 ```bash
 npm run vendor   # compile upstream Bootstrap into web/vendor/bootstrap.css (once)
@@ -303,7 +314,7 @@ docs/          architecture, layering, DTCG conventions, roadmap, generated inve
 tokens/        the token document — primitive/, semantic/, component/
 tools/         extractor, resolver, validator, exporters, CLI
 build/         generated output (committed, so it is browsable)
-web/           the token chooser
+web/           Bootstrap Theme Builder
 ```
 
 Start with [`docs/PLAN.md`](docs/PLAN.md) for what is missing and what comes next,

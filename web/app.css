@@ -68,12 +68,12 @@ body {
 
 .brand { display: flex; gap: .625rem; align-items: center; min-width: 0; }
 
+/* Bootstrap's own mark (web/vendor/bootstrap-logo.svg), not a CSS-drawn stand-in. */
 .brand-mark {
   flex: none;
   width: 24px;
   height: 24px;
-  border-radius: 7px;
-  background: linear-gradient(135deg, var(--accent), light-dark(#8b5cf6, #6d5ce7));
+  display: block;
 }
 
 .brand-text { min-width: 0; }
