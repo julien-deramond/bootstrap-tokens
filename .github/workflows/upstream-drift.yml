@@ -2,14 +2,31 @@ name: Upstream drift
 
 # twbs/bootstrap@v6-dev is a moving alpha. Re-extract nightly and open an issue when the
 # committed token document no longer matches it, rather than discovering it months later.
+#
+# The issue is a latch on one condition, so it has to clear itself too: the same check that
+# opens it closes it, and it runs again as soon as a change lands that could resolve it —
+# otherwise a sync committed at 06:00 leaves a stale issue open until the next night.
 on:
   schedule:
     - cron: '17 5 * * *'
+  push:
+    branches: [main]
+    paths:
+      - 'tokens/**'
+      - 'tools/**'
+      - '.github/workflows/upstream-drift.yml'
   workflow_dispatch:
 
 permissions:
   contents: read
   issues: write
+
+# A push and the nightly run can otherwise reconcile the same issue at once, and the loser
+# comments on an issue the winner has already closed. Never cancel: a half-run leaves the
+# issue reflecting a check that did not finish.
+concurrency:
+  group: upstream-drift
+  cancel-in-progress: false
 
 jobs:
   drift:
@@ -39,34 +56,67 @@ jobs:
           echo "status=$?" >> "$GITHUB_OUTPUT"
           cat drift.txt
 
-      - name: Open or update the drift issue
-        if: steps.drift.outputs.status != '0'
+      # Open, update and close all hang off the same lookup, so the issue can only ever
+      # say what this run found.
+      - name: Reconcile the drift issue
         uses: actions/github-script@v7
         with:
           script: |
             const fs = require('fs')
+            const clean = '${{ steps.drift.outputs.status }}' === '0'
+            const report = fs.readFileSync('drift.txt', 'utf8').trim()
+            const owner = context.repo.owner
+            const repo = context.repo.repo
+            const title = 'Upstream token drift detected'
+            const sha = context.sha.slice(0, 8)
+
+            const { data: open } = await github.rest.issues.listForRepo({
+              owner,
+              repo,
+              state: 'open',
+              labels: 'upstream-drift'
+            })
+
+            if (clean) {
+              // Nothing to say when nothing was open — a green nightly should be silent.
+              for (const issue of open) {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: issue.number,
+                  body: [
+                    `Resolved at ${sha}: \`tokens/\` matches \`twbs/bootstrap@v6-dev\` again.`,
+                    '',
+                    '```',
+                    report,
+                    '```'
+                  ].join('\n')
+                })
+                await github.rest.issues.update({
+                  owner,
+                  repo,
+                  issue_number: issue.number,
+                  state: 'closed',
+                  state_reason: 'completed'
+                })
+              }
+              return
+            }
+
             const body = [
               'The token document no longer matches `twbs/bootstrap@v6-dev`.',
               '',
               'Run `npm run sync`, review the diff, then `npm run build` and `npm run verify`.',
               '',
               '```',
-              fs.readFileSync('drift.txt', 'utf8').trim(),
+              report,
               '```'
             ].join('\n')
 
-            const title = 'Upstream token drift detected'
-            const { data: open } = await github.rest.issues.listForRepo({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
-              state: 'open',
-              labels: 'upstream-drift'
-            })
-
             if (open.length > 0) {
               await github.rest.issues.update({
-                owner: context.repo.owner,
-                repo: context.repo.repo,
+                owner,
+                repo,
                 issue_number: open[0].number,
                 body
               })
@@ -74,8 +124,8 @@ jobs:
             }
 
             await github.rest.issues.create({
-              owner: context.repo.owner,
-              repo: context.repo.repo,
+              owner,
+              repo,
               title,
               body,
               labels: ['upstream-drift']
