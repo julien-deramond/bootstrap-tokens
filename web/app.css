@@ -118,6 +118,24 @@ body {
 
 .button-primary:hover:not(:disabled) { filter: brightness(1.08); background: var(--accent); }
 
+/*
+ * The repository link, and the ask that goes with it.
+ *
+ * A quiet button rather than a coloured call to action: it competes with Export otherwise,
+ * and Export is what people came for.
+ */
+.repo-link {
+  display: inline-flex;
+  align-items: center;
+  gap: .375rem;
+  padding-inline: .5rem;
+  color: var(--ink-muted);
+  text-decoration: none;
+}
+
+.repo-link:hover { background: var(--surface-sunken); color: var(--ink); }
+.repo-mark { flex: none; display: block; }
+
 .icon-group { display: inline-flex; border: 1px solid var(--line-strong); border-radius: 6px; overflow: hidden; }
 
 .icon-button {
@@ -672,6 +690,9 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 @media (width < 34rem) {
   .topbar { flex-wrap: wrap; row-gap: .5rem; }
   .brand-sub { display: none; }
+  /* Room runs out before the bar wraps a second time, and the mark alone still says where
+     the link goes, so the word goes first. */
+  .repo-label { display: none; }
   .topbar-actions { inline-size: 100%; justify-content: flex-end; }
   .token { grid-template-columns: 1fr; }
 }
