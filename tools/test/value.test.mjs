@@ -1,7 +1,15 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 
-import { splitLightDark, cssToRefs, refsToCss, isPureAlias, typeLiteral, typedToCss } from '../lib/value.mjs'
+import {
+  splitLightDark,
+  cssToRefs,
+  refsToCss,
+  isPureAlias,
+  typeLiteral,
+  typedToCss,
+  unresolvedReferences
+} from '../lib/value.mjs'
 import { evaluate } from '../lib/tokens.mjs'
 import { escapeSvg, evaluateSassFunctions } from '../lib/sass-functions.mjs'
 
@@ -49,6 +57,17 @@ test('evaluates the Sass arithmetic that appears in token values', () => {
   assert.equal(evaluate('1rem * -.25'), '-.25rem')
   assert.equal(evaluate('.5rem'), '.5rem')
   assert.equal(evaluate('clamp(1rem, 2vw, 2rem)'), 'clamp(1rem, 2vw, 2rem)')
+})
+
+test('flags a reference to a token that does not exist, and only that one', () => {
+  const tokens = new Map([['radius.9', {}], ['color.blue.500', {}]])
+
+  assert.deepEqual(unresolvedReferences('{radius.doesnotexist}', tokens), ['radius.doesnotexist'])
+  assert.deepEqual(unresolvedReferences('{radius.9}', tokens), [])
+  assert.deepEqual(
+    unresolvedReferences('color-mix(in oklch, {color.blue.500} 50%, {color.nope})', tokens),
+    ['color.nope']
+  )
 })
 
 test('escape-svg matches the Sass implementation', () => {
