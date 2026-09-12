@@ -23,6 +23,8 @@ const USAGE = `bstokens <command> [options]
 
   validate   Check the token document: references, cycles, layering, DTCG shape
              --strict       also fail on component tokens that skip the semantic layer
+             --check        also fail when the committed build/ and docs/token-inventory.md
+                            no longer match the document, as CI does
 
   build      Emit Sass, CSS and resolved JSON into build/
              --import <p>   import path used in the generated @use (default bootstrap/scss/bootstrap)

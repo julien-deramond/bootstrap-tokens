@@ -20,6 +20,7 @@ Then:
 
 ```bash
 npm run validate   # the token document is well formed
+                   #   -- --check also fails when build/ is stale
 npm test           # unit tests
 npm run build      # regenerate build/ and docs/token-inventory.md
 npm run verify     # our export compiles to the same CSS as upstream
@@ -178,7 +179,9 @@ Two things catch people out:
 
 * **`build/` is committed**, so a change to the token document or an exporter means running
   `npm run build` and committing the result. CI fails if `build/` or
-  `docs/token-inventory.md` is stale.
+  `docs/token-inventory.md` is stale. `npm run validate -- --check` asks the same question
+  locally, without a round trip and without rewriting anything: it regenerates the outputs in
+  memory and names the files that no longer match.
 * **`tokens/` is generated from upstream.** Don't hand-edit it to fix an extraction bug — fix
   the extractor in `tools/lib/` and re-run `npm run sync`, or the next sync silently reverts
   you. Deliberate deviations belong in the curation layer, not in the output.
