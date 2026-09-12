@@ -367,8 +367,8 @@ const navigation = (uid) => section(
     </div>
   </nav>
 
-  <!-- The dark variant is a token map of its own, and it is the one carrying U6's four
-       broken color-mix() weights, so it is worth being able to look at. -->
+  <!-- The dark variant is a token map of its own, and it is the one carrying the four
+       broken color-mix() weights of issue #14, so it is worth being able to look at. -->
   <nav class="navbar mb" data-bs-theme="dark">
     <div class="container-fluid">
       <a class="navbar-brand" href="#">Dark navbar</a>

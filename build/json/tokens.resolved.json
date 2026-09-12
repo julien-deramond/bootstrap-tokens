@@ -6564,7 +6564,7 @@
   "elevation.strength": {
     "$type": "number",
     "$value": "1",
-    "$description": "Multiplies every shadow layer’s alpha. Dark mode is pinned to 2.4 by scss/_root.scss and no token map can reach it; a page with an explicit data-bs-theme needs a CSS rule as well as the Sass override. See docs/BACKLOG.md U4.",
+    "$description": "Multiplies every shadow layer’s alpha. Dark mode is pinned to 2.4 by scss/_root.scss and no token map can reach it; a page with an explicit data-bs-theme needs a CSS rule as well as the Sass override. See https://github.com/julien-deramond/bootstrap-tokens/issues/12.",
     "cssVar": "--shadow-strength",
     "sassMap": "$root-tokens"
   },

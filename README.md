@@ -200,10 +200,11 @@ Point any of them at a checkout with `--src <path>`, `$BOOTSTRAP_SRC`, or a
 | [`maintainer-export.md`](docs/maintainer-export.md) | `eject` — patching Bootstrap's own sources, for a pull request |
 | [`token-inventory.md`](docs/token-inventory.md) | Generated token counts, refreshed by `bstokens build` |
 
-[`PLAN.md`](docs/PLAN.md), [`ROADMAP.md`](docs/ROADMAP.md) and [`BACKLOG.md`](docs/BACKLOG.md)
-are the maintainer's working notes — what's wrong and what's next, what's done, and what fell
-out along the way. That last one includes **eight findings about Bootstrap itself** that this
-pipeline surfaced, each with the compile, diff or browser measurement behind it.
+[`PLAN.md`](docs/PLAN.md) and [`ROADMAP.md`](docs/ROADMAP.md) are the maintainer's working
+notes — what's wrong and what's next, and what's done. The **eight findings about Bootstrap
+itself** that this pipeline surfaced are issues labelled
+[`upstream`](https://github.com/julien-deramond/bootstrap-tokens/issues?q=is%3Aissue+label%3Aupstream), each with the compile, diff or browser
+measurement behind it.
 
 ## Bugs and feature requests
 

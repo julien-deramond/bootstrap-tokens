@@ -512,11 +512,11 @@ function renderEditor() {
    * A component the sample does not draw still exports and still works in your project. A
    * map Bootstrap defines and never `@include`s does not: the export is written, Sass
    * accepts it, and nothing happens anywhere. Saying "they still export" about the second
-   * would be true and useless — the value never reaches CSS. See BACKLOG U8.
+   * would be true and useless — the value never reaches CSS. See issue #16.
    */
   const warning = $('#section-warning')
   const problem = component?.inert
-    ? `Bootstrap defines ${component.sassMap} and never uses it, so changes here have no effect — not in the preview, and not in your project either. Reported upstream as U8.`
+    ? `Bootstrap defines ${component.sassMap} and never uses it, so changes here have no effect — not in the preview, and not in your project either. That is a bug in Bootstrap, not a limitation of this tool.`
     : component && !isPreviewed(component)
       ? `The sample does not render ${component.selector}, so changes here will not show in the preview. They still export.`
       : null

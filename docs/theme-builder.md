@@ -66,8 +66,8 @@ preset.
   work — four `color-mix()` weights in `.navbar-dark`, three tokens reading properties nothing
   declares — and editing any of them changes nothing, in the preview or in your project. Each
   carries a note saying exactly that. Two token maps Bootstrap defines and never uses say
-  something stronger, because "it still exports" would be true and useless there. See
-  [`BACKLOG.md`](./BACKLOG.md).
+  something stronger, because "it still exports" would be true and useless there. Each is an
+  issue labelled [`upstream`](https://github.com/julien-deramond/bootstrap-tokens/issues?q=is%3Aissue+label%3Aupstream).
 * **A theme that has aged is repaired, or named.** Bootstrap 6 is an alpha and token names
   move. A saved theme follows recorded renames, and anything still unplaceable is said out
   loud rather than dropped — losing a value silently is the worst thing a theme file can do,

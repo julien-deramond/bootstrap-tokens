@@ -135,7 +135,7 @@ export const TOKEN_DESCRIPTIONS = {
     'Upstream hardcodes this rather than deriving it from $spacer, so changing the base spacer does not move it.',
   'radius.pill': 'A fixed 50rem, set on $root-tokens after the $radii loop.',
   'elevation.strength':
-    'Multiplies every shadow layer’s alpha. Dark mode is pinned to 2.4 by scss/_root.scss and no token map can reach it; a page with an explicit data-bs-theme needs a CSS rule as well as the Sass override. See docs/BACKLOG.md U4.',
+    'Multiplies every shadow layer’s alpha. Dark mode is pinned to 2.4 by scss/_root.scss and no token map can reach it; a page with an explicit data-bs-theme needs a CSS rule as well as the Sass override. See https://github.com/julien-deramond/bootstrap-tokens/issues/12.',
   'color-mix.space': 'The interpolation space every generated colour step is mixed in.'
 }
 

@@ -6,10 +6,10 @@ Notes for AI agents working in this repository. The full contributor guide is
 ## Findings become issues, not notes
 
 When you notice a bug, want a feature, or see something that could be better, **open a GitHub
-issue on `julien-deramond/bootstrap-tokens`**. Not a line in `docs/BACKLOG.md`, not a `TODO`
+issue on `julien-deramond/bootstrap-tokens`**. Not a note in a markdown file, not a `TODO`
 comment, not a paragraph at the end of an answer. Never open an issue on `twbs/bootstrap` or
-any other repository — if the bug is upstream, say so in an issue here and let a human carry
-it over.
+any other repository — if the bug is upstream, open it here with the `upstream` label, say
+plainly that the fix belongs to Bootstrap, and let a human decide whether to carry it over.
 
 Label every issue you open with:
 
@@ -17,6 +17,7 @@ Label every issue you open with:
 * exactly one of `bug`, `feature` or `enhancement` (add `documentation` or `accessibility`
   when they apply);
 * `needs-triage` — always. **Never apply `ready-to-dev` yourself.**
+* `upstream`, when the defect is in `twbs/bootstrap` rather than here.
 
 ```bash
 gh issue create \
