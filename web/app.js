@@ -24,6 +24,7 @@ import {
   pathsOfAddition
 } from '../tools/lib/overrides.mjs'
 import { sourceEdits } from '../tools/lib/source-value.mjs'
+import { unresolvedReferences } from '../tools/lib/value.mjs'
 import { projectFiles } from '../tools/lib/project.mjs'
 import { DIALS, PRESETS, HUES, availableHues, addedHues, hueOfRole, repointRole, selectedOption } from './easy.js'
 import { OPTIONS, changedOptions, optionByName } from '../tools/lib/config-surface.mjs'
@@ -654,8 +655,30 @@ function renderField(path, side, modeLabel, token) {
   input.spellcheck = false
   input.value = editableValue(path, side)
   input.setAttribute('aria-label', `${path} ${side === 'dark' ? 'dark value' : 'value'}`)
+
+  const error = document.createElement('p')
+  error.className = 'field-error'
+  error.hidden = true
+
+  const flagMissing = (missing) => {
+    input.setAttribute('aria-invalid', 'true')
+    error.textContent = `References a token that doesn't exist: ${missing.map((ref) => `{${ref}}`).join(', ')}`
+    error.hidden = false
+  }
+
+  const missing = unresolvedReferences(input.value, state.doc.tokens)
+  if (missing.length > 0) flagMissing(missing)
+
   input.addEventListener('change', () => {
-    setOverride(path, side, input.value.trim())
+    const value = input.value.trim()
+    const missing = unresolvedReferences(value, state.doc.tokens)
+    if (missing.length > 0) {
+      flagMissing(missing)
+      return
+    }
+    input.removeAttribute('aria-invalid')
+    error.hidden = true
+    setOverride(path, side, value)
   })
   field.append(input)
 
@@ -674,6 +697,8 @@ function renderField(path, side, modeLabel, token) {
 
   const contrast = isColor ? renderContrast(path, side) : null
   if (contrast) field.append(contrast)
+
+  field.append(error)
 
   return field
 }
@@ -1581,12 +1606,14 @@ function themeChanges() {
     if (!token) continue
 
     const added = Boolean(ext(token).added)
+    const after = editableValue(path, 'value')
     rows.push({
       kind: 'token',
       key: path,
       before: added ? null : authoredValue(state.baseDoc.tokens.get(path), 'value'),
-      after: editableValue(path, 'value'),
+      after,
       added,
+      invalid: unresolvedReferences(after, state.doc.tokens),
       revert: () => clearOverride(path)
     })
   }
@@ -1653,6 +1680,16 @@ function renderChanges() {
     revert.addEventListener('click', () => row.revert())
 
     item.append(key, values, revert)
+
+    // A broken reference this theme somehow already carries (an older export, an imported
+    // file) gets the same visible flag a field would show — the change list must never
+    // disagree with the field about a value's validity.
+    if (row.invalid?.length > 0) {
+      const warning = document.createElement('p')
+      warning.className = 'change-invalid'
+      warning.textContent = `Broken — references a token that doesn't exist: ${row.invalid.map((ref) => `{${ref}}`).join(', ')}`
+      item.append(warning)
+    }
     list.append(item)
   }
 }

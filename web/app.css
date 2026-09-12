@@ -318,6 +318,9 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 }
 
 .field input[type="text"]:focus-visible { outline-offset: -1px; }
+.field input[type="text"][aria-invalid="true"] { border-color: light-dark(#b91c1c, #fca5a5); }
+
+.field-error { flex-basis: 100%; margin: 0; font-size: .6875rem; color: light-dark(#b91c1c, #fca5a5); }
 
 .field input[type="color"] {
   inline-size: 1.875rem;
@@ -1001,6 +1004,14 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 }
 
 .change-revert:hover { color: var(--ink); border-color: var(--accent); }
+
+.change-invalid {
+  grid-column: 1 / -1;
+  margin: 0;
+  font: .625rem/1.4 var(--mono);
+  color: light-dark(#b91c1c, #fca5a5);
+  overflow-wrap: anywhere;
+}
 
 /* --- contrast repair ----------------------------------------------------- */
 

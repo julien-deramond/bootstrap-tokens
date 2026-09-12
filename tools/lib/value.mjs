@@ -92,6 +92,15 @@ export function referencesIn(value) {
   return out
 }
 
+/**
+ * Which of `value`'s references don't resolve against `tokens` — empty when they all do.
+ * This is the check a UI runs before committing a typed value, so a reference to a token
+ * that doesn't exist can be caught at the field instead of vanishing from the exports later.
+ */
+export function unresolvedReferences(value, tokens) {
+  return referencesIn(value).filter((ref) => !tokens.has(ref))
+}
+
 /** True when the value is exactly one alias and nothing else. */
 export function isPureAlias(value) {
   return typeof value === 'string' && /^(?<!#)\{[^{}]+\}$/.test(value.trim())
