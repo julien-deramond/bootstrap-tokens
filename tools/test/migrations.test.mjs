@@ -13,6 +13,7 @@ import { resolvePath, applyMigrations, detectRenames, migrationFingerprint } fro
 import { loadMigrations, loadTokens } from '../lib/load-fs.mjs'
 import { ext, walk } from '../lib/tokens.mjs'
 import { tokensDir } from '../lib/config.mjs'
+import { createHue } from '../lib/overrides.mjs'
 
 const doc = loadTokens(tokensDir)
 
@@ -49,6 +50,14 @@ test('an override with nowhere to go is reported, not silently kept', () => {
   assert.deepEqual(result.overrides, {})
   assert.equal(result.dropped.length, 1)
   assert.match(result.dropped[0].reason, /no longer exists/)
+})
+
+test('a user-created token survives migration instead of being dropped as unknown', () => {
+  const overrides = createHue('acme', '#336699')
+  const result = applyMigrations(overrides, [], doc)
+
+  assert.deepEqual(result.overrides, overrides)
+  assert.deepEqual(result.dropped, [])
 })
 
 test('an untouched theme passes through unchanged', () => {

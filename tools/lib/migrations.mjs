@@ -47,7 +47,7 @@ export function applyMigrations(overrides, migrations, doc) {
       continue
     }
 
-    if (doc && !doc.tokens.has(target)) {
+    if (doc && !override.create && !doc.tokens.has(target)) {
       dropped.push({ path, reason: target === path ? 'no longer exists' : `renamed to ${target}, which is also gone` })
       continue
     }
