@@ -86,6 +86,40 @@ preset.
   check: contrast survives colour blindness almost unchanged, so a palette can pass every
   ratio and still make success and danger the same button.
 
+## Open in StackBlitz
+
+The export dialog ends where the interesting part starts: a `custom.scss` and four numbered
+steps, and the steps are where people fall off — the wrong Bootstrap version, no Sass, the
+stylesheet linked but never compiled. **Open in StackBlitz** skips them. One click and the
+theme is a running Vite dev server in a browser tab: Bootstrap's own source Sass compiled
+from `v6-dev`, the theme applied through `@use … with ()`, hot reload on a `styles.scss` edit,
+and StackBlitz's own *Download project* as the way out.
+
+The files are exactly the ones `bstokens init --template vite` writes — one generator,
+[`tools/lib/project.mjs`](../tools/lib/project.mjs), so the sandbox and the CLI cannot describe
+different projects. A test asserts that.
+
+**It sends the theme to somebody else's computer, and that is the only thing here that does.**
+Everything else in this tool stays in the browser — *Copy share link* is the whole theme
+compressed into a URL fragment, uploaded nowhere. This button POSTs the project to
+`stackblitz.com`. That is fine, it is what the click asks for, but it is said at the button
+rather than only here, and no request is made until the click: the form is built, submitted and
+thrown away inside the click handler. It is a hand-written form POST — `@stackblitz/sdk` would
+be a dependency this repository has managed without, for twenty lines of hidden inputs.
+
+Give it about a minute the first time. The Bootstrap dependency is a ~28 MB tarball of the
+`v6-dev` branch, and the WebContainer downloads it before Vite starts.
+
+### Why not CodePen
+
+It has no `node_modules`, its Sass preprocessor cannot resolve `bootstrap/scss/*`, and v6 is on
+no CDN. The only pen that could exist is compiled CSS plus a custom-property overlay — which is
+the customisation route this feature exists to avoid demonstrating. That overlay works, and the
+`theme.css` tab is there for people who need it, but it is not how a v6 project is built, and a
+sandbox teaching it to the audience that has not learned the right way yet would be worse than
+no sandbox. Revisit if v6 ships a CDN build *and* someone finds a reason the Sass route cannot
+cover.
+
 ## Two decisions inside Design mode
 
 * **Changing the brand colour repoints the role, it doesn't recolour a scale.** Bootstrap
@@ -150,6 +184,7 @@ The tool saves a `theme.json`. Every CLI command that takes `--theme` reads that
 
 ```bash
 npx bstokens init my-theme --theme theme.json    # scaffold a project that compiles it
+npx bstokens init my-app --theme theme.json --template vite   # …as a Vite project
 npx bstokens verify --theme theme.json           # check it compiles to what you saw
 npx bstokens report --theme theme.json           # contrast and colour-vision audit
 npx bstokens eject --theme theme.json --src ../bootstrap --in-place   # maintainers

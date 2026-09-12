@@ -215,11 +215,25 @@
         <button type="button" class="button button-primary" id="download">Download</button>
         <button type="button" class="button" id="copy">Copy</button>
         <button type="button" class="button" id="share">Copy share link</button>
+        <button type="button" class="button" id="stackblitz" aria-describedby="stackblitz-note">Open in StackBlitz</button>
         <label class="button">
           Import a theme
           <input type="file" id="import" accept="application/json,.json,.scss,text/plain" hidden />
         </label>
       </div>
+
+      <!--
+        Said at the button rather than in the documentation. Every other control here works
+        on what is already in this browser — the share link is the theme compressed into a
+        URL fragment, uploaded nowhere — and this one is the exception: it sends the theme to
+        somebody else's computer. Which is fine, it is what the click asks for, but it should
+        not be a surprise, and nothing leaves until the click.
+      -->
+      <p class="export-aside" id="stackblitz-note">
+        <strong>Open in StackBlitz</strong> uploads this theme to <code>stackblitz.com</code> as a
+        Vite project — the same files <code>bstokens init --template vite</code> writes — and builds
+        it there. Nothing is sent until you click it. Everything else on this page stays in your browser.
+      </p>
     </dialog>
 
     <script type="module" src="./app.js"></script>

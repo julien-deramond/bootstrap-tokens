@@ -8,6 +8,8 @@
  * properties, so nothing here recompiles.
  */
 
+import { page } from '../tools/lib/sample-page.mjs'
+
 const THEMES = ['primary', 'accent', 'success', 'danger', 'warning', 'info', 'secondary', 'inverse']
 /* Replaced by the chooser whenever the set of scales changes, so a colour someone added
    shows up in the palette rather than being invisible in the one place it should be. */
@@ -443,84 +445,6 @@ const palette = () => section(
 )
 
 /* -------------------------------------------------------------- scenarios -- */
-
-/**
- * A realistic page, not a gallery.
- *
- * A row of buttons beside a row of alerts answers "do these components look right?" but not
- * "does my theme survive a page?" — which is the question anyone actually has. Spacing
- * against real prose, a navbar over content, cards in a grid: these are where a density or
- * radius choice succeeds or falls apart.
- */
-const page = (uid) => `
-  <nav class="navbar bg-1 fg-2 mb">
-    <div class="container-fluid">
-      <a class="navbar-brand" href="#">Northwind</a>
-      <ul class="navbar-nav">
-        <li class="nav-item"><a class="nav-link active" aria-current="page" href="#">Overview</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Reports</a></li>
-        <li class="nav-item"><a class="nav-link" href="#">Settings</a></li>
-      </ul>
-    </div>
-  </nav>
-
-  <section class="preview-hero">
-    <h1>Everything in one place</h1>
-    <p class="fs-lg fw-light">A short paragraph of the kind of copy that actually ships, long enough that
-      the line height and measure have somewhere to show themselves.</p>
-    <div class="cluster">
-      <a href="#" class="btn btn-solid theme-primary btn-lg">Get started</a>
-      <a href="#" class="btn btn-outline theme-primary btn-lg">Read the docs</a>
-    </div>
-  </section>
-
-  <div class="preview-grid">
-    ${[
-      ['Revenue', '$48,200', 'success', '+12% on last month'],
-      ['Open tickets', '37', 'warning', '6 breaching SLA'],
-      ['Churn', '1.8%', 'danger', 'Up from 1.2%']
-    ]
-      .map(
-        ([title, figure, theme, note]) => `
-        <section class="card">
-          <div class="card-body">
-            <p class="card-text"><small style="color: var(--fg-3)">${title}</small></p>
-            <h3 class="card-title">${figure}</h3>
-            <span class="badge badge-subtle theme-${theme}">${note}</span>
-          </div>
-        </section>`
-      )
-      .join('')}
-  </div>
-
-  <section class="card mt">
-    <div class="card-header">Add a customer</div>
-    <div class="card-body">
-      <div class="preview-row">
-        <div>
-          <label class="form-label" for="page-name-${uid}">Name</label>
-          <input type="text" class="form-control" id="page-name-${uid}" value="Northwind Traders" />
-        </div>
-        <div>
-          <label class="form-label" for="page-plan-${uid}">Plan</label>
-          <select class="form-select" id="page-plan-${uid}"><option>Growth</option></select>
-        </div>
-      </div>
-      <div class="cluster mt">
-        <button type="button" class="btn btn-solid theme-primary">Save</button>
-        <button type="button" class="btn btn-text">Cancel</button>
-      </div>
-    </div>
-  </section>
-
-  <table class="table mt">
-    <thead><tr><th scope="col">Customer</th><th scope="col">Plan</th><th scope="col">Status</th></tr></thead>
-    <tbody>
-      <tr><td>Northwind Traders</td><td>Growth</td><td><span class="badge theme-success">Active</span></td></tr>
-      <tr><td>Contoso</td><td>Starter</td><td><span class="badge theme-warning">Trial</span></td></tr>
-      <tr><td>Fabrikam</td><td>Growth</td><td><span class="badge theme-secondary">Paused</span></td></tr>
-    </tbody>
-  </table>`
 
 /**
  * Every state a component can be in, side by side.

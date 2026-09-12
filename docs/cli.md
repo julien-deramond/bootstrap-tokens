@@ -99,9 +99,43 @@ dependencies and scripts, a page that uses the result, and the `theme.json` so y
 it in the Theme Builder later. It also gets `npm run verify`, which compiles the theme against
 the Bootstrap you installed and compares the result with what you previewed.
 
-Because v6 is not on npm, the scaffold depends on the `v6-dev` branch — which installs
-cleanly, since upstream ships `scss/**` and defines no prepare script. Pass `--bootstrap` to
-pin a release once one exists, and `--force` to write into a non-empty directory.
+Because v6 is not on npm, the scaffold depends on the `v6-dev` branch — named as a tarball URL
+rather than a `github:` spec, because the `github:` form makes npm shell out to `git`, which is
+not present everywhere a project gets installed (a browser sandbox, most containers). Both
+resolve the same branch, and it installs cleanly either way: upstream ships `scss/**` and a
+built `js/dist/**`, and defines no prepare script. Pass `--bootstrap` to pin a release once one
+exists, and `--force` to write into a non-empty directory.
+
+#### `--template` — which kind of project
+
+```bash
+npx bstokens init my-app --theme theme.json --template vite
+cd my-app && npm install && npm start
+```
+
+| Template | What you get |
+| --- | --- |
+| `sass` (default) | `scss/custom.scss`, the `sass` CLI, `index.html` linking the compiled file. No bundler to explain, which is what a Bootstrap theme honestly is. |
+| `vite` | Vite compiling Bootstrap's **source Sass**, rooted at `src/`, with the theme's page and working drawer, menu, popover and tooltip. |
+
+`vite` mirrors [`twbs/examples/vite` on `v6-dev`](https://github.com/twbs/examples/tree/v6-dev/vite)
+file for file where it can — `vite.config.js` rooted at `src/`, `src/index.html`,
+`src/js/main.js`, `src/scss/styles.scss`, Bootstrap imported through bare specifiers, and
+`@floating-ui/dom` as a real dependency because v6 externalises positioning. Someone who has
+read Bootstrap's own guides should not have to learn a second layout to use a theme.
+
+Three deliberate divergences, each commented in the generated files: the package is declared
+`"type": "module"` (upstream's `__dirname` config earns a Vite 8 deprecation warning on every
+build); there is no `data-bs-theme` pinned on `<html>`, so the page follows the operating system
+and shows the theme in both schemes; and the page is the Theme Builder's own "A page" artboard
+rather than a minimal did-it-work page, so what you download looks like what you designed
+against.
+
+Pick `sass` for a theme you are going to hand to someone else, and `vite` if you are going to
+build an app with it. The same `vite` project is what
+[Open in StackBlitz](./theme-builder.md#open-in-stackblitz) sends to a sandbox — one generator,
+[`tools/lib/project.mjs`](../tools/lib/project.mjs), so the two cannot describe different
+projects.
 
 ### `import` — read a stylesheet back
 

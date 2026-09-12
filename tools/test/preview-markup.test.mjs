@@ -3,8 +3,11 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
 
-import { repoRoot } from '../lib/config.mjs'
+import { repoRoot, tokensDir } from '../lib/config.mjs'
 import { COMPONENTS } from '../lib/sass-targets.mjs'
+import { loadTree } from '../lib/load-fs.mjs'
+import { withOverrides } from '../lib/overrides.mjs'
+import { projectFiles } from '../lib/project.mjs'
 
 /*
  * The preview is a fidelity claim: "this is what your theme looks like on Bootstrap". It is
@@ -20,8 +23,18 @@ import { COMPONENTS } from '../lib/sass-targets.mjs'
  * The vendored stylesheet is the same one the preview loads, so this needs no checkout.
  */
 const vendor = readFileSync(join(repoRoot, 'web', 'vendor', 'bootstrap.css'), 'utf8')
-const preview = readFileSync(join(repoRoot, 'web', 'preview.js'), 'utf8')
 const previewHtml = readFileSync(join(repoRoot, 'web', 'preview.html'), 'utf8')
+
+/*
+ * The templates are in two files now. The page scenario moved to `tools/lib/sample-page.mjs`
+ * when the scaffold started drawing it too, and a check that stopped at `preview.js` would
+ * have gone quiet about the most realistic artboard there is — the one whose markup a
+ * generated project also ships.
+ */
+const preview = [
+  readFileSync(join(repoRoot, 'web', 'preview.js'), 'utf8'),
+  readFileSync(join(repoRoot, 'tools', 'lib', 'sample-page.mjs'), 'utf8')
+].join('\n')
 
 /** Every class Bootstrap's stylesheet mentions, escapes undone. */
 const defined = new Set(
@@ -39,7 +52,7 @@ const NOT_BOOTSTRAP = new Set([
   'card-title',
   'card-text',
   // The preview's own layout, defined in preview.html.
-  'preview-section', 'preview-row', 'preview-grid', 'preview-hero', 'preview-empty',
+  'preview-section', 'preview-row', 'preview-empty',
   'board', 'board-label', 'board-swatch', 'board-light', 'board-dark',
   'specimen', 'specimen-tall',
   'artboard', 'pane', 'pane-before', 'pane-after',
@@ -156,4 +169,30 @@ test('every component with tokens has something to look at', () => {
   })
 
   assert.deepEqual(unpreviewed.map((component) => component.name), [])
+})
+
+test('the scaffolded pages render only classes Bootstrap defines', () => {
+  /*
+   * The same fidelity claim as the preview's, for the pages someone downloads — and it had
+   * already failed once: the `sass` template's `index.html` carried `.lead`, which v6's
+   * migration guide removed, so the one paragraph meant to explain the project rendered as
+   * body copy in a page whose only job is to show a theme working.
+   *
+   * Worth asserting separately from the preview because the tempting source to copy from is
+   * stale in the same way: upstream's own `twbs/examples/vite` page on `v6-dev` still carries
+   * v5 names like `col-lg-8` and `align-items-md-center`, which v6 spells `lg:col-8` and
+   * `md:align-items-center`.
+   */
+  const { tree } = loadTree(tokensDir)
+  const doc = withOverrides(tree, {})
+
+  for (const [template, entry] of [['sass', 'index.html'], ['vite', 'src/index.html']]) {
+    const html = projectFiles({ doc, overrides: {}, name: 'Scaffold', version: 'test', template })[entry]
+
+    const unknown = [...classesIn(html)]
+      .filter((name) => !defined.has(name) && !NOT_BOOTSTRAP.has(name))
+      .sort()
+
+    assert.deepEqual(unknown, [], `${template}: these render unstyled in the project people download`)
+  }
 })

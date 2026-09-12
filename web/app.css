@@ -467,7 +467,10 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   color: light-dark(#7f1d1d, #fca5a5);
 }
 
-.export-actions { display: flex; gap: .5rem; padding: .625rem 1rem 1rem; }
+.export-actions { display: flex; flex-wrap: wrap; gap: .5rem; padding: .625rem 1rem .5rem; }
+
+.export-aside { margin: 0 1rem 1rem; font-size: .6875rem; color: var(--ink-faint); max-width: 78ch; }
+.export-aside code { font: .6875rem/1.5 var(--mono); background: var(--surface-sunken); padding: .0625rem .25rem; border-radius: 4px; }
 
 
 
