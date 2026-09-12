@@ -41,7 +41,7 @@ opened it:
 | | Labels | Who sets them |
 | --- | --- | --- |
 | **What it is** | `bug`, `feature` or `enhancement`, plus `documentation` or `accessibility` where they apply | whoever opens it |
-| **Where it stands** | `needs-triage`, then `ready-to-dev` | `needs-triage` on open; only a maintainer swaps it |
+| **Where it stands** | `needs-triage`, then `ready-to-dev` — or `upstream-raised` while a finding waits on Bootstrap | `needs-triage` on open; only a maintainer swaps it |
 | **Who opened it** | `ai-submitted` | the agent, on its own issues |
 | **Whose bug it is** | `upstream`, when the defect is in `twbs/bootstrap` rather than here | whoever opens it |
 
@@ -53,8 +53,8 @@ compiling it, resolving it, or measuring it in a browser, which is how all eight
 current ones ([#9](https://github.com/julien-deramond/bootstrap-tokens/issues/9)–[#16](https://github.com/julien-deramond/bootstrap-tokens/issues/16)) were found. It stays open here because the
 workaround, the `NOT_TOKENS` entry or the lint rule that copes with it lives in this
 repository and needs somewhere to point. Triage on one of these means deciding whether the
-evidence is strong enough to raise with `twbs/bootstrap` — and if it is raised, linking the
-upstream issue in a comment so the two stay connected.
+evidence is strong enough to raise with `twbs/bootstrap`; what happens after that is its own
+section below.
 
 The state labels are a gate, not decoration. **`needs-triage` means no human has read it and
 nobody should start work.** Triage is a person reading the issue, sharpening it until it
@@ -64,6 +64,38 @@ one carrying both is a mistake.
 
 The nightly drift latch is the exception: `upstream-drift` issues open and close themselves
 against one condition and are never triaged.
+
+### The life of an `upstream` finding
+
+An `upstream` issue outlives the fix it asks for, so it closes on *our* state rather than on
+Bootstrap's. Merging a patch there changes nothing here on its own: `tokens/` is generated
+from `twbs/bootstrap@v6-dev` and only moves when someone re-runs the sync, so until then the
+document still mirrors the broken value and the lint rule, `NOT_TOKENS` entry or exporter
+skip that copes with it is still in the tree — usually with the issue number written into it,
+the way [`tools/lib/flatten.mjs`](tools/lib/flatten.mjs) names #14 in the reason it gives for
+skipping a token.
+
+1. **Found here.** Opened with `upstream`, a type label and `needs-triage`, like any other
+   finding.
+2. **Raised there.** Triage decided the evidence holds, and a person — never an agent — opens
+   the issue or pull request on `twbs/bootstrap`. They then comment the link on ours, swap
+   `needs-triage` for `upstream-raised`, and correct whatever in the body the raising made
+   untrue. The issue is now blocked rather than available: it carries `upstream-raised` and
+   not `ready-to-dev`, which is the second exception to needing one of the two state labels.
+3. **Merged there.** Still nothing here automatically. The nightly drift latch notices that
+   `tokens/` no longer matches upstream and opens an `upstream-drift` issue; re-syncing is
+   ordinary work from there.
+4. **Cleared here.** Re-sync `tokens/`, remove whatever existed only because of the defect,
+   and rebuild. A guard worth keeping on its own merits — the `color-mix()` weight rule
+   catches any bare weight, not only the four in `_navbar.scss` — stays, but the issue number
+   baked into it is replaced by a sentence, because the issue is about to close.
+5. **Closed.** From the pull request that does step 4, with `Closes #N`. The test is whether
+   anything in the tree still points at the issue, not whether the upstream pull request went
+   green.
+
+If upstream declines the fix, the issue loses `upstream-raised` and stays open with a comment
+saying so. The workaround has become permanent, and the issue is where a reader finds out why
+it exists.
 
 ### If you are an AI agent
 

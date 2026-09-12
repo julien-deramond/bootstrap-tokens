@@ -11,6 +11,13 @@ comment, not a paragraph at the end of an answer. Never open an issue on `twbs/b
 any other repository — if the bug is upstream, open it here with the `upstream` label, say
 plainly that the fix belongs to Bootstrap, and let a human decide whether to carry it over.
 
+An `upstream` issue closes when *this* repository stops carrying the defect, not when
+Bootstrap merges the fix — `tokens/` only moves when someone re-runs the sync, and the lint
+rule or exporter skip that copes with the value usually names the issue number. Raising a
+finding upstream is a human's job; it swaps `needs-triage` for `upstream-raised`, and the
+issue stays open and unavailable until the sync lands and the workaround goes. The full
+lifecycle is in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+
 Label every issue you open with:
 
 * `ai-submitted` — you opened it;
