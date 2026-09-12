@@ -29,7 +29,7 @@ export function cssDeclarations(doc) {
     // A map upstream never includes emits nothing upstream, and must emit nothing here:
     // `$drawer-backdrop-tokens` sets `--drawer-backdrop-bg: var(--bg-body)`, which written
     // out lands after `$drawer-tokens`' `color-mix(… 25%, transparent)` and makes the
-    // backdrop fully opaque. See BACKLOG U8.
+    // backdrop fully opaque. See issue #16.
     if (component?.inert) continue
 
     for (const entry of entries) {

@@ -33,12 +33,12 @@ export const NOT_TOKENS = {
    * Declared in scss/mixins/, which scss/bootstrap.scss does not @forward. They carry
    * !default, so they look configurable, but no consumer can reach them through the
    * documented entrypoint. Modelling them would produce an export that fails to compile.
-   * Raised as backlog item U1 — this is an upstream gap, not one of ours.
+   * Tracked as issue #9 — this is an upstream gap, not one of ours.
    */
-  '$caret-width': 'In scss/mixins/, which bootstrap.scss does not forward. See BACKLOG U1.',
-  '$caret-spacing': 'In scss/mixins/, which bootstrap.scss does not forward. See BACKLOG U1.',
-  '$caret-vertical-align': 'In scss/mixins/, which bootstrap.scss does not forward. See BACKLOG U1.',
-  '$transition-base': 'In scss/mixins/, which bootstrap.scss does not forward. See BACKLOG U1.',
+  '$caret-width': 'In scss/mixins/, which bootstrap.scss does not forward. See issue #9.',
+  '$caret-spacing': 'In scss/mixins/, which bootstrap.scss does not forward. See issue #9.',
+  '$caret-vertical-align': 'In scss/mixins/, which bootstrap.scss does not forward. See issue #9.',
+  '$transition-base': 'In scss/mixins/, which bootstrap.scss does not forward. See issue #9.',
 
   /*
    * Build configuration that is deliberately *not* modelled, even as an option. These are

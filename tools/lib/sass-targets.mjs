@@ -108,7 +108,7 @@ export const COMPONENTS = [
   // `inert`: upstream defines the map and never `@include`s it, so none of its values ever
   // reach CSS. Kept because `@use … with ()` still accepts it and a maintainer editing the
   // sources needs to see it — but skipped when emitting CSS, since upstream emits nothing.
-  // See BACKLOG U8.
+  // See issue #16.
   { name: 'drawer-backdrop', sassMap: '$drawer-backdrop-tokens', file: 'scss/_drawer.scss', selector: '.drawer', variantOf: 'drawer', inert: true },
   { name: 'fade', sassMap: '$fade-tokens', file: 'scss/_transitions.scss', selector: '.fade' },
   { name: 'figure', sassMap: '$figure-tokens', file: 'scss/content/_images.scss', selector: '.figure' },

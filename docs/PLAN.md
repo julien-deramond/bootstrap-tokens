@@ -39,7 +39,7 @@ with a reason. Coverage is now **64/64** token maps and **0** unaccounted surfac
 
 Finding along the way: `$caret-*` and `$transition-base` carry `!default` but live in
 `scss/mixins/`, which `bootstrap.scss` does not forward — they are not configurable through
-the documented entrypoint at all. See [`BACKLOG.md`](./BACKLOG.md) U1.
+the documented entrypoint at all. See [issue #9](https://github.com/julien-deramond/bootstrap-tokens/issues/9).
 
 The classification that came out of it:
 
@@ -185,7 +185,7 @@ matches the compiled value, **at the selector it is declared on**. That last par
 comparing by property name alone gives false failures, because upstream re-declares some
 properties under `[data-bs-theme]`.
 
-It found a real bug on its first run — see [`BACKLOG.md`](./BACKLOG.md) U4. `--shadow-strength`
+It found a real bug on its first run — see [issue #12](https://github.com/julien-deramond/bootstrap-tokens/issues/12). `--shadow-strength`
 is pinned by upstream at `[data-bs-theme="light"]` as well as for dark, so a token override
 never reached any page with an explicit theme, including this tool's own preview. The
 `fixedDark` extension generalised to `pinnedModes`, the runtime CSS re-asserts at every

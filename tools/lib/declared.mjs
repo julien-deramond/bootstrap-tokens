@@ -39,7 +39,7 @@ export async function compileUpstream(source) {
  *
  * Nothing they contain reaches CSS, so configuring one does nothing at all — silently, which
  * is the worst way for a documented configuration point to fail. Two of Bootstrap's sixty-two
- * are like this today; see BACKLOG U8.
+ * are like this today; see issue #16.
  */
 export function includedMaps(source) {
   const scss = join(source, 'scss')

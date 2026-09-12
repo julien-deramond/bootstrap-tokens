@@ -30,9 +30,10 @@ npm run web        # the Theme Builder, on http://localhost:4000
 
 Work is tracked as GitHub issues on
 [`julien-deramond/bootstrap-tokens`](https://github.com/julien-deramond/bootstrap-tokens/issues)
-— this repository, never `twbs/bootstrap`. Findings *about* Bootstrap 6 are written up in
-[`docs/BACKLOG.md`](docs/BACKLOG.md) and raised upstream by the maintainer; everything that
-is ours to fix is an issue here.
+— this repository, never `twbs/bootstrap`. That includes findings *about* Bootstrap 6: they
+are opened here with the `upstream` label, and a maintainer decides at triage whether to
+carry them to `twbs/bootstrap`. Nobody files on another project's tracker on this project's
+behalf.
 
 Every issue carries a type label and a state label, plus `ai-submitted` when a machine
 opened it:
@@ -42,9 +43,18 @@ opened it:
 | **What it is** | `bug`, `feature` or `enhancement`, plus `documentation` or `accessibility` where they apply | whoever opens it |
 | **Where it stands** | `needs-triage`, then `ready-to-dev` | `needs-triage` on open; only a maintainer swaps it |
 | **Who opened it** | `ai-submitted` | the agent, on its own issues |
+| **Whose bug it is** | `upstream`, when the defect is in `twbs/bootstrap` rather than here | whoever opens it |
 
 `bug` is something that does not work. `feature` is a capability that does not exist yet.
 `enhancement` is something that already exists working better.
+
+An `upstream` issue is a finding about Bootstrap that this pipeline surfaced — usually by
+compiling it, resolving it, or measuring it in a browser, which is how all eight of the
+current ones ([#9](https://github.com/julien-deramond/bootstrap-tokens/issues/9)–[#16](https://github.com/julien-deramond/bootstrap-tokens/issues/16)) were found. It stays open here because the
+workaround, the `NOT_TOKENS` entry or the lint rule that copes with it lives in this
+repository and needs somewhere to point. Triage on one of these means deciding whether the
+evidence is strong enough to raise with `twbs/bootstrap` — and if it is raised, linking the
+upstream issue in a comment so the two stay connected.
 
 The state labels are a gate, not decoration. **`needs-triage` means no human has read it and
 nobody should start work.** Triage is a person reading the issue, sharpening it until it
@@ -59,12 +69,12 @@ against one condition and are never triaged.
 
 Read this as instructions, not as background.
 
-* **Noticed something? Open an issue.** Not a line appended to `docs/BACKLOG.md`, not a
-  `TODO` comment, not a remark at the end of an answer that scrolls out of view.
-  `docs/BACKLOG.md` is the maintainer's log of findings about upstream and a record of what
-  has already been dealt with here; it is not where new work goes.
+* **Noticed something? Open an issue.** Not a note in a markdown file, not a `TODO` comment,
+  not a remark at the end of an answer that scrolls out of view. There is no backlog file to
+  append to, deliberately.
 * **This repository only.** Never open an issue on `twbs/bootstrap`, however clearly the bug
-  belongs to them — say so in the issue here and let a human carry it upstream.
+  belongs to them. Open it here with the `upstream` label, say plainly that the fix belongs
+  to Bootstrap, and let a human decide whether to carry it over.
 * **Label it `ai-submitted`, exactly one type label, and `needs-triage`.** Never put
   `ready-to-dev` on your own issue. That label is the human's signal; applying it yourself
   removes the only gate in this workflow.
@@ -165,10 +175,11 @@ your own, never enable auto-merge, and never push to `main` directly.
   when `v6-dev` moves. Re-syncing, reviewing the diff and rebuilding is the routine.
 * **Unmodelled surface.** `sync --check` also fails when upstream offers a configurable
   variable the document neither models nor lists in `NOT_TOKENS` with a reason.
-* **Findings about upstream.** If the pipeline surfaces a real Bootstrap bug, write it up in
-  [`docs/BACKLOG.md`](docs/BACKLOG.md) with the evidence that convinced you — a compile, a
-  diff, or a measurement in a browser. Several are worth raising with `twbs/bootstrap`
-  directly. Anything that is ours to fix is an issue here instead.
+* **Findings about upstream.** If the pipeline surfaces a real Bootstrap bug, open an issue
+  labelled [`upstream`](https://github.com/julien-deramond/bootstrap-tokens/issues?q=is%3Aissue+label%3Aupstream) with the evidence that convinced
+  you — a compile, a diff, or a measurement in a browser. Evidence is the whole value of
+  these: several are worth raising with `twbs/bootstrap`, and none of them survives contact
+  with a maintainer there without it.
 
 Everything else that needs doing is an [open issue](https://github.com/julien-deramond/bootstrap-tokens/issues?q=is%3Aissue+is%3Aopen+label%3Aready-to-dev)
 — `ready-to-dev` is the list of what is actually free to pick up.

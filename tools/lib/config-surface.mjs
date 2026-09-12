@@ -258,7 +258,7 @@ export function changedOptions(base, current) {
  * The size options need converting. `defaults()` turns its *defaults* argument from a list
  * into a map, but never touches the override — so passing `("sm", "lg")` back reaches
  * `map.merge(map, list)` and fails to compile. Emitting the map form that `defaults()` would
- * have produced is equivalent and actually works. See docs/BACKLOG.md U5.
+ * have produced is equivalent and actually works. See issue #13.
  */
 export function renderOption(name, entry) {
   const option = optionByName.get(name)

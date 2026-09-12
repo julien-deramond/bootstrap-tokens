@@ -134,7 +134,7 @@ A static page with no build step and no dependencies. `npm run web`.
 
 ## What this pipeline found in Bootstrap
 
-Eight findings, each with the measurement that produced it, in
-[`BACKLOG.md`](./BACKLOG.md) under **U1**–**U8**. None is visible by reading the Sass. They
-are the strongest argument that modelling a system precisely enough to re-emit it is worth
-doing.
+Eight findings, each with the measurement that produced it, are open as issues labelled
+[`upstream`](https://github.com/julien-deramond/bootstrap-tokens/issues?q=is%3Aissue+label%3Aupstream) — [#9](https://github.com/julien-deramond/bootstrap-tokens/issues/9) to [#16](https://github.com/julien-deramond/bootstrap-tokens/issues/16). None is
+visible by reading the Sass. They are the strongest argument that modelling a system
+precisely enough to re-emit it is worth doing.
