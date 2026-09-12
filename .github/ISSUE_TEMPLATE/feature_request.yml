@@ -1,0 +1,36 @@
+name: Feature
+description: A capability that does not exist yet.
+labels: ["feature", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Every issue opens as **needs-triage**. A maintainer swaps that for **ready-to-dev**
+        once it is specified well enough to work on — see
+        [CONTRIBUTING.md](https://github.com/julien-deramond/bootstrap-tokens/blob/main/CONTRIBUTING.md#issues-and-triage).
+
+  - type: textarea
+    id: problem
+    attributes:
+      label: The problem
+      description: What someone cannot do today, and who that someone is.
+    validations:
+      required: true
+
+  - type: textarea
+    id: proposal
+    attributes:
+      label: Proposal
+      description: >-
+        What you think should exist. Name the files or the commands it would touch if you
+        already know them.
+    validations:
+      required: true
+
+  - type: textarea
+    id: scope
+    attributes:
+      label: Out of scope / open questions
+      description: What this deliberately does not cover, and what still needs deciding.
+    validations:
+      required: false
