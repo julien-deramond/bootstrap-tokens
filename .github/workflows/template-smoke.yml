@@ -7,12 +7,22 @@ name: Scaffold smoke test
 #
 # Weekly and on demand rather than on every push: it downloads a ~28 MB tarball and a Vite
 # toolchain, and nothing about it is the reviewer's business on an unrelated change. It does
-# run on a push that touches the generator, because that is the change that breaks it.
+# run on a change that touches the generator, on the branch and again on main, because that is
+# the change that breaks it — and a template that stopped installing is worth knowing about
+# while the diff is still open rather than after it lands.
 on:
   schedule:
     - cron: '41 5 * * 1'
+  # Listed twice rather than shared through a YAML anchor: GitHub's workflow parser does not
+  # expand aliases, so an anchor here would silently mean "every path".
   push:
     branches: [main]
+    paths:
+      - 'tools/lib/project.mjs'
+      - 'tools/lib/sample-page.mjs'
+      - 'tools/commands/init.mjs'
+      - '.github/workflows/template-smoke.yml'
+  pull_request:
     paths:
       - 'tools/lib/project.mjs'
       - 'tools/lib/sample-page.mjs'
