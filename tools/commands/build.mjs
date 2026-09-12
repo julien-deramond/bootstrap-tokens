@@ -6,7 +6,7 @@ import { cssLiteral } from '../lib/value.mjs'
 import { loadTokens, loadTree } from '../lib/load-fs.mjs'
 import { emitTokensModule, emitUseWith, mapEntries } from '../lib/emit-scss.mjs'
 import { emitTypeScript, emitStyleDictionary, emitTokensStudio } from '../lib/emit-consumers.mjs'
-import { tokensDir, buildDir, repoRoot } from '../lib/config.mjs'
+import { tokensDir, repoRoot } from '../lib/config.mjs'
 import { COMPONENTS } from '../lib/sass-targets.mjs'
 
 /** The Bootstrap version the token document was extracted from. */
@@ -100,44 +100,53 @@ function emitResolvedJson(doc) {
   return `${JSON.stringify(out, null, 2)}\n`
 }
 
-export async function build({ flags }) {
+/**
+ * Everything `build` emits, as repository-relative path → file content, without touching
+ * the disk. Separate from the writing so `validate --check` can generate the same bytes and
+ * compare them against what is committed; the two must stay one code path, or the check
+ * would pass on output the build would not have produced.
+ */
+export async function buildOutputs({ importPath = 'bootstrap/scss/bootstrap' } = {}) {
   const doc = loadTokens(tokensDir)
   const version = sourceVersion()
-  const importPath = flags.import ?? 'bootstrap/scss/bootstrap'
 
   const outputs = {
-    'scss/_tokens.scss': emitTokensModule(doc, { version }),
-    'scss/bootstrap-custom.scss': emitUseWith(doc, { version, importPath }),
-    'css/tokens.css': emitCss(doc),
-    'json/tokens.resolved.json': emitResolvedJson(doc)
+    'build/scss/_tokens.scss': emitTokensModule(doc, { version }),
+    'build/scss/bootstrap-custom.scss': emitUseWith(doc, { version, importPath }),
+    'build/css/tokens.css': emitCss(doc),
+    'build/json/tokens.resolved.json': emitResolvedJson(doc)
   }
 
   // The web chooser loads the unexpanded tree and runs the very same resolver in the browser.
-  outputs['json/tokens.tree.json'] = `${JSON.stringify(loadTree(tokensDir).tree)}\n`
+  outputs['build/json/tokens.tree.json'] = `${JSON.stringify(loadTree(tokensDir).tree)}\n`
 
   // Three more shapes, for consumers that are not Sass. See tools/lib/emit-consumers.mjs
   // for why each is different rather than one export renamed three times.
   for (const [file, content] of Object.entries(emitTypeScript(doc, { version }))) {
-    outputs[`ts/${file}`] = content
+    outputs[`build/ts/${file}`] = content
   }
   for (const [file, content] of Object.entries(emitStyleDictionary(doc, { version }))) {
-    outputs[`style-dictionary/${file}`] = content
+    outputs[`build/style-dictionary/${file}`] = content
   }
   for (const [file, content] of Object.entries(emitTokensStudio(doc, { version }))) {
-    outputs[`figma/${file}`] = content
-  }
-
-  for (const [relative, content] of Object.entries(outputs)) {
-    const path = join(buildDir, relative)
-    mkdirSync(join(path, '..'), { recursive: true })
-    writeFileSync(path, content)
-    console.log(`  ${String(content.length).padStart(8)} B  build/${relative}`)
+    outputs[`build/figma/${file}`] = content
   }
 
   const { emitInventory } = await import('../lib/emit-docs.mjs')
-  const inventory = join(repoRoot, 'docs', 'token-inventory.md')
-  writeFileSync(inventory, emitInventory(doc, { version }))
-  console.log(`  ${String(0).padStart(8)} -  docs/token-inventory.md`)
+  outputs['docs/token-inventory.md'] = emitInventory(doc, { version })
+
+  return { doc, version, outputs }
+}
+
+export async function build({ flags }) {
+  const { doc, version, outputs } = await buildOutputs({ importPath: flags.import })
+
+  for (const [relative, content] of Object.entries(outputs)) {
+    const path = join(repoRoot, relative)
+    mkdirSync(join(path, '..'), { recursive: true })
+    writeFileSync(path, content)
+    console.log(`  ${String(content.length).padStart(8)} B  ${relative}`)
+  }
 
   console.log(`\nBuilt ${doc.tokens.size} tokens for Bootstrap ${version}.`)
   return 0

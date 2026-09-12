@@ -67,6 +67,22 @@ test('validate runs and reports the upstream findings', async () => {
   assert.match(out, /upstream finding/)
 })
 
+test('validate --check sees the committed build output as current', async () => {
+  const { code, out } = await run('validate', { check: true })
+  assert.equal(code, 0)
+  assert.match(out, /build\/ and docs\/token-inventory\.md match/)
+})
+
+test('validate --check names what is stale, in CI\'s words', async () => {
+  // A different --import changes one generated file and nothing else, which is a stale
+  // build/ without having to write over the repository's own to produce one.
+  const { code, out } = await run('validate', { check: true, import: 'somewhere/else' })
+  assert.equal(code, 1)
+  assert.match(out, /stale\s+build\/scss\/bootstrap-custom\.scss/)
+  // The same sentence the CI step prints, so the fix reads identically either way.
+  assert.match(out, /Run `npm run build` and commit the result\./)
+})
+
 test('report runs, in each format', async () => {
   for (const [format, pattern] of [
     ['md', /# Contrast report — Smoke/],
