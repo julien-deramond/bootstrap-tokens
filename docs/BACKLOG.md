@@ -8,6 +8,12 @@
 Things noticed while working, that were not worth stopping for. Companion to
 [`PLAN.md`](./PLAN.md), which holds the deliberate plan; this holds what fell out of doing it.
 
+**New findings do not get appended here.** Anything that is ours to fix is opened as a
+GitHub issue — see [Issues and triage](../CONTRIBUTING.md#issues-and-triage) for the labels
+and who moves them. What remains in this file is the **U** series, findings about
+`twbs/bootstrap` that are raised upstream rather than fixed here, and the **P** series kept
+as a record of what was already dealt with.
+
 Each entry says what it is, why it matters, and what it would take. An entry with no
 consequence stated is a note, not a task, and should be deleted rather than carried.
 

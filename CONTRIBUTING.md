@@ -26,6 +26,105 @@ npm run verify     # our export compiles to the same CSS as upstream
 npm run web        # the Theme Builder, on http://localhost:4000
 ```
 
+## Issues and triage
+
+Work is tracked as GitHub issues on
+[`julien-deramond/bootstrap-tokens`](https://github.com/julien-deramond/bootstrap-tokens/issues)
+— this repository, never `twbs/bootstrap`. Findings *about* Bootstrap 6 are written up in
+[`docs/BACKLOG.md`](docs/BACKLOG.md) and raised upstream by the maintainer; everything that
+is ours to fix is an issue here.
+
+Every issue carries a type label and a state label, plus `ai-submitted` when a machine
+opened it:
+
+| | Labels | Who sets them |
+| --- | --- | --- |
+| **What it is** | `bug`, `feature` or `enhancement`, plus `documentation` or `accessibility` where they apply | whoever opens it |
+| **Where it stands** | `needs-triage`, then `ready-to-dev` | `needs-triage` on open; only a maintainer swaps it |
+| **Who opened it** | `ai-submitted` | the agent, on its own issues |
+
+`bug` is something that does not work. `feature` is a capability that does not exist yet.
+`enhancement` is something that already exists working better.
+
+The state labels are a gate, not decoration. **`needs-triage` means no human has read it and
+nobody should start work.** Triage is a person reading the issue, sharpening it until it
+could be handed to a stranger, and replacing `needs-triage` with `ready-to-dev` — or closing
+it. Only a maintainer makes that swap. An issue carrying neither state label is an oversight;
+one carrying both is a mistake.
+
+The nightly drift latch is the exception: `upstream-drift` issues open and close themselves
+against one condition and are never triaged.
+
+### If you are an AI agent
+
+Read this as instructions, not as background.
+
+* **Noticed something? Open an issue.** Not a line appended to `docs/BACKLOG.md`, not a
+  `TODO` comment, not a remark at the end of an answer that scrolls out of view.
+  `docs/BACKLOG.md` is the maintainer's log of findings about upstream and a record of what
+  has already been dealt with here; it is not where new work goes.
+* **This repository only.** Never open an issue on `twbs/bootstrap`, however clearly the bug
+  belongs to them — say so in the issue here and let a human carry it upstream.
+* **Label it `ai-submitted`, exactly one type label, and `needs-triage`.** Never put
+  `ready-to-dev` on your own issue. That label is the human's signal; applying it yourself
+  removes the only gate in this workflow.
+* **Write it for a person.** Prose a maintainer can read in a minute, not a transcript of how
+  you arrived there. No invented certainty: if you did not compile it, say you did not.
+* **Only pick up `ready-to-dev`.** When asked to take available work, that label is the whole
+  of what is available. An issue sitting in `needs-triage` is not available however obvious
+  the fix looks — report it as waiting on triage instead of starting it.
+* **Say when you start and when you stop.** Comment on the issue as you take it, and close it
+  from the pull request with `Closes #N` rather than by hand.
+* **One issue per thing.** Check the open list before opening a near-duplicate.
+
+Opening one:
+
+```bash
+gh issue create \
+  --title "sync --check misses variables declared inside @if" \
+  --label ai-submitted --label bug --label needs-triage \
+  --body-file /tmp/issue.md
+```
+
+Use `--body-file` rather than `--body`: a body worth reading is several paragraphs long and
+survives a file intact.
+
+Finding work:
+
+```bash
+gh issue list --label ready-to-dev --state open
+```
+
+### What "enough detail to implement" means
+
+The test is whether a contributor who was not in the conversation could do the work. So the
+body covers, in whatever order reads best:
+
+* **What is wrong or missing**, in a sentence, before any detail.
+* **Why it matters** — the consequence. A finding with no consequence is a note, not an
+  issue, and should not be filed.
+* **Evidence** — the command and its output, the diff, the measurement in a browser. This is
+  what separates a real finding from a plausible-sounding one.
+* **Where it lives** — the files, functions or tokens involved, as paths.
+* **A proposed change**, with its trade-off if there is a choice to make. Being wrong here is
+  fine and useful; being vague is not.
+* **How we would know it is done** — the check that fails today and passes afterwards.
+* **What is out of scope**, when the obvious reading of the title is broader than the issue.
+
+### If you are a maintainer
+
+Triage is the only step that cannot be delegated to a machine here. For each `needs-triage`
+issue: decide it is real, make the body good enough to hand over, then
+
+```bash
+gh issue edit 42 --remove-label needs-triage --add-label ready-to-dev
+```
+
+Anything you open yourself is already triaged — label it `ready-to-dev` directly, or leave
+the state off and it will be understood as yours. Closing with `wontfix`, `duplicate` or
+`invalid` is a triage outcome like any other, and an `ai-submitted` issue that is not worth
+keeping should be closed without ceremony.
+
 ## Before opening a pull request
 
 CI runs `validate`, `sync --check`, `test`, `build`, the contrast audit, `verify` and
@@ -42,6 +141,24 @@ Two things catch people out:
   the extractor in `tools/lib/` and re-run `npm run sync`, or the next sync silently reverts
   you. Deliberate deviations belong in the curation layer, not in the output.
 
+### What a pull request looks like
+
+Work happens on a branch and lands through a pull request — no direct pushes to `main`, so
+CI has a chance to fail before the Theme Builder redeploys.
+
+* **Title:** the same conventional-ish prefix as the commits (`fix:`, `feat:`, `docs:`,
+  `test:`, `ci:`), saying what changed for a reader.
+* **Description:** written for the person reviewing it, in prose. What changed and why, what
+  it affects that is not obvious from the diff, how you verified it, and what you deliberately
+  left out. A reviewer should not have to reconstruct your reasoning from the files.
+  `Closes #42` if it finishes an issue, so the issue closes itself on merge.
+* **Labels:** the same type label as the issue it closes — `bug`, `feature`, `enhancement`,
+  `documentation`, `accessibility` — plus `ai-submitted` if an agent wrote it. The triage
+  labels are for issues and never go on a pull request.
+
+Agents: open the pull request, then stop and ask the maintainer to review it. Never merge
+your own, never enable auto-merge, and never push to `main` directly.
+
 ## What tends to need doing
 
 * **Upstream drift.** `npm run sync -- --check` reports it; a nightly workflow opens an issue
@@ -51,11 +168,13 @@ Two things catch people out:
 * **Findings about upstream.** If the pipeline surfaces a real Bootstrap bug, write it up in
   [`docs/BACKLOG.md`](docs/BACKLOG.md) with the evidence that convinced you — a compile, a
   diff, or a measurement in a browser. Several are worth raising with `twbs/bootstrap`
-  directly.
+  directly. Anything that is ours to fix is an issue here instead.
 
+Everything else that needs doing is an [open issue](https://github.com/julien-deramond/bootstrap-tokens/issues?q=is%3Aissue+is%3Aopen+label%3Aready-to-dev)
+— `ready-to-dev` is the list of what is actually free to pick up.
 [`docs/PLAN.md`](docs/PLAN.md) records what the maintainer thinks is wrong and what comes
-next; it is the honest version of a roadmap and a reasonable place to look for something to
-pick up.
+next; it is the honest version of a roadmap, and the place ideas live before they are
+specific enough to be an issue.
 
 ## Style
 

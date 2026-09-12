@@ -1,0 +1,9 @@
+# Blank issues stay on: a maintainer opening one is already past triage, and agents use
+# `gh issue create` with explicit labels rather than these forms.
+blank_issues_enabled: true
+contact_links:
+  - name: A bug in Bootstrap itself
+    url: https://github.com/twbs/bootstrap/issues
+    about: >-
+      Findings about twbs/bootstrap@v6-dev belong upstream. Open one here as well if the
+      pipeline has to work around it, and link the two.

@@ -1,0 +1,46 @@
+name: Bug report
+description: Something in the tokens, the tooling or the Theme Builder is wrong.
+labels: ["bug", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Every issue opens as **needs-triage**. A maintainer swaps that for **ready-to-dev**
+        once it is specified well enough to work on — see
+        [CONTRIBUTING.md](https://github.com/julien-deramond/bootstrap-tokens/blob/main/CONTRIBUTING.md#issues-and-triage).
+
+  - type: textarea
+    id: what
+    attributes:
+      label: What happens
+      description: What you saw, and what you expected instead.
+    validations:
+      required: true
+
+  - type: textarea
+    id: repro
+    attributes:
+      label: How to reproduce
+      description: >-
+        Commands, a token override, or the steps in the Theme Builder. Paste the output.
+      render: shell
+    validations:
+      required: true
+
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: >-
+        What convinced you it is real - a compile, a diff, a measurement in a browser.
+        Claims about Sass that were never compiled tend not to survive.
+    validations:
+      required: false
+
+  - type: input
+    id: version
+    attributes:
+      label: Version
+      description: Commit of this repo, and of the `twbs/bootstrap@v6-dev` checkout you built against.
+    validations:
+      required: false

@@ -1,0 +1,34 @@
+name: Enhancement
+description: Something that exists should work better.
+labels: ["enhancement", "needs-triage"]
+body:
+  - type: markdown
+    attributes:
+      value: >-
+        Every issue opens as **needs-triage**. A maintainer swaps that for **ready-to-dev**
+        once it is specified well enough to work on — see
+        [CONTRIBUTING.md](https://github.com/julien-deramond/bootstrap-tokens/blob/main/CONTRIBUTING.md#issues-and-triage).
+
+  - type: textarea
+    id: today
+    attributes:
+      label: How it behaves today
+      description: The current behaviour, and where it lives.
+    validations:
+      required: true
+
+  - type: textarea
+    id: better
+    attributes:
+      label: What would be better
+      description: The change, and what it buys whoever hits this.
+    validations:
+      required: true
+
+  - type: textarea
+    id: risk
+    attributes:
+      label: What it might break
+      description: Committed `build/` output, the export contract, the Theme Builder - say if you know.
+    validations:
+      required: false
