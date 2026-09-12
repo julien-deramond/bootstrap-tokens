@@ -30,6 +30,12 @@
   <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT licence"></a>
 </p>
 
+<p align="center">
+  <a href="https://julien-deramond.github.io/bootstrap-tokens/">
+    <img src="media/theme-builder.png" alt="The Bootstrap Theme Builder: eight design controls on the left, real Bootstrap components re-theming in light and dark on the right" width="100%">
+  </a>
+</p>
+
 ## Table of contents
 
 - [What this is](#what-this-is)
