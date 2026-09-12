@@ -44,6 +44,31 @@ re-set after the merge. Change them through their owning map (`$spacers`, `$radi
 `$font-sizes`, `$theme-colors`). The exporter already routes them correctly;
 [`tools/lib/sass-targets.mjs`](../tools/lib/sass-targets.mjs) is where that knowledge lives.
 
+### One `@use`, not a list of partials
+
+Upstream's own Vite example writes the *split* form: `@use "bootstrap/scss/config" with (…)`,
+then `functions`, then `theme`, then a hand-picked list of component partials with the unused
+ones commented out. This exporter writes the single form —
+`@use "bootstrap/scss/bootstrap" with (…)` — everywhere: the `custom.scss` tab, the
+`bstokens init` scaffold, and the project Open in StackBlitz sends. That is a decision, not an
+oversight, so it is written down here.
+
+Both compile, and to the same thing: `bstokens verify` proves our configuration reproduces
+upstream's own entrypoint byte for byte. The split form's advantage is size — you ship only the
+components you use. Its cost is that the file becomes a manifest you have to maintain, with
+ordering rules in it (`drawer` requires `transitions`, `navbar` requires `nav`), and getting it
+wrong fails at build time in a way that reads like a Bootstrap bug.
+
+The single form is the honest default here because of what this tool produces: a *theme*, whose
+values reach across the whole system. Someone who has changed `$radius` and `$theme-colors` has
+changed every component, and handing them a file that silently omits half of those components
+would make the export narrower than the preview they approved. A theme that compiles everything
+and a preview that shows everything are the same claim.
+
+Emitting the split form — with the components a theme does not touch commented out — is a
+reasonable later feature. It is a different one: it needs to know which components a theme
+actually reaches, and it has to get the ordering right on its own.
+
 ## The dividing line: runtime or resolved
 
 Bootstrap v6 computes its palette in the browser. `color.blue.100` is not a hex value, it is

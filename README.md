@@ -79,11 +79,15 @@ tokens/  (DTCG, source of truth)  ──build──▶  Sass maps · CSS custom 
 **Design a theme** in the [Theme Builder](https://julien-deramond.github.io/bootstrap-tokens/). Nothing to
 install — it runs in the browser, and every push to `main` redeploys it.
 
-**Start a project** from a theme it exported:
+**Start a project** from a theme it exported — or skip the terminal entirely and press
+*Open in StackBlitz* in the export dialog, which boots the same project in a browser tab:
 
 ```bash
 npx bstokens init my-theme --theme theme.json
 cd my-theme && npm install && npm run watch
+
+npx bstokens init my-app --theme theme.json --template vite   # Vite, with Bootstrap's JS
+cd my-app && npm install && npm start
 ```
 
 **Or just consume the tokens** — see [using the tokens](#using-the-tokens).
@@ -185,7 +189,7 @@ npx bstokens verify     # compile upstream vs. our export, diff the CSS
 npx bstokens sync       # re-extract from a v6-dev checkout into tokens/
 npx bstokens validate   # references, cycles, layer direction, DTCG shape
 npx bstokens report     # contrast and colour vision, as Markdown, HTML or JSON
-npx bstokens init       # scaffold a project that compiles a theme
+npx bstokens init       # scaffold a project that compiles a theme (--template sass|vite)
 npx bstokens import     # read an existing custom.scss back into a theme.json
 npx bstokens eject      # write the tokens into v6-dev's own Sass sources (maintainers)
 ```

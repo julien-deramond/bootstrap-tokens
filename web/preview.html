@@ -251,11 +251,12 @@
       .swatch-row > span { font-size: .6875rem; color: var(--fg-3); }
 
       /* --- page scenario --- */
-      .preview-hero { padding-block: .5rem 1.25rem; }
-      .preview-hero h1 { margin-block-end: .5rem; }
-      .preview-hero .lead { max-inline-size: 46ch; }
-      .preview-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(9rem, 1fr)); gap: .75rem; }
-      .preview-grid .card { max-width: none; }
+      /* The page scenario is shared with the project `bstokens init` writes, so it lays
+         itself out with Bootstrap's own rows and utilities rather than with chrome defined
+         here. The one thing it still needs undone is the card cap above, which exists so a
+         lone card in the gallery does not stretch across the artboard; in a three-column
+         row it would stop the cards filling their columns. */
+      .preview-section[data-section="page"] .card { max-width: none; }
 
       /* --- states scenario --- */
       .state-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(13rem, 1fr)); gap: 1rem; }

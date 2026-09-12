@@ -64,6 +64,10 @@ const USAGE = `bstokens <command> [options]
   init       Scaffold a project that compiles a theme, so the only step left is npm install
              <dir>          where to write it (default ./bootstrap-theme)
              --theme <f>    a theme.json exported from the chooser
+             --template <t> sass (default) — the sass CLI compiling custom.scss
+                            vite          — Vite compiling Bootstrap's source Sass, with
+                                            working drawer/menu/popover, the shape
+                                            twbs/examples uses
              --name <n>     the project name
              --force        write into a non-empty directory
              --bootstrap    the dependency spec (default: the v6-dev branch, since v6 is

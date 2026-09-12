@@ -1,0 +1,96 @@
+name: Scaffold smoke test
+
+# The `vite` template names dependencies this repository does not have — vite, sass,
+# @floating-ui/dom and Bootstrap's `v6-dev` branch — so nothing in the ordinary test run can
+# tell you it still installs and builds. Unit tests assert the file map; only an install
+# proves the project.
+#
+# Weekly and on demand rather than on every push: it downloads a ~28 MB tarball and a Vite
+# toolchain, and nothing about it is the reviewer's business on an unrelated change. It does
+# run on a push that touches the generator, because that is the change that breaks it.
+on:
+  schedule:
+    - cron: '41 5 * * 1'
+  push:
+    branches: [main]
+    paths:
+      - 'tools/lib/project.mjs'
+      - 'tools/lib/sample-page.mjs'
+      - 'tools/commands/init.mjs'
+      - '.github/workflows/template-smoke.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  scaffold:
+    name: init --template ${{ matrix.template }}
+    runs-on: ubuntu-latest
+
+    strategy:
+      # One template failing should not hide the state of the other.
+      fail-fast: false
+      matrix:
+        template: [sass, vite]
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # A theme with overrides in it, not stock Bootstrap: the thing being checked is that
+      # the values survive all the way into the compiled stylesheet, and stock defaults would
+      # pass that check while carrying nothing.
+      - name: Write a theme
+        run: |
+          cat > /tmp/theme.json <<'JSON'
+          {
+            "format": "bootstrap-tokens-theme@1",
+            "name": "Smoke",
+            "overrides": {
+              "radius.base": { "value": ".5rem" },
+              "color.blue.base": { "value": "oklch(58% 0.19 28)" },
+              "theme-color.primary.bg": { "value": "{color.green.500}" }
+            },
+            "options": { "$enable-shadows": { "value": "false" } }
+          }
+          JSON
+
+      - name: Scaffold
+        run: node tools/cli.mjs init /tmp/scaffold --theme /tmp/theme.json --template ${{ matrix.template }}
+
+      # No lockfile in a freshly scaffolded project, so `npm install` rather than `npm ci`.
+      # This is also the step that catches a dependency spec that no longer resolves.
+      - name: Install
+        working-directory: /tmp/scaffold
+        run: npm install
+
+      - name: Build
+        working-directory: /tmp/scaffold
+        run: npm run build
+
+      # The point of the whole exercise: the compiled CSS carries the theme's values, and it
+      # got them from Bootstrap's source Sass rather than from an overlay on top of compiled
+      # CSS. A build that succeeds while dropping the theme is the failure worth catching.
+      - name: Check the theme reached the stylesheet
+        run: |
+          css=$(find /tmp/scaffold -name '*.css' -not -path '*/node_modules/*' | head -1)
+          if [ -z "$css" ]; then
+            echo "::error::the build produced no stylesheet"
+            exit 1
+          fi
+          echo "Checking $css ($(wc -c < "$css") bytes)"
+
+          # `-e`, because every pattern here starts with `--` and grep would read it as a flag.
+          for expected in '--radius-5:\s*0*\.5rem' '--primary-bg:\s*var\(--green-500\)'; do
+            if ! grep -Eq -e "$expected" "$css"; then
+              echo "::error::$expected is missing — the theme did not survive the build"
+              exit 1
+            fi
+          done
