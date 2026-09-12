@@ -208,30 +208,19 @@ the flag in both directions, so if upstream starts including one the flag has to
 
 ## P — This project
 
-### P7 · The pasted-markup sanitiser has no automated test
+Open work is not tracked here any more — it lives in the
+[issue tracker](https://github.com/julien-deramond/bootstrap-tokens/issues), where it can be
+triaged, assigned and closed by a pull request. The four entries still open when that changed
+moved across:
 
-`sanitise()` in `web/preview.js` strips scripts, event handlers and `javascript:` URLs before
-pasted markup reaches the preview, which is same-origin with the chooser and therefore with
-the visitor's saved themes. It is verified by hand in a browser — a script tag and an
-`onclick` both survive the round trip as zero elements — but not in CI, because Node has no
-`DOMParser` and adding a DOM implementation as a dependency for one function is a poor trade.
+| Was | Now |
+| --- | --- |
+| **P4** · `build/` is committed and can go stale | [#3](https://github.com/julien-deramond/bootstrap-tokens/issues/3) |
+| **P7** · The pasted-markup sanitiser has no automated test | [#4](https://github.com/julien-deramond/bootstrap-tokens/issues/4) |
+| **P5** · Components with no preview | [#5](https://github.com/julien-deramond/bootstrap-tokens/issues/5) — the entry was stale: four remain, not thirteen |
+| **P6** · The tool's own controls still borrow Bootstrap's shapes | [#6](https://github.com/julien-deramond/bootstrap-tokens/issues/6) |
 
-**Consequence:** a refactor could weaken it without anything failing.
-
-**Options:** render pasted markup in a nested `sandbox`ed iframe instead, which removes the
-need for a sanitiser entirely at the cost of having to inject Bootstrap and the overrides
-into a second document; or add a browser-run check to `bstokens probe`, which already exists
-to ask a real browser questions.
-
----
-
-### P6 · The tool's own controls still borrow Bootstrap's shapes
-
-Reduced, not eliminated. The hue grid is sixteen rounded colour chips and the contrast
-readouts are small tinted labels — both of which have Bootstrap counterparts a few hundred
-pixels away. They earn their shape (a colour picker has to show colour), but if the
-"which of these is the interface?" confusion returns, this is where the remaining overlap is.
-Denser, more instrument-like treatments are the next lever.
+What follows is the record of what has been dealt with.
 
 ### ~~P1 · `sync --check` cannot tell a rename from a delete-plus-add~~ · done
 
@@ -251,15 +240,10 @@ text, so they add rather than carry.
 `verify` now compiles a partial theme export and compares every previewed custom property
 against the compiled value, selector by selector. It found the U4 pin on its first run.
 
-### P4 · `build/` is committed and can go stale
-
-CI catches it, but only on push. A pre-commit hook or a `--check` in `validate` would catch
-it earlier.
-
-### P5 · Components with no preview · mostly done
+### ~~P5 · Components with no preview~~ · mostly done
 
 Worse than first logged: **40 of 62** components had no markup at all, not just the variant
-maps. The sample now covers 49, and the panel warns for the rest — detected by asking the
+maps. The sample now covers 58, and the panel warns for the rest — detected by asking the
 preview whether it renders the component's selector, rather than from a list here that would
 go stale the first time the sample changed.
 
@@ -267,7 +251,6 @@ Two of the "missing" turned out to be wrong metadata rather than missing markup:
 `button-styled` was recorded as `.btn-primary, …` (a v5 habit; v6 uses `.btn-styled`) and
 `radio` as `.form-radio-input` (it is `.radio`). Both are fixed.
 
-The 13 that remain — `dialog`, `drawer`, `menu`, `popover`, `tooltip`, `carousel`,
-`datepicker`, `calendar`, `chip-input`, `otp`, `strength`, `navbar-dark`, `drawer-backdrop` —
-need JavaScript or an interaction to appear. Rendering them statically is possible but each
-needs its own scaffolding; worth doing when C3 rebuilds the preview.
+The four still uncovered — `calendar`, `datepicker`, `navbar-dark` and `drawer-backdrop` —
+are [#5](https://github.com/julien-deramond/bootstrap-tokens/issues/5), which also says why
+three of them may stay that way.
