@@ -32,6 +32,8 @@ jobs:
   drift:
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v7
+
       - name: Check out Bootstrap v6-dev
         uses: actions/checkout@v7
         with:
