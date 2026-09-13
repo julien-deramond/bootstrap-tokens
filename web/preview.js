@@ -9,6 +9,7 @@
  */
 
 import { page } from '../tools/lib/sample-page.mjs'
+import { sanitise } from './sanitise.mjs'
 
 const THEMES = ['primary', 'accent', 'success', 'danger', 'warning', 'info', 'secondary', 'inverse']
 /* Replaced by the chooser whenever the set of scales changes, so a colour someone added
@@ -535,35 +536,9 @@ const states = (uid) => `
  * anyone actually has, which is whether the theme survives *their* page — their nesting,
  * their utility classes, their content lengths, the bit of custom CSS they forgot about.
  *
- * It is parsed and stripped rather than assigned straight to innerHTML. This document is
- * same-origin with the chooser — it has to be, or the chooser could not read computed
- * styles out of it — so a script in pasted markup would run with access to the visitor's
- * saved themes. Nothing here needs to execute to be previewed.
+ * It is parsed and stripped (`sanitise`, in `./sanitise.mjs`) rather than assigned straight
+ * to innerHTML — see that file for why.
  */
-const FORBIDDEN = 'script, iframe, object, embed, link, meta, base, noscript'
-
-function sanitise(markup) {
-  const parsed = new DOMParser().parseFromString(`<body>${markup}</body>`, 'text/html')
-  const body = parsed.body
-
-  for (const element of body.querySelectorAll(FORBIDDEN)) element.remove()
-
-  for (const element of body.querySelectorAll('*')) {
-    for (const attribute of [...element.attributes]) {
-      const name = attribute.name.toLowerCase()
-      // Event handlers execute, and so does a `javascript:` URL when someone clicks it.
-      if (name.startsWith('on')) element.removeAttribute(attribute.name)
-      else if (
-        (name === 'href' || name === 'src' || name === 'xlink:href' || name === 'action') &&
-        /^\s*javascript:/i.test(attribute.value)
-      ) {
-        element.setAttribute(attribute.name, '#')
-      }
-    }
-  }
-
-  return body.innerHTML
-}
 
 const EMPTY_MARKUP = `
   <div class="preview-empty">

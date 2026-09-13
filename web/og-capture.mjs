@@ -24,6 +24,7 @@ import { existsSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { repoRoot } from '../tools/lib/config.mjs'
+import { findChrome } from '../tools/lib/chrome.mjs'
 
 /** 1200x630 is the Open Graph standard; capturing at 2x keeps it sharp on the displays that matter. */
 const WIDTH = 1200
@@ -36,29 +37,6 @@ const OUT = join(repoRoot, 'web', 'og-image.png')
 const SEED = join(repoRoot, 'web', '.og-capture.html')
 
 const PORT = Number(process.env.PORT ?? 4173)
-
-/**
- * Chrome renders it. There is no bundled browser here and adding one as a dependency to
- * regenerate a single image would cost more than the image is worth, so this uses whichever
- * Chrome is installed and says so plainly when there is none.
- */
-const CHROMES = [
-  process.env.CHROME,
-  '/Applications/Google Chrome.app/Contents/MacOS/Google Chrome',
-  '/Applications/Chromium.app/Contents/MacOS/Chromium',
-  '/usr/bin/google-chrome',
-  '/usr/bin/chromium',
-  '/usr/bin/chromium-browser'
-].filter(Boolean)
-
-function findChrome() {
-  const found = CHROMES.find((path) => existsSync(path))
-  if (found) return found
-  throw new Error(
-    'No Chrome found. Install Google Chrome or Chromium, or point $CHROME at one:\n' +
-      `  CHROME=/path/to/chrome node web/og-capture.mjs\n\nLooked in:\n${CHROMES.map((p) => `  ${p}`).join('\n')}`
-  )
-}
 
 /** index.html plus the two seeded bits of state, injected ahead of the module that reads them. */
 function writeSeedPage() {
