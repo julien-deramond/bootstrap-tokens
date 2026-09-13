@@ -38,7 +38,9 @@
   border-radius: 4px;
 }
 
-/* Swatches carry their own radius, so the ring should follow it rather than square it off. */
+/* .dial-swatch carries its own radius, so its ring should follow it rather than square it
+   off; .hue has no radius of its own, so inheriting one here is a no-op and the ring stays
+   square, matching the swatch. */
 .hue:focus-visible, .dial-swatch:focus-visible { outline-offset: 3px; border-radius: inherit; }
 .segmented button:focus-visible, .panel-tabs button:focus-visible, .tabs button:focus-visible { outline-offset: -2px; }
 
@@ -477,19 +479,32 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 
 
 
+/* A reading, not a label: no fill, no pill — that shape is `.badge` and `.alert`'s. The
+   status is carried by a small dot and by colour on numerals already set in a monospace
+   face, the way an instrument's own readout would show it. */
 .contrast {
   flex: none;
-  font: .625rem/1 var(--mono);
-  padding: .1875rem .3125rem;
-  border-radius: 3px;
+  display: inline-flex;
+  align-items: center;
+  gap: .3125rem;
+  font: .6875rem/1 var(--mono);
+  font-variant-numeric: tabular-nums;
   white-space: nowrap;
-  background: var(--surface-sunken);
   color: var(--ink-muted);
 }
 
-.contrast.is-pass { background: color-mix(in oklab, #16a34a 18%, transparent); color: light-dark(#14532d, #86efac); }
-.contrast.is-warn { background: color-mix(in oklab, #d97706 20%, transparent); color: light-dark(#78350f, #fcd34d); }
-.contrast.is-fail { background: color-mix(in oklab, #dc2626 20%, transparent); color: light-dark(#7f1d1d, #fca5a5); }
+.contrast::before {
+  content: "";
+  flex: none;
+  inline-size: .375rem;
+  block-size: .375rem;
+  border-radius: 50%;
+  background: currentcolor;
+}
+
+.contrast.is-pass { color: light-dark(#14532d, #86efac); }
+.contrast.is-warn { color: light-dark(#78350f, #fcd34d); }
+.contrast.is-fail { color: light-dark(#7f1d1d, #fca5a5); }
 
 /* --- simple mode -------------------------------------------------------- */
 
@@ -547,20 +562,33 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 .dial-options { flex-wrap: wrap; }
 .dial-options button { padding: .375rem .6875rem; font-size: .75rem; }
 
-.hue-grid { display: flex; flex-wrap: wrap; gap: .375rem; }
+/* A butted-up matrix of hairline cells, not a wrapped row of rounded chips — the shape
+   `.btn` and `.badge` also use. Square by design, so it reads as an instrument (a swatch
+   strip) rather than as more of the preview it is theming. */
+.hue-grid { display: flex; flex-wrap: wrap; gap: 1px; padding: 1px; border: 1px solid var(--line-strong); background: var(--line); }
 
 .hue {
-  inline-size: 2rem;
-  block-size: 2rem;
+  inline-size: 1.75rem;
+  block-size: 1.75rem;
   padding: 0;
-  border: 2px solid transparent;
-  border-radius: 5px;
-  box-shadow: inset 0 0 0 1px rgb(0 0 0 / 12%);
+  border: 0;
+  position: relative;
   cursor: pointer;
 }
 
-.hue[aria-pressed="true"] { border-color: var(--ink); outline: 2px solid var(--surface); outline-offset: -4px; }
-.hue:hover { transform: scale(1.08); }
+.hue:hover { z-index: 1; box-shadow: inset 0 0 0 1px rgb(0 0 0 / 30%); }
+
+/* A bottom tick rather than an outlined ring — a ring here would read as the same focus/press
+   affordance Bootstrap draws on its own buttons and badges. */
+.hue[aria-pressed="true"] { z-index: 1; }
+.hue[aria-pressed="true"]::after {
+  content: "";
+  position: absolute;
+  inset-inline: 0;
+  inset-block-end: 0;
+  block-size: 3px;
+  background: var(--ink);
+}
 
 .hue-custom { display: flex; gap: .5rem; align-items: center; margin-block-start: .625rem; }
 .hue-note { font-size: .6875rem; color: var(--ink-faint); }
@@ -879,8 +907,16 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 .add-colour-role { display: flex; gap: .25rem; align-items: center; font-size: .6875rem; color: var(--ink-muted); }
 .add-colour-error { flex-basis: 100%; margin: 0; font-size: .6875rem; color: light-dark(#b91c1c, #fca5a5); }
 
-/* An added scale is marked, so it is clear which colours are yours. */
-.hue.is-added { box-shadow: inset 0 0 0 1px rgb(0 0 0 / 12%), 0 0 0 2px var(--accent); }
+/* An added scale is marked, so it is clear which colours are yours. A corner flag rather than
+   an outer ring: cells now sit edge to edge, and a ring would bleed onto the neighbour. */
+.hue.is-added::before {
+  content: "";
+  position: absolute;
+  inset-block-start: 0;
+  inset-inline-end: 0;
+  border-block-start: 6px solid var(--accent);
+  border-inline-start: 6px solid transparent;
+}
 
 /* --- theme picker -------------------------------------------------------- */
 
