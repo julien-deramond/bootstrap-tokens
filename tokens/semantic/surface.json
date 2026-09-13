@@ -81,7 +81,7 @@
           "sassQuoted": true
         }
       },
-      "$description": "The foreground colour used as a background — for inverted blocks that flip the page around."
+      "$description": "The foreground color used as a background — for inverted blocks that flip the page around."
     },
     "white": {
       "$type": "color",
@@ -168,7 +168,7 @@
           "dark": "{color.gray.200}"
         }
       },
-      "$description": "Slightly de-emphasised text — secondary lines that still have to be read comfortably."
+      "$description": "Slightly de-emphasized text — secondary lines that still have to be read comfortably."
     },
     "2": {
       "$type": "color",
@@ -224,7 +224,7 @@
           "dark": "{color.gray.050}"
         }
       },
-      "$description": "Primary body text. The default reading colour."
+      "$description": "Primary body text. The default reading color."
     },
     "bg": {
       "$type": "color",
@@ -237,7 +237,7 @@
           "sassQuoted": true
         }
       },
-      "$description": "The page background used as a text colour — for text on an inverted surface."
+      "$description": "The page background used as a text color — for text on an inverted surface."
     },
     "white": {
       "$type": "color",
@@ -277,7 +277,7 @@
           "css": true
         }
       },
-      "$description": "Take whatever text colour the parent has."
+      "$description": "Take whatever text color the parent has."
     },
     "$extensions": {
       "dev.bootstrap.tokens": {

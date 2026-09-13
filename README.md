@@ -27,7 +27,7 @@
 <p align="center">
   <a href="https://github.com/julien-deramond/bootstrap-tokens/actions/workflows/ci.yml"><img src="https://github.com/julien-deramond/bootstrap-tokens/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
   <a href="https://julien-deramond.github.io/bootstrap-tokens/"><img src="https://img.shields.io/badge/theme%20builder-live-7952b3.svg" alt="Theme Builder, live"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT licence"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"></a>
 </p>
 
 <p align="center">
@@ -52,7 +52,7 @@
 
 ## What this is
 
-Bootstrap 6 already has a real token system: `oklch()` colour scales generated with
+Bootstrap 6 already has a real token system: `oklch()` color scales generated with
 `color-mix()`, semantic `$theme-colors`, and a per-component `$*-tokens` map emitted as CSS
 custom properties. What it does not have is that system in a **portable** form.
 
@@ -149,7 +149,7 @@ import { loadTokens, themeScss, createHue } from 'bootstrap-tokens'
 
 They are not one export renamed six times. Anything consumed by CSS keeps `var()` and
 `color-mix()`, so a theme stays live; anything consumed by a tool with no cascade — Figma, a
-chart library — is resolved to the colour a browser would have painted, checked against a real
+chart library — is resolved to the color a browser would have painted, checked against a real
 one. **[`docs/exports.md`](docs/exports.md)** covers which to reach for, how to compile
 Bootstrap with your values, and what resolving cannot do.
 
@@ -168,13 +168,13 @@ Sass in the browser and no compile step in the loop: v6 drives everything throug
 properties, so re-declaring them is the whole mechanism.
 
 - **Two modes over one model.** *Design* is eight controls that each move a lot of the system
-  — brand colour, radius, density, type, shadow. *All tokens* is all 1206, grouped and
+  — brand color, radius, density, type, shadow. *All tokens* is all 1206, grouped and
   searchable. Both write the same overrides, so switching is lossless.
 - **Light and dark side by side**, as framed artboards on a neutral canvas — a v6 theme is
   always two themes.
 - **Every change is listed and revertible**, with undo throughout and a full diff of what you
   changed.
-- **Contrast and colour-vision checks built in**, separating problems you introduced from ones
+- **Contrast and color-vision checks built in**, separating problems you introduced from ones
   Bootstrap's defaults already had, exportable as a report for a pull request.
 - **Themes are files.** Save, name, duplicate, share by link, reopen later — and every CLI
   command takes the same `theme.json`.
@@ -188,7 +188,7 @@ npx bstokens build      # emit Sass, CSS, JSON, TypeScript, Style Dictionary and
 npx bstokens verify     # compile upstream vs. our export, diff the CSS
 npx bstokens sync       # re-extract from a v6-dev checkout into tokens/
 npx bstokens validate   # references, cycles, layer direction, DTCG shape
-npx bstokens report     # contrast and colour vision, as Markdown, HTML or JSON
+npx bstokens report     # contrast and color vision, as Markdown, HTML or JSON
 npx bstokens init       # scaffold a project that compiles a theme (--template sass|vite)
 npx bstokens import     # read an existing custom.scss back into a theme.json
 npx bstokens eject      # write the tokens into v6-dev's own Sass sources (maintainers)
@@ -212,7 +212,7 @@ Point any of them at a checkout with `--src <path>`, `$BOOTSTRAP_SRC`, or a
 
 [`PLAN.md`](docs/PLAN.md) and [`ROADMAP.md`](docs/ROADMAP.md) are the maintainer's working
 notes — what's wrong and what's next, and what's done. The **eight findings about Bootstrap
-itself** that this pipeline surfaced are issues labelled
+itself** that this pipeline surfaced are issues labeled
 [`upstream`](https://github.com/julien-deramond/bootstrap-tokens/issues?q=is%3Aissue+label%3Aupstream), each with the compile, diff or browser
 measurement behind it.
 
@@ -237,7 +237,7 @@ are covered there.
 ## Copyright and license
 
 Code and documentation copyright 2026 Julien Déramond, released under the
-[MIT Licence](LICENSE) — the same licence as Bootstrap.
+[MIT License](LICENSE) — the same license as Bootstrap.
 
 Bootstrap is © the Bootstrap Authors, MIT-licensed; its name and logo are trademarks of its
 authors, used here only to identify what this project is built for.

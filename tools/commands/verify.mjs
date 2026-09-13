@@ -150,7 +150,7 @@ function verifyCssExport(upstreamCss, doc) {
   for (const [selector, [property, value]] of ours) {
     const upstreamValue = valueOn(theirs, selector, property)
     // Upstream declares some of these under a compound selector we do not model one-to-one.
-    // That is a modelling question rather than a value question — but it is counted and
+    // That is a modeling question rather than a value question — but it is counted and
     // printed, because a check that quietly skips half its subject is how this one reported
     // success while every global token went uncompared.
     if (upstreamValue === undefined) {
@@ -159,7 +159,7 @@ function verifyCssExport(upstreamCss, doc) {
     }
 
     compared++
-    if (normalise(upstreamValue) !== normalise(value)) {
+    if (normalize(upstreamValue) !== normalize(value)) {
       mismatches.push({ selector, property, upstream: upstreamValue, ours: value })
     }
   }
@@ -220,7 +220,7 @@ async function verifyPartial(source, work, theme) {
       mismatches.push({ cssVar, path, predicted: value, actual: `(not declared on ${selector})` })
       continue
     }
-    if (normalise(actual) !== normalise(value)) {
+    if (normalize(actual) !== normalize(value)) {
       mismatches.push({ cssVar, path, predicted: value, actual })
     }
   }
@@ -245,17 +245,17 @@ async function verifyPartial(source, work, theme) {
 /**
  * Sass re-serialises on output, and none of it changes what a browser paints.
  *
- * `.25rem` becomes `0.25rem`, a bare hue gains `deg`, modern colour syntax is rewritten as
+ * `.25rem` becomes `0.25rem`, a bare hue gains `deg`, modern color syntax is rewritten as
  * `rgba()`, redundant parentheses inside `calc()` are dropped, and a division of two
- * constants is folded. Both sides are normalised the same way, so none of that reads as a
+ * constants is folded. Both sides are normalized the same way, so none of that reads as a
  * bug — while a genuine value change still does.
  */
-function normalise(value) {
+function normalize(value) {
   return (
     String(value)
       .replace(/(^|[\s(,\/-])\.(\d)/g, '$10.$2')
       .replace(/(\d)deg\b/g, '$1')
-      // `rgb(0 0 0 / 50%)` and `rgba(0, 0, 0, 0.5)` are the same colour written twice.
+      // `rgb(0 0 0 / 50%)` and `rgba(0, 0, 0, 0.5)` are the same color written twice.
       .replace(
         /\brgba?\(\s*([\d.]+)[\s,]+([\d.]+)[\s,]+([\d.]+)\s*(?:[,\/]\s*([\d.]+%?))?\s*\)/g,
         (_, r, g, b, a) => `rgb(${r} ${g} ${b} / ${alphaOf(a)})`

@@ -19,7 +19,7 @@ import { tokensDir, resolveBootstrapSource } from '../lib/config.mjs'
 
 const stored = loadOptions(tokensDir)
 
-test('every modelled option was found in the checkout', () => {
+test('every modeled option was found in the checkout', () => {
   const missing = OPTIONS.map((option) => option.name).filter((name) => !stored[name])
   assert.deepEqual(missing, [])
 })

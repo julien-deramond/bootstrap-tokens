@@ -4,8 +4,8 @@ import assert from 'node:assert/strict'
 import { loadTokens, loadTree } from '../lib/load-fs.mjs'
 import { tokensDir } from '../lib/config.mjs'
 import { apcaLc, apcaLevel, contrastPartner, auditContrast, roleCollisions } from '../lib/contrast.mjs'
-import { audit, summarise, markdown, html, reportFor } from '../lib/report.mjs'
-import { simulate, SAME_COLOUR } from '../lib/vision.mjs'
+import { audit, summarize, markdown, html, reportFor } from '../lib/report.mjs'
+import { simulate, SAME_COLOR } from '../lib/vision.mjs'
 import { hexToRgb, rgbToHex } from '../lib/color.mjs'
 import { withOverrides, clone } from '../lib/overrides.mjs'
 
@@ -102,13 +102,13 @@ test('a pair dragged below the line by a change elsewhere is a regression', () =
   assert.equal(dragged.regressed, true)
 })
 
-test('inherited is about the colours, not the verdict', () => {
+test('inherited is about the colors, not the verdict', () => {
   // Every pair of an unthemed document is Bootstrap's, including the ones that pass. Judging
   // by the WCAG result instead files every untouched passing pair under "this theme".
   const rows = audit(doc, doc)
   assert.ok(rows.length > 40)
   assert.ok(rows.every((row) => row.inherited), 'nothing was changed, so nothing is ours')
-  assert.equal(summarise(rows).introduced, 0)
+  assert.equal(summarize(rows).introduced, 0)
 })
 
 test('the report renders in both formats and says what it found', () => {
@@ -139,7 +139,7 @@ test('simulation matches what the browser draws', () => {
   /*
    * These are the same matrices the preview applies through an SVG filter, and they are
    * applied the same way: in linear light, which is SVG's default. Verified in Chrome 148
-   * by painting each colour through the real filter onto a canvas and reading the pixel
+   * by painting each color through the real filter onto a canvas and reading the pixel
    * back — 28 of 28 exact. Doing it in gamma-encoded sRGB, as many copies of these filters
    * do, understates the loss and makes a palette look more distinguishable than it is.
    */
@@ -148,31 +148,31 @@ test('simulation matches what the browser draws', () => {
   assert.equal(rgbToHex(simulate(hexToRgb('#00a66d'), 'protanopia')), '#71727e')
   assert.equal(rgbToHex(simulate(hexToRgb('#e62845'), 'tritanopia')), '#e13a39')
   assert.equal(rgbToHex(simulate(hexToRgb('#00a66d'), 'achromatopsia')), '#878787')
-  // Grey has nothing to lose.
+  // Gray has nothing to lose.
   assert.equal(rgbToHex(simulate([128, 128, 128], 'deuteranopia')), '#808080')
 })
 
-test('two roles set to the same colour are a finding for everyone', () => {
+test('two roles set to the same color are a finding for everyone', () => {
   const doc = withOverrides(clone(tree), { 'theme-color.danger.bg': { value: '{color.green.500}' } })
   const worst = roleCollisions(doc, { mode: 'light' })[0]
 
   assert.deepEqual(worst.roles, ['success', 'danger'])
   assert.equal(worst.vision, null, 'no simulation needed')
   assert.equal(worst.identical, true)
-  assert.equal(worst.status, true, 'both carry meaning by colour')
+  assert.equal(worst.status, true, 'both carry meaning by color')
 })
 
 test('a distinction that only disappears under simulation is reported as such', () => {
   const collided = roleCollisions(loadTokens(tokensDir), { mode: 'light' })
   const lost = collided.find((row) => row.vision === 'deuteranopia')
-  assert.ok(lost, "Bootstrap's own accent and info collapse for red-green colour blindness")
+  assert.ok(lost, "Bootstrap's own accent and info collapse for red-green color blindness")
   assert.equal(lost.identical, false)
-  assert.ok(lost.normal > SAME_COLOUR, 'they are distinct to begin with')
-  assert.ok(lost.apart < SAME_COLOUR, 'and are not afterwards')
+  assert.ok(lost.normal > SAME_COLOR, 'they are distinct to begin with')
+  assert.ok(lost.apart < SAME_COLOR, 'and are not afterwards')
 })
 
-test('contrast cannot see what colour vision sees', () => {
-  // The whole reason for the second check: make two status roles the same colour and every
+test('contrast cannot see what color vision sees', () => {
+  // The whole reason for the second check: make two status roles the same color and every
   // contrast number stays exactly where it was.
   const doc = withOverrides(clone(tree), { 'theme-color.danger.bg': { value: '{color.green.500}' } })
   const before = auditContrast(loadTokens(tokensDir), { mode: 'light' })
@@ -198,9 +198,9 @@ test('the report names the pairs a reader cannot tell apart', () => {
 
   assert.equal(data.summary.statusCollisions, 1)
   const md = markdown(data)
-  assert.match(md, /## Colour vision/)
+  assert.match(md, /## Color vision/)
   assert.match(md, /\*\*`success` \/ `danger`\*\*/)
-  assert.match(md, /the same colour already/)
+  assert.match(md, /the same color already/)
   assert.match(md, /status roles cannot be told apart/)
-  assert.match(html(data), /<h2>Colour vision<\/h2>/)
+  assert.match(html(data), /<h2>Color vision<\/h2>/)
 })

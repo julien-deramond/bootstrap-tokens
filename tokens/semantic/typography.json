@@ -66,7 +66,7 @@
             "css": true
           }
         },
-        "$description": "Heading colour. Inherits by default, so headings match body text unless you separate them."
+        "$description": "Heading color. Inherits by default, so headings match body text unless you separate them."
       }
     },
     "hr": {
@@ -80,7 +80,7 @@
             "sassKey": "--hr-border-color"
           }
         },
-        "$description": "Colour of a horizontal rule, and of the divider inside an alert or a card."
+        "$description": "Color of a horizontal rule, and of the divider inside an alert or a card."
       }
     },
     "link": {
@@ -95,7 +95,7 @@
             "dark": "{theme-color.primary.fg}"
           }
         },
-        "$description": "Link colour. Uses the solid brand colour in light mode and the lighter text variant in dark."
+        "$description": "Link color. Uses the solid brand color in light mode and the lighter text variant in dark."
       },
       "decoration": {
         "$value": "underline",
@@ -107,7 +107,7 @@
             "css": true
           }
         },
-        "$description": "How a link is marked. Removing the underline leaves colour as the only cue, which fails for readers who cannot distinguish it."
+        "$description": "How a link is marked. Removing the underline leaves color as the only cue, which fails for readers who cannot distinguish it."
       },
       "underline-offset": {
         "$type": "dimension",
@@ -133,7 +133,7 @@
             "expression": true
           }
         },
-        "$description": "Link colour on hover — the base colour darkened, so the shift reads without changing hue."
+        "$description": "Link color on hover — the base color darkened, so the shift reads without changing hue."
       }
     },
     "code": {
@@ -172,7 +172,7 @@
             "sassKey": "--code-color"
           }
         },
-        "$description": "Colour of inline code, set a step away from running text so it reads as a quotation."
+        "$description": "Color of inline code, set a step away from running text so it reads as a quotation."
       }
     },
     "$description": "Body, heading, link and code typography."

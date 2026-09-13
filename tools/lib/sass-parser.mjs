@@ -13,7 +13,7 @@ const isSpace = (ch) => ch === ' ' || ch === '\t' || ch === '\n' || ch === '\r'
  * Skips over strings, comments and `#{}` interpolation so that delimiters inside
  * them never affect nesting.
  *
- * Exported so the source locator can reuse exactly this scanning behaviour instead of
+ * Exported so the source locator can reuse exactly this scanning behavior instead of
  * re-deriving it; the two must agree on where a value starts and stops.
  */
 export function scan(src, start, stopAtDepthZero) {

@@ -13,6 +13,6 @@
       },
       "$description": "The sheen laid over filled components when `$enable-gradients` is on."
     },
-    "$description": "Decorative effects that are not colour, spacing or type."
+    "$description": "Decorative effects that are not color, spacing or type."
   }
 }

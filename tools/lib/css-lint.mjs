@@ -16,8 +16,8 @@
  *
  * A bare number parses at declaration time — a custom property accepts any token sequence —
  * and fails at substitution, so the property falls back to its inherited value instead of
- * the colour that was written. It is silent: no console warning, no visible error, just the
- * wrong colour. Verified in Chrome 148.
+ * the color that was written. It is silent: no console warning, no visible error, just the
+ * wrong color. Verified in Chrome 148.
  */
 const COLOR_MIX = /\bcolor-mix\(([^()]*(?:\([^()]*\)[^()]*)*)\)/gi
 const BARE_WEIGHT = /(?:^|[\s,])(\.\d+|\d+(?:\.\d+)?)(?=\s*(?:,|$))/
@@ -25,14 +25,14 @@ const BARE_WEIGHT = /(?:^|[\s,])(\.\d+|\d+(?:\.\d+)?)(?=\s*(?:,|$))/
 function colorMixWeights(value) {
   const problems = []
   for (const [, args] of value.matchAll(COLOR_MIX)) {
-    // Drop the `in <space>` prefix, then look at each colour-and-weight argument.
+    // Drop the `in <space>` prefix, then look at each color-and-weight argument.
     const parts = splitTopLevel(args).slice(1)
     for (const part of parts) {
       const bare = BARE_WEIGHT.exec(part.trim())
       if (bare) {
         problems.push(
           `color-mix() weight \`${bare[1]}\` is a number, not a percentage — ` +
-            `the declaration is dropped at substitution and the colour is inherited instead ` +
+            `the declaration is dropped at substitution and the color is inherited instead ` +
             `(did upstream mean \`${percentOf(bare[1])}\`?)`
         )
       }

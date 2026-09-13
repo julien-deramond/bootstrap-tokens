@@ -15,7 +15,7 @@ const TRANSITION = /(^|-)transition$/
 const ZINDEX = /(^|-)(zindex|z-index)$/
 const SPACING = /(^|-)spacing$/
 const GRADIENT = /(^|-)gradient$/
-/* `3px solid <colour>` is a border composite, whatever it is called. */
+/* `3px solid <color>` is a border composite, whatever it is called. */
 const RING = /(^|-)ring$/
 
 export function hintFor(name) {

@@ -232,14 +232,14 @@ function reportCoverage(source, dir) {
     return false
   }
 
-  const { tokenMaps, tokenMapsModelled, unaccounted, stale, flags } = discover(
+  const { tokenMaps, tokenMapsModeled, unaccounted, stale, flags } = discover(
     source,
     doc,
     loadOptions(dir ?? tokensDir)
   )
 
   console.log(
-    `\nCoverage: ${tokenMapsModelled}/${tokenMaps} component token maps, ${flags.length} $enable-* flags, ` +
+    `\nCoverage: ${tokenMapsModeled}/${tokenMaps} component token maps, ${flags.length} $enable-* flags, ` +
       `${unaccounted.length} unaccounted.`
   )
 
@@ -248,13 +248,13 @@ function reportCoverage(source, dir) {
   }
 
   for (const { name, file } of unaccounted) {
-    console.error(`  error   ${name} (${file}) is configurable upstream but neither modelled nor listed in NOT_TOKENS`)
+    console.error(`  error   ${name} (${file}) is configurable upstream but neither modeled nor listed in NOT_TOKENS`)
   }
 
   if (unaccounted.length === 0 && stale.length === 0) return false
 
   console.error(
-    '\nEvery !default variable upstream declares must be modelled, or listed in\n' +
+    '\nEvery !default variable upstream declares must be modeled, or listed in\n' +
       'tools/lib/discover.mjs NOT_TOKENS with a reason. There is no third option.'
   )
   return true

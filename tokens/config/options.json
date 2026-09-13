@@ -33,7 +33,7 @@
     "value": "true",
     "kind": "flag",
     "file": "scss/_config.scss",
-    "description": "Honours `prefers-reduced-motion`. Leave this on: turning it off overrides an accessibility preference the reader set deliberately."
+    "description": "Honors `prefers-reduced-motion`. Leave this on: turning it off overrides an accessibility preference the reader set deliberately."
   },
   "$enable-smooth-scroll": {
     "value": "false",
@@ -63,7 +63,7 @@
     "value": "true",
     "kind": "flag",
     "file": "scss/_config.scss",
-    "description": "Gives buttons `cursor: pointer`. Off matches the native platform behaviour."
+    "description": "Gives buttons `cursor: pointer`. Off matches the native platform behavior."
   },
   "$enable-deprecation-messages": {
     "value": "true",
@@ -147,7 +147,7 @@
     "value": "( \"valid\": \"success\", \"invalid\": \"danger\", )",
     "kind": "map",
     "file": "scss/forms/_validation.scss",
-    "description": "Maps each validation state to the theme colour it borrows. Add a state here and its feedback classes are generated for you."
+    "description": "Maps each validation state to the theme color it borrows. Add a state here and its feedback classes are generated for you."
   },
   "$table-striped-order": {
     "value": "odd",

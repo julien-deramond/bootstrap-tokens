@@ -21,7 +21,7 @@ The page imports the same modules the CLI does, so the export is produced by the
 ## Two modes over one model
 
 **Design** (the default) is eight controls that each move a lot of the system — brand and
-accent colour, corner radius, density, border weight, typeface, text size, shadow depth —
+accent color, corner radius, density, border weight, typeface, text size, shadow depth —
 plus four presets to start from. Most themes are a few of these and nothing else.
 
 **All tokens** is the browser: all 1206 tokens, grouped, searchable, with a light and a dark
@@ -40,12 +40,12 @@ preset.
   row of words would make you click, look elsewhere, and infer.
 * **Light and dark, side by side.** `light-dark()` means a v6 theme is always two themes, so
   comparing them should not require flipping a switch. Side by side is the default on a wide
-  screen. Each scheme renders as a framed, labelled artboard on a neutral canvas that belongs
+  screen. Each scheme renders as a framed, labeled artboard on a neutral canvas that belongs
   to neither theme — otherwise, in a dark chooser, the dark preview reads as one more panel of
   the tool.
 * **Every component that has tokens is in the gallery.** Including the ones you cannot
   normally see standing still: menus, tooltips, popovers, dialogs and drawers sit in specimen
-  boxes that contain their positioning and change nothing a theme sets, so their colours,
+  boxes that contain their positioning and change nothing a theme sets, so their colors,
   radii and shadows are all the theme's.
 * **Four things to preview.** *Components* is the gallery, *Page* is a realistic layout —
   navbar, hero, cards, form, table — *States* is every state a theme can break in (disabled,
@@ -67,7 +67,7 @@ preset.
   in the preview or in your project. Each
   carries a note saying exactly that. Two token maps Bootstrap defines and never uses say
   something stronger, because "it still exports" would be true and useless there. Each is an
-  issue labelled [`upstream`](https://github.com/julien-deramond/bootstrap-tokens/issues?q=is%3Aissue+label%3Aupstream).
+  issue labeled [`upstream`](https://github.com/julien-deramond/bootstrap-tokens/issues?q=is%3Aissue+label%3Aupstream).
 * **A theme that has aged is repaired, or named.** Bootstrap 6 is an alpha and token names
   move. A saved theme follows recorded renames, and anything still unplaceable is said out
   loud rather than dropped — losing a value silently is the worst thing a theme file can do,
@@ -77,13 +77,13 @@ preset.
   *Copy share link* packs the whole theme into the URL fragment — 571 characters for a
   22-token theme, compressed in the browser, uploaded nowhere.
 * **A theme-level contrast readout**, which separates issues you introduced from ones
-  Bootstrap's defaults already have — by comparing the *colours*, not the verdicts. A warning
+  Bootstrap's defaults already have — by comparing the *colors*, not the verdicts. A warning
   you didn't cause teaches you to ignore warnings. The *contrast report* tab hands you the
   same audit as a file to attach to a pull request, WCAG 2 and APCA side by side.
 * **See it through someone else's eyes.** The *Vision* selector draws the artboards through
   simulated protanopia, deuteranopia, tritanopia or achromatopsia — the tool's own chrome
-  stays as it is, since the point is to look at the artefact. The report turns it into a
-  check: contrast survives colour blindness almost unchanged, so a palette can pass every
+  stays as it is, since the point is to look at the artifact. The report turns it into a
+  check: contrast survives color blindness almost unchanged, so a palette can pass every
   ratio and still make success and danger the same button.
 
 ## Open in StackBlitz
@@ -114,7 +114,7 @@ Give it about a minute the first time. The Bootstrap dependency is a ~28 MB tarb
 
 It has no `node_modules`, its Sass preprocessor cannot resolve `bootstrap/scss/*`, and v6 is on
 no CDN. The only pen that could exist is compiled CSS plus a custom-property overlay — which is
-the customisation route this feature exists to avoid demonstrating. That overlay works, and the
+the customization route this feature exists to avoid demonstrating. That overlay works, and the
 `theme.css` tab is there for people who need it, but it is not how a v6 project is built, and a
 sandbox teaching it to the audience that has not learned the right way yet would be worse than
 no sandbox. Revisit if v6 ships a CDN build *and* someone finds a reason the Sass route cannot
@@ -122,11 +122,11 @@ cover.
 
 ## Two decisions inside Design mode
 
-* **Changing the brand colour repoints the role, it doesn't recolour a scale.** Bootstrap
+* **Changing the brand color repoints the role, it doesn't recolor a scale.** Bootstrap
   builds `primary` out of the blue scale, so picking green rewrites all nine sub-keys to
   `{color.green.*}` — which is exactly what a handwritten `$theme-colors` override looks like.
-  The custom colour picker is the other path, and it says plainly that it redefines that
-  scale and so also recolours `--blue-*` elsewhere.
+  The custom color picker is the other path, and it says plainly that it redefines that
+  scale and so also recolors `--blue-*` elsewhere.
 * **`contrast` is chosen, not substituted.** That sub-key is the text placed *on* the fill.
   Substituting it would give white-on-yellow; Design mode measures the contrast and picks
   white or `gray-900`, then shows the resulting ratios and warns when a choice fails WCAG AA.
@@ -137,9 +137,9 @@ cover.
   steps, which move `theme-color.primary.*`, which move every component that uses them.
 * **Swatches are resolved by the browser, inside the preview.** A value like
   `color-mix(in oklch, var(--blue-500) 50%, var(--bg-body))` or a `light-dark()` pair shows
-  its real colour in both schemes, because the page asks the previewed document rather than
-  reimplementing CSS colour maths.
-* **Colour conversion is gamut-mapped, not clamped.** Bootstrap authors hues outside sRGB
+  its real color in both schemes, because the page asks the previewed document rather than
+  reimplementing CSS color maths.
+* **Color conversion is gamut-mapped, not clamped.** Bootstrap authors hues outside sRGB
   (`oklch(60% 0.24 240)` is), and clamping each channel independently moves them sideways in
   hue — that blue came back 14° towards violet. Chroma is reduced instead, so lightness and
   hue survive, which also made the contrast readings accurate.
@@ -186,6 +186,6 @@ The tool saves a `theme.json`. Every CLI command that takes `--theme` reads that
 npx bstokens init my-theme --theme theme.json    # scaffold a project that compiles it
 npx bstokens init my-app --theme theme.json --template vite   # …as a Vite project
 npx bstokens verify --theme theme.json           # check it compiles to what you saw
-npx bstokens report --theme theme.json           # contrast and colour-vision audit
+npx bstokens report --theme theme.json           # contrast and color-vision audit
 npx bstokens eject --theme theme.json --src ../bootstrap --in-place   # maintainers
 ```

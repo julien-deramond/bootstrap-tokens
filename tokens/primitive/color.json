@@ -250,7 +250,7 @@
           "sassEmit": "#{$white}"
         }
       },
-      "$description": "Pure white, referenced by the tint half of every colour scale."
+      "$description": "Pure white, referenced by the tint half of every color scale."
     },
     "black": {
       "$type": "color",
@@ -262,7 +262,7 @@
           "sassEmit": "#{$black}"
         }
       },
-      "$description": "Pure black, referenced by the shade half of every colour scale."
+      "$description": "Pure black, referenced by the shade half of every color scale."
     },
     "$description": "Base hues in oklch() plus the 13-step scale each one generates."
   },
@@ -437,7 +437,7 @@
           "css": true
         }
       },
-      "$description": "The interpolation space every generated colour step is mixed in."
+      "$description": "The interpolation space every generated color step is mixed in."
     },
     "tint-color": {
       "$type": "color",
@@ -459,6 +459,6 @@
       },
       "$description": "What shades are mixed towards — the dark end of every scale."
     },
-    "$description": "Inputs to the colour-scale generator: mixing space and tint/shade endpoints."
+    "$description": "Inputs to the color-scale generator: mixing space and tint/shade endpoints."
   }
 }

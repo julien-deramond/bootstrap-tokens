@@ -23,7 +23,7 @@ export function audit(doc, base) {
     for (const row of auditContrast(doc, { mode })) {
       const previous = before.get(`${mode}:${row.path}`)
       /*
-       * "Inherited" is about the colours, not the score. A pair whose two ends are exactly
+       * "Inherited" is about the colors, not the score. A pair whose two ends are exactly
        * what Bootstrap ships is Bootstrap's to answer for however it scores — including
        * under APCA, where plenty of the defaults fall short of Lc 75 and none of that is
        * the theme's doing. Defining it by the WCAG verdict instead would file every
@@ -57,7 +57,7 @@ export function collisions(doc, base) {
   /*
    * Most semantic roles have no dark variant, so the same collision turns up twice and the
    * table doubles in length without saying anything twice as useful. Merge a pair that is
-   * identical in both schemes into one row and say so; keep them apart when the colours
+   * identical in both schemes into one row and say so; keep them apart when the colors
    * actually differ, because then they are two findings.
    */
   const merged = new Map()
@@ -79,7 +79,7 @@ export function collisions(doc, base) {
   return [...merged.values()]
 }
 
-export const summarise = (rows) => ({
+export const summarize = (rows) => ({
   audited: rows.length,
   wcagFail: rows.filter((row) => !row.wcag.ok).length,
   introduced: rows.filter((row) => !row.wcag.ok && !row.inherited).length,
@@ -97,32 +97,32 @@ const grade = (row) => (row.wcag.ok === true ? 'pass' : row.wcag.ok === false ? 
 /**
  * The second half of the report, and the half a contrast check cannot give you.
  *
- * Luminance barely moves under colour blindness, so every pair here can pass WCAG and APCA
- * and still be two buttons of the same colour.
+ * Luminance barely moves under color blindness, so every pair here can pass WCAG and APCA
+ * and still be two buttons of the same color.
  */
-function colourVisionMarkdown(collided) {
+function colorVisionMarkdown(collided) {
   if (collided.length === 0) {
-    return ['## Colour vision', '', 'Every semantic role stays distinct under simulated protanopia, deuteranopia, tritanopia and achromatopsia.']
+    return ['## Color vision', '', 'Every semantic role stays distinct under simulated protanopia, deuteranopia, tritanopia and achromatopsia.']
   }
 
   const lines = [
-    '## Colour vision',
+    '## Color vision',
     '',
-    '| Roles | Scheme | Seen as | Colours | How common | Source |',
+    '| Roles | Scheme | Seen as | Colors | How common | Source |',
     '| --- | --- | --- | --- | --- | --- |'
   ]
 
   for (const row of collided) {
     lines.push(
       `| ${row.status ? '**' : ''}\`${row.roles[0]}\` / \`${row.roles[1]}\`${row.status ? '**' : ''} | ${row.mode} | ` +
-        `${row.vision ?? 'the same colour already'} | \`${row.colors[0]}\` \`${row.colors[1]}\` | ` +
+        `${row.vision ?? 'the same color already'} | \`${row.colors[0]}\` \`${row.colors[1]}\` | ` +
         `${row.vision ? HOW_COMMON[row.vision].note : 'everyone'} | ${row.inherited ? 'unchanged' : 'this theme'} |`
     )
   }
 
   lines.push(
     '',
-    'Bold pairs are status roles, which carry meaning by colour alone — two of those looking',
+    'Bold pairs are status roles, which carry meaning by color alone — two of those looking',
     'alike is a bug rather than a style choice. The rest is branding, and worth knowing about',
     'rather than fixing.'
   )
@@ -159,8 +159,8 @@ export function markdown({ rows, summary, theme, version, collisions: collided =
   // therefore the one a reader is least expecting.
   if (summary.statusCollisions > 0) {
     lines.push(
-      `**${summary.statusCollisions} pair(s) of status roles cannot be told apart** — colours that ` +
-        'carry meaning, seen as one. Details under Colour vision.',
+      `**${summary.statusCollisions} pair(s) of status roles cannot be told apart** — colors that ` +
+        'carry meaning, seen as one. Details under Color vision.',
       ''
     )
   }
@@ -169,7 +169,7 @@ export function markdown({ rows, summary, theme, version, collisions: collided =
     `APCA: ${summary.apcaBelowBody} pair(s) score below Lc 75, the level APCA asks for body text` +
       (summary.inheritedApca > 0 ? ` — ${summary.inheritedApca} of them unchanged from Bootstrap.` : '.'),
     '',
-    '| Pair | Scheme | Colours | WCAG 2 | APCA | Source |',
+    '| Pair | Scheme | Colors | WCAG 2 | APCA | Source |',
     '| --- | --- | --- | --- | --- | --- |'
   )
 
@@ -195,7 +195,7 @@ export function markdown({ rows, summary, theme, version, collisions: collided =
 
   if (interesting.length === 0) lines.push('| _nothing to report_ | | | | | |')
 
-  lines.push('', ...colourVisionMarkdown(collided))
+  lines.push('', ...colorVisionMarkdown(collided))
 
   lines.push(
     '',
@@ -214,17 +214,17 @@ export function markdown({ rows, summary, theme, version, collisions: collided =
 const escapeHtml = (text) =>
   String(text).replace(/[&<>]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;' })[c])
 
-function colourVisionHtml(collided) {
+function colorVisionHtml(collided) {
   if (collided.length === 0) {
-    return '<h2>Colour vision</h2><p>Every semantic role stays distinct under simulated protanopia, deuteranopia, tritanopia and achromatopsia.</p>'
+    return '<h2>Color vision</h2><p>Every semantic role stays distinct under simulated protanopia, deuteranopia, tritanopia and achromatopsia.</p>'
   }
 
   const rows = collided
     .map(
       (row) => `<tr class="${row.status ? 'fail' : ''}">
-  <td><code>${escapeHtml(row.roles[0])}</code> / <code>${escapeHtml(row.roles[1])}</code>${row.status ? '<small>status roles — meaning is carried by the colour</small>' : ''}</td>
+  <td><code>${escapeHtml(row.roles[0])}</code> / <code>${escapeHtml(row.roles[1])}</code>${row.status ? '<small>status roles — meaning is carried by the color</small>' : ''}</td>
   <td>${row.mode}</td>
-  <td>${row.vision ?? 'the same colour already'}</td>
+  <td>${row.vision ?? 'the same color already'}</td>
   <td class="sw"><i style="background:${row.colors[0]}"></i><i style="background:${row.colors[1]}"></i>
       <code>${row.colors[0]}</code> <code>${row.colors[1]}</code></td>
   <td>${row.vision ? escapeHtml(HOW_COMMON[row.vision].note) : 'everyone'}</td>
@@ -233,12 +233,12 @@ function colourVisionHtml(collided) {
     )
     .join('\n')
 
-  return `<h2>Colour vision</h2>
-<p>Luminance barely moves under colour blindness, so every pair here can pass WCAG and APCA
-and still be two buttons of the same colour. Highlighted pairs are status roles, which carry
-meaning by colour alone.</p>
+  return `<h2>Color vision</h2>
+<p>Luminance barely moves under color blindness, so every pair here can pass WCAG and APCA
+and still be two buttons of the same color. Highlighted pairs are status roles, which carry
+meaning by color alone.</p>
 <div class="scroll"><table>
-  <tr><th>Roles</th><th>Scheme</th><th>Seen as</th><th>Colours</th><th>How common</th><th>Source</th></tr>
+  <tr><th>Roles</th><th>Scheme</th><th>Seen as</th><th>Colors</th><th>How common</th><th>Source</th></tr>
 ${rows}
 </table></div>`
 }
@@ -299,11 +299,11 @@ export function html({ rows, summary, theme, version, collisions: collided = [] 
 </div>
 <div class="scroll">
 <table>
-  <tr><th>Pair</th><th>Scheme</th><th>Colours</th><th>WCAG 2</th><th>APCA</th><th>Source</th></tr>
+  <tr><th>Pair</th><th>Scheme</th><th>Colors</th><th>WCAG 2</th><th>APCA</th><th>Source</th></tr>
 ${body || '<tr><td colspan="6">Nothing to report.</td></tr>'}
 </table>
 </div>
-${colourVisionHtml(collided)}
+${colorVisionHtml(collided)}
 <footer>
   WCAG 2 is the rule conformance is measured against. APCA is the model WCAG 3 is built on,
   and judges light-on-saturated text — the case WCAG 2 handles worst — more usefully. Both
@@ -326,7 +326,7 @@ export function reportFor(tree, base, overrides, { theme, version }) {
     rows,
     collisions: collided,
     summary: {
-      ...summarise(rows),
+      ...summarize(rows),
       collisions: collided.filter((row) => !row.inherited).length,
       collisionsInherited: collided.filter((row) => row.inherited).length,
       statusCollisions: collided.filter((row) => row.status && !row.inherited).length

@@ -12,7 +12,7 @@ import { page } from '../tools/lib/sample-page.mjs'
 import { sanitise } from './sanitise.mjs'
 
 const THEMES = ['primary', 'accent', 'success', 'danger', 'warning', 'info', 'secondary', 'inverse']
-/* Replaced by the chooser whenever the set of scales changes, so a colour someone added
+/* Replaced by the chooser whenever the set of scales changes, so a color someone added
    shows up in the palette rather than being invisible in the one place it should be. */
 let HUES = ['blue', 'indigo', 'violet', 'purple', 'pink', 'red', 'orange', 'amber', 'yellow', 'lime', 'green', 'teal', 'cyan', 'brown', 'gray', 'pewter']
 const STOPS = ['025', '050', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950', '975']
@@ -257,7 +257,7 @@ const content = () => section(
  * reason. Theming any of them looked like it did nothing.
  *
  * Each one therefore sits in a `.specimen`, which contains its positioning and nothing else.
- * Position is not something a theme sets, so every token these components carry — colour,
+ * Position is not something a theme sets, so every token these components carry — color,
  * radius, shadow, padding, border, font — is still the theme's.
  */
 const specimen = (label, body, { tall = false } = {}) => `
@@ -435,7 +435,7 @@ const typography = () => section(
 
 const palette = () => section(
   'palette',
-  'Colour scale',
+  'Color scale',
   HUES.map((hue) => `
     <div class="swatch-row">
       <span>${hue}</span>
@@ -544,7 +544,7 @@ const EMPTY_MARKUP = `
   <div class="preview-empty">
     <p><strong>Nothing pasted yet.</strong></p>
     <p>Choose <em>Your markup</em> again to paste a chunk of your own HTML. It renders here
-    with the theme applied, in both colour schemes.</p>
+    with the theme applied, in both color schemes.</p>
   </div>`
 
 /** Set by the chooser. Sanitised once per change rather than once per artboard. */
@@ -583,7 +583,7 @@ const overrides = document.getElementById('token-overrides')
 
 let mode = 'light'
 
-/** One framed, labelled artboard. `variant` marks the themed side of a comparison. */
+/** One framed, labeled artboard. `variant` marks the themed side of a comparison. */
 /** Which simulated vision the artboards are drawn through. `normal` means no filter. */
 let vision = 'normal'
 

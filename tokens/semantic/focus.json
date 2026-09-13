@@ -40,7 +40,7 @@
           "sassKey": "--focus-ring-color"
         }
       },
-      "$description": "Colour of the focus ring. Follows the primary role by default."
+      "$description": "Color of the focus ring. Follows the primary role by default."
     },
     "ring": {
       "$type": "border",
@@ -53,8 +53,8 @@
           "expression": true
         }
       },
-      "$description": "The whole focus ring shorthand, composed from the width and colour above."
+      "$description": "The whole focus ring shorthand, composed from the width and color above."
     },
-    "$description": "Focus ring geometry and colour."
+    "$description": "Focus ring geometry and color."
   }
 }

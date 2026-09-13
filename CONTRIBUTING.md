@@ -208,10 +208,10 @@ your own, never enable auto-merge, and never push to `main` directly.
 
 * **Upstream drift.** `npm run sync -- --check` reports it; a nightly workflow opens an issue
   when `v6-dev` moves. Re-syncing, reviewing the diff and rebuilding is the routine.
-* **Unmodelled surface.** `sync --check` also fails when upstream offers a configurable
+* **Unmodeled surface.** `sync --check` also fails when upstream offers a configurable
   variable the document neither models nor lists in `NOT_TOKENS` with a reason.
 * **Findings about upstream.** If the pipeline surfaces a real Bootstrap bug, open an issue
-  labelled [`upstream`](https://github.com/julien-deramond/bootstrap-tokens/issues?q=is%3Aissue+label%3Aupstream) with the evidence that convinced
+  labeled [`upstream`](https://github.com/julien-deramond/bootstrap-tokens/issues?q=is%3Aissue+label%3Aupstream) with the evidence that convinced
   you — a compile, a diff, or a measurement in a browser. Evidence is the whole value of
   these: several are worth raising with `twbs/bootstrap`, and none of them survives contact
   with a maintainer there without it.
@@ -231,6 +231,6 @@ specific enough to be an issue.
 * Commit messages are conventional-ish (`fix:`, `feat:`, `docs:`, `test:`) and say what
   changed for a reader, not what file was touched.
 
-## Licence
+## License
 
-By contributing you agree that your work is licensed under the [MIT Licence](LICENSE).
+By contributing you agree that your work is licensed under the [MIT License](LICENSE).

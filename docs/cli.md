@@ -24,8 +24,8 @@ in `bootstrap-tokens.config.json`, then the conventional siblings `../bootstrap`
 | `validate` | Check references, cycles, layer direction and DTCG shape |
 | `build` | Emit Sass, CSS, JSON, TypeScript, Style Dictionary and Figma into `build/` |
 | `verify` | Compile upstream and our export, and diff the CSS |
-| `report` | Audit contrast and colour vision, as Markdown, HTML or JSON |
-| `probe` | Write a page that checks the flattened colours against a real browser |
+| `report` | Audit contrast and color vision, as Markdown, HTML or JSON |
+| `probe` | Write a page that checks the flattened colors against a real browser |
 | `vendor` | Compile upstream Bootstrap into `web/vendor/bootstrap.css` for the Theme Builder |
 | `import` | Read an existing `custom.scss` back into a `theme.json` |
 | `init` | Scaffold a project that compiles a theme |
@@ -75,7 +75,7 @@ compares every custom property with what the Theme Builder previewed — "it loo
 the tool" and "it compiles to this" are different claims, and only the second survives a
 dependency bump.
 
-### `report` — contrast and colour vision
+### `report` — contrast and color vision
 
 ```bash
 npx bstokens report --theme theme.json --out contrast.md

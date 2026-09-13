@@ -104,7 +104,7 @@ export const ROOT_TOKEN_PATHS = [
 export const ALIAS_REWRITES = new Map()
 
 /**
- * Tokens that upstream re-declares outside any token map, per colour scheme.
+ * Tokens that upstream re-declares outside any token map, per color scheme.
  *
  * `--shadow-strength` is a plain number, so it cannot use `light-dark()`. `scss/_root.scss`
  * re-declares it four times — a `prefers-color-scheme` media query, `[data-bs-theme="dark"]`
@@ -136,7 +136,7 @@ export const TOKEN_DESCRIPTIONS = {
   'radius.pill': 'A fixed 50rem, set on $root-tokens after the $radii loop.',
   'elevation.strength':
     'Multiplies every shadow layer’s alpha. Dark mode is pinned to 2.4 by scss/_root.scss and no token map can reach it; a page with an explicit data-bs-theme needs a CSS rule as well as the Sass override. See https://github.com/julien-deramond/bootstrap-tokens/issues/12.',
-  'color-mix.space': 'The interpolation space every generated colour step is mixed in.'
+  'color-mix.space': 'The interpolation space every generated color step is mixed in.'
 }
 
 /** Which file each root group is written to. */
@@ -184,7 +184,7 @@ export const GROUP_DESCRIPTIONS = {
   color: 'Base hues in oklch() plus the 13-step scale each one generates.',
   'color-tint': 'How much white is mixed in for each tint stop (025–400).',
   'color-shade': 'How much black is mixed in for each shade stop (600–975).',
-  'color-mix': 'Inputs to the colour-scale generator: mixing space and tint/shade endpoints.',
+  'color-mix': 'Inputs to the color-scale generator: mixing space and tint/shade endpoints.',
   spacing: 'The spacing scale. Every step is a multiple of the base spacer.',
   'spacing-negative': 'Negative spacing steps, used by margin utilities.',
   size: 'Width/height sizing steps.',
@@ -199,16 +199,16 @@ export const GROUP_DESCRIPTIONS = {
   'aspect-ratio': 'Named aspect ratios for the ratio helper.',
   position: 'Offsets used by the position utilities.',
   'z-index': 'The stacking ladder. Change these together or not at all.',
-  opacity: 'Opacity steps used by colour utilities.',
-  'theme-color': 'Semantic colour roles. Each role carries the nine sub-keys a component needs.',
+  opacity: 'Opacity steps used by color utilities.',
+  'theme-color': 'Semantic color roles. Each role carries the nine sub-keys a component needs.',
   bg: 'Neutral background ramp, from the page body up through four raised surfaces.',
   fg: 'Neutral foreground ramp, from primary body text down to the faintest.',
-  border: 'Default border width, style and colour, plus the neutral border ramp.',
+  border: 'Default border width, style and color, plus the neutral border ramp.',
   type: 'Body, heading, link and code typography.',
-  elevation: 'Shadow scale plus the colour and strength every layer is tinted by.',
+  elevation: 'Shadow scale plus the color and strength every layer is tinted by.',
   shadow: 'The named shadow scale.',
-  focus: 'Focus ring geometry and colour.',
+  focus: 'Focus ring geometry and color.',
   control: 'Shared metrics for buttons and form fields, and their interaction states.',
   motion: 'Shared easing curves.',
-  decoration: 'Decorative effects that are not colour, spacing or type.'
+  decoration: 'Decorative effects that are not color, spacing or type.'
 }

@@ -5,7 +5,7 @@
  * odd script that needs one is worth, so this uses whichever Chrome is installed and says so
  * plainly when there is none. Shared by anything that asks a real browser a question the
  * resolver cannot answer alone: `web/og-capture.mjs` for the link-preview screenshot,
- * `tools/commands/probe.mjs` for flattened colours, and its automated check on the pasted-
+ * `tools/commands/probe.mjs` for flattened colors, and its automated check on the pasted-
  * markup sanitiser.
  */
 import { existsSync } from 'node:fs'

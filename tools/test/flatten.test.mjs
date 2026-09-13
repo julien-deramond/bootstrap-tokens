@@ -15,12 +15,12 @@ const chrome = JSON.parse(
 
 /*
  * The point of this file. Everything else here proves we copied Bootstrap correctly; this
- * proves the flattened export is the colour a user actually sees, by comparing against what
+ * proves the flattened export is the color a user actually sees, by comparing against what
  * a browser computed for the same token. The fixture records Chrome's answers so CI can
  * check it without one — see the file's own $comment for how it was measured.
  */
 for (const mode of ['light', 'dark']) {
-  test(`flattened ${mode} colours match what Chrome computed`, () => {
+  test(`flattened ${mode} colors match what Chrome computed`, () => {
     const { colors } = flattenColors(doc, { mode })
     const wrong = []
     for (const [path, expected] of Object.entries(chrome[mode])) {
@@ -40,7 +40,7 @@ test('mixing happens in OKLCH, not through sRGB', () => {
   assert.equal(toHex(mixColors(white, blue, 0.8)), '#cce9ff')
 })
 
-test('a mix with transparent keeps the other colour and takes its alpha', () => {
+test('a mix with transparent keeps the other color and takes its alpha', () => {
   assert.equal(toHex(mixColors(parseColor('#fff'), parseColor('transparent'), 0.55)), '#ffffff8c')
 })
 

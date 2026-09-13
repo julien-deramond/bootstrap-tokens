@@ -73,7 +73,7 @@ export const OPTIONS = [
     name: '$enable-reduced-motion',
     kind: 'flag',
     group: 'Motion',
-    describe: 'Honours `prefers-reduced-motion`. Leave this on: turning it off overrides an accessibility preference the reader set deliberately.'
+    describe: 'Honors `prefers-reduced-motion`. Leave this on: turning it off overrides an accessibility preference the reader set deliberately.'
   },
   {
     name: '$enable-smooth-scroll',
@@ -103,7 +103,7 @@ export const OPTIONS = [
     name: '$enable-button-pointers',
     kind: 'flag',
     group: 'Appearance',
-    describe: 'Gives buttons `cursor: pointer`. Off matches the native platform behaviour.'
+    describe: 'Gives buttons `cursor: pointer`. Off matches the native platform behavior.'
   },
   {
     name: '$enable-deprecation-messages',
@@ -116,25 +116,25 @@ export const OPTIONS = [
     name: '$color-mode-type',
     kind: 'choice',
     choices: ['"media-query"', '"data"'],
-    group: 'Colour modes',
+    group: 'Color modes',
     describe: 'Whether dark mode follows the system setting or a `data-bs-theme` attribute you control.'
   },
   {
     name: '$min-contrast-ratio',
     kind: 'number',
-    group: 'Colour modes',
+    group: 'Color modes',
     describe: 'The ratio `color-contrast()` aims for when picking text to sit on a fill. 4.5 is WCAG AA for body text.'
   },
   {
     name: '$color-contrast-dark',
     kind: 'color',
-    group: 'Colour modes',
+    group: 'Color modes',
     describe: 'The dark option `color-contrast()` chooses between when deciding what to put on a fill.'
   },
   {
     name: '$color-contrast-light',
     kind: 'color',
-    group: 'Colour modes',
+    group: 'Color modes',
     describe: 'The light option `color-contrast()` chooses between.'
   },
 
@@ -191,7 +191,7 @@ export const OPTIONS = [
     name: '$validation-states',
     kind: 'map',
     group: 'Appearance',
-    describe: 'Maps each validation state to the theme colour it borrows. Add a state here and its feedback classes are generated for you.'
+    describe: 'Maps each validation state to the theme color it borrows. Add a state here and its feedback classes are generated for you.'
   },
 
   {
@@ -219,7 +219,7 @@ export const OPTIONS = [
 
 export const optionByName = new Map(OPTIONS.map((option) => [option.name, option]))
 
-/** Read every modelled option out of a Bootstrap checkout. */
+/** Read every modeled option out of a Bootstrap checkout. */
 export function extractOptions(readFile, files) {
   const found = {}
 

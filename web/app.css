@@ -123,7 +123,7 @@ body {
 /*
  * The repository link, and the ask that goes with it.
  *
- * A quiet button rather than a coloured call to action: it competes with Export otherwise,
+ * A quiet button rather than a colored call to action: it competes with Export otherwise,
  * and Export is what people came for.
  */
 .repo-link {
@@ -240,7 +240,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   color: var(--ink);
 }
 
-/* A hairline, not just a colour change, marks where one group ends and the next begins —
+/* A hairline, not just a color change, marks where one group ends and the next begins —
    contrast alone reads as one continuous list once a header scrolls away from its items. */
 .rail-group:not(:first-child) { border-block-start: 1px solid var(--line); }
 
@@ -485,7 +485,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 
 
 /* A reading, not a label: no fill, no pill — that shape is `.badge` and `.alert`'s. The
-   status is carried by a small dot and by colour on numerals already set in a monospace
+   status is carried by a small dot and by color on numerals already set in a monospace
    face, the way an instrument's own readout would show it. */
 .contrast {
   flex: none;
@@ -845,9 +845,9 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   color: var(--ink);
 }
 
-/* --- adding a colour ----------------------------------------------------- */
+/* --- adding a color ----------------------------------------------------- */
 
-.add-colour { display: flex; flex-wrap: wrap; gap: .375rem; align-items: center; margin-block-start: .75rem; }
+.add-color { display: flex; flex-wrap: wrap; gap: .375rem; align-items: center; margin-block-start: .75rem; }
 
 .added-chip {
   display: inline-flex;
@@ -875,7 +875,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 
 .added-chip-remove:hover { color: light-dark(#b91c1c, #fca5a5); }
 
-.add-colour-form {
+.add-color-form {
   flex-basis: 100%;
   display: flex;
   flex-wrap: wrap;
@@ -888,7 +888,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   background: var(--surface-sunken);
 }
 
-.add-colour-form input[type="text"] {
+.add-color-form input[type="text"] {
   inline-size: 8rem;
   font: .75rem/1.4 var(--mono);
   padding: .3125rem .375rem;
@@ -898,7 +898,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   color: var(--ink);
 }
 
-.add-colour-form input[type="color"] {
+.add-color-form input[type="color"] {
   inline-size: 2rem;
   block-size: 1.875rem;
   padding: 0;
@@ -908,12 +908,12 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   cursor: pointer;
 }
 
-.add-colour-form .button { padding: .3125rem .5rem; font-size: .75rem; }
-.add-colour-role { display: flex; gap: .25rem; align-items: center; font-size: .6875rem; color: var(--ink-muted); }
-.add-colour-error { flex-basis: 100%; margin: 0; font-size: .6875rem; color: light-dark(#b91c1c, #fca5a5); }
+.add-color-form .button { padding: .3125rem .5rem; font-size: .75rem; }
+.add-color-role { display: flex; gap: .25rem; align-items: center; font-size: .6875rem; color: var(--ink-muted); }
+.add-color-error { flex-basis: 100%; margin: 0; font-size: .6875rem; color: light-dark(#b91c1c, #fca5a5); }
 
-/* An added scale is marked, so it is clear which colours are yours. A corner flag rather than
-   an outer ring: cells now sit edge to edge, and a ring would bleed onto the neighbour. */
+/* An added scale is marked, so it is clear which colors are yours. A corner flag rather than
+   an outer ring: cells now sit edge to edge, and a ring would bleed onto the neighbor. */
 .hue.is-added::before {
   content: "";
   position: absolute;
@@ -1149,7 +1149,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 .notice p { margin: 0; }
 
 /* `display: flex` outranks the user-agent's `[hidden] { display: none }`, so without this
-   the row is always drawn — an empty coloured band on every load. Any rule that sets
+   the row is always drawn — an empty colored band on every load. Any rule that sets
    `display` on something toggled with `hidden` needs this pair. */
 .notice[hidden] { display: none; }
 

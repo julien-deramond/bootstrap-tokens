@@ -1,5 +1,5 @@
 /**
- * Write a self-contained page that measures the flattened colours against a real browser.
+ * Write a self-contained page that measures the flattened colors against a real browser.
  *
  * `verify` proves the exported Sass compiles to the same CSS as upstream. That says nothing
  * about the *flat* export, whose whole job is to compute what a browser would have computed
@@ -49,7 +49,7 @@ export async function probe({ flags }) {
   const out = flags.out ?? join(repoRoot, 'build', 'probe.html')
 
   writeFileSync(out, page(data, colorSource, sanitiseSource, HOSTILE_MARKUP))
-  console.log(`  ${tokens.length} colour tokens × 2 schemes → ${out}`)
+  console.log(`  ${tokens.length} color tokens × 2 schemes → ${out}`)
   console.log('\nOpen it in a browser. It compares every value against getComputedStyle, checks')
   console.log('the pasted-markup sanitiser against known-hostile input, and prints a fixture')
   console.log('block for tools/test/fixtures/chrome-colors.json.')
@@ -74,7 +74,7 @@ const HOSTILE_MARKUP = [
 
 const page = (data, colorSource, sanitiseSource, hostileMarkup) => `<!doctype html>
 <meta charset="utf-8">
-<title>Flattened colours vs. this browser</title>
+<title>Flattened colors vs. this browser</title>
 <style>
   :root { color-scheme: light dark; font: 14px/1.5 system-ui, sans-serif }
   body { margin: 2rem; max-width: 60rem }
@@ -91,7 +91,7 @@ const page = (data, colorSource, sanitiseSource, hostileMarkup) => `<!doctype ht
   code { font: 12px/1.4 ui-monospace, monospace }
   #stage { position: absolute; visibility: hidden; pointer-events: none }
 </style>
-<h1>Flattened colours vs. this browser</h1>
+<h1>Flattened colors vs. this browser</h1>
 <div id="verdict" class="verdict">Measuring…</div>
 <div id="report"></div>
 
@@ -130,8 +130,8 @@ for (const mode of ['light', 'dark']) {
 
   /*
    * Whether a var() chain resolved cannot be read off the computed value: when it fails,
-   * the colour becomes invalid at computed-value time and inherits, and the inherited value
-   * is a perfectly ordinary colour. So measure twice against two different parents.
+   * the color becomes invalid at computed-value time and inherits, and the inherited value
+   * is a perfectly ordinary color. So measure twice against two different parents.
    * A value that follows the parent both times did not resolve — the declaration referenced
    * a custom property that a real ancestor would have supplied, which an isolated box has
    * no way to provide. A value that is the same both times resolved.
@@ -177,7 +177,7 @@ for (const result of results) {
 
   compared++
   const delta = Math.max(...[0, 1, 2].map((i) => Math.abs(channel(ours, i) - channel(browserHex, i))))
-  // One level of 8-bit rounding is not a disagreement about the colour.
+  // One level of 8-bit rounding is not a disagreement about the color.
   if (delta > 1 || Math.abs(browserAlpha - ourAlpha) > 0.01) {
     mismatches.push({ ...result, browserHex, ours, delta })
   }

@@ -173,7 +173,7 @@ test('the scaffolded stylesheet compiles', { skip: !source }, async () => {
 
 /* ------------------------------------------------------------------ vite -- */
 
-test('the vite template is the shape a Bootstrap developer recognises', async () => {
+test('the vite template is the shape a Bootstrap developer recognizes', async () => {
   /*
    * Measured against `twbs/examples/vite` on `v6-dev`, which is upstream's own answer to
    * "how do I build v6 with Vite". Matching it is the point: someone who has read Bootstrap's

@@ -85,7 +85,7 @@ test('an eject edits the declaration a maintainer would expect', { skip: !source
 test('an indirection is followed only when nothing else leans on it', { skip: !source }, () => {
   /*
    * `$colors: ("blue": $blue)` and `$radii: (5: $radius)` look identical, and the right
-   * answer is different for each. The colour map is a pure re-export, so the edit belongs
+   * answer is different for each. The color map is a pure re-export, so the edit belongs
    * on `$blue`. `$radii` is a scale: its eight other entries are `$radius * .25`,
    * `$radius * 1.5` and so on, so patching `$radius` because step 5 moved would move all
    * nine — while the consumer export moves one. `eject --verify` caught the disagreement:

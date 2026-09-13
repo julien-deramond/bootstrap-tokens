@@ -8,15 +8,15 @@
  * `fg` and `fg-emphasis` is a decision rather than a value, and on the handful of tokens
  * elsewhere that behave surprisingly.
  *
- * Two families are templated rather than written out. The nine theme-colour sub-keys mean
+ * Two families are templated rather than written out. The nine theme-color sub-keys mean
  * the same thing for every role, and the seven control metrics mean the same thing at every
  * size — writing 72 and 28 near-identical strings would invite them to drift apart.
  */
 
-/** The eight semantic colour roles. */
+/** The eight semantic color roles. */
 const ROLES = {
-  primary: 'The main brand colour. Buttons, links and focus rings default to it.',
-  accent: 'A second brand colour, for highlights that should not compete with primary.',
+  primary: 'The main brand color. Buttons, links and focus rings default to it.',
+  accent: 'A second brand color, for highlights that should not compete with primary.',
   success: 'Confirmation: something finished, saved or passed validation.',
   danger: 'Destruction or failure — deletions, errors, and the confirmations that guard them.',
   warning: 'Something needs attention but has not failed yet.',
@@ -27,10 +27,10 @@ const ROLES = {
 
 /** The nine sub-keys every role carries. `{role}` is substituted. */
 const SUB_KEYS = {
-  base: 'The solid {role} colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.',
+  base: 'The solid {role} color, unmodified. Use it when you need the hue itself rather than a surface or a text role.',
   fg: '{Role} text on the page background — darkened in light mode and lightened in dark, so it stays readable in both.',
   'fg-emphasis':
-    'A higher-contrast {role} text colour, for headings or for text sitting on a {role}-tinted surface.',
+    'A higher-contrast {role} text color, for headings or for text sitting on a {role}-tinted surface.',
   bg: 'A solid {role} fill. Pair it with `contrast` for anything placed on top.',
   'bg-subtle': 'A lightly tinted {role} surface — the usual background for alerts and subtle badges.',
   'bg-muted': 'A stronger tint than `bg-subtle`, for hover and active states on tinted surfaces.',
@@ -65,31 +65,31 @@ const TOKENS = {
   'bg.2': 'A second step up, for a surface raised above one that is already raised.',
   'bg.3': 'A third step, used mostly for disabled controls and inset wells.',
   'bg.4': 'The strongest neutral fill before you reach an inverted surface.',
-  'bg.fg': 'The foreground colour used as a background — for inverted blocks that flip the page around.',
+  'bg.fg': 'The foreground color used as a background — for inverted blocks that flip the page around.',
   'bg.white': 'Fixed white in both schemes. Use it when a surface must not follow the theme.',
   'bg.black': 'Fixed black in both schemes. Use it when a surface must not follow the theme.',
   'bg.transparent': 'No background at all. Use it to clear an inherited one.',
   'bg.inherit': 'Take whatever background the parent has. A CSS-wide keyword, so it cannot be stored in a custom property.',
 
-  'fg.body': 'Primary body text. The default reading colour.',
-  'fg.1': 'Slightly de-emphasised text — secondary lines that still have to be read comfortably.',
+  'fg.body': 'Primary body text. The default reading color.',
+  'fg.1': 'Slightly de-emphasized text — secondary lines that still have to be read comfortably.',
   'fg.2': 'Supporting text: captions, helper text under a field, table metadata.',
   'fg.3': 'Faint text for labels and placeholders. Below WCAG AA for body copy, so keep it off long prose.',
   'fg.4': 'The faintest step, for decorative or disabled text only. It does not meet WCAG AA at any size.',
-  'fg.bg': 'The page background used as a text colour — for text on an inverted surface.',
+  'fg.bg': 'The page background used as a text color — for text on an inverted surface.',
   'fg.white': 'Fixed white in both schemes, for text that must stay light whatever the theme does.',
   'fg.black': 'Fixed black in both schemes, for text that must stay dark whatever the theme does.',
-  'fg.inherit': 'Take whatever text colour the parent has.',
+  'fg.inherit': 'Take whatever text color the parent has.',
 
   // --- borders --------------------------------------------------------------
   'border.width': 'The default border width. Components reference it rather than hard-coding 1px.',
   'border.width-keyline': 'A sub-pixel hairline for dividers that should read as a seam rather than a border.',
   'border.style':
     'The default border style. Every component reads it, so switching to `dashed` restyles the whole system rather than one element.',
-  'border.color': 'The default border colour, for anything that does not choose a more specific one.',
+  'border.color': 'The default border color, for anything that does not choose a more specific one.',
   'border.color-translucent':
-    'A border mixed from the foreground rather than a fixed grey, so it works over any surface underneath.',
-  'border.bg': 'A border the colour of the page — used to punch a gap between adjacent filled elements.',
+    'A border mixed from the foreground rather than a fixed gray, so it works over any surface underneath.',
+  'border.bg': 'A border the color of the page — used to punch a gap between adjacent filled elements.',
   'border.body': 'The standard visible border. Stronger than `subtle`, calmer than `emphasized`.',
   'border.muted': 'A quieter border for grouping without drawing a line the eye stops at.',
   'border.subtle': 'The faintest border. For separating areas that are already distinguished by space.',
@@ -111,13 +111,13 @@ const TOKENS = {
   'control.transition-timing':
     'Easing for a checkbox or radio mark. Overshoots slightly, so the mark pops rather than slides.',
   'control.field.fg':
-    'Text colour shared by buttons and form fields, so an unstyled button matches an input beside it.',
+    'Text color shared by buttons and form fields, so an unstyled button matches an input beside it.',
   'control.field.bg':
     'Background shared by buttons and form fields. Variants paint over it; this is what an unstyled control shows.',
 
   // --- elevation ------------------------------------------------------------
   'elevation.color':
-    'The colour every shadow is tinted from. Set it to a hue and the whole elevation scale warms or cools with it.',
+    'The color every shadow is tinted from. Set it to a hue and the whole elevation scale warms or cools with it.',
   'shadow.default': 'The everyday shadow. Three layers, so it stays soft rather than reading as a hard edge.',
   'shadow.xs': 'A single-layer shadow for elements barely lifted off the page.',
   'shadow.sm': 'Two layers, for resting cards and small popovers.',
@@ -128,8 +128,8 @@ const TOKENS = {
   // --- focus ----------------------------------------------------------------
   'focus.width': 'Thickness of the focus ring. Do not go below 2px: this is the only cue a keyboard user gets.',
   'focus.offset': 'Gap between a control and its focus ring, so the ring stays legible against the control.',
-  'focus.color': 'Colour of the focus ring. Follows the primary role by default.',
-  'focus.ring': 'The whole focus ring shorthand, composed from the width and colour above.',
+  'focus.color': 'Color of the focus ring. Follows the primary role by default.',
+  'focus.ring': 'The whole focus ring shorthand, composed from the width and color above.',
 
   // --- typography -----------------------------------------------------------
   'type.body.font-family':
@@ -139,17 +139,17 @@ const TOKENS = {
     'Weight of ordinary running text. Headings set their own, so this governs paragraphs and labels.',
   'type.body.line-height':
     'Leading for running text. Headings override it, so this mostly decides how dense a paragraph feels.',
-  'type.heading.color': 'Heading colour. Inherits by default, so headings match body text unless you separate them.',
-  'type.hr.border-color': 'Colour of a horizontal rule, and of the divider inside an alert or a card.',
-  'type.link.color': 'Link colour. Uses the solid brand colour in light mode and the lighter text variant in dark.',
-  'type.link.hover-color': 'Link colour on hover — the base colour darkened, so the shift reads without changing hue.',
+  'type.heading.color': 'Heading color. Inherits by default, so headings match body text unless you separate them.',
+  'type.hr.border-color': 'Color of a horizontal rule, and of the divider inside an alert or a card.',
+  'type.link.color': 'Link color. Uses the solid brand color in light mode and the lighter text variant in dark.',
+  'type.link.hover-color': 'Link color on hover — the base color darkened, so the shift reads without changing hue.',
   'type.link.decoration':
-    'How a link is marked. Removing the underline leaves colour as the only cue, which fails for readers who cannot distinguish it.',
+    'How a link is marked. Removing the underline leaves color as the only cue, which fails for readers who cannot distinguish it.',
   'type.link.underline-offset':
     'How far the underline sits below the text. Enough clearance keeps it from cutting through descenders.',
   'type.code.font-family': 'The monospace stack, for code and any figure that should align in columns.',
   'type.code.font-size': 'Code size relative to its surrounding text, so inline code does not tower over the line.',
-  'type.code.color': 'Colour of inline code, set a step away from running text so it reads as a quotation.',
+  'type.code.color': 'Color of inline code, set a step away from running text so it reads as a quotation.',
 
   // --- everything else ------------------------------------------------------
   'motion.timing-overlay':
@@ -161,9 +161,9 @@ const TOKENS = {
   'spacing.base': 'The base spacer. Every step of the spacing scale is a multiple of it, so changing it rescales the whole system.',
   'radius.base':
     'The base radius. Every step of the 0–9 scale is a multiple of it, so one change rounds or squares every component at once.',
-  'color.white': 'Pure white, referenced by the tint half of every colour scale.',
-  'color.black': 'Pure black, referenced by the shade half of every colour scale.',
-  'color-mix.space': 'The interpolation space every generated colour step is mixed in.',
+  'color.white': 'Pure white, referenced by the tint half of every color scale.',
+  'color.black': 'Pure black, referenced by the shade half of every color scale.',
+  'color-mix.space': 'The interpolation space every generated color step is mixed in.',
   'color-mix.tint-color': 'What tints are mixed towards — the light end of every scale.',
   'color-mix.shade-color': 'What shades are mixed towards — the dark end of every scale.',
   'grid.gutter-x':
@@ -217,7 +217,7 @@ export function describe(path) {
   return null
 }
 
-/** The description for a whole theme-colour role group. */
+/** The description for a whole theme-color role group. */
 export const describeRole = (role) => ROLES[role] ?? null
 
 export { ROLES, SUB_KEYS }

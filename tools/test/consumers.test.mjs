@@ -122,7 +122,7 @@ test('Style Dictionary builds the export into CSS custom properties', async () =
   // References resolved rather than printed: that is what makes the graph worth keeping.
   assert.doesNotMatch(css, /\{color\./)
   assert.match(css, /--spacing-base: 1rem;/)
-  // Values pass through untouched. Style Dictionary's colour transforms would rewrite
+  // Values pass through untouched. Style Dictionary's color transforms would rewrite
   // `rgb(0 0 0 / 50%)` as `#000000`, dropping the alpha, so the config does not use them.
   assert.match(css, /--dialog-backdrop-bg: rgb\(0 0 0 \/ 50%\);/)
 })
@@ -186,7 +186,7 @@ test('the Tokens Studio file is the shape Tokens Studio expects', () => {
         assert.ok(STUDIO_TYPES.has(value.type), `${path}: unknown Tokens Studio type ${value.type}`)
         assert.equal(typeof value.value, 'string')
         assert.ok(value.value.length > 0, `${path} is empty`)
-        // Figma cannot hold a reference, a cascade, or a colour it has to compute.
+        // Figma cannot hold a reference, a cascade, or a color it has to compute.
         assert.doesNotMatch(value.value, /var\(|light-dark\(|color-mix\(|\{[\w.]+\}/, path)
       } else if (value && typeof value === 'object') {
         check(value, [...at, key])
