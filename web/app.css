@@ -231,6 +231,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 .rail-list { padding: .5rem 0 1.5rem; }
 
 .rail-group {
+  margin-block-start: .5rem;
   padding: .75rem .75rem .1875rem;
   font-size: .625rem;
   font-weight: 700;
@@ -238,6 +239,10 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   text-transform: uppercase;
   color: var(--ink);
 }
+
+/* A hairline, not just a colour change, marks where one group ends and the next begins —
+   contrast alone reads as one continuous list once a header scrolls away from its items. */
+.rail-group:not(:first-child) { border-block-start: 1px solid var(--line); }
 
 .rail-item {
   display: flex;
