@@ -233,10 +233,10 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 .rail-group {
   padding: .75rem .75rem .1875rem;
   font-size: .625rem;
-  font-weight: 650;
+  font-weight: 700;
   letter-spacing: .07em;
   text-transform: uppercase;
-  color: var(--ink-faint);
+  color: var(--ink);
 }
 
 .rail-item {
