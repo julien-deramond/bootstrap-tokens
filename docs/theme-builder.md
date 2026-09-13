@@ -62,9 +62,9 @@ preset.
 * **Every change is listed and revertible.** The change counter opens the full diff — tokens
   and build options together, previous value beside new, one Revert per row. *Before / after*
   shows the same page rendered stock beside themed.
-* **When Bootstrap is the broken one, it says so.** Seven of upstream's own values do not
-  work — four `color-mix()` weights in `.navbar-dark`, three tokens reading properties nothing
-  declares — and editing any of them changes nothing, in the preview or in your project. Each
+* **When Bootstrap is the broken one, it says so.** Three of upstream's own values do not
+  work — tokens reading properties nothing declares — and editing any of them changes nothing,
+  in the preview or in your project. Each
   carries a note saying exactly that. Two token maps Bootstrap defines and never uses say
   something stronger, because "it still exports" would be true and useless there. Each is an
   issue labelled [`upstream`](https://github.com/julien-deramond/bootstrap-tokens/issues?q=is%3Aissue+label%3Aupstream).

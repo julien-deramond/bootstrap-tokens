@@ -68,7 +68,6 @@ test('a var() cycle resolves to nothing rather than hanging', () => {
 test('values a browser cannot compute statically are skipped with a reason', () => {
   const { skipped } = flattenColors(doc)
   assert.match(skipped.get('badge.color'), /inherit/)
-  assert.equal(skipped.get('navbar-dark.navbar-color'), 'is invalid CSS upstream (https://github.com/julien-deramond/bootstrap-tokens/issues/14)')
 })
 
 test('context-dependent values are named, not silently resolved', () => {

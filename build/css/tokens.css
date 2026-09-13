@@ -684,18 +684,17 @@
 
 .alert {
   --alert-gap: var(--spacer-3);
-  --alert-bg: var(--theme-bg-subtle, var(--bg-1));
+  --alert-bg: var(--bg-1);
   --alert-padding-x: var(--spacer);
   --alert-padding-y: var(--spacer);
-  --alert-color: var(--theme-fg, inherit);
-  --alert-border-color: var(--theme-border, var(--border-color));
-  --alert-border: var(--border-width) solid var(--alert-border-color);
-  --alert-border-radius: var(--radius-5);
+  --alert-color: inherit;
+  --alert-border-color: var(--border-color);
+  --alert-border-radius: var(--radius-7);
   --alert-link-color: inherit;
   --alert-transition-property: opacity;
   --alert-transition-duration: .15s;
   --alert-transition-timing: linear;
-  --hr-border-color: var(--theme-border, var(--border-color));
+  --hr-border-color: var(--theme-border, var(--alert-border-color));
 }
 
 .avatar {
@@ -1171,13 +1170,13 @@
 }
 
 .navbar[data-bs-theme=dark] {
-  --navbar-color: color-mix(in oklch, var(--white) .55, transparent);
-  --navbar-hover-color: color-mix(in oklch, var(--white) .75, transparent);
-  --navbar-disabled-color: color-mix(in oklch, var(--white) .25, transparent);
+  --navbar-color: color-mix(in oklch, var(--white) 55%, transparent);
+  --navbar-hover-color: color-mix(in oklch, var(--white) 75%, transparent);
+  --navbar-disabled-color: color-mix(in oklch, var(--white) 25%, transparent);
   --navbar-active-color: var(--white);
   --navbar-brand-color: var(--white);
   --navbar-brand-hover-color: var(--white);
-  --navbar-toggler-border-color: color-mix(in oklch, var(--white) .1, transparent);
+  --navbar-toggler-border-color: color-mix(in oklch, var(--white) 10%, transparent);
 }
 
 .navbar-nav {

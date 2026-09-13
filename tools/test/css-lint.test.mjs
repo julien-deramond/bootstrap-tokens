@@ -43,11 +43,10 @@ test('the document carries exactly the known upstream findings', () => {
   )
 
   const { findings } = validate(doc)
-  assert.equal(findings.length, 4, 'four invalid color-mix() weights (issue #14)')
-  assert.ok(findings.every((finding) => finding.startsWith('navbar-dark.')))
+  assert.equal(findings.length, 0, 'issue #14 fixed upstream: no more invalid color-mix() weights')
 
   const withDeclarations = validate(doc, { declared }).findings
-  assert.equal(withDeclarations.length, 7, 'plus three dangling references (issue #15)')
+  assert.equal(withDeclarations.length, 3, 'three dangling references (issue #15)')
   assert.deepEqual(
     withDeclarations.filter((f) => f.includes('never declares')).map((f) => f.split(':')[0]),
     ['btn.font-weight', 'nav-tabs.link-active-color', 'nav-underline.link-active-color']

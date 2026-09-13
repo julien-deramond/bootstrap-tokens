@@ -28,7 +28,6 @@ export type TokenPath =
   | "alert.padding-y"
   | "alert.color"
   | "alert.border-color"
-  | "alert.border"
   | "alert.border-radius"
   | "alert.link-color"
   | "alert.transition-property"

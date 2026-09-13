@@ -133,8 +133,7 @@
   },
   "alert.bg": {
     "$type": "color",
-    "$value": "var(--theme-bg-subtle, var(--bg-1))",
-    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg-subtle`, and uses the fallback only when no theme class is set.",
+    "$value": "var(--bg-1)",
     "cssVar": "--alert-bg",
     "sassMap": "$alert-tokens"
   },
@@ -152,27 +151,19 @@
   },
   "alert.color": {
     "$type": "color",
-    "$value": "var(--theme-fg, inherit)",
-    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-fg`, and uses the fallback only when no theme class is set.",
+    "$value": "inherit",
     "cssVar": "--alert-color",
     "sassMap": "$alert-tokens"
   },
   "alert.border-color": {
     "$type": "color",
-    "$value": "var(--theme-border, var(--border-color))",
-    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-border`, and uses the fallback only when no theme class is set.",
+    "$value": "var(--border-color)",
     "cssVar": "--alert-border-color",
-    "sassMap": "$alert-tokens"
-  },
-  "alert.border": {
-    "$type": "border",
-    "$value": "var(--border-width) solid var(--alert-border-color)",
-    "cssVar": "--alert-border",
     "sassMap": "$alert-tokens"
   },
   "alert.border-radius": {
     "$type": "dimension",
-    "$value": "var(--radius-5)",
+    "$value": "var(--radius-7)",
     "cssVar": "--alert-border-radius",
     "sassMap": "$alert-tokens"
   },
@@ -202,7 +193,7 @@
   },
   "alert.hr-border-color": {
     "$type": "color",
-    "$value": "var(--theme-border, var(--border-color))",
+    "$value": "var(--theme-border, var(--alert-border-color))",
     "$description": "Follows the `.theme-*` class on an ancestor through `--theme-border`, and uses the fallback only when no theme class is set.",
     "cssVar": "--hr-border-color",
     "sassMap": "$alert-tokens"
@@ -2512,19 +2503,19 @@
   },
   "navbar-dark.navbar-color": {
     "$type": "color",
-    "$value": "color-mix(in oklch, var(--white) .55, transparent)",
+    "$value": "color-mix(in oklch, var(--white) 55%, transparent)",
     "cssVar": "--navbar-color",
     "sassMap": "$navbar-dark-tokens"
   },
   "navbar-dark.navbar-hover-color": {
     "$type": "color",
-    "$value": "color-mix(in oklch, var(--white) .75, transparent)",
+    "$value": "color-mix(in oklch, var(--white) 75%, transparent)",
     "cssVar": "--navbar-hover-color",
     "sassMap": "$navbar-dark-tokens"
   },
   "navbar-dark.navbar-disabled-color": {
     "$type": "color",
-    "$value": "color-mix(in oklch, var(--white) .25, transparent)",
+    "$value": "color-mix(in oklch, var(--white) 25%, transparent)",
     "cssVar": "--navbar-disabled-color",
     "sassMap": "$navbar-dark-tokens"
   },
@@ -2548,7 +2539,7 @@
   },
   "navbar-dark.navbar-toggler-border-color": {
     "$type": "color",
-    "$value": "color-mix(in oklch, var(--white) .1, transparent)",
+    "$value": "color-mix(in oklch, var(--white) 10%, transparent)",
     "cssVar": "--navbar-toggler-border-color",
     "sassMap": "$navbar-dark-tokens"
   },
