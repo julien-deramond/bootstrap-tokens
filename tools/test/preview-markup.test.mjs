@@ -18,7 +18,9 @@ import { projectFiles } from '../lib/project.mjs'
  * It had drifted. The forms section used v5's `.form-check`, `.form-check-input` and
  * `.form-switch`, none of which v6 styles, so checkboxes, radios and switches rendered as
  * bare browser controls and a theme's check and switch tokens appeared to do nothing at all.
- * `.lead` was there too, which v6's migration guide explicitly removed.
+ * `.lead` was there too, which v6's migration guide explicitly removed. The select used
+ * v5's `.form-select`, which v6 folded into `.form-control` — still a defined class, so it
+ * rendered, just with the wrong metrics and none of the control tokens a theme sets.
  *
  * The vendored stylesheet is the same one the preview loads, so this needs no checkout.
  */
@@ -108,12 +110,13 @@ test('the class families the preview builds by interpolation exist', () => {
 test('the forms section uses v6 markup', () => {
   // Named explicitly because this is the drift that actually happened, and the generic
   // check above would go quiet again the moment someone added them back with a typo.
-  for (const gone of ['form-check', 'form-check-input', 'form-check-label', 'form-switch']) {
+  for (const gone of ['form-check', 'form-check-input', 'form-check-label', 'form-switch', 'form-select']) {
     assert.doesNotMatch(preview, new RegExp(`class="[^"]*\\b${gone}\\b`), `${gone} is v5 markup`)
   }
   assert.match(preview, /class="check"/)
   assert.match(preview, /class="radio"/)
   assert.match(preview, /<div class="switch">/)
+  assert.match(preview, /<select class="form-control"/)
 })
 
 test('the artboard carries the typography Bootstrap puts on body', () => {

@@ -76,7 +76,7 @@ export const page = (uid) => `
         </div>
         <div class="col-12 md:col-6">
           <label class="form-label" for="page-plan-${uid}">Plan</label>
-          <select class="form-select" id="page-plan-${uid}"><option>Growth</option></select>
+          <select class="form-control" id="page-plan-${uid}"><option>Growth</option></select>
         </div>
       </div>
       <div class="d-flex flex-wrap gap-2 align-items-center mt-3">

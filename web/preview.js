@@ -114,7 +114,7 @@ const forms = (uid) => section(
     </div>
     <div>
       <label class="form-label" for="select-${uid}">Select</label>
-      <select class="form-select" id="select-${uid}">
+      <select class="form-control" id="select-${uid}">
         <option>Choose…</option>
         <option>Another option</option>
       </select>
