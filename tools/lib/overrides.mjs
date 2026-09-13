@@ -23,7 +23,7 @@ export const clone = (value) => JSON.parse(JSON.stringify(value))
  *
  * An override is `{ value, dark }`; `dark: null` removes an existing light/dark pairing.
  * An override carrying `create` brings a token into existence that upstream does not have —
- * a new hue, a new theme role — which is what lets someone add a brand colour instead of
+ * a new hue, a new theme role — which is what lets someone add a brand color instead of
  * painting over `blue`.
  */
 export function withOverrides(baseTree, overrides) {
@@ -147,7 +147,7 @@ function scoped(selector, scope) {
 }
 
 /**
- * Re-declare the tokens Bootstrap pins per colour scheme, at the selectors it pins them on.
+ * Re-declare the tokens Bootstrap pins per color scheme, at the selectors it pins them on.
  *
  * Two different failures without this. Skip the dark pins and the preview shows a dark mode
  * no build produces. Skip the *light* pin and the override does nothing at all on any page
@@ -305,7 +305,7 @@ export function validateNewName(name, taken) {
 }
 
 /**
- * The overrides that add a new colour scale.
+ * The overrides that add a new color scale.
  *
  * Only the base hue has to be created: `expandColorScales` generates the thirteen steps from
  * it exactly as it does for Bootstrap's own sixteen, so the new scale gets `--brand-500` and
@@ -317,7 +317,7 @@ export function createHue(name, value) {
       value,
       create: {
         $type: 'color',
-        $description: `A colour scale added to this theme. Bootstrap does not ship it.`,
+        $description: `A color scale added to this theme. Bootstrap does not ship it.`,
         $extensions: {
           [NS_KEY]: { sassMap: '$colors', sassKey: name, sassQuoted: true, css: true, added: true }
         }

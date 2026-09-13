@@ -41,7 +41,7 @@
     "color": {
       "$type": "color",
       "$value": "{color.gray.700}",
-      "$description": "The default border colour, for anything that does not choose a more specific one."
+      "$description": "The default border color, for anything that does not choose a more specific one."
     }
   },
   "bg": {
@@ -75,7 +75,7 @@
     "1": {
       "$type": "color",
       "$value": "{color.gray.200}",
-      "$description": "Slightly de-emphasised text — secondary lines that still have to be read comfortably."
+      "$description": "Slightly de-emphasized text — secondary lines that still have to be read comfortably."
     },
     "2": {
       "$type": "color",
@@ -95,7 +95,7 @@
     "body": {
       "$type": "color",
       "$value": "{color.gray.050}",
-      "$description": "Primary body text. The default reading colour."
+      "$description": "Primary body text. The default reading color."
     }
   },
   "theme-color": {
@@ -108,7 +108,7 @@
       "fg-emphasis": {
         "$type": "color",
         "$value": "{color.blue.200}",
-        "$description": "A higher-contrast primary text colour, for headings or for text sitting on a primary-tinted surface."
+        "$description": "A higher-contrast primary text color, for headings or for text sitting on a primary-tinted surface."
       },
       "bg-subtle": {
         "$type": "color",
@@ -140,7 +140,7 @@
       "fg-emphasis": {
         "$type": "color",
         "$value": "{color.indigo.300}",
-        "$description": "A higher-contrast accent text colour, for headings or for text sitting on a accent-tinted surface."
+        "$description": "A higher-contrast accent text color, for headings or for text sitting on a accent-tinted surface."
       },
       "bg-subtle": {
         "$type": "color",
@@ -172,7 +172,7 @@
       "fg-emphasis": {
         "$type": "color",
         "$value": "{color.green.300}",
-        "$description": "A higher-contrast success text colour, for headings or for text sitting on a success-tinted surface."
+        "$description": "A higher-contrast success text color, for headings or for text sitting on a success-tinted surface."
       },
       "bg-subtle": {
         "$type": "color",
@@ -204,7 +204,7 @@
       "fg-emphasis": {
         "$type": "color",
         "$value": "{color.red.300}",
-        "$description": "A higher-contrast danger text colour, for headings or for text sitting on a danger-tinted surface."
+        "$description": "A higher-contrast danger text color, for headings or for text sitting on a danger-tinted surface."
       },
       "bg-subtle": {
         "$type": "color",
@@ -236,7 +236,7 @@
       "fg-emphasis": {
         "$type": "color",
         "$value": "{color.yellow.300}",
-        "$description": "A higher-contrast warning text colour, for headings or for text sitting on a warning-tinted surface."
+        "$description": "A higher-contrast warning text color, for headings or for text sitting on a warning-tinted surface."
       },
       "bg-subtle": {
         "$type": "color",
@@ -268,7 +268,7 @@
       "fg-emphasis": {
         "$type": "color",
         "$value": "{color.cyan.300}",
-        "$description": "A higher-contrast info text colour, for headings or for text sitting on a info-tinted surface."
+        "$description": "A higher-contrast info text color, for headings or for text sitting on a info-tinted surface."
       },
       "bg-subtle": {
         "$type": "color",
@@ -300,7 +300,7 @@
       "fg-emphasis": {
         "$type": "color",
         "$value": "{color.white}",
-        "$description": "A higher-contrast inverse text colour, for headings or for text sitting on a inverse-tinted surface."
+        "$description": "A higher-contrast inverse text color, for headings or for text sitting on a inverse-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -337,7 +337,7 @@
       "fg-emphasis": {
         "$type": "color",
         "$value": "{color.gray.200}",
-        "$description": "A higher-contrast secondary text colour, for headings or for text sitting on a secondary-tinted surface."
+        "$description": "A higher-contrast secondary text color, for headings or for text sitting on a secondary-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -371,7 +371,7 @@
       "color": {
         "$type": "color",
         "$value": "{theme-color.primary.fg}",
-        "$description": "Link colour. Uses the solid brand colour in light mode and the lighter text variant in dark."
+        "$description": "Link color. Uses the solid brand color in light mode and the lighter text variant in dark."
       }
     }
   }

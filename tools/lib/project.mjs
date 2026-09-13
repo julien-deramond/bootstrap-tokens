@@ -18,7 +18,7 @@
  *
  * `vite` is for the far more common case — someone who is going to build an app with the
  * theme. It mirrors [`twbs/examples/vite` on `v6-dev`][1] closely enough that a Bootstrap
- * developer recognises it: Vite rooted at `src/`, the stylesheet linked straight from the
+ * developer recognizes it: Vite rooted at `src/`, the stylesheet linked straight from the
  * HTML and imported by the JS entry, Bootstrap resolved through bare specifiers out of
  * `node_modules`, and `@floating-ui/dom` as a real dependency because v6 externalises
  * positioning. Every deliberate divergence from upstream is commented where it happens.

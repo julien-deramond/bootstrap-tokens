@@ -34,7 +34,7 @@ Upstream's own wording (`site/src/content/docs/customize/sass.mdx`, "Token archi
 We collapse 2 and 3 into a single **semantic** layer, giving the raw / semantic / component
 split this project targets. See [`docs/layers.md`](./layers.md).
 
-## Layer 1 — colour scales (`scss/_colors.scss`)
+## Layer 1 — color scales (`scss/_colors.scss`)
 
 16 base hues, authored in `oklch()`:
 
@@ -84,9 +84,9 @@ Driven by `$color-tints` / `$color-shades` (stop → percentage), `$tint-color` 
 
 **Consequence for us:** the scale is *derived*, so the token document stores the 16 base hues +
 the tint/shade recipe, and the 208 steps are generated. Storing 208 hand-written hex values
-would immediately drift from upstream and would throw away the `color-mix()` behaviour.
+would immediately drift from upstream and would throw away the `color-mix()` behavior.
 
-## Layer 2 — theme colours (`scss/_theme.scss`)
+## Layer 2 — theme colors (`scss/_theme.scss`)
 
 `$theme-colors` is a **map of maps**. Eight roles:
 `primary`, `accent`, `success`, `danger`, `warning`, `info`, `inverse`, `secondary`.
@@ -95,15 +95,15 @@ Each role has nine sub-keys:
 
 | sub-key | role |
 | --- | --- |
-| `base` | the solid brand colour |
+| `base` | the solid brand color |
 | `fg` | text on a neutral background |
 | `fg-emphasis` | higher-contrast text |
 | `bg` | solid fill |
 | `bg-subtle` | tinted fill |
 | `bg-muted` | slightly stronger tinted fill |
 | `border` | border on a neutral background |
-| `focus-ring` | focus ring colour |
-| `contrast` | text/icon colour placed *on* `bg` |
+| `focus-ring` | focus ring color |
+| `contrast` | text/icon color placed *on* `bg` |
 
 Values reference layer 1 through `var()` and are almost always wrapped in `light-dark()`:
 
@@ -121,9 +121,9 @@ Values reference layer 1 through `var()` and are almost always wrapped in `light
 
 `$util-opacity` (10…100) drives opacity utilities.
 
-Theme colours are also projected onto `.theme-*` helper classes (`generate-theme-classes()`),
+Theme colors are also projected onto `.theme-*` helper classes (`generate-theme-classes()`),
 which re-map each sub-key to a neutral `--theme-<sub-key>` custom property. Components then read
-`var(--theme-bg-subtle, var(--bg-1))` so that `.alert.theme-danger` recolours without
+`var(--theme-bg-subtle, var(--bg-1))` so that `.alert.theme-danger` recolors without
 per-variant CSS. This is the v6 replacement for v5's `.alert-danger` style modifier explosion.
 
 ## Layer 3 — global/root tokens (`scss/_root.scss`)
@@ -151,8 +151,8 @@ per-variant CSS. This is the v6 replacement for v5's `.alert-danger` style modif
 > Encoded in `tools/lib/sass-targets.mjs`.
 
 Hand-written `$root-tokens` entries cover: body typography, headings, links, code/mono,
-border width/style/colour, shadow colour + strength, overlay transition timing, `--spacer`,
-focus ring, form control state colours, and the shared `--btn-input-*` control metrics
+border width/style/color, shadow color + strength, overlay transition timing, `--spacer`,
+focus ring, form control state colors, and the shared `--btn-input-*` control metrics
 (default + `xs`/`sm`/`lg`).
 
 `:root, :host` also sets `color-scheme: light dark` and `scrollbar-gutter: stable`.
@@ -209,19 +209,19 @@ These have no DTCG equivalent and shape our extension design (`docs/dtcg-convent
 | feature | used for |
 | --- | --- |
 | `oklch()` | all base hues |
-| `color-mix()` | colour scale steps, focus rings, translucent borders, opacity utilities |
+| `color-mix()` | color scale steps, focus rings, translucent borders, opacity utilities |
 | `light-dark()` | every light/dark pair — v6 has **no** separate dark-mode stylesheet |
 | `var()` with fallback | `var(--theme-bg-subtle, var(--bg-1))` theming hooks |
 | `calc()` | derived radii, line heights, shadow alphas |
 | `clamp()` | fluid font sizes (`lg` and up) |
-| `oklch(from … l c h / …)` | relative colour syntax in shadows |
+| `oklch(from … l c h / …)` | relative color syntax in shadows |
 | `@layer` | `colors, config, root, reboot, layout, content, forms, components, custom, helpers, utilities` |
 
 ## Things that deliberately stay out of the token document
 
-* Mixins, functions, and the `@layer` order — behaviour, not tokens.
+* Mixins, functions, and the `@layer` order — behavior, not tokens.
 * `$enable-*` feature flags — build options, not design decisions. Mirrored as `options` in
-  the chooser's export, but not modelled as DTCG tokens.
+  the chooser's export, but not modeled as DTCG tokens.
 * `$utilities` — the utility API definition is a code structure.
 * `$escaped-characters`, `$grid-columns`, `$grid-row-columns` — structural constants
   (`$grid-columns` is exposed as a chooser option because people do change it).

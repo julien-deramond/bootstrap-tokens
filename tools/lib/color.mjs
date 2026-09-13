@@ -1,9 +1,9 @@
 /**
- * Just enough colour maths to let a native `<input type="color">` edit a token that is
+ * Just enough color maths to let a native `<input type="color">` edit a token that is
  * authored in `oklch()`.
  *
  * Bootstrap v6 authors every hue in OKLCH, so round-tripping through hex would quietly
- * rewrite the palette into a different colour space. Converting properly means the picker
+ * rewrite the palette into a different color space. Converting properly means the picker
  * hands back `oklch(60% 0.24 240)`, in the notation the token was written in.
  */
 
@@ -58,11 +58,11 @@ const inSrgb = (rgb) => rgb.every((channel) => channel >= -EPSILON && channel <=
  * OKLCH → sRGB (0–255), gamut-mapped by reducing chroma.
  *
  * Clamping each channel independently is the obvious implementation and it is wrong: it
- * moves the colour sideways in hue. Bootstrap authors deliberately saturated hues —
- * `oklch(60% 0.24 240)` is outside sRGB — so a naive round-trip through the colour picker
+ * moves the color sideways in hue. Bootstrap authors deliberately saturated hues —
+ * `oklch(60% 0.24 240)` is outside sRGB — so a naive round-trip through the color picker
  * turned that blue into a 254° blue-violet, silently rewriting the palette. Reducing chroma
- * until the colour fits keeps lightness and hue exactly, which is what CSS Color 4 asks for
- * and what a designer expects: same colour, less saturated.
+ * until the color fits keeps lightness and hue exactly, which is what CSS Color 4 asks for
+ * and what a designer expects: same color, less saturated.
  */
 export function oklchToRgb({ l, c, h }) {
   const lightness = clamp01(l)
@@ -107,15 +107,15 @@ export function formatColor(rgb, like) {
 }
 
 // `none` is a real component value in CSS Color 4 — a powerless hue, which is what a mix
-// with `transparent` produces. Reading it as 0 is correct: a colour with no chroma has no
-// hue to lose. Before this it parsed as NaN and the whole colour came back unreadable.
+// with `transparent` produces. Reading it as 0 is correct: a color with no chroma has no
+// hue to lose. Before this it parsed as NaN and the whole color came back unreadable.
 const NUMBER = '([+-]?[\\d.]+|none)'
 const RGB = new RegExp(`^rgba?\\(\\s*${NUMBER}[\\s,]+${NUMBER}[\\s,]+${NUMBER}`, 'i')
 const OKLCH = new RegExp(`^oklch\\(\\s*${NUMBER}(%?)\\s+${NUMBER}\\s+${NUMBER}`, 'i')
 const SRGB = new RegExp(`^color\\(\\s*srgb\\s+${NUMBER}\\s+${NUMBER}\\s+${NUMBER}`, 'i')
 
 /**
- * Parse whatever `getComputedStyle` hands back for a colour. Browsers are inconsistent here:
+ * Parse whatever `getComputedStyle` hands back for a color. Browsers are inconsistent here:
  * some resolve `oklch()` to `rgb()`, some keep it, some use `color(srgb …)`.
  */
 export function parseComputedColor(value) {
@@ -168,17 +168,17 @@ export function contrastGrade(ratio) {
  *
  * Bootstrap's palette is deliberately dynamic — `color-mix()` in OKLCH, evaluated at
  * runtime — which is the right choice for CSS and useless to everything that is not a
- * browser. Figma cannot mix colours, Tokens Studio cannot, and neither can an email client.
- * Exporting to those means computing the answer ourselves, in the same colour space, with
+ * browser. Figma cannot mix colors, Tokens Studio cannot, and neither can an email client.
+ * Exporting to those means computing the answer ourselves, in the same color space, with
  * the same premultiplied-alpha rule CSS Color 4 specifies, so the hex we hand a designer is
  * the pixel a user actually sees.
  *
- * Everything here carries colours as **unclamped OKLCH**, and converts to sRGB exactly once,
+ * Everything here carries colors as **unclamped OKLCH**, and converts to sRGB exactly once,
  * at the end. Going through sRGB in the middle is the obvious implementation and it is
  * wrong: Bootstrap's base hues sit outside sRGB on purpose, so gamut-mapping `blue.500`
  * before mixing white into it throws away the chroma the mix was supposed to keep. Measured
  * against Chrome 148, that cost `blue.400` 82 levels on a channel — a visibly different
- * colour. Mixing first and mapping last matches the browser.
+ * color. Mixing first and mapping last matches the browser.
  * -------------------------------------------------------------------------- */
 
 const HEX = /^#([0-9a-f]{3,8})$/i
@@ -200,13 +200,13 @@ const alphaOf = (text) => {
 const fromRgb = (rgb, alpha = 1) => ({ ...rgbToOklch(rgb), alpha })
 
 /**
- * Parse one CSS colour into unclamped OKLCH plus alpha, or `null` if it is not a colour we
+ * Parse one CSS color into unclamped OKLCH plus alpha, or `null` if it is not a color we
  * can compute — `currentcolor` and `inherit` depend on context that does not exist here, and
  * saying "unknown" is better than inventing black.
  *
- * `missing: true` marks a colour whose components are powerless (only `transparent` today).
- * CSS substitutes the *other* colour's components for those during interpolation, which is
- * why mixing white into transparent gives translucent white rather than translucent grey.
+ * `missing: true` marks a color whose components are powerless (only `transparent` today).
+ * CSS substitutes the *other* color's components for those during interpolation, which is
+ * why mixing white into transparent gives translucent white rather than translucent gray.
  */
 export function parseColor(text) {
   const value = String(text ?? '').trim().toLowerCase()
@@ -293,7 +293,7 @@ const fromOklab = ({ l, a, b }) => {
  * default. The interpolation method became optional in CSS Color 5 and Bootstrap's
  * `$gradient` relies on that, so an omitted space means `oklab`, exactly as a browser reads
  * it. Anything else returns `null` rather than quietly interpolating in the wrong space: a
- * colour that is subtly off is harder to notice than one that is missing.
+ * color that is subtly off is harder to notice than one that is missing.
  *
  * Rectangular (oklab) and polar (oklch) interpolation differ. Between two saturated hues
  * oklab cuts through the middle of the space and oklch travels around it, so they are not
@@ -307,7 +307,7 @@ export function mixColors(a, b, weight, space = 'oklab') {
   const alpha = t * a.alpha + (1 - t) * b.alpha
   if (alpha === 0) return { l: 0, c: 0, h: 0, alpha: 0 }
 
-  // A colour with powerless components borrows the other's, so it contributes only alpha.
+  // A color with powerless components borrows the other's, so it contributes only alpha.
   const left = a.missing ? { ...b, alpha: a.alpha } : a
   const right = b.missing ? { ...a, alpha: b.alpha } : b
 
@@ -337,7 +337,7 @@ export function mixColors(a, b, weight, space = 'oklab') {
   }
   if (space !== 'oklch') return null
 
-  // A neutral colour has no meaningful hue; taking the other's avoids a swing through grey.
+  // A neutral color has no meaningful hue; taking the other's avoids a swing through gray.
   const hueOne = left.c < 1e-6 ? right.h : left.h
   const hueTwo = right.c < 1e-6 ? left.h : right.h
 
@@ -349,7 +349,7 @@ export function mixColors(a, b, weight, space = 'oklab') {
   }
 }
 
-/** `#rrggbb`, or `#rrggbbaa` when the colour is not opaque. Gamut-mapped here and nowhere else. */
+/** `#rrggbb`, or `#rrggbbaa` when the color is not opaque. Gamut-mapped here and nowhere else. */
 export function toHex(color) {
   if (!color) return null
   const base = rgbToHex(oklchToRgb(color))

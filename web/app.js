@@ -87,7 +87,7 @@ const LABELS = {
   'color-shade': 'Shade recipe',
   'color-mix': 'Mixing inputs',
   'spacing-negative': 'Negative spacing',
-  'theme-color': 'Theme colours',
+  'theme-color': 'Theme colors',
   bg: 'Backgrounds',
   fg: 'Foregrounds',
   type: 'Typography',
@@ -432,7 +432,7 @@ function ensureProbe() {
   return probe
 }
 
-/** Ask the browser what a CSS colour actually resolves to. */
+/** Ask the browser what a CSS color actually resolves to. */
 function resolveColor(css, scheme) {
   if (!css) return null
   const element = ensureProbe()
@@ -706,13 +706,13 @@ function renderField(path, side, modeLabel, token) {
   })
   field.append(input)
 
-  // A native picker only makes sense when the authored value is a literal colour; a token
+  // A native picker only makes sense when the authored value is a literal color; a token
   // that aliases another one should keep its alias rather than being flattened to a swatch.
   if (isColor && rgb && isLiteralColor(input.value)) {
     const picker = document.createElement('input')
     picker.type = 'color'
     picker.value = rgbToHex(rgb)
-    picker.setAttribute('aria-label', `${path} colour picker`)
+    picker.setAttribute('aria-label', `${path} color picker`)
     picker.addEventListener('input', () => {
       setOverride(path, side, formatColor(hexToRgb(picker.value), input.value))
     })
@@ -782,7 +782,7 @@ function splitTop(value) {
 
 const read = (path, side = 'value') => editableValue(path, side)
 
-/** Which colour schemes the panel should report on, following the preview. */
+/** Which color schemes the panel should report on, following the preview. */
 const shownSchemes = () =>
   state.scheme === 'split' ? ['light', 'dark'] : [state.scheme === 'compare' ? state.compareScheme : state.scheme]
 
@@ -803,7 +803,7 @@ function dialTokens() {
   return paths
 }
 
-/** Resolve a hue's 500 step to an actual colour, for swatches and contrast decisions. */
+/** Resolve a hue's 500 step to an actual color, for swatches and contrast decisions. */
 function hueColor(hue, scheme = 'light') {
   try {
     return resolveColor(state.doc.cssValueOf(`color.${hue}.500`), scheme)
@@ -813,7 +813,7 @@ function hueColor(hue, scheme = 'light') {
 }
 
 /**
- * Pick the text colour that sits on a role's fill. White on yellow is the default a naive
+ * Pick the text color that sits on a role's fill. White on yellow is the default a naive
  * substitution would produce, and it is unreadable — so choose by measured contrast.
  */
 function contrastTokenFor(hue) {
@@ -1298,21 +1298,21 @@ function renderHueDial(dial) {
   row.append(grid)
   if (activeHue) row.append(renderRoleContrast(dial))
   if (activeHue) row.append(renderCustomHue(dial, activeHue))
-  if (dial.role === 'primary') row.append(renderAddColour())
+  if (dial.role === 'primary') row.append(renderAddColor())
   return row
 }
 
 /**
  * Adding a scale rather than painting over one of Bootstrap's.
  *
- * Until this existed, a custom brand colour had to overwrite `color.blue.base`, which also
- * recoloured every `--blue-*` utility on the page. A new scale gets its own thirteen steps,
+ * Until this existed, a custom brand color had to overwrite `color.blue.base`, which also
+ * recolored every `--blue-*` utility on the page. A new scale gets its own thirteen steps,
  * its own `--brand-*` properties and its own `.theme-brand` class, and Bootstrap's sixteen
  * are left alone.
  */
-function renderAddColour() {
+function renderAddColor() {
   const wrap = document.createElement('div')
-  wrap.className = 'add-colour'
+  wrap.className = 'add-color'
 
   for (const hue of addedHues(state.doc)) {
     const chip = document.createElement('span')
@@ -1330,7 +1330,7 @@ function renderAddColour() {
     remove.type = 'button'
     remove.className = 'added-chip-remove'
     remove.textContent = '×'
-    remove.setAttribute('aria-label', `Remove the ${hue} colour`)
+    remove.setAttribute('aria-label', `Remove the ${hue} color`)
     remove.addEventListener('click', () => removeAddition(hue))
 
     chip.append(swatch, name, remove)
@@ -1339,30 +1339,30 @@ function renderAddColour() {
 
   const add = document.createElement('button')
   add.type = 'button'
-  add.className = 'chip-button add-colour-button'
-  add.textContent = '+ Add a colour'
-  add.addEventListener('click', () => openAddColour(wrap))
+  add.className = 'chip-button add-color-button'
+  add.textContent = '+ Add a color'
+  add.addEventListener('click', () => openAddColor(wrap))
   wrap.append(add)
 
   return wrap
 }
 
-function openAddColour(wrap) {
-  if (wrap.querySelector('.add-colour-form')) return
+function openAddColor(wrap) {
+  if (wrap.querySelector('.add-color-form')) return
 
   const form = document.createElement('form')
-  form.className = 'add-colour-form'
+  form.className = 'add-color-form'
 
   const name = document.createElement('input')
   name.type = 'text'
   name.placeholder = 'brand'
-  name.setAttribute('aria-label', 'Colour name')
+  name.setAttribute('aria-label', 'Color name')
   name.autocomplete = 'off'
 
-  const colour = document.createElement('input')
-  colour.type = 'color'
-  colour.value = '#6d4aff'
-  colour.setAttribute('aria-label', 'Colour')
+  const color = document.createElement('input')
+  color.type = 'color'
+  color.value = '#6d4aff'
+  color.setAttribute('aria-label', 'Color')
 
   const submit = document.createElement('button')
   submit.type = 'submit'
@@ -1376,11 +1376,11 @@ function openAddColour(wrap) {
   cancel.addEventListener('click', () => form.remove())
 
   const error = document.createElement('p')
-  error.className = 'add-colour-error'
+  error.className = 'add-color-error'
   error.hidden = true
 
   const asRole = document.createElement('label')
-  asRole.className = 'add-colour-role'
+  asRole.className = 'add-color-role'
   const roleBox = document.createElement('input')
   roleBox.type = 'checkbox'
   roleBox.checked = true
@@ -1395,7 +1395,7 @@ function openAddColour(wrap) {
     error.hidden = !problem
     if (problem) return
 
-    const value = formatColor(hexToRgb(colour.value), 'oklch(0 0 0)')
+    const value = formatColor(hexToRgb(color.value), 'oklch(0 0 0)')
     const additions = {
       ...createHue(chosen, value),
       ...(roleBox.checked ? createRole(chosen, chosen, { contrast: contrastTokenFor(chosen) }) : {})
@@ -1405,7 +1405,7 @@ function openAddColour(wrap) {
     applyValues(additions, { focus: 'palette' })
   })
 
-  form.append(name, colour, asRole, submit, cancel, error)
+  form.append(name, color, asRole, submit, cancel, error)
   wrap.append(form)
   name.focus()
 }
@@ -1422,7 +1422,7 @@ function removeAddition(hue) {
 
 /**
  * The point of an easy mode is not to hide the consequences. Picking yellow as a brand
- * colour is a legitimate choice that makes the role's text unreadable on the page, so say
+ * color is a legitimate choice that makes the role's text unreadable on the page, so say
  * so here rather than letting it ship.
  */
 function renderRoleContrast(dial) {
@@ -1473,9 +1473,9 @@ function renderRoleContrast(dial) {
 }
 
 /**
- * A custom brand colour has to land somewhere. Bootstrap builds `primary` out of a named
+ * A custom brand color has to land somewhere. Bootstrap builds `primary` out of a named
  * scale, so the honest place is that scale's base — and the note says so, because it also
- * recolours the `--blue-*` utilities.
+ * recolors the `--blue-*` utilities.
  */
 function renderCustomHue(dial, hue) {
   const wrap = document.createElement('div')
@@ -1487,7 +1487,7 @@ function renderCustomHue(dial, hue) {
   const picker = document.createElement('input')
   picker.type = 'color'
   picker.value = rgb ? rgbToHex(rgb) : '#000000'
-  picker.setAttribute('aria-label', `Custom ${dial.role} colour`)
+  picker.setAttribute('aria-label', `Custom ${dial.role} color`)
   picker.addEventListener('input', () => {
     applyValues(
       {
@@ -1500,7 +1500,7 @@ function renderCustomHue(dial, hue) {
 
   const note = document.createElement('span')
   note.className = 'hue-note'
-  note.textContent = `Custom — redefines the ${hue} scale, which also recolours --${hue}-* elsewhere.`
+  note.textContent = `Custom — redefines the ${hue} scale, which also recolors --${hue}-* elsewhere.`
 
   wrap.append(picker, note)
   return wrap
@@ -1516,7 +1516,7 @@ function renderSimpleFooter() {
 
   const summary = document.createElement('p')
   summary.textContent = total === 0
-    ? 'Nothing changed yet. Pick a brand colour, or start from a preset above.'
+    ? 'Nothing changed yet. Pick a brand color, or start from a preset above.'
     : `${total} token${total === 1 ? '' : 's'} changed. Export writes only what you touched.`
   footer.append(summary)
 
@@ -1542,7 +1542,7 @@ function renderSimpleFooter() {
 const SCALE_STOPS = ['025', '050', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950', '975']
 
 /**
- * The nearest value that would pass, for a colour pair that does not.
+ * The nearest value that would pass, for a color pair that does not.
  *
  * Telling someone a pair fails and stopping there leaves them to guess which of thirteen
  * steps to try. The repair prefers the *same hue* — moving along the scale keeps the design
@@ -1563,10 +1563,10 @@ function suggestContrastFix(path, partnerPath, side) {
   const candidates = onScale ? sameHueCandidates(onScale[1], onScale[2]) : NEUTRAL_CANDIDATES
 
   for (const candidate of candidates) {
-    const colour = resolveColor(candidateCss(candidate), scheme)
-    if (!colour) continue
+    const color = resolveColor(candidateCss(candidate), scheme)
+    if (!color) continue
 
-    const ratio = contrastRatio(colour, background)
+    const ratio = contrastRatio(color, background)
     if (ratio >= 4.5) return { value: candidate, ratio }
   }
 
@@ -2356,7 +2356,7 @@ async function adoptSharedTheme() {
 /**
  * Make a `role="tablist"` behave like one.
  *
- * Declaring the roles without the keyboard behaviour is worse than not declaring them: a
+ * Declaring the roles without the keyboard behavior is worse than not declaring them: a
  * screen reader announces "tab, 1 of 4" and the user reaches for the arrow keys, which did
  * nothing. This adds the roving tabindex and arrow/Home/End handling the pattern requires.
  */
@@ -2440,10 +2440,10 @@ function wire() {
   })
 
   /*
-   * Colour-vision simulation, on the artboard only.
+   * Color-vision simulation, on the artboard only.
    *
-   * It answers a question the contrast readout cannot: contrast survives colour blindness
-   * almost unchanged, so a palette can pass every ratio and still collapse into one colour
+   * It answers a question the contrast readout cannot: contrast survives color blindness
+   * almost unchanged, so a palette can pass every ratio and still collapse into one color
    * for eight percent of men. Success and danger buttons that differ only in hue are the
    * usual casualty, and you cannot reason your way to noticing that.
    *

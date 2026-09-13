@@ -1,7 +1,7 @@
 /**
  * Simple mode's dials are a view over the same override model Advanced mode edits, so the
  * transform they apply has to be exactly right — a wrong substitution here would silently
- * produce a half-recoloured theme.
+ * produce a half-recolored theme.
  */
 
 import test from 'node:test'

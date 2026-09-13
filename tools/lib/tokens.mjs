@@ -27,7 +27,7 @@ export function authoredValue(token, side = 'value') {
   return typeof token.$value === 'string' ? token.$value : typedToCss(token)
 }
 
-/** Child keys of a group, honouring an explicit `order` extension. */
+/** Child keys of a group, honoring an explicit `order` extension. */
 export function childKeys(node) {
   const keys = Object.keys(node).filter((key) => !key.startsWith('$'))
   const order = ext(node).order

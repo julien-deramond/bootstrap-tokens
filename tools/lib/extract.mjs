@@ -98,7 +98,7 @@ function collect(sources, warnings) {
   const records = []
   const add = (record) => records.push(record)
 
-  // --- primitive colours ---------------------------------------------------
+  // --- primitive colors ---------------------------------------------------
   const colors = sources.map('$colors', SOURCES.colors) ?? []
   const tints = sources.map('$color-tints', SOURCES.colors) ?? []
   const shades = sources.map('$color-shades', SOURCES.colors) ?? []
@@ -209,7 +209,7 @@ function collect(sources, warnings) {
     readonly: 'Set directly on $root-tokens after the $radii loop; not overridable through a map.'
   })
 
-  // --- semantic theme colours ---------------------------------------------
+  // --- semantic theme colors ---------------------------------------------
   for (const { key: role, quoted, value } of sources.map('$theme-colors', SOURCES.theme) ?? []) {
     if (!Array.isArray(value)) continue
     for (const { key: sub, value: raw } of value) {
@@ -327,7 +327,7 @@ function buildIndex(records) {
     }
   }
 
-  // The colour scale is generated, so its custom properties aren't in `records`.
+  // The color scale is generated, so its custom properties aren't in `records`.
   return { global, perComponent }
 }
 

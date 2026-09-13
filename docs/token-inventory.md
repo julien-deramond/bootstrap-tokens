@@ -9,7 +9,7 @@
 | component | 675 |
 | **total** | **1205** |
 
-Primitive counts include the generated colour scale (16 hues × 13 stops).
+Primitive counts include the generated color scale (16 hues × 13 stops).
 
 ## Global maps
 

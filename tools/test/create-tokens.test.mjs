@@ -1,8 +1,8 @@
 /**
  * Creating tokens, not just editing them.
  *
- * Until this existed, a custom brand colour had to overwrite `color.blue.base`, which also
- * recoloured every `--blue-*` utility on the page. The chooser said so, which was honest,
+ * Until this existed, a custom brand color had to overwrite `color.blue.base`, which also
+ * recolored every `--blue-*` utility on the page. The chooser said so, which was honest,
  * but it was not the right answer.
  */
 
@@ -72,7 +72,7 @@ try {
   /* no checkout */
 }
 
-test('an added colour compiles into real CSS', { skip: !source }, async () => {
+test('an added color compiles into real CSS', { skip: !source }, async () => {
   const sass = await import('sass')
   const doc = withOverrides(tree, BRAND)
 

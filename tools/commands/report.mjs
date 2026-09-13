@@ -4,7 +4,7 @@
  * The chooser already warns while you work, which is the right place for it — but a warning
  * that lives in a browser tab cannot be reviewed, cannot be diffed, and cannot block a
  * merge. This is the same audit as a file: every pair a reader has to be able to see,
- * measured by WCAG 2 and by APCA, in both colour schemes.
+ * measured by WCAG 2 and by APCA, in both color schemes.
  *
  * The rendering lives in `tools/lib/report.mjs` so the chooser can produce the identical
  * document from the browser.
@@ -25,7 +25,7 @@ const GATES = {
   never: () => false,
   regression: (summary) => summary.regressed > 0,
   introduced: (summary) => summary.introduced > 0 || summary.regressed > 0,
-  // Status roles carry meaning by colour, so two of them collapsing into one is a defect
+  // Status roles carry meaning by color, so two of them collapsing into one is a defect
   // whatever the contrast numbers say — and the contrast numbers will say it is fine.
   vision: (summary) =>
     summary.introduced > 0 || summary.regressed > 0 || summary.statusCollisions > 0,

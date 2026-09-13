@@ -115,7 +115,7 @@
             "sassKey": "--btn-input-fg"
           }
         },
-        "$description": "Text colour shared by buttons and form fields, so an unstyled button matches an input beside it."
+        "$description": "Text color shared by buttons and form fields, so an unstyled button matches an input beside it."
       },
       "bg": {
         "$type": "color",

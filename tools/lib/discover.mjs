@@ -7,7 +7,7 @@
  * from the token document from the first commit until this check was written, and nothing —
  * not `sync`, not `validate`, not `verify`, not CI — noticed.
  *
- * Everything upstream declares with `!default` is either modelled, or listed below with a
+ * Everything upstream declares with `!default` is either modeled, or listed below with a
  * reason. There is no third option.
  */
 
@@ -24,7 +24,7 @@ import { scan } from './sass-parser.mjs'
 export const NOT_TOKENS = {
   // --- generated, or an alias of something we do model ---
   '$color-tokens': 'Generated from $colors by the tint/shade loop in scss/_colors.scss.',
-  '$-color-defaults': 'Internal accumulator for the colour-scale loop.',
+  '$-color-defaults': 'Internal accumulator for the color-scale loop.',
   '$shadow-opacities': 'Generated from $util-opacity (×2) in scss/_utilities.scss.',
   $gutters: 'Aliases $spacers; changing $spacers moves it.',
   '$original-enable-shadows': 'Internal save/restore around a mixin in scss/mixins/_box-shadow.scss.',
@@ -32,7 +32,7 @@ export const NOT_TOKENS = {
   /*
    * Declared in scss/mixins/, which scss/bootstrap.scss does not @forward. They carry
    * !default, so they look configurable, but no consumer can reach them through the
-   * documented entrypoint. Modelling them would produce an export that fails to compile.
+   * documented entrypoint. Modeling them would produce an export that fails to compile.
    * Tracked as issue #9 — this is an upstream gap, not one of ours.
    */
   '$caret-width': 'In scss/mixins/, which bootstrap.scss does not forward. See issue #9.',
@@ -41,7 +41,7 @@ export const NOT_TOKENS = {
   '$transition-base': 'In scss/mixins/, which bootstrap.scss does not forward. See issue #9.',
 
   /*
-   * Build configuration that is deliberately *not* modelled, even as an option. These are
+   * Build configuration that is deliberately *not* modeled, even as an option. These are
    * nested definitions of what Bootstrap generates rather than values anyone tunes; editing
    * them is editing the framework, not theming it.
    */
@@ -111,7 +111,7 @@ export function declaredVariables(root) {
  * What the project actually claims to cover, read from the documents rather than the routing
  * table. The table is an implementation detail; the documents are the claim being checked.
  */
-function modelled(doc, options) {
+function modeled(doc, options) {
   const known = new Set(['$root-tokens', ...Object.keys(options ?? {})])
 
   for (const [, token] of walk(doc.tree)) {
@@ -131,7 +131,7 @@ function modelled(doc, options) {
  */
 export function discover(root, doc, options = {}) {
   const declared = declaredVariables(root)
-  const known = modelled(doc, options)
+  const known = modeled(doc, options)
 
   const unaccounted = []
   const flags = []
@@ -153,7 +153,7 @@ export function discover(root, doc, options = {}) {
   return {
     declared: declared.size,
     tokenMaps: tokenMaps.length,
-    tokenMapsModelled: tokenMaps.filter((name) => known.has(name)).length,
+    tokenMapsModeled: tokenMaps.filter((name) => known.has(name)).length,
     unaccounted: unaccounted.sort((a, b) => a.name.localeCompare(b.name)),
     stale: stale.sort(),
     // `$enable-*` is a known, deliberate omission tracked as one item rather than twelve.

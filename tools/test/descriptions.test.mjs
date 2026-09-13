@@ -53,7 +53,7 @@ test('control metrics name their size', () => {
   assert.doesNotMatch(describe('control.field.padding-x'), /at the\s+size/)
 })
 
-test('a theme hook explains behaviour the name cannot', () => {
+test('a theme hook explains behavior the name cannot', () => {
   const note = describeThemeHook('var(--theme-bg-subtle, var(--bg-1))')
   assert.match(note, /--theme-bg-subtle/)
   assert.match(note, /fallback/)

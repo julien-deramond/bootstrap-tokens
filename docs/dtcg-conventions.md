@@ -14,7 +14,7 @@ Namespace for all extensions: **`dev.bootstrap.tokens`**.
 | `$extensions` | reverse-DNS namespaced, see below |
 | Group-level `$type` | set once per group, inherited by children |
 | Alias syntax `{group.token}` | primary way to reference another token |
-| `$type: color` | with `colorSpace` object form where the value is a plain colour |
+| `$type: color` | with `colorSpace` object form where the value is a plain color |
 | `$type: dimension` | `{ "value": 1, "unit": "rem" }` |
 | `$type: fontWeight`, `fontFamily`, `duration`, `cubicBezier`, `number`, `shadow`, `strokeStyle` | as specified |
 
@@ -70,7 +70,7 @@ The exporter emits `light-dark(var(--blue-600), var(--blue-400))`. A consumer th
 
 A few upstream values are neither aliases nor expressions over tokens: raw keywords
 (`inherit`, `transparent`, `auto`), font stacks that must survive verbatim, and the
-relative-colour shadow strings. These carry `$value` as a literal string plus:
+relative-color shadow strings. These carry `$value` as a literal string plus:
 
 ```jsonc
 "$extensions": { "dev.bootstrap.tokens": { "css": true } }

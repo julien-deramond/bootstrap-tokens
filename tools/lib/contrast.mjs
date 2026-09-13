@@ -15,7 +15,7 @@
 import { hexToRgb, contrastRatio, contrastGrade } from './color.mjs'
 import { flattenValues } from './flatten.mjs'
 import { walk } from './tokens.mjs'
-import { VISIONS, simulate, difference, SAME_COLOUR } from './vision.mjs'
+import { VISIONS, simulate, difference, SAME_COLOR } from './vision.mjs'
 
 /* --------------------------------------------------------------------------
  * APCA — Accessible Perceptual Contrast Algorithm, W3 version 0.1.9
@@ -87,7 +87,7 @@ export function apcaLevel(lc) {
  * -------------------------------------------------------------------------- */
 
 /**
- * The colour pairs a reader actually has to be able to see.
+ * The color pairs a reader actually has to be able to see.
  *
  * Not every pair of tokens is a pair a person looks at, and auditing all of them would bury
  * the four that matter under a thousand that do not. `contrast` is the text placed on a
@@ -150,11 +150,11 @@ export function auditContrast(doc, { mode = 'light' } = {}) {
 export { contrastRatio, contrastGrade }
 
 /* --------------------------------------------------------------------------
- * Colour vision
+ * Color vision
  * -------------------------------------------------------------------------- */
 
 /**
- * Roles that carry meaning by colour alone, so two of them looking alike is a bug rather
+ * Roles that carry meaning by color alone, so two of them looking alike is a bug rather
  * than a style choice. `primary`, `accent`, `secondary` and `inverse` are branding — nobody
  * reads "this went wrong" out of them — and are reported without being called a failure.
  */
@@ -177,10 +177,10 @@ export const HOW_COMMON = {
 /**
  * Pairs of semantic roles that cannot be told apart.
  *
- * This is the gap the contrast report cannot cover. Luminance survives colour blindness
+ * This is the gap the contrast report cannot cover. Luminance survives color blindness
  * almost intact, so a palette can clear every ratio and still hand around eight percent of
- * men a success button and a danger button in the same colour. It is also the failure mode
- * nobody catches by looking, because the person choosing the colours usually sees both.
+ * men a success button and a danger button in the same color. It is also the failure mode
+ * nobody catches by looking, because the person choosing the colors usually sees both.
  *
  * Two cases, and they are not the same problem. A pair that is already indistinguishable in
  * ordinary vision is wrong for everyone and reported with no simulation attached. A pair
@@ -209,14 +209,14 @@ export function roleCollisions(doc, { mode = 'light' } = {}) {
       }
 
       const normal = difference(a.rgb, b.rgb)
-      if (normal < SAME_COLOUR) {
+      if (normal < SAME_COLOR) {
         found.push({ ...shared, vision: null, normal, apart: normal, identical: true })
         continue
       }
 
       for (const vision of Object.keys(VISIONS)) {
         const apart = difference(simulate(a.rgb, vision), simulate(b.rgb, vision))
-        if (apart < SAME_COLOUR) {
+        if (apart < SAME_COLOR) {
           found.push({ ...shared, vision, normal, apart, identical: false })
         }
       }

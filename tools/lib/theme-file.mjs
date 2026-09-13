@@ -50,7 +50,7 @@ export function readThemeFile(path, { doc, migrations = [] } = {}) {
 /**
  * Print what moved and what could not be placed. Returns true when the caller should stop.
  *
- * Stopping is the default because the alternative is producing an artefact that quietly
+ * Stopping is the default because the alternative is producing an artifact that quietly
  * differs from what was asked for, and the person who finds out is whoever ships it.
  */
 export function reportTheme(theme, { skipUnknown = false, label = 'theme' } = {}) {

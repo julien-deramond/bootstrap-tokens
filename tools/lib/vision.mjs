@@ -1,10 +1,10 @@
 /**
- * Colour-vision simulation, as a check rather than a demonstration.
+ * Color-vision simulation, as a check rather than a demonstration.
  *
  * The preview can show you a theme through someone else's eyes, which is useful and easy to
  * forget to do. What it cannot do is tell you, without you noticing, that success and danger
- * have become the same button. Contrast survives colour blindness almost unchanged — a
- * palette can clear every ratio in the report and still collapse into one colour for around
+ * have become the same button. Contrast survives color blindness almost unchanged — a
+ * palette can clear every ratio in the report and still collapse into one color for around
  * eight percent of men — so that has to be measured separately.
  *
  * These are the Viénot/Brettel approximations, applied in *linear* light. That matters: the
@@ -55,7 +55,7 @@ export function simulate(rgb, kind) {
 }
 
 /**
- * How far apart two colours are, in a space where equal distances look equally different.
+ * How far apart two colors are, in a space where equal distances look equally different.
  *
  * Euclidean distance in OKLab, which is what ΔEok is. Doing this in sRGB would call a
  * dark blue and a dark green "far apart" because the numbers are, and they are not.
@@ -71,11 +71,11 @@ export function difference(a, b) {
 }
 
 /**
- * Below this, two colours are the same colour for practical purposes.
+ * Below this, two colors are the same color for practical purposes.
  *
  * Calibrated against Bootstrap's own palette: its sixteen base hues sit between 0.09 and
- * 0.6 apart in normal vision, and the closest pair that still reads as two colours in the
+ * 0.6 apart in normal vision, and the closest pair that still reads as two colors in the
  * preview lands just above 0.05. Set it lower and real collapses go unreported; higher and
- * every neighbouring hue is a finding.
+ * every neighboring hue is a finding.
  */
-export const SAME_COLOUR = 0.05
+export const SAME_COLOR = 0.05

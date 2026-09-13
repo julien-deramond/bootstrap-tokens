@@ -5388,13 +5388,13 @@
   "color.white": {
     "$type": "color",
     "$value": "#fff",
-    "$description": "Pure white, referenced by the tint half of every colour scale.",
+    "$description": "Pure white, referenced by the tint half of every color scale.",
     "cssVar": "--white"
   },
   "color.black": {
     "$type": "color",
     "$value": "#000",
-    "$description": "Pure black, referenced by the shade half of every colour scale.",
+    "$description": "Pure black, referenced by the shade half of every color scale.",
     "cssVar": "--black"
   },
   "color-tint.025": {
@@ -5460,7 +5460,7 @@
   "color-mix.space": {
     "$type": null,
     "$value": "oklch",
-    "$description": "The interpolation space every generated colour step is mixed in."
+    "$description": "The interpolation space every generated color step is mixed in."
   },
   "color-mix.tint-color": {
     "$type": "color",
@@ -6164,7 +6164,7 @@
   "border.bg": {
     "$type": "color",
     "$value": "var(--bg-body)",
-    "$description": "A border the colour of the page — used to punch a gap between adjacent filled elements.",
+    "$description": "A border the color of the page — used to punch a gap between adjacent filled elements.",
     "cssVar": "--border-bg",
     "sassMap": "$theme-borders"
   },
@@ -6220,14 +6220,14 @@
   "border.color": {
     "$type": "color",
     "$value": "light-dark(var(--gray-200), var(--gray-700))",
-    "$description": "The default border colour, for anything that does not choose a more specific one.",
+    "$description": "The default border color, for anything that does not choose a more specific one.",
     "cssVar": "--border-color",
     "sassMap": "$root-tokens"
   },
   "border.color-translucent": {
     "$type": "color",
     "$value": "color-mix(in oklch, var(--fg-body) 15%, transparent)",
-    "$description": "A border mixed from the foreground rather than a fixed grey, so it works over any surface underneath.",
+    "$description": "A border mixed from the foreground rather than a fixed gray, so it works over any surface underneath.",
     "cssVar": "--border-color-translucent",
     "sassMap": "$root-tokens"
   },
@@ -6290,7 +6290,7 @@
   "control.field.fg": {
     "$type": "color",
     "$value": "var(--fg-body)",
-    "$description": "Text colour shared by buttons and form fields, so an unstyled button matches an input beside it.",
+    "$description": "Text color shared by buttons and form fields, so an unstyled button matches an input beside it.",
     "cssVar": "--btn-input-fg",
     "sassMap": "$root-tokens"
   },
@@ -6548,7 +6548,7 @@
   "elevation.color": {
     "$type": "color",
     "$value": "#000",
-    "$description": "The colour every shadow is tinted from. Set it to a hue and the whole elevation scale warms or cools with it.",
+    "$description": "The color every shadow is tinted from. Set it to a hue and the whole elevation scale warms or cools with it.",
     "cssVar": "--shadow-color",
     "sassMap": "$root-tokens"
   },
@@ -6576,14 +6576,14 @@
   "focus.color": {
     "$type": "color",
     "$value": "var(--primary-focus-ring)",
-    "$description": "Colour of the focus ring. Follows the primary role by default.",
+    "$description": "Color of the focus ring. Follows the primary role by default.",
     "cssVar": "--focus-ring-color",
     "sassMap": "$root-tokens"
   },
   "focus.ring": {
     "$type": "border",
     "$value": "var(--focus-ring-width) solid var(--focus-ring-color)",
-    "$description": "The whole focus ring shorthand, composed from the width and colour above.",
+    "$description": "The whole focus ring shorthand, composed from the width and color above.",
     "cssVar": "--focus-ring",
     "sassMap": "$root-tokens"
   },
@@ -6632,7 +6632,7 @@
   "bg.fg": {
     "$type": "color",
     "$value": "var(--fg-body)",
-    "$description": "The foreground colour used as a background — for inverted blocks that flip the page around.",
+    "$description": "The foreground color used as a background — for inverted blocks that flip the page around.",
     "cssVar": "--bg-fg",
     "sassMap": "$theme-bgs"
   },
@@ -6667,14 +6667,14 @@
   "fg.body": {
     "$type": "color",
     "$value": "light-dark(var(--gray-900), var(--gray-050))",
-    "$description": "Primary body text. The default reading colour.",
+    "$description": "Primary body text. The default reading color.",
     "cssVar": "--fg-body",
     "sassMap": "$theme-fgs"
   },
   "fg.1": {
     "$type": "color",
     "$value": "light-dark(var(--gray-800), var(--gray-200))",
-    "$description": "Slightly de-emphasised text — secondary lines that still have to be read comfortably.",
+    "$description": "Slightly de-emphasized text — secondary lines that still have to be read comfortably.",
     "cssVar": "--fg-1",
     "sassMap": "$theme-fgs"
   },
@@ -6702,7 +6702,7 @@
   "fg.bg": {
     "$type": "color",
     "$value": "var(--bg-body)",
-    "$description": "The page background used as a text colour — for text on an inverted surface.",
+    "$description": "The page background used as a text color — for text on an inverted surface.",
     "cssVar": "--fg-bg",
     "sassMap": "$theme-fgs"
   },
@@ -6723,14 +6723,14 @@
   "fg.inherit": {
     "$type": "color",
     "$value": "inherit",
-    "$description": "Take whatever text colour the parent has.",
+    "$description": "Take whatever text color the parent has.",
     "cssVar": "--fg-inherit",
     "sassMap": "$theme-fgs"
   },
   "theme-color.primary.base": {
     "$type": "color",
     "$value": "var(--blue-500)",
-    "$description": "The solid primary colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
+    "$description": "The solid primary color, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
     "cssVar": "--primary-base",
     "sassMap": "$theme-colors"
   },
@@ -6744,7 +6744,7 @@
   "theme-color.primary.fg-emphasis": {
     "$type": "color",
     "$value": "light-dark(var(--blue-800), var(--blue-200))",
-    "$description": "A higher-contrast primary text colour, for headings or for text sitting on a primary-tinted surface.",
+    "$description": "A higher-contrast primary text color, for headings or for text sitting on a primary-tinted surface.",
     "cssVar": "--primary-fg-emphasis",
     "sassMap": "$theme-colors"
   },
@@ -6793,7 +6793,7 @@
   "theme-color.accent.base": {
     "$type": "color",
     "$value": "var(--indigo-500)",
-    "$description": "The solid accent colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
+    "$description": "The solid accent color, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
     "cssVar": "--accent-base",
     "sassMap": "$theme-colors"
   },
@@ -6807,7 +6807,7 @@
   "theme-color.accent.fg-emphasis": {
     "$type": "color",
     "$value": "light-dark(var(--indigo-800), var(--indigo-300))",
-    "$description": "A higher-contrast accent text colour, for headings or for text sitting on a accent-tinted surface.",
+    "$description": "A higher-contrast accent text color, for headings or for text sitting on a accent-tinted surface.",
     "cssVar": "--accent-fg-emphasis",
     "sassMap": "$theme-colors"
   },
@@ -6856,7 +6856,7 @@
   "theme-color.success.base": {
     "$type": "color",
     "$value": "var(--green-500)",
-    "$description": "The solid success colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
+    "$description": "The solid success color, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
     "cssVar": "--success-base",
     "sassMap": "$theme-colors"
   },
@@ -6870,7 +6870,7 @@
   "theme-color.success.fg-emphasis": {
     "$type": "color",
     "$value": "light-dark(var(--green-800), var(--green-300))",
-    "$description": "A higher-contrast success text colour, for headings or for text sitting on a success-tinted surface.",
+    "$description": "A higher-contrast success text color, for headings or for text sitting on a success-tinted surface.",
     "cssVar": "--success-fg-emphasis",
     "sassMap": "$theme-colors"
   },
@@ -6919,7 +6919,7 @@
   "theme-color.danger.base": {
     "$type": "color",
     "$value": "var(--red-500)",
-    "$description": "The solid danger colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
+    "$description": "The solid danger color, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
     "cssVar": "--danger-base",
     "sassMap": "$theme-colors"
   },
@@ -6933,7 +6933,7 @@
   "theme-color.danger.fg-emphasis": {
     "$type": "color",
     "$value": "light-dark(var(--red-800), var(--red-300))",
-    "$description": "A higher-contrast danger text colour, for headings or for text sitting on a danger-tinted surface.",
+    "$description": "A higher-contrast danger text color, for headings or for text sitting on a danger-tinted surface.",
     "cssVar": "--danger-fg-emphasis",
     "sassMap": "$theme-colors"
   },
@@ -6982,7 +6982,7 @@
   "theme-color.warning.base": {
     "$type": "color",
     "$value": "var(--yellow-500)",
-    "$description": "The solid warning colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
+    "$description": "The solid warning color, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
     "cssVar": "--warning-base",
     "sassMap": "$theme-colors"
   },
@@ -6996,7 +6996,7 @@
   "theme-color.warning.fg-emphasis": {
     "$type": "color",
     "$value": "light-dark(var(--yellow-800), var(--yellow-300))",
-    "$description": "A higher-contrast warning text colour, for headings or for text sitting on a warning-tinted surface.",
+    "$description": "A higher-contrast warning text color, for headings or for text sitting on a warning-tinted surface.",
     "cssVar": "--warning-fg-emphasis",
     "sassMap": "$theme-colors"
   },
@@ -7045,7 +7045,7 @@
   "theme-color.info.base": {
     "$type": "color",
     "$value": "var(--cyan-500)",
-    "$description": "The solid info colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
+    "$description": "The solid info color, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
     "cssVar": "--info-base",
     "sassMap": "$theme-colors"
   },
@@ -7059,7 +7059,7 @@
   "theme-color.info.fg-emphasis": {
     "$type": "color",
     "$value": "light-dark(var(--cyan-800), var(--cyan-300))",
-    "$description": "A higher-contrast info text colour, for headings or for text sitting on a info-tinted surface.",
+    "$description": "A higher-contrast info text color, for headings or for text sitting on a info-tinted surface.",
     "cssVar": "--info-fg-emphasis",
     "sassMap": "$theme-colors"
   },
@@ -7108,7 +7108,7 @@
   "theme-color.inverse.base": {
     "$type": "color",
     "$value": "var(--gray-900)",
-    "$description": "The solid inverse colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
+    "$description": "The solid inverse color, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
     "cssVar": "--inverse-base",
     "sassMap": "$theme-colors"
   },
@@ -7122,7 +7122,7 @@
   "theme-color.inverse.fg-emphasis": {
     "$type": "color",
     "$value": "light-dark(var(--gray-975), var(--white))",
-    "$description": "A higher-contrast inverse text colour, for headings or for text sitting on a inverse-tinted surface.",
+    "$description": "A higher-contrast inverse text color, for headings or for text sitting on a inverse-tinted surface.",
     "cssVar": "--inverse-fg-emphasis",
     "sassMap": "$theme-colors"
   },
@@ -7171,7 +7171,7 @@
   "theme-color.secondary.base": {
     "$type": "color",
     "$value": "var(--gray-200)",
-    "$description": "The solid secondary colour, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
+    "$description": "The solid secondary color, unmodified. Use it when you need the hue itself rather than a surface or a text role.",
     "cssVar": "--secondary-base",
     "sassMap": "$theme-colors"
   },
@@ -7185,7 +7185,7 @@
   "theme-color.secondary.fg-emphasis": {
     "$type": "color",
     "$value": "light-dark(var(--gray-800), var(--gray-200))",
-    "$description": "A higher-contrast secondary text colour, for headings or for text sitting on a secondary-tinted surface.",
+    "$description": "A higher-contrast secondary text color, for headings or for text sitting on a secondary-tinted surface.",
     "cssVar": "--secondary-fg-emphasis",
     "sassMap": "$theme-colors"
   },
@@ -7262,28 +7262,28 @@
   "type.heading.color": {
     "$type": "color",
     "$value": "inherit",
-    "$description": "Heading colour. Inherits by default, so headings match body text unless you separate them.",
+    "$description": "Heading color. Inherits by default, so headings match body text unless you separate them.",
     "cssVar": "--heading-color",
     "sassMap": "$root-tokens"
   },
   "type.hr.border-color": {
     "$type": "color",
     "$value": "var(--border-color)",
-    "$description": "Colour of a horizontal rule, and of the divider inside an alert or a card.",
+    "$description": "Color of a horizontal rule, and of the divider inside an alert or a card.",
     "cssVar": "--hr-border-color",
     "sassMap": "$root-tokens"
   },
   "type.link.color": {
     "$type": "color",
     "$value": "light-dark(var(--primary-base), var(--primary-fg))",
-    "$description": "Link colour. Uses the solid brand colour in light mode and the lighter text variant in dark.",
+    "$description": "Link color. Uses the solid brand color in light mode and the lighter text variant in dark.",
     "cssVar": "--link-color",
     "sassMap": "$root-tokens"
   },
   "type.link.decoration": {
     "$type": null,
     "$value": "underline",
-    "$description": "How a link is marked. Removing the underline leaves colour as the only cue, which fails for readers who cannot distinguish it.",
+    "$description": "How a link is marked. Removing the underline leaves color as the only cue, which fails for readers who cannot distinguish it.",
     "cssVar": "--link-decoration",
     "sassMap": "$root-tokens"
   },
@@ -7297,7 +7297,7 @@
   "type.link.hover-color": {
     "$type": "color",
     "$value": "color-mix(in oklch, var(--link-color) 90%, #000)",
-    "$description": "Link colour on hover — the base colour darkened, so the shift reads without changing hue.",
+    "$description": "Link color on hover — the base color darkened, so the shift reads without changing hue.",
     "cssVar": "--link-hover-color",
     "sassMap": "$root-tokens"
   },
@@ -7318,7 +7318,7 @@
   "type.code.color": {
     "$type": "color",
     "$value": "var(--fg-2)",
-    "$description": "Colour of inline code, set a step away from running text so it reads as a quotation.",
+    "$description": "Color of inline code, set a step away from running text so it reads as a quotation.",
     "cssVar": "--code-color",
     "sassMap": "$root-tokens"
   }

@@ -73,14 +73,14 @@ try {
 }
 
 test('the committed document covers every upstream token map', { skip: !source }, () => {
-  // Options count as modelled: they live in config/, not in the DTCG document.
-  const { tokenMaps, tokenMapsModelled, unaccounted, stale } = discover(
+  // Options count as modeled: they live in config/, not in the DTCG document.
+  const { tokenMaps, tokenMapsModeled, unaccounted, stale } = discover(
     source,
     loadTokens(tokensDir),
     loadOptions(tokensDir)
   )
 
-  assert.equal(tokenMapsModelled, tokenMaps, `${tokenMaps - tokenMapsModelled} token map(s) not modelled`)
+  assert.equal(tokenMapsModeled, tokenMaps, `${tokenMaps - tokenMapsModeled} token map(s) not modeled`)
   assert.deepEqual(unaccounted.map((u) => `${u.name} (${u.file})`), [])
   assert.deepEqual(stale, [], 'we model variables upstream no longer declares')
 })

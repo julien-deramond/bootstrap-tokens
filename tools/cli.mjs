@@ -34,10 +34,10 @@ const USAGE = `bstokens <command> [options]
              --theme <f>    also check that this theme.json compiles to the values the
                             chooser previewed (default: a built-in fixture)
 
-  probe      Write a page that checks the flattened colours against a real browser
+  probe      Write a page that checks the flattened colors against a real browser
              --out <f>      where to write it (default build/probe.html)
 
-  report     Audit a theme — contrast by WCAG 2 and APCA, plus colour vision
+  report     Audit a theme — contrast by WCAG 2 and APCA, plus color vision
              --theme <f>    a theme.json (default: Bootstrap's own values)
              --out <f>      where to write it (default: stdout)
              --format <f>   md, html or json (default: from --out, else md)

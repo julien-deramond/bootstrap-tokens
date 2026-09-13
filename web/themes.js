@@ -2,7 +2,7 @@
  * Themes as things you can keep, rather than one implicit blob in local storage.
  *
  * A design tool is used by trying an idea, keeping it, and trying another — which needs a
- * theme to have a name, an identity and a neighbour to be compared against. Until now there
+ * theme to have a name, an identity and a neighbor to be compared against. Until now there
  * was exactly one, unnamed, and the only way to explore a second idea was to destroy the
  * first.
  */

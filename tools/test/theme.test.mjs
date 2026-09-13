@@ -98,7 +98,7 @@ test('the exported custom.scss compiles to the previewed values', { skip: !sourc
 
   const { css } = sass.compile(entry, { loadPaths: [source], style: 'expanded' })
 
-  // Sass normalises a bare hue to `deg` on output; both compile paths do it alike.
+  // Sass normalizes a bare hue to `deg` on output; both compile paths do it alike.
   assert.match(css, /--blue-500: oklch\(58% 0\.19 28deg\)/)
   assert.match(css, /--spacer-4: 0\.9375rem/)
   assert.match(css, /--spacer-1: 0\.3125rem/)

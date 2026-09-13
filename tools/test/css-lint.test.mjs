@@ -20,7 +20,7 @@ test('a weight above 1 is suggested as-is rather than multiplied', () => {
 })
 
 test('numbers that are not weights are left alone', () => {
-  // Alpha inside a nested colour, and a plain omitted weight, are both legal.
+  // Alpha inside a nested color, and a plain omitted weight, are both legal.
   assert.deepEqual(lintValue('light-dark(rgb(0 0 0 / 50%), rgb(0 0 0 / 65%))'), [])
   assert.deepEqual(lintValue('color-mix(in oklch, currentcolor, transparent)'), [])
   assert.deepEqual(lintValue('cubic-bezier(.25, .1, .25, 1)'), [])

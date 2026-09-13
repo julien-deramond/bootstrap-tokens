@@ -14,7 +14,7 @@ test('the committed token document is valid', () => {
   assert.deepEqual(errors, [])
 })
 
-test('the colour scale is generated, not stored', () => {
+test('the color scale is generated, not stored', () => {
   assert.equal(ext(doc.tokens.get('color.blue.500')).generated, 'color-scale')
   assert.equal(doc.cssValueOf('color.blue.500'), 'oklch(60% 0.24 240)')
   assert.equal(

@@ -1,7 +1,7 @@
 /**
- * Bootstrap generates its 13-step colour scales at *runtime* with `color-mix()`, from
+ * Bootstrap generates its 13-step color scales at *runtime* with `color-mix()`, from
  * 16 base hues plus a tint/shade recipe. We do the same rather than freezing 208 hex
- * values that would drift from upstream and lose the runtime behaviour.
+ * values that would drift from upstream and lose the runtime behavior.
  */
 
 /** Ordered stops, tints first, then the base, then shades. */

@@ -57,7 +57,7 @@ jobs:
       # A theme is judged on what it changed. With no theme file this asserts that the
       # document itself introduces nothing — which is the baseline every theme is measured
       # against, so it has to hold.
-      - name: Contrast and colour-vision audit
+      - name: Contrast and color-vision audit
         run: node tools/cli.mjs report --fail-on vision --out /dev/null
 
       # The point of the whole pipeline: our export must compile to the same CSS

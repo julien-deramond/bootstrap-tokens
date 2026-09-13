@@ -38,7 +38,7 @@
           "sassQuoted": true
         }
       },
-      "$description": "A border the colour of the page — used to punch a gap between adjacent filled elements."
+      "$description": "A border the color of the page — used to punch a gap between adjacent filled elements."
     },
     "body": {
       "$type": "color",
@@ -149,7 +149,7 @@
           "dark": "{color.gray.700}"
         }
       },
-      "$description": "The default border colour, for anything that does not choose a more specific one."
+      "$description": "The default border color, for anything that does not choose a more specific one."
     },
     "color-translucent": {
       "$type": "color",
@@ -162,8 +162,8 @@
           "expression": true
         }
       },
-      "$description": "A border mixed from the foreground rather than a fixed grey, so it works over any surface underneath."
+      "$description": "A border mixed from the foreground rather than a fixed gray, so it works over any surface underneath."
     },
-    "$description": "Default border width, style and colour, plus the neutral border ramp."
+    "$description": "Default border width, style and color, plus the neutral border ramp."
   }
 }

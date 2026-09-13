@@ -13,7 +13,7 @@ body:
     id: today
     attributes:
       label: How it behaves today
-      description: The current behaviour, and where it lives.
+      description: The current behavior, and where it lives.
     validations:
       required: true
 

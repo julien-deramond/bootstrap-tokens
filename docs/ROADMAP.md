@@ -21,9 +21,9 @@ Status legend: ✅ done · 🚧 in progress · ⬜ not started
   handles nested maps.
 * ✅ Extractor `bstokens sync` — reads a `v6-dev` checkout, produces the DTCG tree, and
   **diffs** it against `tokens/` so upstream drift is visible.
-* ✅ Primitive layer: colours + tint/shade recipe, spacing, radii, borders, typography,
+* ✅ Primitive layer: colors + tint/shade recipe, spacing, radii, borders, typography,
   layout, z-index, opacity, motion.
-* ✅ Semantic layer: theme colours, surfaces, type, elevation, focus, control, motion.
+* ✅ Semantic layer: theme colors, surfaces, type, elevation, focus, control, motion.
 * ✅ Component layer: one file per upstream `$*-tokens` map, variants included.
 * ✅ Resolver + validator: alias resolution, cycle detection, layer-direction enforcement,
   DTCG type checking.
@@ -48,7 +48,7 @@ consumer (`@use … with ()`) and maintainer (patched v6-dev sources).
 * ✅ A static resolution of the whole palette to sRGB, for everything that is not a browser —
   checked against one, 1084 of 1092 values matching Chrome exactly (`bstokens probe`).
 * ✅ `bstokens report` — contrast by WCAG 2 and APCA, plus which semantic roles stop being
-  distinguishable under simulated colour vision. Markdown, HTML or JSON, with `--fail-on`
+  distinguishable under simulated color vision. Markdown, HTML or JSON, with `--fail-on`
   for CI.
 
 ## Phase 3 — Token chooser (web) ✅
@@ -60,12 +60,12 @@ A static page with no build step and no dependencies. `npm run web`.
   preview and export run the resolver that `verify` proves correct.
 * ✅ Two modes over one override model. **Design** (the default) is eight high-leverage
   controls plus presets; **All tokens** is the full browser — grouped navigation with search,
-  per-token light and dark fields, an OKLCH-aware colour picker, and change indicators. A
+  per-token light and dark fields, an OKLCH-aware color picker, and change indicators. A
   control reports "Custom" rather than overwriting work it cannot represent.
 * ✅ Controls that look like what they do: radius as shapes, density as spacing, typefaces set
   in themselves, shadow depths casting their own shadow.
 * ✅ Light and dark side by side, since `light-dark()` makes every v6 theme two themes —
-  rendered as framed, labelled artboards on a neutral canvas, so the output cannot be
+  rendered as framed, labeled artboards on a neutral canvas, so the output cannot be
   mistaken for more of the tool.
 * ✅ Touching a control scrolls the preview to what it changed and flashes it.
 * ✅ Undo/redo (⌘Z / ⇧⌘Z); Reset is an undoable step, not a confirm dialog.
@@ -79,7 +79,7 @@ A static page with no build step and no dependencies. `npm run web`.
 * ✅ Live preview: real Bootstrap markup in an iframe over vendored `bootstrap.css`;
   overrides are applied as custom properties, so nothing recompiles.
 * ✅ Swatches resolved by the browser inside the preview, so `color-mix()` and `light-dark()`
-  show their true colours in both schemes.
+  show their true colors in both schemes.
 * ✅ Simple mode picks each role's `contrast` sub-key by measured contrast instead of
   substituting it, and warns when a brand choice fails WCAG AA in either scheme.
 * ✅ Export: `custom.scss` (only the keys you touched), runtime `theme.css`, and a
@@ -96,7 +96,7 @@ A static page with no build step and no dependencies. `npm run web`.
   one document, by scoping the override stylesheet to one pane.
 * ✅ *Your markup*: a chunk of your own HTML previewed with the theme applied, stripped of
   anything that executes.
-* ✅ Colour-vision simulation over the artboards, and the corresponding check in the report.
+* ✅ Color-vision simulation over the artboards, and the corresponding check in the report.
 * ✅ Every component that has tokens has a sample, overlays included.
 * ✅ WCAG contrast badges on the pairs that matter: a role's `contrast` against its
   `bg`, and its `fg`/`fg-emphasis` against the page. Shown per scheme, since a palette can
@@ -123,7 +123,7 @@ A static page with no build step and no dependencies. `npm run web`.
 ## Known gaps
 
 * `$utilities`, mixins and the `@layer` order are out of scope by design.
-* `light-dark()` pairs are modelled as a single token with a `dark` extension; a third
+* `light-dark()` pairs are modeled as a single token with a `dark` extension; a third
   mode (e.g. high-contrast) would need the extension to become a `modes` map.
 * Hover states cannot be forced from outside the document, so the preview cannot show them.
 * The calendar and datepicker have no sample: their markup is vanilla-calendar's, not
@@ -134,7 +134,7 @@ A static page with no build step and no dependencies. `npm run web`.
 
 ## What this pipeline found in Bootstrap
 
-Eight findings, each with the measurement that produced it, are open as issues labelled
+Eight findings, each with the measurement that produced it, are open as issues labeled
 [`upstream`](https://github.com/julien-deramond/bootstrap-tokens/issues?q=is%3Aissue+label%3Aupstream) — [#9](https://github.com/julien-deramond/bootstrap-tokens/issues/9) to [#16](https://github.com/julien-deramond/bootstrap-tokens/issues/16). None is
-visible by reading the Sass. They are the strongest argument that modelling a system
+visible by reading the Sass. They are the strongest argument that modeling a system
 precisely enough to re-emit it is worth doing.

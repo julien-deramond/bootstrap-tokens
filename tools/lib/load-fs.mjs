@@ -67,7 +67,7 @@ export function loadOptions(dir) {
   return JSON.parse(readFileSync(path, 'utf8'))
 }
 
-/** Read `tokens/` into one merged tree, before the colour scale is expanded. */
+/** Read `tokens/` into one merged tree, before the color scale is expanded. */
 export function loadTree(dir) {
   const tree = {}
   const fileOf = new Map()

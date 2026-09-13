@@ -91,7 +91,7 @@
           "sassKey": "--shadow-color"
         }
       },
-      "$description": "The colour every shadow is tinted from. Set it to a hue and the whole elevation scale warms or cools with it."
+      "$description": "The color every shadow is tinted from. Set it to a hue and the whole elevation scale warms or cools with it."
     },
     "strength": {
       "$type": "number",
@@ -109,6 +109,6 @@
       },
       "$description": "Multiplies every shadow layer’s alpha. Dark mode is pinned to 2.4 by scss/_root.scss and no token map can reach it; a page with an explicit data-bs-theme needs a CSS rule as well as the Sass override. See https://github.com/julien-deramond/bootstrap-tokens/issues/12."
     },
-    "$description": "Shadow scale plus the colour and strength every layer is tinted by."
+    "$description": "Shadow scale plus the color and strength every layer is tinted by."
   }
 }

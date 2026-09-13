@@ -6,7 +6,7 @@
  * at the first line that used it. Nothing in the suite had ever reached that line.
  *
  * These are smoke tests on purpose. They assert an exit code and one fact about the output,
- * because the point is that the command runs at all — the interesting behaviour is tested
+ * because the point is that the command runs at all — the interesting behavior is tested
  * where it lives.
  */
 
@@ -113,7 +113,7 @@ test('probe writes a self-contained page', async () => {
   assert.equal(code, 0)
 
   const page = readFileSync(out, 'utf8')
-  assert.match(page, /<title>Flattened colours vs\. this browser<\/title>/)
+  assert.match(page, /<title>Flattened colors vs\. this browser<\/title>/)
   // Self-contained: it has to open from disk with no server and no imports.
   assert.doesNotMatch(page, /\bimport\s+.*\bfrom\s+['"]/)
   assert.match(page, /export function parseComputedColor/)

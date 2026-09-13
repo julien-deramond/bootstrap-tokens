@@ -30,7 +30,7 @@ Context-free. No opinion about usage. Named after what they are, never after wha
 | `primitive/opacity.json` | utility opacity steps | `$util-opacity` |
 | `primitive/motion.json` | durations and easing curves | assorted `--*-transition-*` |
 
-The 208 colour steps (`blue.500`, `gray.975`, …) are **generated** from the 16 hues and the
+The 208 color steps (`blue.500`, `gray.975`, …) are **generated** from the 16 hues and the
 tint/shade recipe rather than stored. They are addressable as aliases
 (`{color.blue.500}`) and appear in the resolved output — they simply are not hand-written.
 See `tools/lib/color-scale.mjs`.
@@ -40,16 +40,16 @@ See `tools/lib/color-scale.mjs`.
 **Question it answers:** *what does this value mean?*
 
 Names describe intent and survive a re-skin. Every value is an alias or an expression over
-primitives — a semantic token must never contain a literal colour or a magic number.
+primitives — a semantic token must never contain a literal color or a magic number.
 
 | file | contents | upstream owner |
 | --- | --- | --- |
 | `semantic/theme-color.json` | the 8 roles × 9 sub-keys | `$theme-colors` |
 | `semantic/surface.json` | `bg.*`, `fg.*`, `border.*` neutral ramps | `$theme-bgs`, `$theme-fgs`, `$theme-borders` |
 | `semantic/typography.json` | body/heading/code/link type tokens | `$root-tokens` |
-| `semantic/border.json` | default border width/style/colour, translucent border | `$root-tokens` |
-| `semantic/elevation.json` | shadow scale, shadow colour and strength | `$shadows`, `$root-tokens` |
-| `semantic/focus.json` | focus ring width/offset/colour | `$root-tokens` |
+| `semantic/border.json` | default border width/style/color, translucent border | `$root-tokens` |
+| `semantic/elevation.json` | shadow scale, shadow color and strength | `$shadows`, `$root-tokens` |
+| `semantic/focus.json` | focus ring width/offset/color | `$root-tokens` |
 | `semantic/control.json` | the shared `--btn-input-*` metrics and `--control-*` states | `$root-tokens` |
 | `semantic/motion.json` | overlay easing, control transition | `$root-tokens` |
 
@@ -68,7 +68,7 @@ component they belong to, under a `$extensions` marker naming their selector —
 ## Naming
 
 * Path segments are lowercase kebab-case: `theme-color.primary.bg-subtle`.
-* Numeric scales keep upstream's keys verbatim, including the zero-padded colour stops
+* Numeric scales keep upstream's keys verbatim, including the zero-padded color stops
   (`025`, `050`) — the exporter has to reproduce `--gray-025`, so the token path is `gray.025`.
 * The component layer keeps upstream's custom-property names exactly. `--alert-padding-x`
   becomes `alert.padding-x`, and the exporter reverses that mechanically. Renaming would break

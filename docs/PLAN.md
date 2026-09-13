@@ -12,7 +12,7 @@ Not "feature complete" — three testable properties. Everything below serves on
 
 | | Property | How we know |
 | --- | --- | --- |
-| **1** | The token document is a **complete and faithful** description of Bootstrap v6 | `sync --check` finds no drift *and* no unmodelled surface; `verify` is byte-identical |
+| **1** | The token document is a **complete and faithful** description of Bootstrap v6 | `sync --check` finds no drift *and* no unmodeled surface; `verify` is byte-identical |
 | **2** | Export is **lossless in both directions** | `verify` and `eject --verify` pass; a theme survives export → import → export unchanged |
 | **3** | The chooser makes the **right thing easy** and the wrong thing visible | A first-time user reaches a coherent, accessible theme without reading docs |
 
@@ -34,7 +34,7 @@ document, and no test, no warning and no CI run noticed.
 
 Done in `tools/lib/discover.mjs`, wired into `sync --check` and CI. It scans every `.scss`
 file for variables carrying `!default` — the flag that makes a variable reachable through
-`@use … with ()` — and fails on anything that is neither modelled nor listed in `NOT_TOKENS`
+`@use … with ()` — and fails on anything that is neither modeled nor listed in `NOT_TOKENS`
 with a reason. Coverage is now **64/64** token maps and **0** unaccounted surfaces.
 
 Finding along the way: `$caret-*` and `$transition-base` carry `!default` but live in
@@ -65,13 +65,13 @@ being complete. Right now that condition is unverified.
 so neither belongs in a DTCG document — but both belong in an exported theme.
 
 Done. `tokens/config/options.json` holds **28** build options — the twelve `$enable-*` flags,
-the size and variant lists, the validation states and the colour-mode settings — each with the
+the size and variant lists, the validation states and the color-mode settings — each with the
 Sass source text of its value, its kind and a note on what it does. `sync` extracts them,
 `verify` emits all 28 at their defaults and still produces byte-identical CSS, and the chooser
 gives them their own section.
 
 Keeping them *out* of `tokens/` is what stops the DTCG document turning into a Sass config
-dump, and the coverage guard now counts them as modelled rather than ignored — so the
+dump, and the coverage guard now counts them as modeled rather than ignored — so the
 `NOT_TOKENS` list shrank to the handful of things that genuinely are not configuration.
 
 Values are stored as Sass source text rather than parsed into JS types, which keeps emission
@@ -201,7 +201,7 @@ Both were invisible because nothing compared the **CSS route**. The Sass export 
 byte-identical and covers one of the three ways out of this document; the CSS export is
 assembled in JavaScript and had never been checked against anything. `verify` now compares it
 to upstream's compiled output per selector, modulo the ways Sass reformats — leading zeros,
-hue angles, legacy colour syntax, folded constants.
+hue angles, legacy color syntax, folded constants.
 
 Fixing the comparison exposed a third problem in the check itself: upstream writes
 `:root,\n:host`, which the parser records as two rules, so a lookup for the combined selector
@@ -221,7 +221,7 @@ them, so byte-identical output stayed byte-identical.
 
 Running `eject --verify` on a realistic theme rather than the fixture found a disagreement
 between the two routes. `$colors: ("blue": $blue)` and `$radii: (5: $radius)` look identical
-in the source, and the right answer differs: the colour map is a pure re-export so the edit
+in the source, and the right answer differs: the color map is a pure re-export so the edit
 belongs on the scalar, while `$radii` is a scale whose eight other entries derive from
 `$radius`, so patching it because step 5 moved would move all nine. The eject route did the
 latter and the consumer route did the former, and `--rounded-size` came out half. The
@@ -273,7 +273,7 @@ Each has a fixture test that runs the real tool: `tsc` over a consumer file and 
 a deliberate typo, Style Dictionary over both configs as emitted. Asserting the shape of our
 own output would only prove we emitted what we meant to.
 
-Doing it needed a colour resolver, which is the part that reimplements a browser and is
+Doing it needed a color resolver, which is the part that reimplements a browser and is
 therefore checked against one — 1084 of 1092 values matching Chrome exactly. See
 [`exports.md`](./exports.md) for what each shape is for and what flattening cannot do.
 
@@ -300,7 +300,7 @@ complete is worse than one that says what it missed.
 ### C1. Create tokens, not just edit them · ✅ **done**
 
 An override may now carry a `create` payload, which brings a token into existence that
-upstream does not have. Adding a colour gives you a real scale — thirteen generated steps,
+upstream does not have. Adding a color gives you a real scale — thirteen generated steps,
 `--brand-*` custom properties, a `.theme-brand` class — and leaves Bootstrap's sixteen alone.
 
 Most of the machinery already worked once the model could create: `expandColorScales`
@@ -311,7 +311,7 @@ and idiomatic — the new scale and the new role, nothing else.
 Two details were load-bearing. A created node needs its `$value` seeded at creation, or it is
 a group rather than a token and gets walked straight past. And the hue lists in both the
 chooser and the preview had to start reading the document instead of a hardcoded sixteen, or
-an added colour is invisible in the two places it most needs to appear.
+an added color is invisible in the two places it most needs to appear.
 
 Still to do: adding a *component* token, and adding a size to a component that has none.
 
@@ -385,16 +385,16 @@ The sample is a component gallery. It cannot answer "does my theme survive a rea
   which is what a `contrast` sub-key usually looks like. "Nearest" is by distance along the
   scale, so the suggestion is the smallest change that works rather than the safest-looking
   one: `warning.fg` at 4.0:1 is offered `yellow.800`, not black.
-* ✅ **Colour-vision simulation**, over the preview *and* as a check. The preview draws the
+* ✅ **Color-vision simulation**, over the preview *and* as a check. The preview draws the
   artboards through protanopia, deuteranopia, tritanopia or achromatopsia; the report says
   which semantic roles stop being distinguishable, which is the part nobody catches by
-  looking. It is the gap contrast cannot cover: luminance barely moves under colour
+  looking. It is the gap contrast cannot cover: luminance barely moves under color
   blindness, so a palette can clear every ratio and still hand around eight percent of men a
-  success button and a danger button in the same colour. `--fail-on vision` gates on it.
+  success button and a danger button in the same color. `--fail-on vision` gates on it.
 
   The matrices are applied in linear light, which is both correct for the Viénot
   approximations and identical to what an SVG filter does — verified against Chrome by
-  painting each colour through the real filter and reading the pixel back, 28 of 28 exact.
+  painting each color through the real filter and reading the pixel back, 28 of 28 exact.
   The widely copied sRGB variants understate the loss, which is the worst direction to be
   wrong in.
 * ✅ **An exportable report** to attach to a pull request. `bstokens report` writes Markdown,
@@ -414,7 +414,7 @@ Build options matter here more than the tokens do — they never appeared as tok
 so before this there was no way at all to see that a theme had turned `$enable-rounded` off
 short of reading the exported Sass.
 
-**Before / after** renders the same page twice in the same colour scheme, Bootstrap's
+**Before / after** renders the same page twice in the same color scheme, Bootstrap's
 defaults on one side and this theme on the other. The override stylesheet is scoped to the
 themed pane — custom properties inherit, so declaring them on a wrapper themes everything
 inside it and nothing outside — which is what makes the comparison possible without a second
@@ -456,7 +456,7 @@ Keyboard shortcuts beyond undo remain open.
 but cannot express `light-dark()` or `oklch(from …)`. Every step toward portability risks
 the round-trip. `verify` is the referee: no change lands that breaks byte-identity.
 
-**More coverage means more drift.** Each upstream variable modelled is another thing to track
+**More coverage means more drift.** Each upstream variable modeled is another thing to track
 against a moving alpha. A1's guard is what makes that affordable rather than a liability.
 
 **"Perfect" is the wrong target.** The three properties at the top are the target. Perfection

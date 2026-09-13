@@ -16,7 +16,7 @@ export const HUES = [
 
 /**
  * Every scale a role can be built from, read from the document rather than the list above,
- * so a colour the user added is a first-class choice rather than a special case.
+ * so a color the user added is a first-class choice rather than a special case.
  */
 export function availableHues(doc) {
   const group = doc.tree.color ?? {}
@@ -43,25 +43,25 @@ const FONT_STACKS = {
 
 /**
  * Dial definitions. `choice` dials map a label onto a set of token values; `hue` dials
- * repoint a whole theme-colour role at a different colour scale.
+ * repoint a whole theme-color role at a different color scale.
  */
 export const DIALS = [
   {
     id: 'primary',
-    section: 'Colour',
+    section: 'Color',
     kind: 'hue',
     role: 'primary',
     preview: 'buttons',
-    label: 'Brand colour',
-    help: 'Repoints the primary role at another colour scale. Buttons, links, focus rings and every component that uses primary follow.'
+    label: 'Brand color',
+    help: 'Repoints the primary role at another color scale. Buttons, links, focus rings and every component that uses primary follow.'
   },
   {
     id: 'accent',
-    section: 'Colour',
+    section: 'Color',
     kind: 'hue',
     role: 'accent',
     preview: 'buttons',
-    label: 'Accent colour',
+    label: 'Accent color',
     help: 'The secondary brand role, used for highlights alongside primary.'
   },
   {
@@ -186,7 +186,7 @@ export const PRESETS = [
 
 /* -------------------------------------------------------------------------- */
 
-/** Which colour scale a theme role is currently built from, e.g. `primary` → `blue`. */
+/** Which color scale a theme role is currently built from, e.g. `primary` → `blue`. */
 export function hueOfRole(doc, role, read) {
   const value = read(`theme-color.${role}.base`)
   const match = /\{color\.([\w-]+)\./.exec(String(value ?? ''))
@@ -196,7 +196,7 @@ export function hueOfRole(doc, role, read) {
 /**
  * Repointing a role at another hue is a string substitution across its sub-keys, because
  * every one of them references the same scale. `contrast` is the exception: it names the
- * text colour that sits *on* the fill, so it is chosen by contrast rather than substituted —
+ * text color that sits *on* the fill, so it is chosen by contrast rather than substituted —
  * white on yellow would otherwise be the default and unreadable.
  */
 export function repointRole(doc, role, fromHue, toHue, { read, contrastFor }) {

@@ -38,7 +38,7 @@ test('a theme that names a token that does not exist is not silently thinned', (
       name: 'Stale',
       overrides: {
         'theme-color.primary.bg': { value: '{color.green.500}' },
-        'colour.blue.base': { value: 'oklch(50% 0.2 120)' },
+        'color.blue.legacy': { value: 'oklch(50% 0.2 120)' },
         'spacing.bass': { value: '1.5rem' }
       }
     }),
@@ -48,21 +48,21 @@ test('a theme that names a token that does not exist is not silently thinned', (
   assert.deepEqual(Object.keys(theme.overrides), ['theme-color.primary.bg'])
   assert.deepEqual(
     theme.dropped.map((entry) => entry.path).sort(),
-    ['colour.blue.base', 'spacing.bass']
+    ['color.blue.legacy', 'spacing.bass']
   )
   assert.equal(quietly(theme), true, 'the caller should stop')
   assert.equal(quietly(theme, { skipUnknown: true }), false, 'unless told to carry on')
 })
 
 test('a rename is applied rather than reported', () => {
-  const migrations = [{ from: 'colour.blue.base', to: 'color.blue.base' }]
+  const migrations = [{ from: 'color.blue.legacy', to: 'color.blue.base' }]
   const theme = readThemeFile(
-    themeFile({ overrides: { 'colour.blue.base': { value: 'oklch(50% 0.2 120)' } } }),
+    themeFile({ overrides: { 'color.blue.legacy': { value: 'oklch(50% 0.2 120)' } } }),
     { doc, migrations }
   )
 
   assert.deepEqual(theme.overrides, { 'color.blue.base': { value: 'oklch(50% 0.2 120)' } })
-  assert.deepEqual(theme.renamed, [{ from: 'colour.blue.base', to: 'color.blue.base' }])
+  assert.deepEqual(theme.renamed, [{ from: 'color.blue.legacy', to: 'color.blue.base' }])
   assert.deepEqual(theme.dropped, [])
   assert.equal(quietly(theme), false)
 })

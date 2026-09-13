@@ -90,8 +90,8 @@ browser would have computed — described below.
 ## Flattening, and how far to trust it
 
 [`tools/lib/flatten.mjs`](../tools/lib/flatten.mjs) inlines every `var()`, picks a side of
-every `light-dark()`, and evaluates every `color-mix()` in the same colour space the browser
-uses. Colours come out as `#rrggbb` or `#rrggbbaa`; everything else keeps its CSS text,
+every `light-dark()`, and evaluates every `color-mix()` in the same color space the browser
+uses. Colors come out as `#rrggbb` or `#rrggbbaa`; everything else keeps its CSS text,
 because `1.25rem` means the same thing everywhere.
 
 This is the one part of the pipeline that reimplements a browser, so it is checked against
@@ -160,7 +160,7 @@ becomes a second copy of the whole document and wins every cascade it should not
 is a function, which is why one config is JSON and the other is JavaScript.
 
 Both use `transforms: ['name/kebab']` rather than `transformGroup: 'css'`. The values are
-already valid CSS, and Style Dictionary's colour transforms do not understand `color-mix()`,
+already valid CSS, and Style Dictionary's color transforms do not understand `color-mix()`,
 `light-dark()` or `oklch()`: left on, `rgb(0 0 0 / 50%)` comes back as `#000000` with the
 alpha silently gone.
 
@@ -190,22 +190,22 @@ npx bstokens report --theme theme.json --fail-on introduced   # a CI gate
 ```
 
 Every pair a reader actually has to see — text on a role's fill, a role's text on the page —
-in both colour schemes, measured by WCAG 2 and by APCA. Both, because they disagree: `fg.4`
+in both color schemes, measured by WCAG 2 and by APCA. Both, because they disagree: `fg.4`
 on a dark page clears WCAG's 3:1 large-text bar and scores Lc -22 under APCA, which is nearly
 invisible. WCAG 2 is the rule conformance is measured against; APCA is the model WCAG 3 is
 built on and judges light-on-saturated text, the case WCAG 2 handles worst.
 
 The distinction that makes it usable is **inherited versus introduced**, decided by comparing
-the colours rather than the verdicts. Bootstrap's own defaults fail eleven of these pairs;
+the colors rather than the verdicts. Bootstrap's own defaults fail eleven of these pairs;
 reporting those as the theme's problem is how a report loses its reader. `--fail-on
 introduced` therefore gates on what the theme changed, and `--fail-on regression` on pairs
 that were fine before and are not now — the case where a token you did not touch was dragged
 down by one you did.
 
 The report has a second half that contrast cannot give you. Luminance barely moves under
-colour blindness, so it lists the semantic roles that stop being distinguishable under
+color blindness, so it lists the semantic roles that stop being distinguishable under
 simulated protanopia, deuteranopia, tritanopia and achromatopsia — and separates *status*
-roles, which carry meaning by colour, from branding, which does not. `--fail-on vision` gates
+roles, which carry meaning by color, from branding, which does not. `--fail-on vision` gates
 on the former. The simulation matrices are applied in linear light, matching both the
 Viénot derivation and what the preview's SVG filter draws (verified against Chrome, 28 of 28
 exact).

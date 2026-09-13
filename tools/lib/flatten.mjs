@@ -1,7 +1,7 @@
 /**
- * Resolve the token document all the way down to sRGB, per colour scheme.
+ * Resolve the token document all the way down to sRGB, per color scheme.
  *
- * Everything else in this repository preserves Bootstrap's runtime behaviour: a reference
+ * Everything else in this repository preserves Bootstrap's runtime behavior: a reference
  * becomes `var(--x)`, a scale step stays a `color-mix()`, a themed pair stays
  * `light-dark()`. That is correct for CSS and unusable everywhere else. Figma has no
  * `var()`, Tokens Studio has no `color-mix()`, and a designer opening either wants a swatch,
@@ -23,7 +23,7 @@ const CALL = /^([a-z-]+)\((.*)\)$/is
 const WEIGHT = /\s+(-?[\d.]+)%\s*$/
 
 /**
- * Compute one CSS colour expression to `{ rgb, alpha }`.
+ * Compute one CSS color expression to `{ rgb, alpha }`.
  *
  * `lookup` turns a custom property name into the CSS value that declares it, which is what
  * lets `var()` chains resolve without a document being passed around.
@@ -59,7 +59,7 @@ export function computeColor(css, { lookup, mode = 'light', seen = new Set() } =
 
   if (name === 'color-mix') {
     // A malformed weight makes the browser drop the whole declaration, so the honest answer
-    // is "no colour", not a plausible one computed from a weight nobody wrote. See U6.
+    // is "no color", not a plausible one computed from a weight nobody wrote. See U6.
     if (lintValue(text).length > 0) return null
 
     // The interpolation method is optional in CSS Color 5; without it a browser uses oklab.
@@ -87,12 +87,12 @@ export function computeColor(css, { lookup, mode = 'light', seen = new Set() } =
 }
 
 /** Why a token has no flat value, for consumers that must say so. */
-function reasonFor(css, { kind = 'colour' } = {}) {
+function reasonFor(css, { kind = 'color' } = {}) {
   const text = String(css ?? '').trim()
   if (text === 'null' || text === '') return 'has no value'
   if (/currentcolor/i.test(text)) return 'depends on currentcolor'
   if (/^(inherit|unset|initial|revert)$/i.test(text)) return `is the CSS keyword \`${text}\``
-  if (/^#\{?url\(/i.test(text)) return 'is an embedded image, not a colour'
+  if (/^#\{?url\(/i.test(text)) return 'is an embedded image, not a color'
   if (lintValue(text).length > 0) return 'is invalid CSS upstream'
   if (VAR_CALL.test(text)) return 'reads a custom property no token declares'
   return `is not a ${kind} this exporter can compute`
@@ -163,7 +163,7 @@ export const cssVarOf = (token) => ext(token).cssVar ?? null
 
 /**
  * Inline every `var()` and pick a side of every `light-dark()`, leaving CSS a tool with no
- * cascade can use. Colours additionally become hex; everything else keeps its CSS text,
+ * cascade can use. Colors additionally become hex; everything else keeps its CSS text,
  * because `.15s` and `1.25rem` mean the same thing to a browser and to a designer.
  */
 export function flattenValues(doc, { mode = 'light' } = {}) {
@@ -196,7 +196,7 @@ export function flattenValues(doc, { mode = 'light' } = {}) {
       if (computed) values.set(path, toHex(computed))
       else unresolved.set(path, reasonFor(css))
     } else {
-      // A colour can sit inside a composite: a border, a shadow, a gradient stop. Those
+      // A color can sit inside a composite: a border, a shadow, a gradient stop. Those
       // have to be computed too, or a "flat" export still contains a color-mix().
       const folded = foldColors(cssLiteral(literal), mode)
       if (folded === null) unresolved.set(path, reasonFor(css, { kind: token.$type ?? 'value' }))
@@ -208,7 +208,7 @@ export function flattenValues(doc, { mode = 'light' } = {}) {
   return { values, contextual, unresolved, mode }
 }
 
-/** Replace every `color-mix()` inside a composite value with the colour it computes to. */
+/** Replace every `color-mix()` inside a composite value with the color it computes to. */
 function foldColors(text, mode) {
   return replaceCall(text, 'color-mix', (args) => {
     const computed = computeColor(`color-mix(${args})`, { lookup: () => null, mode })

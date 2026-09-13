@@ -57,7 +57,7 @@ export function cssDeclarations(doc) {
     }
   }
 
-  // The generated colour scale is emitted on :root ahead of everything else, as upstream does.
+  // The generated color scale is emitted on :root ahead of everything else, as upstream does.
   const scale = []
   for (const [path, token] of walk(doc.tree)) {
     const meta = ext(token)

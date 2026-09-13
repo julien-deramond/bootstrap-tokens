@@ -65,7 +65,7 @@ the edit follows it to that declaration.
 
 ## What it does not do
 
-* **Add or remove tokens.** The chooser only edits values. Adding a theme colour or a hue is a
+* **Add or remove tokens.** The chooser only edits values. Adding a theme color or a hue is a
   change to `tokens/`, made by hand and then `sync`ed — `eject` will insert a missing map key
   if the token document has one, but nothing in the UI produces that yet.
 * **Reformat.** If you want the sources reformatted, that is stylelint's job, not this tool's.
@@ -83,7 +83,7 @@ the other resolves the arithmetic in JavaScript and emits literals. If the JS ar
 reference resolution or the file locating were wrong, the two would disagree.
 
 It also caught a real bug. `--spacer: 1rem` in `$root-tokens` *looks* like it should derive
-from `$spacer`, and an earlier version of the token document modelled it as an alias. Upstream
+from `$spacer`, and an earlier version of the token document modeled it as an alias. Upstream
 hardcodes it, so Sass never recomputes it — the chooser was previewing a value the compiled
 stylesheet would never produce. The token document now mirrors what Bootstrap actually does,
 and `spacing.root` carries a `$description` saying so.

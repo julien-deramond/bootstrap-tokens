@@ -13,7 +13,7 @@
             "sassQuoted": true
           }
         },
-        "$description": "The solid primary colour, unmodified. Use it when you need the hue itself rather than a surface or a text role."
+        "$description": "The solid primary color, unmodified. Use it when you need the hue itself rather than a surface or a text role."
       },
       "fg": {
         "$type": "color",
@@ -43,7 +43,7 @@
             "dark": "{color.blue.200}"
           }
         },
-        "$description": "A higher-contrast primary text colour, for headings or for text sitting on a primary-tinted surface."
+        "$description": "A higher-contrast primary text color, for headings or for text sitting on a primary-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -134,7 +134,7 @@
         },
         "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black."
       },
-      "$description": "The main brand colour. Buttons, links and focus rings default to it."
+      "$description": "The main brand color. Buttons, links and focus rings default to it."
     },
     "accent": {
       "base": {
@@ -149,7 +149,7 @@
             "sassQuoted": true
           }
         },
-        "$description": "The solid accent colour, unmodified. Use it when you need the hue itself rather than a surface or a text role."
+        "$description": "The solid accent color, unmodified. Use it when you need the hue itself rather than a surface or a text role."
       },
       "fg": {
         "$type": "color",
@@ -180,7 +180,7 @@
             "dark": "{color.indigo.300}"
           }
         },
-        "$description": "A higher-contrast accent text colour, for headings or for text sitting on a accent-tinted surface."
+        "$description": "A higher-contrast accent text color, for headings or for text sitting on a accent-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -271,7 +271,7 @@
         },
         "$description": "Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black."
       },
-      "$description": "A second brand colour, for highlights that should not compete with primary."
+      "$description": "A second brand color, for highlights that should not compete with primary."
     },
     "success": {
       "base": {
@@ -286,7 +286,7 @@
             "sassQuoted": true
           }
         },
-        "$description": "The solid success colour, unmodified. Use it when you need the hue itself rather than a surface or a text role."
+        "$description": "The solid success color, unmodified. Use it when you need the hue itself rather than a surface or a text role."
       },
       "fg": {
         "$type": "color",
@@ -316,7 +316,7 @@
             "dark": "{color.green.300}"
           }
         },
-        "$description": "A higher-contrast success text colour, for headings or for text sitting on a success-tinted surface."
+        "$description": "A higher-contrast success text color, for headings or for text sitting on a success-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -422,7 +422,7 @@
             "sassQuoted": true
           }
         },
-        "$description": "The solid danger colour, unmodified. Use it when you need the hue itself rather than a surface or a text role."
+        "$description": "The solid danger color, unmodified. Use it when you need the hue itself rather than a surface or a text role."
       },
       "fg": {
         "$type": "color",
@@ -452,7 +452,7 @@
             "dark": "{color.red.300}"
           }
         },
-        "$description": "A higher-contrast danger text colour, for headings or for text sitting on a danger-tinted surface."
+        "$description": "A higher-contrast danger text color, for headings or for text sitting on a danger-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -558,7 +558,7 @@
             "sassQuoted": true
           }
         },
-        "$description": "The solid warning colour, unmodified. Use it when you need the hue itself rather than a surface or a text role."
+        "$description": "The solid warning color, unmodified. Use it when you need the hue itself rather than a surface or a text role."
       },
       "fg": {
         "$type": "color",
@@ -588,7 +588,7 @@
             "dark": "{color.yellow.300}"
           }
         },
-        "$description": "A higher-contrast warning text colour, for headings or for text sitting on a warning-tinted surface."
+        "$description": "A higher-contrast warning text color, for headings or for text sitting on a warning-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -694,7 +694,7 @@
             "sassQuoted": true
           }
         },
-        "$description": "The solid info colour, unmodified. Use it when you need the hue itself rather than a surface or a text role."
+        "$description": "The solid info color, unmodified. Use it when you need the hue itself rather than a surface or a text role."
       },
       "fg": {
         "$type": "color",
@@ -724,7 +724,7 @@
             "dark": "{color.cyan.300}"
           }
         },
-        "$description": "A higher-contrast info text colour, for headings or for text sitting on a info-tinted surface."
+        "$description": "A higher-contrast info text color, for headings or for text sitting on a info-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -830,7 +830,7 @@
             "sassQuoted": true
           }
         },
-        "$description": "The solid inverse colour, unmodified. Use it when you need the hue itself rather than a surface or a text role."
+        "$description": "The solid inverse color, unmodified. Use it when you need the hue itself rather than a surface or a text role."
       },
       "fg": {
         "$type": "color",
@@ -860,7 +860,7 @@
             "dark": "{color.white}"
           }
         },
-        "$description": "A higher-contrast inverse text colour, for headings or for text sitting on a inverse-tinted surface."
+        "$description": "A higher-contrast inverse text color, for headings or for text sitting on a inverse-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -967,7 +967,7 @@
             "sassQuoted": true
           }
         },
-        "$description": "The solid secondary colour, unmodified. Use it when you need the hue itself rather than a surface or a text role."
+        "$description": "The solid secondary color, unmodified. Use it when you need the hue itself rather than a surface or a text role."
       },
       "fg": {
         "$type": "color",
@@ -997,7 +997,7 @@
             "dark": "{color.gray.200}"
           }
         },
-        "$description": "A higher-contrast secondary text colour, for headings or for text sitting on a secondary-tinted surface."
+        "$description": "A higher-contrast secondary text color, for headings or for text sitting on a secondary-tinted surface."
       },
       "bg": {
         "$type": "color",
@@ -1091,6 +1091,6 @@
       },
       "$description": "Low emphasis. For controls that should recede behind the primary action."
     },
-    "$description": "Semantic colour roles. Each role carries the nine sub-keys a component needs."
+    "$description": "Semantic color roles. Each role carries the nine sub-keys a component needs."
   }
 }
