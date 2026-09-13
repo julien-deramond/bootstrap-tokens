@@ -299,6 +299,30 @@ function editableValue(path, side = 'value') {
 const isChanged = (path) => Object.hasOwn(state.overrides, path)
 
 /**
+ * Run `render()` without losing where the panel was scrolled to.
+ *
+ * `renderSimple()` and `renderEditor()` rebuild their container by clearing it and appending
+ * fresh children, which briefly leaves the scrolling ancestor with nothing to scroll — the
+ * browser clamps its `scrollTop` to 0 right then, and nothing puts it back. That is invisible
+ * for a click that intentionally shows new content (switching section, filtering a search),
+ * but for a value tweak it means every dial or field edit yanks you back to the top of a long
+ * list. See https://github.com/twbs/bootstrap/discussions/42924#discussioncomment-18418198.
+ *
+ * Which element actually scrolls depends on viewport width: `.panel-body` itself above the
+ * `64rem` breakpoint, but the whole document below it, where `.panel-body` switches to
+ * `overflow: visible` so the controls scroll under the pinned preview (see app.css). Both are
+ * saved and restored so the fix holds on either layout.
+ */
+function renderPreservingScroll() {
+  const panelBody = $('.panel-body')
+  const panelScrollTop = panelBody?.scrollTop
+  const pageScrollTop = document.scrollingElement.scrollTop
+  render()
+  if (panelBody) panelBody.scrollTop = panelScrollTop
+  document.scrollingElement.scrollTop = pageScrollTop
+}
+
+/**
  * Every mutation goes through here, so exploring is always reversible.
  *
  * A tool whose whole purpose is "try a value and see" needs undo more than it needs almost
@@ -314,7 +338,7 @@ function mutate(change) {
 
   save()
   recompute()
-  render()
+  renderPreservingScroll()
 }
 
 const snapshot = () => JSON.stringify({ overrides: state.overrides, options: state.options })
@@ -325,7 +349,7 @@ function restore(json) {
   state.options = options ?? {}
   save()
   recompute()
-  render()
+  renderPreservingScroll()
 }
 
 function undo() {
