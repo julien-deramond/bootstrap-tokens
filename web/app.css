@@ -82,7 +82,11 @@ body {
 .brand h1 { margin: 0; font-size: .875rem; font-weight: 650; letter-spacing: -.01em; white-space: nowrap; }
 .brand-sub { margin: 0; font-size: .6875rem; color: var(--ink-faint); white-space: nowrap; }
 
-.topbar-actions { display: flex; gap: .5rem; align-items: center; }
+/* The positioning root for .health-detail (below): the health button sits ahead of a few
+   more buttons in this row, so anchoring the popover to its own wrapper — instead of to
+   this full-width row — let it run off the left edge of the viewport once the row got
+   narrow enough to wrap. */
+.topbar-actions { position: relative; display: flex; gap: .5rem; align-items: center; }
 
 .health {
   font-size: .6875rem;
@@ -737,8 +741,6 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 }
 
 /* --- theme health disclosure -------------------------------------------- */
-
-.health-wrap { position: relative; }
 
 .health {
   font: inherit;
