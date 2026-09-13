@@ -648,51 +648,18 @@ function render() {
 /** Which scheme a comparison is shown in. */
 let compareScheme = 'light'
 
-const reducedMotion = matchMedia('(prefers-reduced-motion: reduce)')
-
 /**
- * Scroll a container ourselves rather than leaning on `scroll-behavior: smooth` or
- * `scrollIntoView({ behavior: 'smooth' })`: both are silently ignored in some embedded
- * frames, and a control that appears to do nothing is worse than one that jumps.
+ * Flash the section a dial just changed, so the control and its result are connected —
+ * without moving the artboard's scroll position. It used to force-scroll the section to the
+ * top of the artboard on every change, which meant scrolling down to look at one part of the
+ * preview and nudging an unrelated dial would yank you back up. See
+ * https://github.com/twbs/bootstrap/discussions/42924#discussioncomment-18418198.
  */
-function scrollToOffset(container, top) {
-  const max = container.scrollHeight - container.clientHeight
-  const target = Math.max(0, Math.min(top, max))
-
-  if (reducedMotion.matches) {
-    container.scrollTop = target
-    return
-  }
-
-  const from = container.scrollTop
-  const distance = target - from
-  if (Math.abs(distance) < 2) return
-
-  const duration = Math.min(420, 120 + Math.abs(distance) * 0.35)
-  const start = performance.now()
-
-  const step = (now) => {
-    const progress = Math.min(1, (now - start) / duration)
-    // easeOutCubic: quick to move, gentle to land.
-    const eased = 1 - (1 - progress) ** 3
-    container.scrollTop = from + distance * eased
-    if (progress < 1) requestAnimationFrame(step)
-  }
-
-  requestAnimationFrame(step)
-}
-
-/** Bring a section into view and flash it, so a control and its result are connected. */
 function focusSection(id) {
   const targets = root.querySelectorAll(`[data-section="${id}"]`)
   if (targets.length === 0) return
 
   for (const target of targets) {
-    const frame = target.closest('.artboard')
-    if (frame) {
-      scrollToOffset(frame, target.offsetTop - 12)
-    }
-
     target.classList.remove('is-focused')
     // Force a reflow so the animation restarts when the same section is focused twice.
     void target.offsetWidth
