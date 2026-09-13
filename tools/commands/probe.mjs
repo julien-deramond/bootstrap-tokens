@@ -45,22 +45,41 @@ export async function probe({ flags }) {
 
   const data = { root, scoped: [...scoped], tokens }
   const colorSource = readFileSync(join(repoRoot, 'tools', 'lib', 'color.mjs'), 'utf8')
+  const sanitiseSource = readFileSync(join(repoRoot, 'web', 'sanitise.mjs'), 'utf8')
   const out = flags.out ?? join(repoRoot, 'build', 'probe.html')
 
-  writeFileSync(out, page(data, colorSource))
+  writeFileSync(out, page(data, colorSource, sanitiseSource, HOSTILE_MARKUP))
   console.log(`  ${tokens.length} colour tokens × 2 schemes → ${out}`)
-  console.log('\nOpen it in a browser. It compares every value against getComputedStyle and')
-  console.log('prints a fixture block for tools/test/fixtures/chrome-colors.json.')
+  console.log('\nOpen it in a browser. It compares every value against getComputedStyle, checks')
+  console.log('the pasted-markup sanitiser against known-hostile input, and prints a fixture')
+  console.log('block for tools/test/fixtures/chrome-colors.json.')
   return 0
 }
 
-const page = (data, colorSource) => `<!doctype html>
+/**
+ * Markup that must come back inert. Each entry names what it is exploiting; `sanitise` has to
+ * defeat all of them, in whatever the visitor's browser happens to be, or this fails.
+ */
+const HOSTILE_MARKUP = [
+  ['a <script> element', '<script>window.__probePwned = true</script><p>text</p>'],
+  ['an event-handler attribute', '<img src="x" onerror="window.__probePwned = true">'],
+  ['a javascript: href', '<a href="javascript:window.__probePwned = true">link</a>'],
+  ['a javascript: src', '<img src="javascript:window.__probePwned = true">'],
+  ['an SVG use with a javascript: href', '<svg><use href="javascript:window.__probePwned = true"></use></svg>'],
+  ['a javascript: href with leading whitespace and mixed case', '<a href="  JaVaScRiPt:window.__probePwned = true">link</a>'],
+  ['an uppercase event-handler attribute', '<div ONCLICK="window.__probePwned = true">text</div>'],
+  ['an iframe', '<iframe src="https://example.invalid"></iframe>'],
+  ['a meta refresh', '<meta http-equiv="refresh" content="0;url=https://example.invalid">']
+]
+
+const page = (data, colorSource, sanitiseSource, hostileMarkup) => `<!doctype html>
 <meta charset="utf-8">
 <title>Flattened colours vs. this browser</title>
 <style>
   :root { color-scheme: light dark; font: 14px/1.5 system-ui, sans-serif }
   body { margin: 2rem; max-width: 60rem }
   h1 { font-size: 1.25rem }
+  h2 { font-size: 1rem; margin-top: 2.5rem }
   .verdict { padding: .75rem 1rem; border-radius: .5rem; font-weight: 600 }
   .pass { background: #e7f6ec; color: #10431f }
   .fail { background: #fdeaea; color: #5a1414 }
@@ -69,14 +88,21 @@ const page = (data, colorSource) => `<!doctype html>
   td.sw span { display: inline-block; width: 1rem; height: 1rem; vertical-align: -2px;
                border: 1px solid #8886; border-radius: 3px }
   textarea { width: 100%; height: 14rem; margin-top: 1rem; font: 12px/1.4 ui-monospace, monospace }
+  code { font: 12px/1.4 ui-monospace, monospace }
   #stage { position: absolute; visibility: hidden; pointer-events: none }
 </style>
 <h1>Flattened colours vs. this browser</h1>
 <div id="verdict" class="verdict">Measuring…</div>
 <div id="report"></div>
+
+<h2>Pasted-markup sanitiser</h2>
+<div id="sanitiser-verdict" class="verdict">Checking…</div>
+<div id="sanitiser-report"></div>
+
 <div id="stage"></div>
 <script type="module">
 ${colorSource}
+${sanitiseSource}
 
 const data = ${escapeForScript(JSON.stringify(data))}
 const byBox = new Map(data.scoped)
@@ -179,5 +205,62 @@ fixture.value = JSON.stringify(
   { browser: (navigator.userAgent.match(/(Chrome|Firefox|Version)\\/[\\d.]+/) ?? ['unknown'])[0],
     measured: new Date().toISOString().slice(0, 10), ...measured }, null, 2)
 report.appendChild(fixture)
+
+/*
+ * Checked the same way \`sanitise\` itself checks its input — parsed by \`DOMParser\` into a
+ * document nothing has attached to the page — rather than by dropping the cleaned markup into
+ * a live element. A live element would have to wait on real, async load/error events to know
+ * whether an \`onerror\` or a \`javascript:\` URL actually ran, and those events do not respect
+ * loop boundaries: one hostile input's pending image error can still land while the next
+ * input is being checked, which makes the verdict depend on timing instead of on the code.
+ */
+const hostileMarkup = ${escapeForScript(JSON.stringify(hostileMarkup))}
+
+const sanitiserFailures = []
+for (const [name, markup] of hostileMarkup) {
+  const cleaned = sanitise(markup)
+  const parsed = new DOMParser().parseFromString(\`<body>\${cleaned}</body>\`, 'text/html').body
+
+  const survivingElement = parsed.querySelector(FORBIDDEN)
+  const survivingHandler = [...parsed.querySelectorAll('*')]
+    .flatMap((element) => [...element.attributes])
+    .find((attribute) => attribute.name.toLowerCase().startsWith('on'))
+  const survivingUrl = [...parsed.querySelectorAll('*')]
+    .flatMap((element) => [...element.attributes])
+    .find((attribute) =>
+      ['href', 'src', 'xlink:href', 'action'].includes(attribute.name.toLowerCase()) &&
+      /^\\s*javascript:/i.test(attribute.value)
+    )
+
+  if (survivingElement || survivingHandler || survivingUrl) {
+    sanitiserFailures.push({
+      name,
+      markup,
+      cleaned,
+      why: survivingElement
+        ? \`a <\${survivingElement.tagName.toLowerCase()}> survived\`
+        : survivingHandler
+          ? \`\${survivingHandler.name} survived\`
+          : \`\${survivingUrl.name}="\${survivingUrl.value}" survived\`
+    })
+  }
+}
+
+const sanitiserVerdict = document.getElementById('sanitiser-verdict')
+sanitiserVerdict.className = 'verdict ' + (sanitiserFailures.length === 0 ? 'pass' : 'fail')
+sanitiserVerdict.textContent = sanitiserFailures.length === 0
+  ? \`sanitise() defeated all \${hostileMarkup.length} hostile inputs.\`
+  : \`sanitise() let \${sanitiserFailures.length} of \${hostileMarkup.length} hostile inputs through.\`
+
+const sanitiserReport = document.getElementById('sanitiser-report')
+if (sanitiserFailures.length > 0) {
+  sanitiserReport.innerHTML =
+    '<table><tr><th>Exploiting</th><th>Input</th><th>Cleaned</th><th>Why it failed</th></tr>' +
+    sanitiserFailures.map((f) =>
+      \`<tr><td>\${f.name}</td><td><code>\${f.markup.replace(/</g, '&lt;')}</code></td>\` +
+      \`<td><code>\${f.cleaned.replace(/</g, '&lt;')}</code></td><td>\${f.why}</td></tr>\`
+    ).join('') +
+    '</table>'
+}
 </script>
 `
