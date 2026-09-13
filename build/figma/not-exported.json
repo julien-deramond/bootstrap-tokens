@@ -1,7 +1,7 @@
 {
   "$comment": "Bootstrap 6.0.0-alpha1 tokens with no value Figma can hold, and why. Nothing here was guessed at.",
   "light": {
-    "alert.color": "reads a custom property no token declares",
+    "alert.color": "is the CSS keyword `inherit`",
     "alert.link-color": "is the CSS keyword `inherit`",
     "badge.color": "is the CSS keyword `inherit`",
     "bg.inherit": "is the CSS keyword `inherit`",
@@ -25,10 +25,6 @@
     "nav-tabs.link-active-border-color": "reads a custom property no token declares",
     "nav-tabs.link-active-color": "reads a custom property no token declares",
     "nav-underline.link-active-color": "reads a custom property no token declares",
-    "navbar-dark.navbar-color": "is invalid CSS upstream (https://github.com/julien-deramond/bootstrap-tokens/issues/14)",
-    "navbar-dark.navbar-disabled-color": "is invalid CSS upstream (https://github.com/julien-deramond/bootstrap-tokens/issues/14)",
-    "navbar-dark.navbar-hover-color": "is invalid CSS upstream (https://github.com/julien-deramond/bootstrap-tokens/issues/14)",
-    "navbar-dark.navbar-toggler-border-color": "is invalid CSS upstream (https://github.com/julien-deramond/bootstrap-tokens/issues/14)",
     "popover.header-color": "is the CSS keyword `inherit`",
     "reboot-type.heading-font-family": "has no value",
     "reboot-type.heading-font-style": "has no value",
@@ -42,7 +38,7 @@
     "type.heading.color": "is the CSS keyword `inherit`"
   },
   "dark": {
-    "alert.color": "reads a custom property no token declares",
+    "alert.color": "is the CSS keyword `inherit`",
     "alert.link-color": "is the CSS keyword `inherit`",
     "badge.color": "is the CSS keyword `inherit`",
     "bg.inherit": "is the CSS keyword `inherit`",
@@ -66,10 +62,6 @@
     "nav-tabs.link-active-border-color": "reads a custom property no token declares",
     "nav-tabs.link-active-color": "reads a custom property no token declares",
     "nav-underline.link-active-color": "reads a custom property no token declares",
-    "navbar-dark.navbar-color": "is invalid CSS upstream (https://github.com/julien-deramond/bootstrap-tokens/issues/14)",
-    "navbar-dark.navbar-disabled-color": "is invalid CSS upstream (https://github.com/julien-deramond/bootstrap-tokens/issues/14)",
-    "navbar-dark.navbar-hover-color": "is invalid CSS upstream (https://github.com/julien-deramond/bootstrap-tokens/issues/14)",
-    "navbar-dark.navbar-toggler-border-color": "is invalid CSS upstream (https://github.com/julien-deramond/bootstrap-tokens/issues/14)",
     "popover.header-color": "is the CSS keyword `inherit`",
     "reboot-type.heading-font-family": "has no value",
     "reboot-type.heading-font-style": "has no value",

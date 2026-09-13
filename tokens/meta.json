@@ -1,9 +1,9 @@
 {
   "bootstrap": "6.0.0-alpha1",
   "branch": "v6-dev",
-  "commit": "bc4bcb4074c1551997be94a4255509bf615489ed",
-  "extractedAt": "2026-09-07",
-  "tokens": 998,
+  "commit": "2f488fd7e58f8d8d1a6e83888a0944f34f07472d",
+  "extractedAt": "2026-09-13",
+  "tokens": 997,
   "declaredCustomProperties": [
     "--accent-base",
     "--accent-bg",
@@ -37,7 +37,6 @@
     "--accordion-transition-property",
     "--accordion-transition-timing",
     "--alert-bg",
-    "--alert-border",
     "--alert-border-color",
     "--alert-border-radius",
     "--alert-color",

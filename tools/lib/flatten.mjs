@@ -93,7 +93,7 @@ function reasonFor(css, { kind = 'colour' } = {}) {
   if (/currentcolor/i.test(text)) return 'depends on currentcolor'
   if (/^(inherit|unset|initial|revert)$/i.test(text)) return `is the CSS keyword \`${text}\``
   if (/^#\{?url\(/i.test(text)) return 'is an embedded image, not a colour'
-  if (lintValue(text).length > 0) return 'is invalid CSS upstream (https://github.com/julien-deramond/bootstrap-tokens/issues/14)'
+  if (lintValue(text).length > 0) return 'is invalid CSS upstream'
   if (VAR_CALL.test(text)) return 'reads a custom property no token declares'
   return `is not a ${kind} this exporter can compute`
 }

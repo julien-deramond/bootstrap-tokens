@@ -2,7 +2,7 @@
   "navbar-dark": {
     "navbar-color": {
       "$type": "color",
-      "$value": "color-mix(in oklch, {color.white} .55, transparent)",
+      "$value": "color-mix(in oklch, {color.white} 55%, transparent)",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--navbar-color",
@@ -14,7 +14,7 @@
     },
     "navbar-hover-color": {
       "$type": "color",
-      "$value": "color-mix(in oklch, {color.white} .75, transparent)",
+      "$value": "color-mix(in oklch, {color.white} 75%, transparent)",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--navbar-hover-color",
@@ -26,7 +26,7 @@
     },
     "navbar-disabled-color": {
       "$type": "color",
-      "$value": "color-mix(in oklch, {color.white} .25, transparent)",
+      "$value": "color-mix(in oklch, {color.white} 25%, transparent)",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--navbar-disabled-color",
@@ -71,7 +71,7 @@
     },
     "navbar-toggler-border-color": {
       "$type": "color",
-      "$value": "color-mix(in oklch, {color.white} .1, transparent)",
+      "$value": "color-mix(in oklch, {color.white} 10%, transparent)",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--navbar-toggler-border-color",

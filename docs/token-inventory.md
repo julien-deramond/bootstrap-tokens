@@ -6,8 +6,8 @@
 | --- | ---: |
 | primitive | 362 |
 | semantic | 168 |
-| component | 676 |
-| **total** | **1206** |
+| component | 675 |
+| **total** | **1205** |
 
 Primitive counts include the generated colour scale (16 hues × 13 stops).
 
@@ -43,7 +43,7 @@ Primitive counts include the generated colour scale (16 hues × 13 stops).
 | component | Sass map | selector | tokens |
 | --- | --- | --- | ---: |
 | `accordion` | `$accordion-tokens` | `.accordion` | 21 |
-| `alert` | `$alert-tokens` | `.alert` | 13 |
+| `alert` | `$alert-tokens` | `.alert` | 12 |
 | `avatar` | `$avatar-tokens` | `.avatar` | 11 |
 | `badge` | `$badge-tokens` | `.badge` | 10 |
 | `blockquote` | `$blockquote-tokens` | `.blockquote` | 8 |

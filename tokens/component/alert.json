@@ -13,16 +13,14 @@
     },
     "bg": {
       "$type": "color",
-      "$value": "var(--theme-bg-subtle, {bg.1})",
+      "$value": "{bg.1}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--alert-bg",
           "sassMap": "$alert-tokens",
-          "sassKey": "--alert-bg",
-          "expression": true
+          "sassKey": "--alert-bg"
         }
-      },
-      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg-subtle`, and uses the fallback only when no theme class is set."
+      }
     },
     "padding-x": {
       "$type": "dimension",
@@ -48,7 +46,7 @@
     },
     "color": {
       "$type": "color",
-      "$value": "var(--theme-fg, inherit)",
+      "$value": "inherit",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--alert-color",
@@ -56,37 +54,22 @@
           "sassKey": "--alert-color",
           "css": true
         }
-      },
-      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-fg`, and uses the fallback only when no theme class is set."
+      }
     },
     "border-color": {
       "$type": "color",
-      "$value": "var(--theme-border, {border.color})",
+      "$value": "{border.color}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--alert-border-color",
           "sassMap": "$alert-tokens",
-          "sassKey": "--alert-border-color",
-          "expression": true
-        }
-      },
-      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-border`, and uses the fallback only when no theme class is set."
-    },
-    "border": {
-      "$type": "border",
-      "$value": "{border.width} solid {alert.border-color}",
-      "$extensions": {
-        "dev.bootstrap.tokens": {
-          "cssVar": "--alert-border",
-          "sassMap": "$alert-tokens",
-          "sassKey": "--alert-border",
-          "expression": true
+          "sassKey": "--alert-border-color"
         }
       }
     },
     "border-radius": {
       "$type": "dimension",
-      "$value": "{radius.5}",
+      "$value": "{radius.7}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--alert-border-radius",
@@ -146,7 +129,7 @@
     },
     "hr-border-color": {
       "$type": "color",
-      "$value": "var(--theme-border, {border.color})",
+      "$value": "var(--theme-border, {alert.border-color})",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--hr-border-color",
