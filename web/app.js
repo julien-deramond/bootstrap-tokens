@@ -1809,7 +1809,37 @@ function renderHealth() {
   const list = $('#health-list')
   list.textContent = ''
 
-  for (const issue of health.issues) {
+  // Two groups, matching the header's own "yours vs. Bootstrap's" framing: the pair a user
+  // needs to act on should never be lost among the ones Bootstrap already fails.
+  const introduced = health.issues.filter((issue) => !issue.inherited)
+  const inherited = health.issues.filter((issue) => issue.inherited)
+
+  if (introduced.length > 0) {
+    const section = document.createElement('div')
+    const heading = document.createElement('p')
+    heading.className = 'health-group-heading'
+    heading.textContent = `Introduced by this theme (${introduced.length})`
+    section.append(heading, buildHealthIssueList(introduced))
+    list.append(section)
+  }
+
+  if (inherited.length > 0) {
+    const details = document.createElement('details')
+    details.className = 'health-group-inherited'
+    // Collapsed by default: not something the user needs to act on right now.
+    if (introduced.length === 0) details.open = true
+    const summary = document.createElement('summary')
+    summary.className = 'health-group-heading'
+    summary.textContent = `Already in Bootstrap (${inherited.length})`
+    details.append(summary, buildHealthIssueList(inherited))
+    list.append(details)
+  }
+}
+
+function buildHealthIssueList(issues) {
+  const ul = document.createElement('ul')
+
+  for (const issue of issues) {
     const item = document.createElement('li')
 
     const link = document.createElement('button')
@@ -1840,8 +1870,10 @@ function renderHealth() {
       }
     }
 
-    list.append(item)
+    ul.append(item)
   }
+
+  return ul
 }
 
 function closeHealth() {
