@@ -2472,12 +2472,14 @@ function wire() {
   })
 
   /*
-   * Color-vision simulation, on the artboard only.
+   * Vision simulation, on the artboard only.
    *
-   * It answers a question the contrast readout cannot: contrast survives color blindness
-   * almost unchanged, so a palette can pass every ratio and still collapse into one color
-   * for eight percent of men. Success and danger buttons that differ only in hue are the
-   * usual casualty, and you cannot reason your way to noticing that.
+   * The color-vision options answer a question the contrast readout cannot: contrast
+   * survives color blindness almost unchanged, so a palette can pass every ratio and still
+   * collapse into one color for eight percent of men. Success and danger buttons that
+   * differ only in hue are the usual casualty, and you cannot reason your way to noticing
+   * that. Blurred vision and reduced contrast cover the other common case — low acuity,
+   * where the loss is in edges and fine detail rather than hue.
    *
    * Not persisted — it is a way of looking at the theme, not a property of it, and a tool
    * that silently reopens in simulated deuteranopia would be a confusing one.

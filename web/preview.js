@@ -587,7 +587,9 @@ let mode = 'light'
 /** Which simulated vision the artboards are drawn through. `normal` means no filter. */
 let vision = 'normal'
 
-const VISIONS = new Set(['protanopia', 'deuteranopia', 'tritanopia', 'achromatopsia'])
+const VISIONS = new Set([
+  'blur', 'low-contrast', 'protanopia', 'deuteranopia', 'tritanopia', 'achromatopsia'
+])
 
 const visionAttributes = () =>
   VISIONS.has(vision)
