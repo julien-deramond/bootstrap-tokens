@@ -27,7 +27,7 @@
   },
   "devDependencies": {
     "sass": "^1.93.0",
-    "style-dictionary": "^5.5.2",
+    "style-dictionary": "^5.5.3",
     "typescript": "^7.0.2"
   },
   "keywords": [
