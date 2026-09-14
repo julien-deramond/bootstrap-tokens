@@ -82,10 +82,12 @@ preset.
   same audit as a file to attach to a pull request, WCAG 2 and APCA side by side.
 * **See it through someone else's eyes.** The *Vision* selector draws the artboards through
   simulated protanopia, deuteranopia, tritanopia or achromatopsia, plus blurred vision and
-  reduced contrast for low acuity — the tool's own chrome stays as it is, since the point is
-  to look at the artifact. The report turns the color-vision half into a check: contrast
-  survives color blindness almost unchanged, so a palette can pass every ratio and still
-  make success and danger the same button.
+  reduced contrast for low acuity — matching Chromium's own "Emulate vision deficiencies"
+  filters rather than the CSS `blur()`/`contrast()` functions, which draw a visibly
+  different picture. The tool's own chrome stays as it is, since the point is to look at the
+  artifact. The report turns the color-vision half into a check: contrast survives color
+  blindness almost unchanged, so a palette can pass every ratio and still make success and
+  danger the same button.
 
 ## Open in StackBlitz
 
