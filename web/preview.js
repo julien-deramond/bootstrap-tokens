@@ -587,12 +587,19 @@ let mode = 'light'
 /** Which simulated vision the artboards are drawn through. `normal` means no filter. */
 let vision = 'normal'
 
-const VISIONS = new Set(['protanopia', 'deuteranopia', 'tritanopia', 'achromatopsia'])
+const COLOR_VISIONS = new Set(['protanopia', 'deuteranopia', 'tritanopia', 'achromatopsia'])
 
-const visionAttributes = () =>
-  VISIONS.has(vision)
-    ? ` data-vision="${vision}" style="--vision-filter: url(#vision-${vision})"`
-    : ''
+// Low-acuity vision isn't a color-confusion matrix — it's a plain CSS filter function,
+// applied directly rather than through the SVG filters below.
+const ACUITY_FILTERS = { blur: 'blur(3px)', 'low-contrast': 'contrast(0.5)' }
+
+const VISIONS = new Set([...COLOR_VISIONS, ...Object.keys(ACUITY_FILTERS)])
+
+const visionAttributes = () => {
+  if (!VISIONS.has(vision)) return ''
+  const filter = ACUITY_FILTERS[vision] ?? `url(#vision-${vision})`
+  return ` data-vision="${vision}" style="--vision-filter: ${filter}"`
+}
 
 const board = (scheme, { label = scheme, variant = null } = {}) => `
   <figure class="board board-${scheme}">

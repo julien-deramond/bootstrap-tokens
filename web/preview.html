@@ -280,11 +280,15 @@
   </head>
   <body>
     <!--
-      Color-vision simulation.
+      Vision simulation.
 
       Applied to the artboard, never to the chooser's own chrome: the point is to look at
       the artifact through someone else's eyes, and simulating the tool as well would just
       make the tool hard to use.
+
+      Blurred vision and reduced contrast simulate low acuity, not color loss, so they need
+      none of this: `blur()` and `contrast()` are applied straight from `--vision-filter`,
+      no SVG involved. The four color-vision deficiencies below are matrices instead.
 
       These matrices are the Viénot/Brettel approximations, and they are derived for
       *linear* light — which is why `color-interpolation-filters` is left alone. SVG's
