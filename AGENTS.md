@@ -1,4 +1,4 @@
-# CLAUDE.md
+# AGENTS.md
 
 Notes for AI agents working in this repository. The full contributor guide is
 [`CONTRIBUTING.md`](CONTRIBUTING.md); this file holds the parts that are easy to get wrong.
