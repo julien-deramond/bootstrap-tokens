@@ -2,37 +2,31 @@
    that token overrides never reach the tool's UI, and the tool never leaks into the preview. */
 
 :root {
-  /* Dark is the brand: its values come from `brand/tokens.css`. Light follows the system
-     setting, as the chrome always has, and exists only in this app — the tokens are
-     dark-only, so its values are written here, in the same hues, each checked for AA on
-     both light surfaces (#FFFFFF and #EEF0F3). */
-  color-scheme: light dark;
+  /* One theme, dark: the chrome takes its values from the brand tokens in `brand/tokens.css`.
+     The preview frame never loads that file, so none of this reaches Bootstrap. */
+  color-scheme: dark;
 
-  --ink: light-dark(var(--palette-neutral-ink), var(--color-fg));
-  --ink-muted: light-dark(#696c73, var(--color-muted));
-  --ink-faint: var(--ink-muted);
-  --surface: light-dark(var(--palette-neutral-white), var(--color-panel));
-  --surface-sunken: light-dark(#eef0f3, var(--color-bg));
-  --surface-raised: var(--surface);
-  --line: light-dark(#d3d6dc, var(--color-line));
-  --line-strong: var(--line);
-  /* Structure — selection, focus, the active tab — is cyan: the brand's dim cyan in light,
-     the only one of the three that is text-safe on a pale field. */
-  --accent: light-dark(var(--color-primary-dim), var(--color-primary));
-  --accent-ink: light-dark(var(--palette-neutral-white), var(--color-on-primary));
-  /* The decision colour, spent once: Export. On a pale field the gold has no edge of its
-     own (1.6:1 on white), so light mode draws one in ink. */
+  --ink: var(--color-fg);
+  --ink-muted: var(--color-muted);
+  --ink-faint: var(--color-muted);
+  --surface: var(--color-panel);
+  --surface-sunken: var(--color-bg);
+  --surface-raised: var(--color-panel);
+  --line: var(--color-line);
+  --line-strong: var(--color-line);
+  /* Structure — selection, focus, the active tab — is cyan. */
+  --accent: var(--color-primary);
+  --accent-ink: var(--color-on-primary);
+  /* The decision colour, spent once: Export. */
   --decision: var(--color-accent);
   --decision-ink: var(--color-on-accent);
-  --decision-edge: light-dark(var(--palette-neutral-ink), transparent);
   /* States, always with a word next to them. */
-  --pass: light-dark(#1a7a51, var(--color-success));
-  --warn: light-dark(#7d5d9f, var(--color-warning));
-  --fail: light-dark(#b14b4d, var(--color-danger));
-  --shadow-rgb: light-dark(rgb(16 18 22 / 8%), rgb(0 0 0 / 40%));
-  --shadow: 0 1px 2px var(--shadow-rgb);
+  --pass: var(--color-success);
+  --warn: var(--color-warning);
+  --fail: var(--color-danger);
+  --shadow: 0 1px 2px rgb(0 0 0 / 40%);
   /* Matches the ground inside the preview frame, so there is no seam at its edge. */
-  --canvas: var(--surface-sunken);
+  --canvas: var(--color-bg);
   --radius: 8px;
   --mono: var(--font-family-mono);
   --display: var(--font-family-display);
@@ -211,7 +205,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   z-index: 1;
   background: var(--surface);
   border-inline-end: 1px solid var(--line-strong);
-  box-shadow: 2px 0 12px light-dark(rgb(16 18 22 / 6%), rgb(0 0 0 / 40%));
+  box-shadow: 2px 0 12px rgb(0 0 0 / 40%);
 }
 
 /* The mode switch governs this panel, so it sits on it — not next to the preview's own
@@ -399,7 +393,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
    rather than the next panel along. */
 .preview {
   background: var(--canvas);
-  box-shadow: inset 6px 0 10px -8px light-dark(rgb(16 18 22 / 35%), rgb(0 0 0 / 70%));
+  box-shadow: inset 6px 0 10px -8px rgb(0 0 0 / 70%);
 }
 
 .preview-head {
@@ -784,7 +778,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   border: 1px solid var(--line-strong);
   border-radius: 8px;
   background: var(--surface-raised);
-  box-shadow: 0 12px 32px light-dark(rgb(16 18 22 / 16%), rgb(0 0 0 / 55%));
+  box-shadow: 0 12px 32px rgb(0 0 0 / 55%);
 }
 
 .health-detail-head { margin: 0 0 .375rem; font-size: .6875rem; color: var(--ink-faint); }
@@ -990,7 +984,7 @@ summary.health-group-heading::marker { font-size: .5625rem; }
   border: 1px solid var(--line-strong);
   border-radius: 8px;
   background: var(--surface-raised);
-  box-shadow: 0 12px 32px light-dark(rgb(16 18 22 / 16%), rgb(0 0 0 / 55%));
+  box-shadow: 0 12px 32px rgb(0 0 0 / 55%);
 }
 
 .theme-menu ul { margin: 0 0 .3125rem; padding: 0; list-style: none; max-block-size: 14rem; overflow-y: auto; }
@@ -1036,7 +1030,7 @@ summary.health-group-heading::marker { font-size: .5625rem; }
   border: 1px solid var(--line-strong);
   border-radius: 8px;
   background: var(--surface-raised);
-  box-shadow: 0 12px 32px light-dark(rgb(16 18 22 / 16%), rgb(0 0 0 / 55%));
+  box-shadow: 0 12px 32px rgb(0 0 0 / 55%);
 }
 
 .changes-head { margin: 0 0 .5rem; font-size: .6875rem; color: var(--ink-faint); }
@@ -1217,5 +1211,5 @@ summary.health-group-heading::marker { font-size: .5625rem; }
 }
 
 /* The decision on the screen — Export, and Download inside it — is the one gold. */
-.button-decision { background: var(--decision); border-color: var(--decision-edge); color: var(--decision-ink); }
+.button-decision { background: var(--decision); border-color: transparent; color: var(--decision-ink); }
 .button-decision:hover:not(:disabled) { filter: brightness(1.08); background: var(--decision); }

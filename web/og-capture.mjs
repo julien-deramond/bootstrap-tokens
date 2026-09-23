@@ -7,15 +7,13 @@
  * it, commit the PNG, and the preview is the app as it is now rather than as it was.
  *
  * The app is served by the ordinary dev server, so what is captured is the same page the
- * site deploys. Three things are seeded first, because none is a state anyone arriving via
+ * site deploys. Two things are seeded first, because neither is a state anyone arriving via
  * a shared link would care to see:
  *
  *   - the first-run intro card, dismissed, so the panel shows the tool rather than a
  *     welcome message;
  *   - the preview set to Light, because the default side-by-side view puts the fold
- *     through the middle of the dark half;
- *   - the chrome pinned to dark, the brand's own scheme, so the capture does not depend
- *     on the color scheme of the machine that runs it.
+ *     through the middle of the dark half.
  *
  * Nothing else is touched. The theme is Bootstrap's own defaults — the state the app opens
  * in — so the capture is deterministic and honest about what the link leads to.
@@ -40,7 +38,7 @@ const SEED = join(repoRoot, 'web', '.og-capture.html')
 
 const PORT = Number(process.env.PORT ?? 4173)
 
-/** index.html plus the seeded bits of state, injected ahead of the module that reads them. */
+/** index.html plus the two seeded bits of state, injected ahead of the module that reads them. */
 function writeSeedPage() {
   const entry = '<script type="module" src="./app.js"></script>'
   const source = readFileSync(join(repoRoot, 'web', 'index.html'), 'utf8')
@@ -50,9 +48,6 @@ function writeSeedPage() {
 
   const seed = `<script>
       localStorage.setItem('bootstrap-tokens.chooser.intro', 'seen')
-      document.documentElement.style.colorScheme = 'dark'
-      // The frame resolves its own scheme from the system, not from the page, so it is pinned too.
-      addEventListener('load', () => { document.getElementById('preview').contentDocument.documentElement.style.colorScheme = 'dark' })
       addEventListener('load', () => setTimeout(() => document.querySelector('[data-scheme="light"]')?.click(), 1500))
     </script>
     `
