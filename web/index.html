@@ -31,13 +31,18 @@
     <!-- /open-graph -->
 
     <link rel="canonical" href="https://julien-deramond.github.io/bootstrap-tokens/" />
-    <link rel="icon" type="image/svg+xml" href="./vendor/bootstrap-logo.svg" />
+    <link rel="icon" href="./brand/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="./brand/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="./brand/apple-touch-icon.png" />
+    <meta name="theme-color" content="#0A0C11" />
+    <link rel="stylesheet" href="./brand/tokens.css" />
+    <link rel="stylesheet" href="./brand/fonts/fonts.css" />
     <link rel="stylesheet" href="./app.css" />
   </head>
   <body>
     <header class="topbar">
       <div class="brand">
-        <img class="brand-mark" src="./vendor/bootstrap-logo.svg" alt="" width="24" height="24" />
+        <svg class="brand-mark" viewBox="0 0 32 32" width="24" height="24" fill="currentColor" aria-hidden="true"><path d="M15,3 A12,12 0 0 0 3,15 H15 Z"/><circle cx="23" cy="9" r="6"/><path d="M3,17 H11 L15,21 V29 H3 Z"/><path fill-rule="evenodd" d="M17,17 h12 v12 h-12 Z M19,19 v8 h8 v-8 Z"/></svg>
         <div class="brand-text">
           <div class="theme-picker">
             <button type="button" class="theme-name" id="theme-name" aria-expanded="false" aria-controls="theme-menu">
@@ -84,7 +89,7 @@
         </div>
 
         <button type="button" class="button" id="reset" disabled>Reset all</button>
-        <button type="button" class="button button-primary" id="open-export">Export…</button>
+        <button type="button" class="button button-decision" id="open-export">Export…</button>
       </div>
     </header>
 
@@ -214,7 +219,7 @@
       <p class="export-message" id="export-message" role="alert" hidden></p>
 
       <div class="export-actions">
-        <button type="button" class="button button-primary" id="download">Download</button>
+        <button type="button" class="button button-decision" id="download">Download</button>
         <button type="button" class="button" id="copy">Copy</button>
         <button type="button" class="button" id="share">Copy share link</button>
         <button type="button" class="button" id="stackblitz" aria-describedby="stackblitz-note">Open in StackBlitz</button>

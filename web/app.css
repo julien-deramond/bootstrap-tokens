@@ -2,25 +2,34 @@
    that token overrides never reach the tool's UI, and the tool never leaks into the preview. */
 
 :root {
-  color-scheme: light dark;
+  /* One theme, dark: the chrome takes its values from the brand tokens in `brand/tokens.css`.
+     The preview frame never loads that file, so none of this reaches Bootstrap. */
+  color-scheme: dark;
 
-  --ink: light-dark(#16181c, #e7e9ee);
-  --ink-muted: light-dark(#5c6370, #9aa2b1);
-  --ink-faint: light-dark(#858d9b, #6d7684);
-  /* Deliberately not white in light mode. The artboard beside it *is* white, and two
-     adjacent white surfaces separated by a thin gutter read as one continuous panel. */
-  --surface: light-dark(#f7f8fa, #16181d);
-  --surface-sunken: light-dark(#eef0f4, #101216);
-  --surface-raised: light-dark(#ffffff, #1c1f26);
-  --line: light-dark(#e3e6eb, #2a2e37);
-  --line-strong: light-dark(#cdd2da, #3a3f4a);
-  --accent: light-dark(#5b3df5, #a894ff);
-  --accent-ink: light-dark(#ffffff, #14121f);
-  --shadow: light-dark(0 1px 2px rgb(16 18 22 / 8%), 0 1px 2px rgb(0 0 0 / 40%));
+  --ink: var(--color-fg);
+  --ink-muted: var(--color-muted);
+  --ink-faint: var(--color-muted);
+  --surface: var(--color-panel);
+  --surface-sunken: var(--color-bg);
+  --surface-raised: var(--color-panel);
+  --line: var(--color-line);
+  --line-strong: var(--color-line);
+  /* Structure — selection, focus, the active tab — is cyan. */
+  --accent: var(--color-primary);
+  --accent-ink: var(--color-on-primary);
+  /* The decision colour, spent once: Export. */
+  --decision: var(--color-accent);
+  --decision-ink: var(--color-on-accent);
+  /* States, always with a word next to them. */
+  --pass: var(--color-success);
+  --warn: var(--color-warning);
+  --fail: var(--color-danger);
+  --shadow: 0 1px 2px rgb(0 0 0 / 40%);
   /* Matches the ground inside the preview frame, so there is no seam at its edge. */
-  --canvas: light-dark(#e6e8ec, #22252b);
+  --canvas: var(--color-bg);
   --radius: 8px;
-  --mono: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
+  --mono: var(--font-family-mono);
+  --display: var(--font-family-display);
 }
 
 * { box-sizing: border-box; }
@@ -46,7 +55,7 @@
 
 body {
   margin: 0;
-  font: 14px/1.5 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  font: 14px/1.5 var(--font-family-body);
   color: var(--ink);
   background: var(--surface-sunken);
   height: 100dvh;
@@ -70,9 +79,11 @@ body {
 
 .brand { display: flex; gap: .625rem; align-items: center; min-width: 0; }
 
-/* Bootstrap's own mark (web/vendor/bootstrap-logo.svg), not a CSS-drawn stand-in. */
+/* The author's mark, inline so it takes the text colour. The tool is built for Bootstrap,
+   not by it, so Bootstrap's logo is not used as this app's own. */
 .brand-mark {
   flex: none;
+  color: var(--ink);
   width: 24px;
   height: 24px;
   display: block;
@@ -96,8 +107,8 @@ body {
   cursor: help;
 }
 
-.health.is-ok { background: color-mix(in oklab, #16a34a 16%, transparent); color: light-dark(#14532d, #86efac); }
-.health.is-warn { background: color-mix(in oklab, #dc2626 18%, transparent); color: light-dark(#7f1d1d, #fca5a5); }
+.health.is-ok { background: color-mix(in oklab, var(--pass) 14%, transparent); color: var(--pass); }
+.health.is-warn { background: color-mix(in oklab, var(--fail) 14%, transparent); color: var(--fail); }
 .health.is-muted { background: var(--surface-sunken); color: var(--ink-faint); }
 
 .button {
@@ -194,7 +205,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   z-index: 1;
   background: var(--surface);
   border-inline-end: 1px solid var(--line-strong);
-  box-shadow: 2px 0 12px light-dark(rgb(16 18 22 / 6%), rgb(0 0 0 / 40%));
+  box-shadow: 2px 0 12px rgb(0 0 0 / 40%);
 }
 
 /* The mode switch governs this panel, so it sits on it — not next to the preview's own
@@ -288,8 +299,8 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   margin-block-start: .375rem !important;
   padding: .3125rem .4375rem;
   border-radius: 5px;
-  background: color-mix(in oklab, #d97706 16%, transparent);
-  color: light-dark(#78350f, #fcd34d) !important;
+  background: color-mix(in oklab, var(--warn) 14%, transparent);
+  color: var(--warn) !important;
 }
 
 .editor-body { padding: 0 0 3rem; }
@@ -329,9 +340,9 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 }
 
 .field input[type="text"]:focus-visible { outline-offset: -1px; }
-.field input[type="text"][aria-invalid="true"] { border-color: light-dark(#b91c1c, #fca5a5); }
+.field input[type="text"][aria-invalid="true"] { border-color: var(--fail); }
 
-.field-error { flex-basis: 100%; margin: 0; font-size: .6875rem; color: light-dark(#b91c1c, #fca5a5); }
+.field-error { flex-basis: 100%; margin: 0; font-size: .6875rem; color: var(--fail); }
 
 .field input[type="color"] {
   inline-size: 1.875rem;
@@ -382,7 +393,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
    rather than the next panel along. */
 .preview {
   background: var(--canvas);
-  box-shadow: inset 6px 0 10px -8px light-dark(rgb(16 18 22 / 35%), rgb(0 0 0 / 70%));
+  box-shadow: inset 6px 0 10px -8px rgb(0 0 0 / 70%);
 }
 
 .preview-head {
@@ -434,7 +445,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   box-shadow: 0 24px 60px rgb(0 0 0 / 28%);
 }
 
-.export::backdrop { background: rgb(10 12 16 / 45%); }
+.export::backdrop { background: color-mix(in oklab, var(--color-bg) 70%, transparent); }
 .export[open] { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto auto; }
 .export-panel { display: grid; grid-template-rows: auto auto minmax(0, 1fr); min-block-size: 0; }
 
@@ -477,8 +488,8 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   padding: .5rem .625rem;
   font-size: .75rem;
   border-radius: 6px;
-  background: color-mix(in oklab, #dc2626 14%, transparent);
-  color: light-dark(#7f1d1d, #fca5a5);
+  background: color-mix(in oklab, var(--fail) 14%, transparent);
+  color: var(--fail);
 }
 
 .export-actions { display: flex; flex-wrap: wrap; gap: .5rem; padding: .625rem 1rem .5rem; }
@@ -511,9 +522,9 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   background: currentcolor;
 }
 
-.contrast.is-pass { color: light-dark(#14532d, #86efac); }
-.contrast.is-warn { color: light-dark(#78350f, #fcd34d); }
-.contrast.is-fail { color: light-dark(#7f1d1d, #fca5a5); }
+.contrast.is-pass { color: var(--pass); }
+.contrast.is-warn { color: var(--warn); }
+.contrast.is-fail { color: var(--fail); }
 
 /* --- simple mode -------------------------------------------------------- */
 
@@ -630,7 +641,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 }
 
 .dial-contrast-item { display: flex; gap: .375rem; align-items: center; font-size: .6875rem; color: var(--ink-faint); }
-.dial-contrast-warning { flex-basis: 100%; font-size: .6875rem; color: light-dark(#b91c1c, #fca5a5); }
+.dial-contrast-warning { flex-basis: 100%; font-size: .6875rem; color: var(--fail); }
 
 /* --- visual option swatches --------------------------------------------- */
 
@@ -767,7 +778,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   border: 1px solid var(--line-strong);
   border-radius: 8px;
   background: var(--surface-raised);
-  box-shadow: 0 12px 32px light-dark(rgb(16 18 22 / 16%), rgb(0 0 0 / 55%));
+  box-shadow: 0 12px 32px rgb(0 0 0 / 55%);
 }
 
 .health-detail-head { margin: 0 0 .375rem; font-size: .6875rem; color: var(--ink-faint); }
@@ -889,7 +900,7 @@ summary.health-group-heading::marker { font-size: .5625rem; }
   cursor: pointer;
 }
 
-.added-chip-remove:hover { color: light-dark(#b91c1c, #fca5a5); }
+.added-chip-remove:hover { color: var(--fail); }
 
 .add-color-form {
   flex-basis: 100%;
@@ -926,7 +937,7 @@ summary.health-group-heading::marker { font-size: .5625rem; }
 
 .add-color-form .button { padding: .3125rem .5rem; font-size: .75rem; }
 .add-color-role { display: flex; gap: .25rem; align-items: center; font-size: .6875rem; color: var(--ink-muted); }
-.add-color-error { flex-basis: 100%; margin: 0; font-size: .6875rem; color: light-dark(#b91c1c, #fca5a5); }
+.add-color-error { flex-basis: 100%; margin: 0; font-size: .6875rem; color: var(--fail); }
 
 /* An added scale is marked, so it is clear which colors are yours. A corner flag rather than
    an outer ring: cells now sit edge to edge, and a ring would bleed onto the neighbor. */
@@ -973,7 +984,7 @@ summary.health-group-heading::marker { font-size: .5625rem; }
   border: 1px solid var(--line-strong);
   border-radius: 8px;
   background: var(--surface-raised);
-  box-shadow: 0 12px 32px light-dark(rgb(16 18 22 / 16%), rgb(0 0 0 / 55%));
+  box-shadow: 0 12px 32px rgb(0 0 0 / 55%);
 }
 
 .theme-menu ul { margin: 0 0 .3125rem; padding: 0; list-style: none; max-block-size: 14rem; overflow-y: auto; }
@@ -1019,7 +1030,7 @@ summary.health-group-heading::marker { font-size: .5625rem; }
   border: 1px solid var(--line-strong);
   border-radius: 8px;
   background: var(--surface-raised);
-  box-shadow: 0 12px 32px light-dark(rgb(16 18 22 / 16%), rgb(0 0 0 / 55%));
+  box-shadow: 0 12px 32px rgb(0 0 0 / 55%);
 }
 
 .changes-head { margin: 0 0 .5rem; font-size: .6875rem; color: var(--ink-faint); }
@@ -1066,7 +1077,7 @@ summary.health-group-heading::marker { font-size: .5625rem; }
   grid-column: 1 / -1;
   margin: 0;
   font: .625rem/1.4 var(--mono);
-  color: light-dark(#b91c1c, #fca5a5);
+  color: var(--fail);
   overflow-wrap: anywhere;
 }
 
@@ -1157,8 +1168,8 @@ summary.health-group-heading::marker { font-size: .5625rem; }
   justify-content: space-between;
   padding: .625rem .875rem;
   border-block-end: 1px solid var(--line-strong);
-  background: light-dark(#fff7e0, #33290d);
-  color: light-dark(#4a3600, #f4e3b4);
+  background: color-mix(in oklab, var(--warn) 12%, var(--surface));
+  color: var(--ink);
   font-size: .8125rem;
 }
 
@@ -1176,8 +1187,29 @@ summary.health-group-heading::marker { font-size: .5625rem; }
   margin: .375rem 0 0;
   padding: .4rem .55rem;
   border-radius: 6px;
-  background: light-dark(#fff3e0, #3a2a10);
-  color: light-dark(#5b3a00, #f0d9ae);
+  background: color-mix(in oklab, var(--warn) 12%, var(--surface));
+  color: var(--ink);
   font-size: .75rem;
   line-height: 1.45;
 }
+
+/* --- brand type --------------------------------------------------------- */
+
+/* Chakra Petch for what names things — section labels, headings, buttons, tabs — and
+   Instrument Sans for everything read. Kept at the end so it wins over the per-component
+   sizes above without repeating them. */
+.rail-group, .preview-title, .dial-section, .health-group-heading, .options-group, .vision-label {
+  font-family: var(--display);
+  font-weight: 600;
+  letter-spacing: var(--font-letter-spacing-eyebrow);
+}
+
+.theme-name, .editor-head h2, .export-head h2, .intro h3,
+.button, .segmented button, .panel-tabs button {
+  font-family: var(--display);
+  font-weight: 600;
+}
+
+/* The decision on the screen — Export, and Download inside it — is the one gold. */
+.button-decision { background: var(--decision); border-color: transparent; color: var(--decision-ink); }
+.button-decision:hover:not(:disabled) { filter: brightness(1.08); background: var(--decision); }
