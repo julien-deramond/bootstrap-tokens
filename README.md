@@ -1,8 +1,4 @@
-<p align="center">
-  <a href="https://github.com/twbs/bootstrap/tree/v6-dev">
-    <img src="web/vendor/bootstrap-logo-shadow.png" alt="Bootstrap logo" width="200" height="165">
-  </a>
-</p>
+<p align="center"><picture><source srcset=".github/header.svg" type="image/svg+xml"><img src=".github/header.png" width="830" alt="Bootstrap Tokens: Bootstrap as portable design tokens, and a theme builder that writes them."></picture></p>
 
 <h3 align="center">bootstrap-tokens</h3>
 
@@ -25,9 +21,9 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/julien-deramond/bootstrap-tokens/actions/workflows/ci.yml"><img src="https://github.com/julien-deramond/bootstrap-tokens/actions/workflows/ci.yml/badge.svg" alt="CI status"></a>
-  <a href="https://julien-deramond.github.io/bootstrap-tokens/"><img src="https://img.shields.io/badge/theme%20builder-live-7952b3.svg" alt="Theme Builder, live"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg" alt="MIT license"></a>
+  <a href="https://github.com/julien-deramond/bootstrap-tokens/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/julien-deramond/bootstrap-tokens/ci.yml?branch=main&style=flat&label=CI&labelColor=16181E&color=3AB9BF" alt="CI status"></a>
+  <a href="https://julien-deramond.github.io/bootstrap-tokens/"><img src="https://img.shields.io/badge/theme%20builder-live-3AB9BF?style=flat&labelColor=16181E" alt="Theme Builder, live"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2D7579?style=flat&labelColor=16181E" alt="MIT license"></a>
 </p>
 
 <p align="center">
