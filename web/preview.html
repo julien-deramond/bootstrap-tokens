@@ -19,16 +19,18 @@
        * design tool renders an artboard.
        *
        * These values deliberately do not come from Bootstrap's tokens: the ground has to
-       * stay put while the theme standing on it changes. They are the app's brand field,
-       * line and muted text (`brand/tokens.css`: --color-bg, --color-line, --color-muted),
-       * written out because that file cannot load here — it shares names such as
-       * --font-size-* and --breakpoint-* with Bootstrap 6, and would overwrite them.
+       * stay put while the theme standing on it changes. They are the app's own ground, line
+       * and muted text (`app.css`, --surface-sunken, --line, --ink-muted), light and dark,
+       * written out because `brand/tokens.css` cannot load here — it shares names such as
+       * --font-size-* and --breakpoint-* with Bootstrap 6, and would overwrite them. The
+       * frame's color scheme follows the app's, so the two switch together.
        */
       :root {
-        --canvas: #0a0c11;
-        --canvas-line: #292c33;
-        --canvas-ink: #8f929a;
-        --artboard-shadow: 0 1px 2px rgb(0 0 0 / 50%), 0 10px 28px rgb(0 0 0 / 45%);
+        color-scheme: light dark;
+        --canvas: light-dark(#eef0f3, #0a0c11);
+        --canvas-line: light-dark(#d3d6dc, #292c33);
+        --canvas-ink: light-dark(#696c73, #8f929a);
+        --artboard-shadow: light-dark(0 1px 2px rgb(16 18 22 / 10%), 0 1px 2px rgb(0 0 0 / 50%)), light-dark(0 10px 28px rgb(16 18 22 / 10%), 0 10px 28px rgb(0 0 0 / 45%));
       }
 
       body {
