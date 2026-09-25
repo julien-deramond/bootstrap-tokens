@@ -4,7 +4,7 @@ The Theme Builder's own look: the chrome around the preview, never the preview i
 
 | File | Source |
 | --- | --- |
-| `tokens.css` | `dist/tokens.css` from [`@deramond.dev/tokens`](https://www.npmjs.com/package/@deramond.dev/tokens) 0.1.1 |
+| `tokens.css` | `dist/tokens.css` from [`@deramond.dev/tokens`](https://www.npmjs.com/package/@deramond.dev/tokens) 0.2.0 |
 | `fonts/` | the font files from [`@deramond.dev/storybook`](https://www.npmjs.com/package/@deramond.dev/storybook) 0.1.0: Chakra Petch, Instrument Sans, Roboto Mono (SIL Open Font License 1.1) |
 | `favicon.svg`, `favicon.ico`, `apple-touch-icon.png` | Julien Déramond's mark, all rights reserved; the same mark is inlined in `web/index.html` |
 
