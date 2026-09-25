@@ -42,13 +42,14 @@ const SUB_KEYS = {
     'Text and icons placed *on* `bg`. Chosen for legibility rather than hue, so it is usually white or near-black.'
 }
 
-/** The seven metrics every control size carries. `{size}` is substituted. */
+/** The metrics a control size carries. `font-weight` exists only at the base size. `{size}` is substituted. */
 const CONTROL_METRICS = {
   gap: 'Space between a control’s icon and its label{size}.',
   'min-height': 'Minimum height of a button or form field{size}. This is what sets the vertical rhythm of a form.',
   'padding-y': 'Vertical padding inside a button or form field{size}.',
   'padding-x': 'Horizontal padding inside a button or form field{size}.',
   'font-size': 'Text size inside a button or form field{size}.',
+  'font-weight': 'Text weight inside a button{size}. Form fields do not read it.',
   'line-height':
     'Leading inside a button or form field{size}. Together with the padding it decides how tall the control ends up.',
   'border-radius':

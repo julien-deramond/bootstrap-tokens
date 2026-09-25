@@ -206,7 +206,7 @@ test('the Tokens Studio file is the shape Tokens Studio expects', () => {
 test('what Figma cannot hold is listed with a reason, not dropped', () => {
   const dropped = JSON.parse(emitTokensStudio(doc, { version })['not-exported.json'])
   assert.match(dropped.light['badge.color'], /inherit/)
-  assert.match(dropped.light['btn.font-weight'], /custom property/)
+  assert.match(dropped.light['nav-tabs.link-active-border-color'], /custom property/)
   for (const reason of Object.values(dropped.light)) assert.ok(reason.length > 0)
 })
 

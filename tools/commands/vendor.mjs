@@ -24,7 +24,7 @@ export async function vendor({ flags }) {
     sourceMap: false
   })
 
-  const banner = `/*!\n * Bootstrap v6 (compiled from ${source}) — MIT\n * Vendored for the token chooser preview. Regenerate with: bstokens vendor\n */\n`
+  const banner = `/*!\n * Bootstrap v6 (compiled from private sources) — MIT\n * Vendored for the token chooser preview. Regenerate with: bstokens vendor\n */\n`
   const path = join(target, 'bootstrap.css')
   writeFileSync(path, banner + css)
 

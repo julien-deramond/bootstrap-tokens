@@ -58,13 +58,12 @@ try {
   /* no checkout */
 }
 
-test('validate runs and reports the upstream findings', async () => {
+test('validate runs', async () => {
   const { code, out } = await run('validate')
   assert.equal(code, 0)
   // Not the exact count: it moves whenever upstream adds a token, and it is already
   // pinned in tokens/meta.json and docs/token-inventory.md, which CI fails on if stale.
   assert.match(out, /\d+ tokens valid/)
-  assert.match(out, /upstream finding/)
 })
 
 test('validate --check sees the committed build output as current', async () => {

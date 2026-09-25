@@ -5,9 +5,9 @@
 | layer | tokens |
 | --- | ---: |
 | primitive | 362 |
-| semantic | 168 |
+| semantic | 169 |
 | component | 675 |
-| **total** | **1205** |
+| **total** | **1206** |
 
 Primitive counts include the generated color scale (16 hues × 13 stops).
 
@@ -36,7 +36,7 @@ Primitive counts include the generated color scale (16 hues × 13 stops).
 | `$theme-bgs` | 10 |
 | `$theme-fgs` | 9 |
 | `$theme-borders` | 7 |
-| `$root-tokens` | 62 |
+| `$root-tokens` | 63 |
 
 ## Component maps
 

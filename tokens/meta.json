@@ -1,9 +1,9 @@
 {
   "bootstrap": "6.0.0-alpha1",
   "branch": "v6-dev",
-  "commit": "2f488fd7e58f8d8d1a6e83888a0944f34f07472d",
-  "extractedAt": "2026-09-13",
-  "tokens": 997,
+  "commit": "ef95957df1815165f8bcc933e5d206bef99502d5",
+  "extractedAt": "2026-09-25",
+  "tokens": 998,
   "declaredCustomProperties": [
     "--accent-base",
     "--accent-bg",
@@ -206,6 +206,7 @@
     "--btn-input-border-radius",
     "--btn-input-fg",
     "--btn-input-font-size",
+    "--btn-input-font-weight",
     "--btn-input-gap",
     "--btn-input-lg-border-radius",
     "--btn-input-lg-font-size",

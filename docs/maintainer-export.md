@@ -82,8 +82,9 @@ CSS by different means — one keeps `$spacer * .25` symbolic and lets Sass reco
 the other resolves the arithmetic in JavaScript and emits literals. If the JS arithmetic, the
 reference resolution or the file locating were wrong, the two would disagree.
 
-It also caught a real bug. `--spacer: 1rem` in `$root-tokens` *looks* like it should derive
+It also caught a real bug. `--spacer: 1rem` in `$root-tokens` *looked* like it should derive
 from `$spacer`, and an earlier version of the token document modeled it as an alias. Upstream
-hardcodes it, so Sass never recomputes it — the chooser was previewing a value the compiled
-stylesheet would never produce. The token document now mirrors what Bootstrap actually does,
-and `spacing.root` carries a `$description` saying so.
+hardcoded it at the time, so Sass never recomputed it — the chooser was previewing a value the
+compiled stylesheet would never produce. The token document mirrors what Bootstrap actually
+does, which is why it now aliases `spacing.base`: upstream wired `--spacer` to `$spacer` in
+twbs/bootstrap#42927.

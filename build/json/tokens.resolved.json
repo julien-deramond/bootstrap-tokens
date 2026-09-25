@@ -2365,7 +2365,7 @@
   },
   "nav-tabs.link-active-color": {
     "$type": "color",
-    "$value": "var(--fg-color)",
+    "$value": "var(--fg-body)",
     "cssVar": "--nav-tabs-link-active-color",
     "sassMap": "$nav-tabs-tokens"
   },
@@ -2401,7 +2401,7 @@
   },
   "nav-underline.link-active-color": {
     "$type": "color",
-    "$value": "var(--fg-color)",
+    "$value": "var(--fg-body)",
     "cssVar": "--nav-underline-link-active-color",
     "sassMap": "$nav-underline-tokens"
   },
@@ -5558,7 +5558,6 @@
   "spacing.root": {
     "$type": "dimension",
     "$value": "1rem",
-    "$description": "Upstream hardcodes this rather than deriving it from $spacer, so changing the base spacer does not move it.",
     "cssVar": "--spacer",
     "sassMap": "$root-tokens"
   },
@@ -6334,6 +6333,13 @@
     "$value": "var(--body-font-size)",
     "$description": "Text size inside a button or form field.",
     "cssVar": "--btn-input-font-size",
+    "sassMap": "$root-tokens"
+  },
+  "control.field.font-weight": {
+    "$type": "fontWeight",
+    "$value": "var(--font-weight-normal)",
+    "$description": "Text weight inside a button. Form fields do not read it.",
+    "cssVar": "--btn-input-font-weight",
     "sassMap": "$root-tokens"
   },
   "control.field.line-height": {

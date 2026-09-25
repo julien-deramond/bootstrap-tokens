@@ -42,13 +42,12 @@
     },
     "link-active-color": {
       "$type": "color",
-      "$value": "var(--fg-color)",
+      "$value": "{fg.body}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-underline-link-active-color",
           "sassMap": "$nav-underline-tokens",
-          "sassKey": "--nav-underline-link-active-color",
-          "css": true
+          "sassKey": "--nav-underline-link-active-color"
         }
       }
     },

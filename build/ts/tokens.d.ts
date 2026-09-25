@@ -1065,6 +1065,7 @@ export type TokenPath =
   | "control.field.padding-y"
   | "control.field.padding-x"
   | "control.field.font-size"
+  | "control.field.font-weight"
   | "control.field.line-height"
   | "control.field.border-radius"
   | "control.field.xs.gap"

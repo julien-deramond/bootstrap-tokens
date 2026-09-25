@@ -64,6 +64,7 @@ export const ROOT_TOKEN_PATHS = [
   ['--btn-input-padding-y', 'control.field.padding-y'],
   ['--btn-input-padding-x', 'control.field.padding-x'],
   ['--btn-input-font-size', 'control.field.font-size'],
+  ['--btn-input-font-weight', 'control.field.font-weight'],
   ['--btn-input-line-height', 'control.field.line-height'],
   ['--btn-input-border-radius', 'control.field.border-radius'],
 
@@ -95,11 +96,10 @@ export const ROOT_TOKEN_PATHS = [
 /**
  * Values upstream repeats as literals that a token document would rather express as an alias.
  *
- * Deliberately empty. `--spacer: 1rem` in `$root-tokens` looks like it should alias `$spacer`,
- * and an earlier version rewrote it that way — but upstream hardcodes it, so Sass does *not*
- * recompute it when `$spacer` changes. Asserting the link here made the chooser preview a
- * value the compiled stylesheet would never produce. The token document mirrors what
- * Bootstrap does; where that is surprising, `TOKEN_DESCRIPTIONS` says so.
+ * Deliberately empty. The token document mirrors what Bootstrap does: asserting a link that
+ * upstream does not make shows the chooser a value the compiled stylesheet never produces.
+ * That is how `--spacer` once previewed wrong, back when upstream hardcoded it to `1rem`.
+ * Where upstream's behaviour is surprising, `TOKEN_DESCRIPTIONS` says so instead.
  */
 export const ALIAS_REWRITES = new Map()
 
@@ -131,8 +131,6 @@ export const PINNED_SELECTORS = [
 
 /** Per-token notes, surfaced in the chooser and in the resolved JSON. */
 export const TOKEN_DESCRIPTIONS = {
-  'spacing.root':
-    'Upstream hardcodes this rather than deriving it from $spacer, so changing the base spacer does not move it.',
   'radius.pill': 'A fixed 50rem, set on $root-tokens after the $radii loop.',
   'elevation.strength':
     'Multiplies every shadow layer’s alpha. Dark mode is pinned to 2.4 by scss/_root.scss and no token map can reach it; a page with an explicit data-bs-theme needs a CSS rule as well as the Sass override. See https://github.com/julien-deramond/bootstrap-tokens/issues/12.',
