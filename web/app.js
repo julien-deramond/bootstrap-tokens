@@ -768,6 +768,14 @@ function resolvedSide(path, side, doc = state.doc) {
   }
 }
 
+/** The WCAG ratio of a pair on one side, or null when either end does not resolve to a color. */
+function ratioFor(path, partnerPath, side, doc = state.doc) {
+  const scheme = side === 'dark' ? 'dark' : 'light'
+  const foreground = resolveColor(resolvedSide(path, side, doc), scheme)
+  const background = resolveColor(resolvedSide(partnerPath, side, doc), scheme)
+  return foreground && background ? contrastRatio(foreground, background) : null
+}
+
 function splitTop(value) {
   let depth = 0
   for (let i = 0; i < value.length; i++) {
