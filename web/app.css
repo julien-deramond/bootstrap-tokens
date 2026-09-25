@@ -747,7 +747,9 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
   /* Room runs out before the bar wraps a second time, and the mark alone still says where
      the link goes, so the word goes first. */
   .repo-label { display: none; }
-  .topbar-actions { inline-size: 100%; justify-content: flex-end; }
+  /* The actions alone are wider than a phone, and a row that cannot wrap widens the whole
+     page and pushes Export off-screen — so let them break onto a second line. */
+  .topbar-actions { inline-size: 100%; flex-wrap: wrap; justify-content: flex-end; }
   .token { grid-template-columns: 1fr; }
 }
 
