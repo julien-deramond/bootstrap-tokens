@@ -228,6 +228,8 @@ specific enough to be an issue.
 * No runtime dependencies. `sass` and `style-dictionary` are dev-only and stay that way.
 * Tests use `node --test`. Prefer running the real tool over asserting the shape of our own
   output — `tools/test/consumers.test.mjs` runs `tsc` and Style Dictionary for that reason.
+* `web/` has no bundler, so `tools/test/web-names.test.mjs` runs `tsc` over the pages' module
+  graph and fails on any name or import that resolves to nothing. Its type errors are ignored.
 * Commit messages are conventional-ish (`fix:`, `feat:`, `docs:`, `test:`) and say what
   changed for a reader, not what file was touched.
 
