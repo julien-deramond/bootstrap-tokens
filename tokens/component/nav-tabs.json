@@ -46,13 +46,12 @@
     },
     "link-active-color": {
       "$type": "color",
-      "$value": "var(--fg-color)",
+      "$value": "{fg.body}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-tabs-link-active-color",
           "sassMap": "$nav-tabs-tokens",
-          "sassKey": "--nav-tabs-link-active-color",
-          "css": true
+          "sassKey": "--nav-tabs-link-active-color"
         }
       }
     },

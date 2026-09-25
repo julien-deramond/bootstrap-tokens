@@ -36,19 +36,31 @@ test('splitTopLevel ignores commas inside parentheses', () => {
 
 test('the document carries exactly the known upstream findings', () => {
   // If these move, either upstream fixed something or something new broke. Both are worth
-  // being told about, which is the point of pinning them.
+  // being told about, which is the point of pinning them. There are none left: the invalid
+  // color-mix() weights and the three dangling var() references were all fixed upstream.
   const doc = loadTokens(tokensDir)
   const declared = new Set(
     JSON.parse(readFileSync(join(tokensDir, 'meta.json'), 'utf8')).declaredCustomProperties
   )
 
-  const { findings } = validate(doc)
-  assert.equal(findings.length, 0, 'issue #14 fixed upstream: no more invalid color-mix() weights')
+  assert.deepEqual(validate(doc).findings, [])
+  assert.deepEqual(validate(doc, { declared }).findings, [])
+})
 
-  const withDeclarations = validate(doc, { declared }).findings
-  assert.equal(withDeclarations.length, 3, 'three dangling references (issue #15)')
-  assert.deepEqual(
-    withDeclarations.filter((f) => f.includes('never declares')).map((f) => f.split(':')[0]),
-    ['btn.font-weight', 'nav-tabs.link-active-color', 'nav-underline.link-active-color']
+test('a var() with no fallback, reading something Bootstrap never declares, is reported', () => {
+  const doc = loadTokens(tokensDir)
+  const declared = new Set(
+    JSON.parse(readFileSync(join(tokensDir, 'meta.json'), 'utf8')).declaredCustomProperties
   )
+  const token = doc.tokens.get('btn.font-weight')
+
+  // The shape upstream shipped before it declared `--btn-input-font-weight`.
+  token.$value = 'var(--btn-input-typo-weight)'
+  const findings = validate(doc, { declared }).findings
+  assert.equal(findings.length, 1)
+  assert.match(findings[0], /^btn\.font-weight:.*never declares/)
+
+  // An opt-in hook carries a fallback, and is not a finding.
+  token.$value = 'var(--btn-input-typo-weight, 400)'
+  assert.deepEqual(validate(doc, { declared }).findings, [])
 })

@@ -186,7 +186,7 @@ function verifyCssExport(upstreamCss, doc) {
  * Preview and export share a resolver, but they take different routes to CSS: the preview
  * resolves in JavaScript, the export hands symbolic values to Sass and lets it recompute.
  * Two bugs have already shipped where those routes disagreed — `--spacer`, which upstream
- * hardcodes, and `--shadow-strength`, which dark mode pins outside any token map. Nothing
+ * used to hardcode, and `--shadow-strength`, which dark mode pins outside any token map. Nothing
  * checked for a third.
  */
 async function verifyPartial(source, work, theme) {

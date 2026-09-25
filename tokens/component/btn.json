@@ -57,13 +57,12 @@
     },
     "font-weight": {
       "$type": "fontWeight",
-      "$value": "var(--btn-input-font-weight)",
+      "$value": "{control.field.font-weight}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--btn-font-weight",
           "sassMap": "$button-tokens",
-          "sassKey": "--btn-font-weight",
-          "css": true
+          "sassKey": "--btn-font-weight"
         }
       }
     },

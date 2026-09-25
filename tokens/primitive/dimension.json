@@ -182,18 +182,14 @@
     },
     "root": {
       "$type": "dimension",
-      "$value": {
-        "value": 1,
-        "unit": "rem"
-      },
+      "$value": "{spacing.base}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--spacer",
           "sassMap": "$root-tokens",
           "sassKey": "--spacer"
         }
-      },
-      "$description": "Upstream hardcodes this rather than deriving it from $spacer, so changing the base spacer does not move it."
+      }
     },
     "$extensions": {
       "dev.bootstrap.tokens": {

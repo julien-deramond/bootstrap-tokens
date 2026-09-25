@@ -201,6 +201,18 @@
         },
         "$description": "Text size inside a button or form field."
       },
+      "font-weight": {
+        "$type": "fontWeight",
+        "$value": "{font-weight.normal}",
+        "$extensions": {
+          "dev.bootstrap.tokens": {
+            "cssVar": "--btn-input-font-weight",
+            "sassMap": "$root-tokens",
+            "sassKey": "--btn-input-font-weight"
+          }
+        },
+        "$description": "Text weight inside a button. Form fields do not read it."
+      },
       "line-height": {
         "$type": "dimension",
         "$value": "{type.body.line-height}",

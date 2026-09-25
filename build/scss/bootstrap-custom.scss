@@ -386,6 +386,7 @@
     --btn-input-padding-y: .375rem,
     --btn-input-padding-x: .75rem,
     --btn-input-font-size: var(--body-font-size),
+    --btn-input-font-weight: var(--font-weight-normal),
     --btn-input-line-height: var(--body-line-height),
     --btn-input-border-radius: var(--radius-5),
     --btn-input-xs-gap: var(--spacer-1),
@@ -872,7 +873,7 @@
     --nav-tabs-border-color: var(--border-color),
     --nav-tabs-border-radius: var(--radius-5),
     --nav-tabs-link-hover-border-color: var(--border-subtle),
-    --nav-tabs-link-active-color: var(--fg-color),
+    --nav-tabs-link-active-color: var(--fg-body),
     --nav-tabs-link-active-bg: var(--bg-body),
     --nav-tabs-link-active-border-color: var(--border-color) var(--border-color) var(--bg-body)
   ),
@@ -898,7 +899,7 @@
     --nav-gap: 1rem,
     --nav-link-active-bg: transparent,
     --nav-underline-border-width: .125rem,
-    --nav-underline-link-active-color: var(--fg-color)
+    --nav-underline-link-active-color: var(--fg-body)
   ),
   $navbar-dark-tokens: (
     --navbar-color: color-mix(in oklch, var(--white) 55%, transparent),
