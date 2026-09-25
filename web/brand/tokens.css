@@ -17,6 +17,8 @@
   --color-danger: var(--palette-coral-400);
   /* Body text. */
   --color-fg: var(--palette-neutral-mist);
+  /* Paragraphs and lists of long-form text (blog posts, docs, articles). Headings, bold and code stay fg. 11.5:1 on bg. */
+  --color-fg-reading: var(--palette-neutral-pewter);
   /* The 24 px grid, drawn in the gutters only, never behind content. */
   --color-grid: #3ab9bf1a;
   --color-illustration-azure: var(--palette-azure-400);
@@ -63,6 +65,8 @@
   --font-letter-spacing-none: 0em;
   --font-line-height-body: 1.5;
   --font-line-height-code: 1.55;
+  /* Long-form text: blog posts, docs, articles. */
+  --font-line-height-reading: 1.7;
   /* Buttons, labels. */
   --font-line-height-snug: 1.2;
   --font-line-height-terminal: 1.7;
@@ -104,6 +108,8 @@
   --layout-grid: 24px;
   /* Page side padding at phone width and up. */
   --layout-gutter: 24px;
+  /* Reading measure of long-form text blocks, in em: about 69 characters of Instrument Sans. Code, tables and figures keep the column width. */
+  --layout-measure: 32;
   /* Pause between the end of the turn and the missing piece landing in the slot. */
   --motion-duration-arrive-delay: 300ms;
   /* How long the piece stays in the slot before it leaves; the mark always ends with the slot empty. */
@@ -155,6 +161,8 @@
   --palette-neutral-ink: #141416;
   /* Body text. 15.9:1 on the field. */
   --palette-neutral-mist: #e6e8ec;
+  /* Long-form reading text. 11.5:1 on the field. */
+  --palette-neutral-pewter: #c4c7cd;
   /* The field. Every surface in the brand sits on it; assets that live on other people's surfaces carry it with them. */
   --palette-neutral-void: #0a0c11;
   /* Hairlines, borders, dividers, the gutter grid. */
