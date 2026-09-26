@@ -7,7 +7,7 @@
  * order explicitly instead of pretending JSON preserves it.
  */
 
-import { mkdirSync, writeFileSync, readFileSync, existsSync } from 'node:fs'
+import { mkdirSync, writeFileSync, readFileSync, existsSync, readdirSync, rmSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 
 const NS = 'dev.bootstrap.tokens'
@@ -56,6 +56,26 @@ export function writeTokenFiles(dir, files, { dryRun = false } = {}) {
     if (!dryRun) {
       mkdirSync(dirname(path), { recursive: true })
       writeFileSync(path, next)
+    }
+  }
+
+  // A file upstream no longer produces has to go too, or the loader keeps serving tokens
+  // Bootstrap dropped. Only directories the extractor writes into are swept, so the
+  // hand-written files at the top level (`migrations.json`) are never touched.
+  const produced = new Set(Object.keys(files))
+  const swept = new Set([...produced].filter((file) => file.includes('/')).map((file) => dirname(file)))
+
+  for (const folder of swept) {
+    const absolute = join(dir, folder)
+    if (!existsSync(absolute)) continue
+
+    for (const name of readdirSync(absolute).sort()) {
+      const relative = `${folder}/${name}`
+      if (!name.endsWith('.json') || produced.has(relative)) continue
+
+      const path = join(dir, relative)
+      changed.push({ file: relative, status: 'removed', previous: readFileSync(path, 'utf8'), next: null })
+      if (!dryRun) rmSync(path)
     }
   }
 

@@ -720,72 +720,6 @@
     "cssVar": "--btn-active-shadow",
     "sassMap": "$button-styled-tokens"
   },
-  "calendar.padding": {
-    "$type": "number",
-    "$value": "0",
-    "cssVar": "--calendar-padding",
-    "sassMap": "$calendar-tokens"
-  },
-  "calendar.color": {
-    "$type": "color",
-    "$value": "var(--fg-body)",
-    "cssVar": "--calendar-color",
-    "sassMap": "$calendar-tokens"
-  },
-  "calendar.font-size": {
-    "$type": "dimension",
-    "$value": "var(--font-size-sm)",
-    "cssVar": "--calendar-font-size",
-    "sassMap": "$calendar-tokens"
-  },
-  "calendar.header-font-weight": {
-    "$type": "fontWeight",
-    "$value": "600",
-    "cssVar": "--calendar-header-font-weight",
-    "sassMap": "$calendar-tokens"
-  },
-  "calendar.weekday-color": {
-    "$type": "color",
-    "$value": "var(--fg-3)",
-    "cssVar": "--calendar-weekday-color",
-    "sassMap": "$calendar-tokens"
-  },
-  "calendar.day-hover-bg": {
-    "$type": "color",
-    "$value": "var(--bg-1)",
-    "cssVar": "--calendar-day-hover-bg",
-    "sassMap": "$calendar-tokens"
-  },
-  "calendar.day-selected-bg": {
-    "$type": "color",
-    "$value": "var(--primary-bg)",
-    "cssVar": "--calendar-day-selected-bg",
-    "sassMap": "$calendar-tokens"
-  },
-  "calendar.day-selected-color": {
-    "$type": "color",
-    "$value": "var(--primary-contrast)",
-    "cssVar": "--calendar-day-selected-color",
-    "sassMap": "$calendar-tokens"
-  },
-  "calendar.day-today-bg": {
-    "$type": "color",
-    "$value": "var(--bg-2)",
-    "cssVar": "--calendar-day-today-bg",
-    "sassMap": "$calendar-tokens"
-  },
-  "calendar.day-today-color": {
-    "$type": "color",
-    "$value": "var(--fg-1)",
-    "cssVar": "--calendar-day-today-color",
-    "sassMap": "$calendar-tokens"
-  },
-  "calendar.day-disabled-color": {
-    "$type": "color",
-    "$value": "var(--fg-4)",
-    "cssVar": "--calendar-day-disabled-color",
-    "sassMap": "$calendar-tokens"
-  },
   "card.spacer-y": {
     "$type": "dimension",
     "$value": "var(--spacer-6)",
@@ -1283,6 +1217,12 @@
     "cssVar": "--datepicker-bg",
     "sassMap": "$datepicker-tokens"
   },
+  "datepicker.color": {
+    "$type": "color",
+    "$value": "var(--fg-body)",
+    "cssVar": "--datepicker-color",
+    "sassMap": "$datepicker-tokens"
+  },
   "datepicker.border-color": {
     "$type": "color",
     "$value": "var(--border-color-translucent)",
@@ -1307,6 +1247,12 @@
     "cssVar": "--datepicker-box-shadow",
     "sassMap": "$datepicker-tokens"
   },
+  "datepicker.font-size": {
+    "$type": "dimension",
+    "$value": "var(--font-size-sm)",
+    "cssVar": "--datepicker-font-size",
+    "sassMap": "$datepicker-tokens"
+  },
   "datepicker.min-width": {
     "$type": "dimension",
     "$value": "280px",
@@ -1317,6 +1263,54 @@
     "$type": "number",
     "$value": "var(--z-menu)",
     "cssVar": "--datepicker-zindex",
+    "sassMap": "$datepicker-tokens"
+  },
+  "datepicker.header-font-weight": {
+    "$type": "fontWeight",
+    "$value": "600",
+    "cssVar": "--datepicker-header-font-weight",
+    "sassMap": "$datepicker-tokens"
+  },
+  "datepicker.weekday-color": {
+    "$type": "color",
+    "$value": "var(--fg-3)",
+    "cssVar": "--datepicker-weekday-color",
+    "sassMap": "$datepicker-tokens"
+  },
+  "datepicker.day-hover-bg": {
+    "$type": "color",
+    "$value": "var(--bg-1)",
+    "cssVar": "--datepicker-day-hover-bg",
+    "sassMap": "$datepicker-tokens"
+  },
+  "datepicker.day-selected-bg": {
+    "$type": "color",
+    "$value": "var(--primary-bg)",
+    "cssVar": "--datepicker-day-selected-bg",
+    "sassMap": "$datepicker-tokens"
+  },
+  "datepicker.day-selected-color": {
+    "$type": "color",
+    "$value": "var(--primary-contrast)",
+    "cssVar": "--datepicker-day-selected-color",
+    "sassMap": "$datepicker-tokens"
+  },
+  "datepicker.day-today-bg": {
+    "$type": "color",
+    "$value": "var(--bg-2)",
+    "cssVar": "--datepicker-day-today-bg",
+    "sassMap": "$datepicker-tokens"
+  },
+  "datepicker.day-today-color": {
+    "$type": "color",
+    "$value": "var(--fg-1)",
+    "cssVar": "--datepicker-day-today-color",
+    "sassMap": "$datepicker-tokens"
+  },
+  "datepicker.day-disabled-color": {
+    "$type": "color",
+    "$value": "var(--fg-4)",
+    "cssVar": "--datepicker-day-disabled-color",
     "sassMap": "$datepicker-tokens"
   },
   "dialog.padding": {
@@ -2317,7 +2311,7 @@
   },
   "nav-pills.border-radius": {
     "$type": "dimension",
-    "$value": "var(--radius-9)",
+    "$value": "3rem",
     "cssVar": "--nav-pills-border-radius",
     "sassMap": "$nav-pills-tokens"
   },
@@ -2335,7 +2329,7 @@
   },
   "nav-pills.link-border-radius": {
     "$type": "dimension",
-    "$value": "var(--radius-9)",
+    "$value": "3rem",
     "cssVar": "--nav-pills-link-border-radius",
     "sassMap": "$nav-pills-tokens"
   },
@@ -2906,15 +2900,27 @@
     "cssVar": "--pagination-disabled-border-color",
     "sassMap": "$pagination-tokens"
   },
+  "placeholder-wave.opacity-max": {
+    "$type": "number",
+    "$value": "1",
+    "cssVar": "--placeholder-wave-opacity-max",
+    "sassMap": "$placeholder-wave-tokens"
+  },
+  "placeholder-wave.opacity-min": {
+    "$type": "number",
+    "$value": ".4",
+    "cssVar": "--placeholder-wave-opacity-min",
+    "sassMap": "$placeholder-wave-tokens"
+  },
   "placeholder.opacity-max": {
     "$type": "number",
-    "$value": ".5",
+    "$value": ".18",
     "cssVar": "--placeholder-opacity-max",
     "sassMap": "$placeholder-tokens"
   },
   "placeholder.opacity-min": {
     "$type": "number",
-    "$value": ".2",
+    "$value": ".1",
     "cssVar": "--placeholder-opacity-min",
     "sassMap": "$placeholder-tokens"
   },

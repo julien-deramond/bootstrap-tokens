@@ -1,0 +1,35 @@
+{
+  "placeholder-wave": {
+    "opacity-max": {
+      "$type": "number",
+      "$value": 1,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--placeholder-wave-opacity-max",
+          "sassMap": "$placeholder-wave-tokens",
+          "sassKey": "--placeholder-wave-opacity-max"
+        }
+      }
+    },
+    "opacity-min": {
+      "$type": "number",
+      "$value": 0.4,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--placeholder-wave-opacity-min",
+          "sassMap": "$placeholder-wave-tokens",
+          "sassKey": "--placeholder-wave-opacity-min"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.placeholder-wave`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$placeholder-wave-tokens",
+        "selector": ".placeholder-wave",
+        "source": "scss/_placeholder.scss",
+        "variantOf": "placeholder"
+      }
+    }
+  }
+}

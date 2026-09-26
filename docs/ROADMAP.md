@@ -126,8 +126,7 @@ A static page with no build step and no dependencies. `npm run web`.
 * `light-dark()` pairs are modeled as a single token with a `dark` extension; a third
   mode (e.g. high-contrast) would need the extension to become a `modes` map.
 * Hover states cannot be forced from outside the document, so the preview cannot show them.
-* The calendar and datepicker have no sample: their markup is vanilla-calendar's, not
-  Bootstrap's.
+* The datepicker has no sample: its markup is vanilla-calendar's, not Bootstrap's.
 * Upstream is `6.0.0-alpha1`. Token names *will* move. `sync` is the mitigation, and every
   command that reads a theme now applies recorded renames and refuses to run on a theme
   still naming a token that does not exist.

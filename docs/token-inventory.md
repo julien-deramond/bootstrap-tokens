@@ -6,8 +6,8 @@
 | --- | ---: |
 | primitive | 362 |
 | semantic | 169 |
-| component | 675 |
-| **total** | **1206** |
+| component | 676 |
+| **total** | **1207** |
 
 Primitive counts include the generated color scale (16 hues × 13 stops).
 
@@ -52,14 +52,13 @@ Primitive counts include the generated color scale (16 hues × 13 stops).
 | `btn-close` | `$btn-close-tokens` | `.btn-close` | 7 |
 | `button-link` <sup>variant of `btn`</sup> | `$button-link-tokens` | `.btn-link` | 12 |
 | `button-styled` <sup>variant of `btn`</sup> | `$button-styled-tokens` | `.btn-styled` | 8 |
-| `calendar` | `$calendar-tokens` | `[data-vc=calendar]` | 11 |
 | `card` | `$card-tokens` | `.card` | 18 |
 | `carousel` | `$carousel-tokens` | `.carousel` | 20 |
 | `check` | `$check-tokens` | `.check` | 15 |
 | `chip` | `$chip-tokens` | `.chip` | 15 |
 | `chip-input` | `$chip-input-tokens` | `.chip-input` | 9 |
 | `collapse` | `$collapse-tokens` | `.collapse` | 3 |
-| `datepicker` | `$datepicker-tokens` | `[data-vc=calendar][data-vc-input]` | 8 |
+| `datepicker` | `$datepicker-tokens` | `[data-vc=calendar]` | 18 |
 | `dialog` | `$dialog-tokens` | `.dialog` | 21 |
 | `drawer` | `$drawer-tokens` | `.drawer` | 18 |
 | `drawer-backdrop` <sup>variant of `drawer`</sup> | `$drawer-backdrop-tokens` | `.drawer` | 3 |
@@ -85,6 +84,7 @@ Primitive counts include the generated color scale (16 hues × 13 stops).
 | `otp` | `$otp-tokens` | `.otp` | 8 |
 | `pagination` | `$pagination-tokens` | `.pagination` | 18 |
 | `placeholder` | `$placeholder-tokens` | `.placeholder` | 2 |
+| `placeholder-wave` <sup>variant of `placeholder`</sup> | `$placeholder-wave-tokens` | `.placeholder-wave` | 2 |
 | `popover` | `$popover-tokens` | `.popover` | 23 |
 | `progress` | `$progress-tokens` | `.progress` | 9 |
 | `prose` | `$prose-tokens` | `.prose` | 4 |

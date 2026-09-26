@@ -152,12 +152,12 @@ test('every component with tokens has something to look at', () => {
    *
    * Checked against the preview source rather than a rendered page, which means it is
    * coarse: it asks whether the selector appears at all, not whether it renders. The
-   * rendered count was measured in a browser at 59 of 62.
+   * rendered count was measured in a browser at 59 of 62; since then upstream folded the
+   * calendar into the datepicker and added the wave placeholder, which renders, so 60 of 62.
    */
   const allowed = new Set([
-    // Third-party markup: the calendar and datepicker are vanilla-calendar's own DOM,
-    // which we would have to reproduce from its internals rather than from Bootstrap's.
-    'calendar',
+    // Third-party markup: the datepicker is vanilla-calendar's own DOM, which we would
+    // have to reproduce from its internals rather than from Bootstrap's.
     'datepicker',
     // `:root` — the body typography, which the artboard carries and every section shows.
     'reboot-type'

@@ -44,6 +44,22 @@ test('an override follows its token to the new name', () => {
   assert.deepEqual(result.dropped, [])
 })
 
+test('when two tokens fold into one, the override already on the new name wins', () => {
+  const migrations = [{ from: 'calendar.padding', to: 'datepicker.padding' }]
+
+  for (const overrides of [
+    { 'calendar.padding': { value: '0' }, 'datepicker.padding': { value: '2rem' } },
+    { 'datepicker.padding': { value: '2rem' }, 'calendar.padding': { value: '0' } }
+  ]) {
+    const result = applyMigrations(overrides, migrations, doc)
+
+    assert.deepEqual(result.overrides, { 'datepicker.padding': { value: '2rem' } })
+    assert.deepEqual(result.renamed, [])
+    assert.equal(result.dropped.length, 1)
+    assert.match(result.dropped[0].reason, /already sets/)
+  }
+})
+
 test('an override with nowhere to go is reported, not silently kept', () => {
   const result = applyMigrations({ 'gone.away': { value: 'red' } }, [], doc)
 

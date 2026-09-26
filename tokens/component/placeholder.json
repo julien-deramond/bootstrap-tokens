@@ -2,7 +2,7 @@
   "placeholder": {
     "opacity-max": {
       "$type": "number",
-      "$value": 0.5,
+      "$value": 0.18,
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--placeholder-opacity-max",
@@ -13,7 +13,7 @@
     },
     "opacity-min": {
       "$type": "number",
-      "$value": 0.2,
+      "$value": 0.1,
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--placeholder-opacity-min",

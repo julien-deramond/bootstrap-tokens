@@ -25,6 +25,17 @@
         }
       }
     },
+    "color": {
+      "$type": "color",
+      "$value": "{fg.body}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-color",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-color"
+        }
+      }
+    },
     "border-color": {
       "$type": "color",
       "$value": "{border.color-translucent}",
@@ -69,6 +80,17 @@
         }
       }
     },
+    "font-size": {
+      "$type": "dimension",
+      "$value": "{font-size.sm}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-font-size",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-font-size"
+        }
+      }
+    },
     "min-width": {
       "$type": "dimension",
       "$value": {
@@ -94,11 +116,99 @@
         }
       }
     },
-    "$description": "Tokens emitted on `[data-vc=calendar][data-vc-input]`.",
+    "header-font-weight": {
+      "$type": "fontWeight",
+      "$value": 600,
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-header-font-weight",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-header-font-weight"
+        }
+      }
+    },
+    "weekday-color": {
+      "$type": "color",
+      "$value": "{fg.3}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-weekday-color",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-weekday-color"
+        }
+      }
+    },
+    "day-hover-bg": {
+      "$type": "color",
+      "$value": "{bg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-day-hover-bg",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-day-hover-bg"
+        }
+      }
+    },
+    "day-selected-bg": {
+      "$type": "color",
+      "$value": "{theme-color.primary.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-day-selected-bg",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-day-selected-bg"
+        }
+      }
+    },
+    "day-selected-color": {
+      "$type": "color",
+      "$value": "{theme-color.primary.contrast}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-day-selected-color",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-day-selected-color"
+        }
+      }
+    },
+    "day-today-bg": {
+      "$type": "color",
+      "$value": "{bg.2}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-day-today-bg",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-day-today-bg"
+        }
+      }
+    },
+    "day-today-color": {
+      "$type": "color",
+      "$value": "{fg.1}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-day-today-color",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-day-today-color"
+        }
+      }
+    },
+    "day-disabled-color": {
+      "$type": "color",
+      "$value": "{fg.4}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-day-disabled-color",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-day-disabled-color"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `[data-vc=calendar]`.",
     "$extensions": {
       "dev.bootstrap.tokens": {
         "sassMap": "$datepicker-tokens",
-        "selector": "[data-vc=calendar][data-vc-input]",
+        "selector": "[data-vc=calendar]",
         "source": "scss/_datepicker.scss"
       }
     }

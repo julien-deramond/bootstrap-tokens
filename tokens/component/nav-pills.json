@@ -27,7 +27,10 @@
     },
     "border-radius": {
       "$type": "dimension",
-      "$value": "{radius.9}",
+      "$value": {
+        "value": 3,
+        "unit": "rem"
+      },
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-pills-border-radius",
@@ -60,7 +63,10 @@
     },
     "link-border-radius": {
       "$type": "dimension",
-      "$value": "{radius.9}",
+      "$value": {
+        "value": 3,
+        "unit": "rem"
+      },
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-pills-link-border-radius",

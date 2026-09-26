@@ -350,9 +350,9 @@ The sample is a component gallery. It cannot answer "does my theme survive a rea
   drawer), because they are positioned against the viewport and hidden until JavaScript shows
   them; the OTP, chip input and strength meter, whose markup a plugin builds; the carousel;
   and the dark navbar. Each now renders — overlays inside a specimen box that contains their
-  positioning and touches nothing a theme sets. 59 of 62 render; the remaining three are the
-  calendar and datepicker, which are a third party's DOM, and `reboot-type`, which is the body
-  typography the artboard already carries.
+  positioning and touches nothing a theme sets. 60 of 62 render; the remaining two are the
+  datepicker, which is a third party's DOM, and `reboot-type`, which is the body typography
+  the artboard already carries.
 * ⬜ Hover states, which cannot be forced from outside the document.
 * ✅ **Markup that is actually v6's.** The preview is a fidelity claim — "this is what your
   theme looks like on Bootstrap" — and it is only true while the markup is Bootstrap's own.

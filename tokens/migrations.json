@@ -1,4 +1,49 @@
 {
   "$comment": "Renames upstream has made, oldest first. `to: null` means the token was removed. Written by hand: `bstokens sync` proposes candidates, a person decides. Applied when a theme is loaded, so a saved theme keeps working across a rename.",
-  "migrations": []
+  "migrations": [
+    {
+      "from": "calendar.padding",
+      "to": "datepicker.padding"
+    },
+    {
+      "from": "calendar.color",
+      "to": "datepicker.color"
+    },
+    {
+      "from": "calendar.font-size",
+      "to": "datepicker.font-size"
+    },
+    {
+      "from": "calendar.header-font-weight",
+      "to": "datepicker.header-font-weight"
+    },
+    {
+      "from": "calendar.weekday-color",
+      "to": "datepicker.weekday-color"
+    },
+    {
+      "from": "calendar.day-hover-bg",
+      "to": "datepicker.day-hover-bg"
+    },
+    {
+      "from": "calendar.day-selected-bg",
+      "to": "datepicker.day-selected-bg"
+    },
+    {
+      "from": "calendar.day-selected-color",
+      "to": "datepicker.day-selected-color"
+    },
+    {
+      "from": "calendar.day-today-bg",
+      "to": "datepicker.day-today-bg"
+    },
+    {
+      "from": "calendar.day-today-color",
+      "to": "datepicker.day-today-color"
+    },
+    {
+      "from": "calendar.day-disabled-color",
+      "to": "datepicker.day-disabled-color"
+    }
+  ]
 }
