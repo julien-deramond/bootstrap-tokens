@@ -14,9 +14,11 @@ plainly that the fix belongs to Bootstrap, and let a human decide whether to car
 An `upstream` issue closes when *this* repository stops carrying the defect, not when
 Bootstrap merges the fix — `tokens/` only moves when someone re-runs the sync, and the lint
 rule or exporter skip that copes with the value usually names the issue number. Raising a
-finding upstream is a human's job; it swaps `needs-triage` for `upstream-raised`, and the
-issue stays open and unavailable until the sync lands and the workaround goes. The full
-lifecycle is in [`CONTRIBUTING.md`](CONTRIBUTING.md).
+finding upstream is a human's job; it swaps `needs-triage` and `upstream-found` for
+`upstream-raised`, and the issue stays open and unavailable until the sync lands and the
+workaround goes. Every `upstream` issue carries exactly one stage label — `upstream-found`,
+`upstream-raised`, `upstream-merged` or `upstream-declined` — and only the first is yours to
+set. The full lifecycle is in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 Label every issue you open with:
 
@@ -24,7 +26,7 @@ Label every issue you open with:
 * exactly one of `bug`, `feature` or `enhancement` (add `documentation` or `accessibility`
   when they apply);
 * `needs-triage` — always. **Never apply `ready-to-dev` yourself.**
-* `upstream`, when the defect is in `twbs/bootstrap` rather than here.
+* `upstream` and `upstream-found`, when the defect is in `twbs/bootstrap` rather than here.
 
 ```bash
 gh issue create \

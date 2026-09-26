@@ -42,9 +42,10 @@ opened it:
 | | Labels | Who sets them |
 | --- | --- | --- |
 | **What it is** | `bug`, `feature` or `enhancement`, plus `documentation` or `accessibility` where they apply | whoever opens it |
-| **Where it stands** | `needs-triage`, then `ready-to-dev` — or `upstream-raised` while a finding waits on Bootstrap | `needs-triage` on open; only a maintainer swaps it |
+| **Where it stands** | `needs-triage`, then `ready-to-dev` — or neither while a finding waits on Bootstrap | `needs-triage` on open; only a maintainer swaps it |
 | **Who opened it** | `ai-submitted` | the agent, on its own issues |
 | **Whose bug it is** | `upstream`, when the defect is in `twbs/bootstrap` rather than here | whoever opens it |
+| **Where it stands upstream** | exactly one of `upstream-found`, `upstream-raised`, `upstream-merged`, `upstream-declined` — on `upstream` issues only | `upstream-found` on open; only a maintainer moves it |
 
 `bug` is something that does not work. `feature` is a capability that does not exist yet.
 `enhancement` is something that already exists working better.
@@ -64,7 +65,8 @@ it. Only a maintainer makes that swap. An issue carrying neither state label is 
 one carrying both is a mistake.
 
 The nightly drift latch is the exception: `upstream-drift` issues open and close themselves
-against one condition and are never triaged.
+against one condition and are never triaged. Despite the prefix, `upstream-drift` is not a
+stage label — those issues are about our copy of `tokens/`, not a finding about Bootstrap.
 
 ### The life of an `upstream` finding
 
@@ -76,27 +78,35 @@ skip that copes with it is still in the tree — usually with the issue number w
 the way [`tools/lib/flatten.mjs`](tools/lib/flatten.mjs) names #14 in the reason it gives for
 skipping a token.
 
-1. **Found here.** Opened with `upstream`, a type label and `needs-triage`, like any other
-   finding.
-2. **Raised there.** Triage decided the evidence holds, and a person — never an agent — opens
-   the issue or pull request on `twbs/bootstrap`. They then comment the link on ours, swap
-   `needs-triage` for `upstream-raised`, and correct whatever in the body the raising made
-   untrue. The issue is now blocked rather than available: it carries `upstream-raised` and
-   not `ready-to-dev`, which is the second exception to needing one of the two state labels.
-3. **Merged there.** Still nothing here automatically. The nightly drift latch notices that
-   `tokens/` no longer matches upstream and opens an `upstream-drift` issue; re-syncing is
-   ordinary work from there.
+Each step below has a stage label, and an `upstream` issue carries exactly one of them, open
+or closed, so the label alone says where a finding got to.
+
+1. **Found here** — `upstream-found`. Opened with `upstream`, `upstream-found`, a type label
+   and `needs-triage`, like any other finding.
+2. **Raised there** — `upstream-raised`. Triage decided the evidence holds, and a person —
+   never an agent — opens the issue or pull request on `twbs/bootstrap`. They then comment
+   the link on ours, swap `needs-triage` and `upstream-found` for `upstream-raised`, and
+   correct whatever in the body the raising made untrue. The issue is now blocked rather
+   than available: it carries `upstream-raised` and not `ready-to-dev`, which is the second
+   exception to needing one of the two state labels. `upstream-declined`, below, is the
+   third.
+3. **Merged there** — `upstream-merged`. A maintainer swaps `upstream-raised` for
+   `upstream-merged` and comments the merge; the issue is waiting on our re-sync, not on
+   Bootstrap, and can be marked `ready-to-dev` when someone should do it. Beyond that,
+   nothing here happens automatically. The nightly drift latch notices that `tokens/` no
+   longer matches upstream and opens an `upstream-drift` issue; re-syncing is ordinary work
+   from there.
 4. **Cleared here.** Re-sync `tokens/`, remove whatever existed only because of the defect,
    and rebuild. A guard worth keeping on its own merits — the `color-mix()` weight rule
    catches any bare weight, not only the four in `_navbar.scss` — stays, but the issue number
    baked into it is replaced by a sentence, because the issue is about to close.
-5. **Closed.** From the pull request that does step 4, with `Closes #N`. The test is whether
-   anything in the tree still points at the issue, not whether the upstream pull request went
-   green.
+5. **Closed.** From the pull request that does step 4, with `Closes #N`, keeping
+   `upstream-merged`. The test is whether anything in the tree still points at the issue,
+   not whether the upstream pull request went green.
 
-If upstream declines the fix, the issue loses `upstream-raised` and stays open with a comment
-saying so. The workaround has become permanent, and the issue is where a reader finds out why
-it exists.
+If upstream declines the fix, the issue swaps `upstream-raised` for `upstream-declined` and
+stays open with a comment saying so. The workaround has become permanent, and the issue is
+where a reader finds out why it exists.
 
 ### If you are an AI agent
 
@@ -110,7 +120,8 @@ Read this as instructions, not as background.
   to Bootstrap, and let a human decide whether to carry it over.
 * **Label it `ai-submitted`, exactly one type label, and `needs-triage`.** Never put
   `ready-to-dev` on your own issue. That label is the human's signal; applying it yourself
-  removes the only gate in this workflow.
+  removes the only gate in this workflow. An `upstream` finding also gets `upstream-found`;
+  the later stage labels are a maintainer's to move.
 * **Write it for a person.** Prose a maintainer can read in a minute, not a transcript of how
   you arrived there. No invented certainty: if you did not compile it, say you did not.
 * **Only pick up `ready-to-dev`.** When asked to take available work, that label is the whole
