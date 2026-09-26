@@ -47,6 +47,14 @@ export function applyMigrations(overrides, migrations, doc) {
       continue
     }
 
+    // Upstream can fold two tokens into one (`calendar.padding` became `datepicker.padding`).
+    // A theme that sets both meant the current name for the current token, so that one wins
+    // whichever order the file lists them in.
+    if (target !== path && Object.hasOwn(overrides, target)) {
+      dropped.push({ path, reason: `renamed to ${target}, which the theme already sets` })
+      continue
+    }
+
     if (doc && !override.create && !doc.tokens.has(target)) {
       dropped.push({ path, reason: target === path ? 'no longer exists' : `renamed to ${target}, which is also gone` })
       continue

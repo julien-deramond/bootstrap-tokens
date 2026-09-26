@@ -217,9 +217,9 @@ const COMPONENT_GROUPS = [
   { title: 'Forms', names: ['form-control', 'form-label', 'form-text', 'form-adorn', 'form-floating', 'check', 'radio', 'switch', 'range', 'input-group-addon', 'chip-input', 'otp', 'strength'] },
   { title: 'Actions', names: ['btn', 'button-link', 'button-styled', 'btn-close', 'icon-link'] },
   { title: 'Navigation', names: ['nav', 'nav-tabs', 'nav-pills', 'nav-underline', 'tab-pane', 'navbar', 'navbar-dark', 'navbar-nav', 'breadcrumb', 'pagination', 'menu', 'stepper'] },
-  { title: 'Feedback', names: ['alert', 'badge', 'chip', 'progress', 'spinner-border', 'spinner-grow', 'placeholder', 'toast', 'tooltip', 'popover'] },
+  { title: 'Feedback', names: ['alert', 'badge', 'chip', 'progress', 'spinner-border', 'spinner-grow', 'placeholder', 'placeholder-wave', 'toast', 'tooltip', 'popover'] },
   { title: 'Overlays', names: ['dialog', 'drawer', 'drawer-backdrop'] },
-  { title: 'Content', names: ['card', 'list-group', 'accordion', 'table', 'blockquote', 'figure', 'thumbnail', 'prose', 'reboot-type', 'reboot-kbd', 'reboot-mark', 'avatar', 'carousel', 'calendar', 'datepicker', 'hover-lift', 'stretched-link'] }
+  { title: 'Content', names: ['card', 'list-group', 'accordion', 'table', 'blockquote', 'figure', 'thumbnail', 'prose', 'reboot-type', 'reboot-kbd', 'reboot-mark', 'avatar', 'carousel', 'datepicker', 'hover-lift', 'stretched-link'] }
 ]
 
 function sections() {

@@ -551,19 +551,6 @@
     --btn-transition-duration: .15s,
     --btn-transition-timing: ease-in-out
   ),
-  $calendar-tokens: (
-    --calendar-padding: 0,
-    --calendar-color: var(--fg-body),
-    --calendar-font-size: var(--font-size-sm),
-    --calendar-header-font-weight: 600,
-    --calendar-weekday-color: var(--fg-3),
-    --calendar-day-hover-bg: var(--bg-1),
-    --calendar-day-selected-bg: var(--primary-bg),
-    --calendar-day-selected-color: var(--primary-contrast),
-    --calendar-day-today-bg: var(--bg-2),
-    --calendar-day-today-color: var(--fg-1),
-    --calendar-day-disabled-color: var(--fg-4)
-  ),
   $card-tokens: (
     --card-spacer-y: var(--spacer-6),
     --card-spacer-x: var(--spacer-6),
@@ -659,12 +646,22 @@
   $datepicker-tokens: (
     --datepicker-padding: 1rem,
     --datepicker-bg: var(--bg-body),
+    --datepicker-color: var(--fg-body),
     --datepicker-border-color: var(--border-color-translucent),
     --datepicker-border-width: var(--border-width),
     --datepicker-border-radius: var(--radius-7),
     --datepicker-box-shadow: var(--box-shadow),
+    --datepicker-font-size: var(--font-size-sm),
     --datepicker-min-width: 280px,
-    --datepicker-zindex: var(--z-menu)
+    --datepicker-zindex: var(--z-menu),
+    --datepicker-header-font-weight: 600,
+    --datepicker-weekday-color: var(--fg-3),
+    --datepicker-day-hover-bg: var(--bg-1),
+    --datepicker-day-selected-bg: var(--primary-bg),
+    --datepicker-day-selected-color: var(--primary-contrast),
+    --datepicker-day-today-bg: var(--bg-2),
+    --datepicker-day-today-color: var(--fg-1),
+    --datepicker-day-disabled-color: var(--fg-4)
   ),
   $dialog-tokens: (
     --dialog-padding: 1rem,
@@ -863,10 +860,10 @@
   $nav-pills-tokens: (
     --nav-pills-bg: var(--bg-1),
     --nav-pills-padding: .25rem,
-    --nav-pills-border-radius: var(--radius-9),
+    --nav-pills-border-radius: 3rem,
     --nav-pills-link-active-color: var(--primary-contrast),
     --nav-pills-link-active-bg: var(--primary-bg),
-    --nav-pills-link-border-radius: var(--radius-9)
+    --nav-pills-link-border-radius: 3rem
   ),
   $nav-tabs-tokens: (
     --nav-tabs-border-width: var(--border-width),
@@ -979,8 +976,12 @@
     --pagination-disabled-border-color: var(--border-color)
   ),
   $placeholder-tokens: (
-    --placeholder-opacity-max: .5,
-    --placeholder-opacity-min: .2
+    --placeholder-opacity-max: .18,
+    --placeholder-opacity-min: .1
+  ),
+  $placeholder-wave-tokens: (
+    --placeholder-wave-opacity-max: 1,
+    --placeholder-wave-opacity-min: .4
   ),
   $popover-tokens: (
     --popover-zindex: var(--z-popover),

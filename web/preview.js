@@ -228,7 +228,7 @@ const content = () => section(
     <li class="stepper-item">Finish</li>
   </ol>
 
-  <p class="placeholder-glow mb">
+  <p class="placeholder-wave mb">
     <span class="placeholder" style="inline-size:7rem"></span>
     <span class="placeholder" style="inline-size:4rem"></span>
     <span class="placeholder" style="inline-size:9rem"></span>
@@ -507,7 +507,7 @@ const states = (uid) => `
       <p class="state-label">Loading</p>
       <div class="cluster">
         <div class="spinner-border theme-primary" role="status"><span class="visually-hidden">Loading</span></div>
-        <p class="placeholder-glow m-0"><span class="placeholder" style="inline-size:6rem"></span></p>
+        <p class="placeholder-pulse m-0"><span class="placeholder" style="inline-size:6rem"></span></p>
       </div>
     </div>
     <div>

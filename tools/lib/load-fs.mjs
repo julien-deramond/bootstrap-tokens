@@ -74,8 +74,9 @@ export function loadTree(dir) {
 
   for (const file of jsonFiles(dir)) {
     const origin = relative(dir, file).split(sep).join('/')
-    // meta.json is provenance and config/ is build options; neither is a token file.
-    if (origin === 'meta.json' || origin.startsWith('config/')) continue
+    // meta.json is provenance, migrations.json is the rename history and config/ is build
+    // options; none of them is a token file.
+    if (origin === 'meta.json' || origin === 'migrations.json' || origin.startsWith('config/')) continue
     let parsed
     try {
       parsed = JSON.parse(readFileSync(file, 'utf8'))
