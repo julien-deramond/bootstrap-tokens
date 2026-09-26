@@ -137,7 +137,9 @@ function reportPlacement(source, compiled, dir) {
   const problems = []
 
   const included = includedMaps(source)
-  for (const component of COMPONENTS) {
+  // A map whose file is gone is reported by coverage; calling it "never included" as well
+  // would send the reader looking for a missing `@include` rather than a missing file.
+  for (const component of COMPONENTS.filter((c) => existsSync(join(source, c.file)))) {
     const isIncluded = included.has(component.sassMap)
     if (isIncluded && component.inert) {
       problems.push(`${component.sassMap} is marked inert but upstream now includes it`)
@@ -243,8 +245,10 @@ function reportCoverage(source, dir) {
       `${unaccounted.length} unaccounted.`
   )
 
-  for (const { name } of stale.map((name) => ({ name }))) {
-    console.error(`  error   we model ${name}, which upstream no longer declares`)
+  for (const name of stale) {
+    const component = COMPONENTS.find((c) => c.sassMap === name)
+    const gone = component && !existsSync(join(source, component.file)) ? ` (${component.file} is gone)` : ''
+    console.error(`  error   we model ${name}, which upstream no longer declares${gone}`)
   }
 
   for (const { name, file } of unaccounted) {

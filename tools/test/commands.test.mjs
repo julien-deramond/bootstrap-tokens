@@ -12,7 +12,7 @@
 
 import test from 'node:test'
 import assert from 'node:assert/strict'
-import { mkdtempSync, readFileSync, writeFileSync, existsSync } from 'node:fs'
+import { mkdtempSync, readFileSync, writeFileSync, existsSync, cpSync, rmSync, appendFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join, relative } from 'node:path'
 
@@ -161,4 +161,30 @@ test('eject runs against a checkout and names its edits', { skip: !source }, asy
   assert.equal(code, 0)
   assert.match(log, /\$radius/)
   assert.ok(existsSync(join(out, 'scss', '_config.scss')))
+})
+
+/*
+ * Upstream deletes and merges files — `_calendar.scss` was folded into `_datepicker.scss` —
+ * and `sync --check` used to stop at the first modeled file it could not find, printing one
+ * line and hiding every other finding behind it. Issue #61.
+ */
+test('sync --check reports a deleted upstream file alongside the rest of the drift', { skip: !source }, async () => {
+  const checkout = join(work, 'checkout')
+  cpSync(join(source, 'scss'), join(checkout, 'scss'), { recursive: true })
+  cpSync(join(source, 'package.json'), join(checkout, 'package.json'))
+
+  rmSync(join(checkout, 'scss', '_alert.scss'))
+  const entry = join(checkout, 'scss', 'bootstrap.scss')
+  writeFileSync(entry, readFileSync(entry, 'utf8').replace('@forward "alert";\n', ''))
+  // A second, unrelated finding the missing file must not hide.
+  appendFileSync(join(checkout, 'scss', '_config.scss'), '\n$fixture-unmodeled: 1px !default;\n')
+
+  const { code, out } = await run('sync', { src: checkout, check: true })
+  assert.equal(code, 1)
+  assert.doesNotMatch(out, /Not found in the Bootstrap checkout/)
+  assert.match(out, /scss\/_alert\.scss no longer exists upstream/)
+  assert.match(out, /gone +alert\./)
+  assert.match(out, /we model \$alert-tokens, which upstream no longer declares \(scss\/_alert\.scss is gone\)/)
+  assert.match(out, /\$fixture-unmodeled \(scss\/_config\.scss\) is configurable upstream/)
+  assert.doesNotMatch(out, /\$alert-tokens is never `@include`d/)
 })
