@@ -43,6 +43,11 @@ class Sources {
     this.cache = new Map()
   }
 
+  /** Whether a file is in the checkout. Upstream deletes and merges files; see issue #61. */
+  has(relative) {
+    return this.cache.has(relative) || existsSync(join(this.root, relative))
+  }
+
   read(relative) {
     if (!this.cache.has(relative)) {
       const path = join(this.root, relative)
@@ -273,6 +278,13 @@ function collect(sources, warnings) {
 
   // --- component tokens ----------------------------------------------------
   for (const component of COMPONENTS) {
+    // A deleted file is drift like any other, so it must not stop the run: throwing here
+    // used to hide the renames, coverage errors and placement drift behind this one line.
+    // Its tokens are simply absent, which the rename report shows as gone.
+    if (!sources.has(component.file)) {
+      warnings.push(`${component.file} no longer exists upstream, so ${component.sassMap} was not extracted`)
+      continue
+    }
     const entries = sources.map(component.sassMap, component.file)
     if (!entries) {
       warnings.push(`missing component map ${component.sassMap} in ${component.file}`)
