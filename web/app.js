@@ -304,9 +304,10 @@ const isChanged = (path) => Object.hasOwn(state.overrides, path)
  * `renderSimple()` and `renderEditor()` rebuild their container by clearing it and appending
  * fresh children, which briefly leaves the scrolling ancestor with nothing to scroll — the
  * browser clamps its `scrollTop` to 0 right then, and nothing puts it back. That is invisible
- * for a click that intentionally shows new content (switching section, filtering a search),
- * but for a value tweak it means every dial or field edit yanks you back to the top of a long
- * list. See https://github.com/twbs/bootstrap/discussions/42924#discussioncomment-18418198.
+ * for a click that intentionally shows new content (filtering a search), but for a value tweak
+ * it means every dial or field edit yanks you back to the top of a long list. Switching section
+ * needs the opposite treatment, see `revealEditorTop()`.
+ * See https://github.com/twbs/bootstrap/discussions/42924#discussioncomment-18418198.
  *
  * Which element actually scrolls depends on viewport width: `.panel-body` itself above the
  * `64rem` breakpoint, but the whole document below it, where `.panel-body` switches to
@@ -320,6 +321,33 @@ function renderPreservingScroll() {
   render()
   if (panelBody) panelBody.scrollTop = panelScrollTop
   document.scrollingElement.scrollTop = pageScrollTop
+}
+
+/**
+ * Bring the top of the All tokens editor into view after switching section.
+ *
+ * On the wide layout the rail and the editor scroll together inside `.panel-body`, so reaching
+ * a rail button low in the list leaves the panel scrolled well past where a short section ends:
+ * the editor rendered, but entirely above the visible area, and the pane looked empty. On the
+ * narrow layout the editor is stacked below the rail, so the same click leaves it below the
+ * fold, under the pinned preview. The editor heading is left where it is when it already sits
+ * in the upper half of what you can see, so a click near the editor does not move the rail.
+ * Same two scrolling elements as `renderPreservingScroll()`.
+ */
+function revealEditorTop() {
+  const panelBody = $('.panel-body')
+  const panelScrolls = getComputedStyle(panelBody).overflowY !== 'visible'
+  const scroller = panelScrolls ? panelBody : document.scrollingElement
+
+  // What is visible: below the sticky search box on the wide layout, above the pinned preview
+  // on the narrow one.
+  const panelRect = panelBody.getBoundingClientRect()
+  const visibleTop = panelScrolls ? panelRect.top + $('.rail-search').offsetHeight : 0
+  const visibleBottom = panelScrolls ? panelRect.bottom : $('.preview').getBoundingClientRect().top
+
+  const editorTop = $('.editor').getBoundingClientRect().top
+  if (editorTop >= visibleTop && editorTop <= (visibleTop + visibleBottom) / 2) return
+  scroller.scrollTop += editorTop - visibleTop
 }
 
 /**
@@ -485,7 +513,8 @@ function renderRail() {
       button.append(name, count)
       button.addEventListener('click', () => {
         state.section = item.id
-        render()
+        renderPreservingScroll()
+        revealEditorTop()
       })
       rail.append(button)
     }
