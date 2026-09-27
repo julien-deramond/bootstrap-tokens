@@ -31,9 +31,9 @@ test('every option states what it does', () => {
   }
 })
 
-test('the twelve enable flags are all captured', () => {
+test('the eleven enable flags are all captured', () => {
   const flags = Object.keys(stored).filter((name) => name.startsWith('$enable-'))
-  assert.equal(flags.length, 12)
+  assert.equal(flags.length, 11)
   for (const name of flags) assert.match(stored[name].value, /^(true|false)$/)
 })
 

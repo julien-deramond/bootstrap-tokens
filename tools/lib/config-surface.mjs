@@ -58,12 +58,6 @@ export const OPTIONS = [
     describe: 'Adds a subtle sheen over filled components. Off gives flat fills.'
   },
   {
-    name: '$enable-caret',
-    kind: 'flag',
-    group: 'Appearance',
-    describe: 'The little triangle on dropdown toggles.'
-  },
-  {
     name: '$enable-transitions',
     kind: 'flag',
     group: 'Motion',
