@@ -37,9 +37,10 @@ file for variables carrying `!default` — the flag that makes a variable reacha
 `@use … with ()` — and fails on anything that is neither modeled nor listed in `NOT_TOKENS`
 with a reason. Coverage is now **64/64** token maps and **0** unaccounted surfaces.
 
-Finding along the way: `$caret-*` and `$transition-base` carry `!default` but live in
-`scss/mixins/`, which `bootstrap.scss` does not forward — they are not configurable through
-the documented entrypoint at all. See [issue #9](https://github.com/julien-deramond/bootstrap-tokens/issues/9).
+Finding along the way: `$transition-base` carries `!default` but lives in `scss/mixins/`,
+which `bootstrap.scss` does not forward — it is not configurable through the documented
+entrypoint at all. (`$caret-*` had the same problem until upstream removed them in
+twbs/bootstrap#42957.) See [issue #9](https://github.com/julien-deramond/bootstrap-tokens/issues/9).
 
 The classification that came out of it:
 
@@ -48,9 +49,8 @@ The classification that came out of it:
    | `$validation-states` | `forms/_validation.scss` | configuration |
    | `$button-variants`, `$badge-variants`, `$btn-variant-selectors` | buttons, badge | configuration |
    | `$button-sizes`, `$avatar-sizes`, `$dialog-sizes`, `$form-control-sizes`, `$input-group-sizes`, `$otp-sizes`, `$pagination-sizes` | assorted | configuration |
-   | `$enable-*` (12 flags) | `_config.scss` | configuration |
+   | `$enable-*` (11 flags) | `_config.scss` | configuration |
    | `$shadow-opacities`, `$strength-levels` | utilities, strength | tokens |
-   | `$caret-width`, `$caret-spacing`, `$caret-vertical-align` | `_config.scss` | tokens |
    | `$navbar-breakpoints`, `$gutters`, `$transition-base` | assorted | tokens |
    | `$color-contrast-dark/light`, `$min-contrast-ratio`, `$color-mode-type` | `_config.scss` | configuration |
    | `$utilities` | `_utilities.scss` | out of scope, stated explicitly |
@@ -64,10 +64,10 @@ being complete. Right now that condition is unverified.
 `$button-sizes: ("xs", "sm", "lg")` decides which classes exist. Neither is a design value,
 so neither belongs in a DTCG document — but both belong in an exported theme.
 
-Done. `tokens/config/options.json` holds **28** build options — the twelve `$enable-*` flags,
+Done. `tokens/config/options.json` holds **27** build options — the eleven `$enable-*` flags,
 the size and variant lists, the validation states and the color-mode settings — each with the
 Sass source text of its value, its kind and a note on what it does. `sync` extracts them,
-`verify` emits all 28 at their defaults and still produces byte-identical CSS, and the chooser
+`verify` emits all 27 at their defaults and still produces byte-identical CSS, and the chooser
 gives them their own section.
 
 Keeping them *out* of `tokens/` is what stops the DTCG document turning into a Sass config

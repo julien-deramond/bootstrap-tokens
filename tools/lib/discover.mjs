@@ -30,14 +30,11 @@ export const NOT_TOKENS = {
   '$original-enable-shadows': 'Internal save/restore around a mixin in scss/mixins/_box-shadow.scss.',
 
   /*
-   * Declared in scss/mixins/, which scss/bootstrap.scss does not @forward. They carry
-   * !default, so they look configurable, but no consumer can reach them through the
-   * documented entrypoint. Modeling them would produce an export that fails to compile.
+   * Declared in scss/mixins/, which scss/bootstrap.scss does not @forward. It carries
+   * !default, so it looks configurable, but no consumer can reach it through the
+   * documented entrypoint. Modeling it would produce an export that fails to compile.
    * Tracked as issue #9 — this is an upstream gap, not one of ours.
    */
-  '$caret-width': 'In scss/mixins/, which bootstrap.scss does not forward. See issue #9.',
-  '$caret-spacing': 'In scss/mixins/, which bootstrap.scss does not forward. See issue #9.',
-  '$caret-vertical-align': 'In scss/mixins/, which bootstrap.scss does not forward. See issue #9.',
   '$transition-base': 'In scss/mixins/, which bootstrap.scss does not forward. See issue #9.',
 
   /*
@@ -156,7 +153,7 @@ export function discover(root, doc, options = {}) {
     tokenMapsModeled: tokenMaps.filter((name) => known.has(name)).length,
     unaccounted: unaccounted.sort((a, b) => a.name.localeCompare(b.name)),
     stale: stale.sort(),
-    // `$enable-*` is a known, deliberate omission tracked as one item rather than twelve.
+    // `$enable-*` is a known, deliberate omission tracked as one item rather than eleven.
     flags: flags.sort((a, b) => a.name.localeCompare(b.name))
   }
 }

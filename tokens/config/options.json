@@ -17,12 +17,6 @@
     "file": "scss/_config.scss",
     "description": "Adds a subtle sheen over filled components. Off gives flat fills."
   },
-  "$enable-caret": {
-    "value": "true",
-    "kind": "flag",
-    "file": "scss/_config.scss",
-    "description": "The little triangle on dropdown toggles."
-  },
   "$enable-transitions": {
     "value": "true",
     "kind": "flag",
