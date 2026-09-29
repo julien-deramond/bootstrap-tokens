@@ -1,8 +1,8 @@
 {
   "bootstrap": "6.0.0-alpha1",
   "branch": "v6-dev",
-  "commit": "bd0a4f63ce5cc444063c28a6946bdae3dacdce20",
-  "extractedAt": "2026-09-27",
+  "commit": "3824fb30e51c8d8158675aaae47e0676f1876c1e",
+  "extractedAt": "2026-09-29",
   "tokens": 999,
   "declaredCustomProperties": [
     "--accent-base",
