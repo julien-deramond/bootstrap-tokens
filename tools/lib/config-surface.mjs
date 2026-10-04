@@ -234,12 +234,29 @@ export function extractOptions(readFile, files) {
 }
 
 /**
+ * Split a saved theme's options into the ones Bootstrap still has and the ones it has removed.
+ * Returns the kept options plus the dropped names, so a load can say what it did.
+ */
+export function dropStaleOptions(options, base) {
+  const kept = {}
+  const dropped = []
+  for (const [name, entry] of Object.entries(options ?? {})) {
+    if (Object.hasOwn(base, name)) kept[name] = entry
+    else dropped.push(name)
+  }
+  return { options: kept, dropped }
+}
+
+/**
  * Options whose value differs from Bootstrap's default, each carrying the default it moved
  * away from — which a list needs in order to say what was removed.
  */
 export function changedOptions(base, current) {
   const changed = {}
   for (const [name, entry] of Object.entries(current)) {
+    // An option Bootstrap no longer declares has no default to differ from, and Sass rejects
+    // a `with ()` entry for a variable that does not exist — so it never counts as changed.
+    if (!Object.hasOwn(base, name)) continue
     if (base[name]?.value === entry.value) continue
     changed[name] = { ...entry, base: base[name]?.value }
   }

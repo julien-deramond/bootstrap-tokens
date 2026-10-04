@@ -27,7 +27,7 @@ import { sourceEdits } from '../tools/lib/source-value.mjs'
 import { unresolvedReferences } from '../tools/lib/value.mjs'
 import { projectFiles } from '../tools/lib/project.mjs'
 import { DIALS, PRESETS, HUES, availableHues, addedHues, hueOfRole, repointRole, selectedOption } from './easy.js'
-import { OPTIONS, changedOptions, optionByName } from '../tools/lib/config-surface.mjs'
+import { OPTIONS, changedOptions, dropStaleOptions, optionByName } from '../tools/lib/config-surface.mjs'
 import { importScss } from '../tools/lib/import-scss.mjs'
 import { applyMigrations } from '../tools/lib/migrations.mjs'
 import { upstreamFindings } from '../tools/lib/validate.mjs'
@@ -145,8 +145,7 @@ function openTheme(id) {
   if (!theme) return
 
   state.store.activeId = id
-  state.overrides = migrate(theme.overrides ?? {})
-  state.options = theme.options ?? {}
+  ;({ overrides: state.overrides, options: state.options } = migrate(theme.overrides ?? {}, theme.options ?? {}))
   state.past.length = 0
   state.future.length = 0
 
@@ -2285,11 +2284,16 @@ function wireMarkup() {
  * back quietly missing the values whose names changed — the worst failure a theme file can
  * have, because nothing tells you to look.
  */
-function migrate(overrides) {
-  if (!state.baseDoc) return overrides
+function migrate(overrides, options = {}) {
+  if (!state.baseDoc) return { overrides, options }
 
   const { overrides: migrated, renamed, dropped } = applyMigrations(overrides, state.migrations, state.baseDoc)
-  if (renamed.length + dropped.length === 0) return migrated
+
+  // Options have no rename table: one upstream removed is simply gone, and exporting it would
+  // make the Sass fail to compile (`with ()` rejects a variable that is not declared).
+  const { options: keptOptions, dropped: droppedOptions } = dropStaleOptions(options, state.baseOptions)
+
+  if (renamed.length + dropped.length + droppedOptions.length === 0) return { overrides: migrated, options: keptOptions }
 
   // Say it on the page, not in the console. A value vanishing from a saved theme is the
   // one thing about a theme file that has to be noticed, and nobody has devtools open.
@@ -2299,11 +2303,14 @@ function migrate(overrides) {
       ? `${dropped.length} value(s) referred to tokens that no longer exist and were dropped: ${dropped
           .map((entry) => entry.path)
           .join(', ')}`
+      : null,
+    droppedOptions.length > 0
+      ? `${droppedOptions.length} option(s) no longer exist in Bootstrap and were dropped: ${droppedOptions.join(', ')}`
       : null
   ].filter(Boolean)
 
   showNotice(`This theme was written against an older Bootstrap. ${parts.join('; ')}.`)
-  return migrated
+  return { overrides: migrated, options: keptOptions }
 }
 
 /* ------------------------------------------------------------------ themes */
@@ -2722,8 +2729,7 @@ async function start() {
   })
 
   const theme = activeTheme(state.store)
-  state.overrides = migrate(theme.overrides ?? {})
-  state.options = theme.options ?? {}
+  ;({ overrides: state.overrides, options: state.options } = migrate(theme.overrides ?? {}, theme.options ?? {}))
 
   state.doc = withOverrides(tree, state.overrides)
 
