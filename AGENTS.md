@@ -14,7 +14,7 @@ plainly that the fix belongs to Bootstrap, and let a human decide whether to car
 An `upstream` issue closes when *this* repository stops carrying the defect, not when
 Bootstrap merges the fix — `tokens/` only moves when someone re-runs the sync, and the lint
 rule or exporter skip that copes with the value usually names the issue number. Raising a
-finding upstream is a human's job; it swaps `needs-triage` and `upstream-found` for
+finding upstream is a human's job; it swaps `upstream-found` for
 `upstream-raised`, and the issue stays open and unavailable until the sync lands and the
 workaround goes. Every `upstream` issue carries exactly one stage label — `upstream-found`,
 `upstream-raised`, `upstream-merged` or `upstream-declined` — and only the first is yours to
@@ -25,13 +25,12 @@ Label every issue you open with:
 * `ai-submitted` — you opened it;
 * exactly one of `bug`, `feature` or `enhancement` (add `documentation` or `accessibility`
   when they apply);
-* `needs-triage` — always. **Never apply `ready-to-dev` yourself.**
 * `upstream` and `upstream-found`, when the defect is in `twbs/bootstrap` rather than here.
 
 ```bash
 gh issue create \
   --title "…" \
-  --label ai-submitted --label bug --label needs-triage \
+  --label ai-submitted --label bug \
   --body-file <file>
 ```
 
@@ -40,18 +39,17 @@ the files involved, a proposed change, and how we would know it is done. The tes
 a contributor who was not in this conversation could pick it up. Prose, not a transcript of
 your reasoning. If you did not compile or run it, say so.
 
-## Only `ready-to-dev` work is available
+## Every open issue is available
 
-`needs-triage` → a human reads it and swaps the label → `ready-to-dev` → free to pick up.
+There is no triage gate: any open issue is free to pick up, except an `upstream` issue whose
+stage label is `upstream-raised` or `upstream-declined` (it is waiting on Bootstrap, not on you).
 
 ```bash
-gh issue list --label ready-to-dev --state open
+gh issue list --state open
 ```
 
-When asked to take available work, that list is the whole of what is available. An issue
-still in `needs-triage` is not available however obvious the fix looks — report it as waiting
-on triage rather than starting it. Comment on an issue when you take it, and close it from
-the pull request with `Closes #N`.
+When asked to take available work, that list is the whole of what is available. Comment on an
+issue when you take it, and close it from the pull request with `Closes #N`.
 
 ## Every change lands as a pull request
 
@@ -67,8 +65,7 @@ The description is for the person reviewing it: what changed and why, what it af
 the obvious, how you verified it, what you deliberately left out, and `Closes #N` when it
 finishes an issue. Prose, not a file-by-file list — the diff already says which files moved.
 
-Label it with the same type label as its issue plus `ai-submitted`. Triage labels
-(`needs-triage`, `ready-to-dev`) belong on issues only. Never enable auto-merge.
+Label it with the same type label as its issue plus `ai-submitted`. Never enable auto-merge.
 
 ## Repository rules worth repeating
 

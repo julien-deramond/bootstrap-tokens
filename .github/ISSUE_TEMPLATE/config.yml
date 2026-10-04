@@ -1,4 +1,4 @@
-# Blank issues stay on: a maintainer opening one is already past triage, and agents use
+# Blank issues stay on: a maintainer can open one without a form, and agents use
 # `gh issue create` with explicit labels rather than these forms.
 blank_issues_enabled: true
 contact_links:
