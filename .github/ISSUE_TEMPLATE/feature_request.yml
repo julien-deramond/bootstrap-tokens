@@ -1,13 +1,12 @@
 name: Feature
 description: A capability that does not exist yet.
-labels: ["feature", "needs-triage"]
+labels: ["feature"]
 body:
   - type: markdown
     attributes:
       value: >-
-        Every issue opens as **needs-triage**. A maintainer swaps that for **ready-to-dev**
-        once it is specified well enough to work on — see
-        [CONTRIBUTING.md](https://github.com/julien-deramond/bootstrap-tokens/blob/main/CONTRIBUTING.md#issues-and-triage).
+        Every open issue is available to pick up, so the more it says, the sooner it moves — see
+        [CONTRIBUTING.md](https://github.com/julien-deramond/bootstrap-tokens/blob/main/CONTRIBUTING.md#issues).
 
   - type: textarea
     id: problem

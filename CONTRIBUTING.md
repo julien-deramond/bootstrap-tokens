@@ -27,22 +27,22 @@ npm run verify     # our export compiles to the same CSS as upstream
 npm run web        # the Theme Builder, on http://localhost:4000
 ```
 
-## Issues and triage
+## Issues
 
 Work is tracked as GitHub issues on
 [`julien-deramond/bootstrap-tokens`](https://github.com/julien-deramond/bootstrap-tokens/issues)
 — this repository, never `twbs/bootstrap`. That includes findings *about* Bootstrap 6: they
-are opened here with the `upstream` label, and a maintainer decides at triage whether to
+are opened here with the `upstream` label, and a maintainer decides whether to
 carry them to `twbs/bootstrap`. Nobody files on another project's tracker on this project's
 behalf.
 
-Every issue carries a type label and a state label, plus `ai-submitted` when a machine
-opened it:
+Every issue carries a type label, plus `ai-submitted` when a machine opened it. Every open
+issue is available to pick up; there is no triage gate.
+
 
 | | Labels | Who sets them |
 | --- | --- | --- |
 | **What it is** | `bug`, `feature` or `enhancement`, plus `documentation` or `accessibility` where they apply | whoever opens it |
-| **Where it stands** | `needs-triage`, then `ready-to-dev` — or neither while a finding waits on Bootstrap | `needs-triage` on open; only a maintainer swaps it |
 | **Who opened it** | `ai-submitted` | the agent, on its own issues |
 | **Whose bug it is** | `upstream`, when the defect is in `twbs/bootstrap` rather than here | whoever opens it |
 | **Where it stands upstream** | exactly one of `upstream-found`, `upstream-raised`, `upstream-merged`, `upstream-declined` — on `upstream` issues only | `upstream-found` on open; only a maintainer moves it |
@@ -54,18 +54,12 @@ An `upstream` issue is a finding about Bootstrap that this pipeline surfaced —
 compiling it, resolving it, or measuring it in a browser, which is how all eight of the
 current ones ([#9](https://github.com/julien-deramond/bootstrap-tokens/issues/9)–[#16](https://github.com/julien-deramond/bootstrap-tokens/issues/16)) were found. It stays open here because the
 workaround, the `NOT_TOKENS` entry or the lint rule that copes with it lives in this
-repository and needs somewhere to point. Triage on one of these means deciding whether the
-evidence is strong enough to raise with `twbs/bootstrap`; what happens after that is its own
+repository and needs somewhere to point. Deciding whether the
+evidence is strong enough to raise with `twbs/bootstrap` is a maintainer's call; what happens after that is its own
 section below.
 
-The state labels are a gate, not decoration. **`needs-triage` means no human has read it and
-nobody should start work.** Triage is a person reading the issue, sharpening it until it
-could be handed to a stranger, and replacing `needs-triage` with `ready-to-dev` — or closing
-it. Only a maintainer makes that swap. An issue carrying neither state label is an oversight;
-one carrying both is a mistake.
-
-The nightly drift latch is the exception: `upstream-drift` issues open and close themselves
-against one condition and are never triaged. Despite the prefix, `upstream-drift` is not a
+The nightly drift latch opens and closes `upstream-drift` issues by itself against one
+condition. Despite the prefix, `upstream-drift` is not a
 stage label — those issues are about our copy of `tokens/`, not a finding about Bootstrap.
 
 ### The life of an `upstream` finding
@@ -81,18 +75,16 @@ skipping a token.
 Each step below has a stage label, and an `upstream` issue carries exactly one of them, open
 or closed, so the label alone says where a finding got to.
 
-1. **Found here** — `upstream-found`. Opened with `upstream`, `upstream-found`, a type label
-   and `needs-triage`, like any other finding.
-2. **Raised there** — `upstream-raised`. Triage decided the evidence holds, and a person —
+1. **Found here** — `upstream-found`. Opened with `upstream`, `upstream-found` and a type
+   label, like any other finding.
+2. **Raised there** — `upstream-raised`. A maintainer decided the evidence holds, and a person —
    never an agent — opens the issue or pull request on `twbs/bootstrap`. They then comment
-   the link on ours, swap `needs-triage` and `upstream-found` for `upstream-raised`, and
+   the link on ours, swap `upstream-found` for `upstream-raised`, and
    correct whatever in the body the raising made untrue. The issue is now blocked rather
-   than available: it carries `upstream-raised` and not `ready-to-dev`, which is the second
-   exception to needing one of the two state labels. `upstream-declined`, below, is the
-   third.
+   than available, as is one marked `upstream-declined`, below.
 3. **Merged there** — `upstream-merged`. A maintainer swaps `upstream-raised` for
    `upstream-merged` and comments the merge; the issue is waiting on our re-sync, not on
-   Bootstrap, and can be marked `ready-to-dev` when someone should do it. Beyond that,
+   Bootstrap, and is available again. Beyond that,
    nothing here happens automatically. The nightly drift latch notices that `tokens/` no
    longer matches upstream and opens an `upstream-drift` issue; re-syncing is ordinary work
    from there.
@@ -118,15 +110,13 @@ Read this as instructions, not as background.
 * **This repository only.** Never open an issue on `twbs/bootstrap`, however clearly the bug
   belongs to them. Open it here with the `upstream` label, say plainly that the fix belongs
   to Bootstrap, and let a human decide whether to carry it over.
-* **Label it `ai-submitted`, exactly one type label, and `needs-triage`.** Never put
-  `ready-to-dev` on your own issue. That label is the human's signal; applying it yourself
-  removes the only gate in this workflow. An `upstream` finding also gets `upstream-found`;
-  the later stage labels are a maintainer's to move.
+* **Label it `ai-submitted` and exactly one type label.** An `upstream` finding also gets
+  `upstream-found`; the later stage labels are a maintainer's to move.
 * **Write it for a person.** Prose a maintainer can read in a minute, not a transcript of how
   you arrived there. No invented certainty: if you did not compile it, say you did not.
-* **Only pick up `ready-to-dev`.** When asked to take available work, that label is the whole
-  of what is available. An issue sitting in `needs-triage` is not available however obvious
-  the fix looks — report it as waiting on triage instead of starting it.
+* **Every open issue is available.** When asked to take available work, pick any open issue,
+  except an `upstream` one labelled `upstream-raised` or `upstream-declined`: it is waiting
+  on Bootstrap.
 * **Say when you start and when you stop.** Comment on the issue as you take it, and close it
   from the pull request with `Closes #N` rather than by hand.
 * **One issue per thing.** Check the open list before opening a near-duplicate.
@@ -136,7 +126,7 @@ Opening one:
 ```bash
 gh issue create \
   --title "sync --check misses variables declared inside @if" \
-  --label ai-submitted --label bug --label needs-triage \
+  --label ai-submitted --label bug \
   --body-file /tmp/issue.md
 ```
 
@@ -146,7 +136,7 @@ survives a file intact.
 Finding work:
 
 ```bash
-gh issue list --label ready-to-dev --state open
+gh issue list --state open
 ```
 
 ### What "enough detail to implement" means
@@ -167,17 +157,9 @@ body covers, in whatever order reads best:
 
 ### If you are a maintainer
 
-Triage is the only step that cannot be delegated to a machine here. For each `needs-triage`
-issue: decide it is real, make the body good enough to hand over, then
-
-```bash
-gh issue edit 42 --remove-label needs-triage --add-label ready-to-dev
-```
-
-Anything you open yourself is already triaged — label it `ready-to-dev` directly, or leave
-the state off and it will be understood as yours. Closing with `wontfix`, `duplicate` or
-`invalid` is a triage outcome like any other, and an `ai-submitted` issue that is not worth
-keeping should be closed without ceremony.
+Review new issues as they arrive: decide each is real and make the body good enough to hand
+over. Closing with `wontfix`, `duplicate` or `invalid` is an outcome like any other, and an
+`ai-submitted` issue that is not worth keeping should be closed without ceremony.
 
 ## Before opening a pull request
 
@@ -209,8 +191,7 @@ CI has a chance to fail before the Theme Builder redeploys.
   left out. A reviewer should not have to reconstruct your reasoning from the files.
   `Closes #42` if it finishes an issue, so the issue closes itself on merge.
 * **Labels:** the same type label as the issue it closes — `bug`, `feature`, `enhancement`,
-  `documentation`, `accessibility` — plus `ai-submitted` if an agent wrote it. The triage
-  labels are for issues and never go on a pull request.
+  `documentation`, `accessibility` — plus `ai-submitted` if an agent wrote it.
 
 Agents: open the pull request, then stop and ask the maintainer to review it. Never merge
 your own, never enable auto-merge, and never push to `main` directly.
@@ -227,8 +208,7 @@ your own, never enable auto-merge, and never push to `main` directly.
   these: several are worth raising with `twbs/bootstrap`, and none of them survives contact
   with a maintainer there without it.
 
-Everything else that needs doing is an [open issue](https://github.com/julien-deramond/bootstrap-tokens/issues?q=is%3Aissue+is%3Aopen+label%3Aready-to-dev)
-— `ready-to-dev` is the list of what is actually free to pick up.
+Everything else that needs doing is an [open issue](https://github.com/julien-deramond/bootstrap-tokens/issues?q=is%3Aissue+is%3Aopen).
 [`docs/PLAN.md`](docs/PLAN.md) records what the maintainer thinks is wrong and what comes
 next; it is the honest version of a roadmap, and the place ideas live before they are
 specific enough to be an issue.

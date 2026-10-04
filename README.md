@@ -218,9 +218,8 @@ Open an [issue](https://github.com/julien-deramond/bootstrap-tokens/issues/new/c
 kinds are especially welcome: a token whose exported value doesn't match what Bootstrap
 compiles, and a configurable surface upstream has that this document doesn't model.
 
-Every issue opens as `needs-triage` and becomes `ready-to-dev` once a maintainer has read it;
-[`CONTRIBUTING.md`](CONTRIBUTING.md#issues-and-triage) has the labels in full, including the
-rules AI agents follow when they file or pick up work.
+Every open issue is available to pick up. [`CONTRIBUTING.md`](CONTRIBUTING.md#issues) has the
+labels in full, including the rules AI agents follow when they file or pick up work.
 
 Bugs in Bootstrap itself belong at [`twbs/bootstrap`](https://github.com/twbs/bootstrap/issues).
 
