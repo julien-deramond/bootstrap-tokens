@@ -303,19 +303,20 @@ export function themeScss(
   const gaps = unexpressible(doc, overrides)
   if (gaps.length === 0) return scss
 
-  // Silence here would mean shipping a file that does less than the preview showed.
-  const note = [
+  // Silence here would mean shipping a file that does less than the preview showed. Plain CSS
+  // after the @use is valid SCSS and wins on equal specificity by source order.
+  const companion = [
     '',
-    '// Bootstrap re-declares these under [data-bs-theme] after :root, so a Sass override',
-    '// alone will not reach a page with an explicit theme. Add this CSS as well:',
-    '//',
-    ...gaps.flatMap(({ path, cssVar }) => [
-      `//   [data-bs-theme="light"] { ${cssVar}: ${cssLiteral(doc.cssValueOf(path))}; }`
-    ]),
+    '// Bootstrap re-declares these under [data-bs-theme] after :root, so the Sass override',
+    '// above does not reach a page with an explicit theme. This block re-asserts them.',
+    ...gaps.map(
+      ({ path, cssVar }) =>
+        `[data-bs-theme="light"] {\n  ${cssVar}: ${cssLiteral(doc.cssValueOf(path))};\n}`
+    ),
     ''
   ].join('\n')
 
-  return scss + note
+  return scss + companion
 }
 
 /** A portable theme file that loads straight back into the chooser. */

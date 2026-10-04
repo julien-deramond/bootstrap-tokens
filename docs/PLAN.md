@@ -189,7 +189,7 @@ It found a real bug on its first run — see [issue #12](https://github.com/juli
 is pinned by upstream at `[data-bs-theme="light"]` as well as for dark, so a token override
 never reached any page with an explicit theme, including this tool's own preview. The
 `fixedDark` extension generalised to `pinnedModes`, the runtime CSS re-asserts at every
-selector upstream pins, and the Sass export now names what it cannot express.
+selector upstream pins, and the Sass export now appends a real `[data-bs-theme="light"]` block re-asserting what `@use … with ()` cannot express.
 
 `verify --theme <file>` runs the same check on **your** theme rather than the built-in
 fixture, which is the question anyone about to ship one actually has. It found two bugs on

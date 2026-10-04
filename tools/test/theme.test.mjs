@@ -20,6 +20,7 @@ import {
   changedKeysOf,
   clone
 } from '../lib/overrides.mjs'
+import { importScss } from '../lib/import-scss.mjs'
 import { index } from '../lib/tokens.mjs'
 import { expandColorScales } from '../lib/color-scale.mjs'
 import { tokensDir, resolveBootstrapSource } from '../lib/config.mjs'
@@ -142,4 +143,33 @@ test('a reference to a token another override creates is kept, and falls with it
   const result = withoutBrokenReferences(tree, bad)
   assert.deepEqual(result.overrides, {})
   assert.deepEqual(result.broken.map((entry) => entry.path), ['color.brand.500', 'alert.border-color'])
+})
+
+test('a pinned token gets a real [data-bs-theme] companion block, and others do not', async () => {
+  const pinned = { 'elevation.strength': { value: '1.5' } }
+  const doc = withOverrides(tree, pinned)
+  const scss = themeScss(doc, pinned, { version: 'test' })
+
+  assert.match(scss, /^\[data-bs-theme="light"\] \{\n {2}--shadow-strength: 1\.5;\n\}$/m)
+  assert.doesNotMatch(scss, /Add this CSS/)
+  assert.doesNotMatch(scss, /^\/\/ {3}\[data-bs-theme/m)
+
+  // Not pinned, no block.
+  assert.doesNotMatch(themeScss(themed, OVERRIDES, { version: 'test' }), /data-bs-theme="light"\]/)
+
+  // It still reads back as the same theme.
+  const back = importScss(scss, base)
+  assert.deepEqual(Object.keys(back.overrides), ['elevation.strength'])
+  assert.equal(themeScss(withOverrides(tree, back.overrides), back.overrides, { version: 'test' }), scss)
+
+  if (!source) return
+  const sass = await import('sass')
+  const work = mkdtempSync(join(tmpdir(), 'bstokens-companion-'))
+  const entry = join(work, 'custom.scss')
+  writeFileSync(
+    entry,
+    themeScss(doc, pinned, { version: 'test', importPath: join(source, 'scss', 'bootstrap') })
+  )
+  const { css } = sass.compile(entry, { loadPaths: [source], style: 'expanded' })
+  assert.match(css, /\[data-bs-theme="?light"?\] \{\s*--shadow-strength: 1\.5;\s*\}/)
 })
