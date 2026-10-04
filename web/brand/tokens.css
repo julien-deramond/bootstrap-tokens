@@ -4,11 +4,13 @@
 
 :root {
   color-scheme: dark;
-/* Docs shell reaches its max width; the gutter grid appears. */
+/* Docs shell is at docs-shell; past it the shell grows and the gutter grid appears. */
   --breakpoint-lg: 1180px;
   /* Docs shell goes to three columns; task layout goes to two. */
   --breakpoint-md: 980px;
   --breakpoint-sm: 640px;
+  /* Docs reading size steps up from 15 px to 17 px (font.size.lg), and a docs page sits on one centred column at the reading measure. */
+  --breakpoint-xl: 1440px;
   /* The decision colour. One gold per decision, not per screen: a browsing grid has none, a product page has one, a carousel spends it on the last slide. */
   --color-accent: var(--palette-gold-500);
   /* Page background. */
@@ -98,10 +100,18 @@
   --font-weight-semibold: 600;
   /* Max width of a marketing or blog page. */
   --layout-content: 1120px;
+  /* Docs nav column, at docs-shell. Grows with the shell up to docs-nav-max. */
   --layout-docs-nav: 232px;
-  /* Docs three-column shell. Outside it, the gutter grid. */
+  /* Docs nav column on a wide screen. */
+  --layout-docs-nav-max: 288px;
+  /* Docs three-column shell, up to the lg breakpoint. Past it the shell grows with the screen, keeping three grid cells of gutter on each side, up to docs-shell-max. Outside it, the gutter grid. */
   --layout-docs-shell: 1180px;
+  /* Docs shell cap on wide screens. The nav and table of contents each take a quarter of the width the shell gains over docs-shell, the content column half. */
+  --layout-docs-shell-max: 1440px;
+  /* Docs table of contents column, at docs-shell. Grows with the shell up to docs-toc-max. */
   --layout-docs-toc: 200px;
+  /* Docs table of contents column on a wide screen. */
+  --layout-docs-toc-max: 256px;
   /* Docs top bar height. */
   --layout-docs-top: 56px;
   /* Gutter grid cell. Drawn outside the shell only; nothing aligns to it, so it is never off. */
