@@ -12,6 +12,7 @@ import { join } from 'node:path'
 import { loadTree } from '../lib/load-fs.mjs'
 import {
   withOverrides,
+  withoutBrokenReferences,
   themeScss,
   themeCss,
   diffResolved,
@@ -105,4 +106,40 @@ test('the exported custom.scss compiles to the previewed values', { skip: !sourc
   assert.match(css, /--alert-border-radius: var\(--radius-9\)/)
   // Untouched tokens keep upstream's values.
   assert.match(css, /--green-500: oklch\(64% 0\.22 160deg\)/)
+})
+
+test('values that reference tokens which do not exist are set apart before they count as changes', () => {
+  const overrides = {
+    'alert.border-radius': { value: '{radius.99}' },
+    'spacing.1': { value: '{spacing.2}', dark: '{spacing.nope}' },
+    'color.blue.500': { value: 'oklch(58% 0.19 28)' }
+  }
+  const result = withoutBrokenReferences(tree, overrides)
+
+  assert.deepEqual(Object.keys(result.overrides).sort(), ['color.blue.500', 'spacing.1'])
+  assert.deepEqual(result.overrides['spacing.1'], { value: '{spacing.2}' })
+  assert.deepEqual(
+    result.broken.map(({ path, side, missing }) => ({ path, side, missing })),
+    [
+      { path: 'alert.border-radius', side: 'value', missing: ['radius.99'] },
+      { path: 'spacing.1', side: 'dark', missing: ['spacing.nope'] }
+    ]
+  )
+})
+
+test('a reference to a token another override creates is kept, and falls with it when that one breaks', () => {
+  const create = { $type: 'color' }
+  const good = {
+    'color.brand.500': { value: 'oklch(58% 0.19 28)', create },
+    'alert.border-color': { value: '{color.brand.500}' }
+  }
+  assert.deepEqual(withoutBrokenReferences(tree, good).broken, [])
+
+  const bad = {
+    'color.brand.500': { value: '{color.missing.500}', create },
+    'alert.border-color': { value: '{color.brand.500}' }
+  }
+  const result = withoutBrokenReferences(tree, bad)
+  assert.deepEqual(result.overrides, {})
+  assert.deepEqual(result.broken.map((entry) => entry.path), ['color.brand.500', 'alert.border-color'])
 })

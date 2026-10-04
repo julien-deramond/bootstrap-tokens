@@ -13,6 +13,7 @@ import { FILE_FOR_GROUP, GROUP_DESCRIPTIONS } from '../tools/lib/curation.mjs'
 import {
   clone,
   withOverrides,
+  withoutBrokenReferences,
   diffResolved,
   themeCss,
   themeScss,
@@ -2287,13 +2288,17 @@ function wireMarkup() {
 function migrate(overrides, options = {}) {
   if (!state.baseDoc) return { overrides, options }
 
-  const { overrides: migrated, renamed, dropped } = applyMigrations(overrides, state.migrations, state.baseDoc)
+  const { overrides: renamedOverrides, renamed, dropped } = applyMigrations(overrides, state.migrations, state.baseDoc)
+
+  // A value naming a token that does not exist would be counted as a change yet missing from
+  // custom.scss and theme.css, so it is refused here, as the field refuses it when typed.
+  const { overrides: migrated, broken } = withoutBrokenReferences(renamedOverrides, state.baseTree)
 
   // Options have no rename table: one upstream removed is simply gone, and exporting it would
   // make the Sass fail to compile (`with ()` rejects a variable that is not declared).
   const { options: keptOptions, dropped: droppedOptions } = dropStaleOptions(options, state.baseOptions)
 
-  if (renamed.length + dropped.length + droppedOptions.length === 0) return { overrides: migrated, options: keptOptions }
+  if (renamed.length + dropped.length + broken.length + droppedOptions.length === 0) return { overrides: migrated, options: keptOptions }
 
   // Say it on the page, not in the console. A value vanishing from a saved theme is the
   // one thing about a theme file that has to be noticed, and nobody has devtools open.
@@ -2304,12 +2309,17 @@ function migrate(overrides, options = {}) {
           .map((entry) => entry.path)
           .join(', ')}`
       : null,
+    broken.length > 0
+      ? `${broken.length} value(s) referenced tokens that do not exist and were not kept: ${broken
+          .map((entry) => `${entry.path} (${entry.missing.map((ref) => `{${ref}}`).join(', ')})`)
+          .join(', ')}`
+      : null,
     droppedOptions.length > 0
       ? `${droppedOptions.length} option(s) no longer exist in Bootstrap and were dropped: ${droppedOptions.join(', ')}`
       : null
   ].filter(Boolean)
 
-  showNotice(`This theme was written against an older Bootstrap. ${parts.join('; ')}.`)
+  showNotice(`This theme was written against an older Bootstrap or edited by hand. ${parts.join('; ')}.`)
   return { overrides: migrated, options: keptOptions }
 }
 

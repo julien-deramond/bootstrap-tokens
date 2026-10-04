@@ -11,7 +11,7 @@ import { expandColorScales } from './color-scale.mjs'
 import { emitUseWith } from './emit-scss.mjs'
 import { SCALARS, COMPONENTS } from './sass-targets.mjs'
 import { PINNED_SELECTORS } from './curation.mjs'
-import { cssLiteral } from './value.mjs'
+import { cssLiteral, unresolvedReferences } from './value.mjs'
 
 const scalarByPath = new Map(SCALARS.map((s) => [s.path, s.sassVar]))
 const selectorByMap = new Map(COMPONENTS.map((c) => [c.sassMap, c.selector]))
@@ -54,6 +54,51 @@ export function withOverrides(baseTree, overrides) {
 
   expandColorScales(tree)
   return index(tree)
+}
+
+/**
+ * Split `overrides` into what can be applied and what refers to tokens that do not exist.
+ *
+ * A value like `{color.bluu.500}` resolves to nothing, so the exporters skip it: it would
+ * still be counted as a change while custom.scss and theme.css quietly lacked it. The value
+ * editor already refuses such a value when it is typed; this is the same check for the other
+ * ways a theme comes in (an imported file, a shared link, a saved theme from an older build).
+ *
+ * References are checked against the document *with* the overrides applied, so one override
+ * may point at a token another creates. Dropping a broken one can orphan a reference that
+ * relied on it, so this repeats until nothing more falls out. Only the broken side goes: a
+ * valid `dark` stays when its `value` is dropped. A creation whose `value` is broken goes
+ * whole, since a created token without a value is not a token.
+ *
+ * Returns `{ overrides, broken }`, where `broken` lists `{ path, side, value, missing }`.
+ */
+export function withoutBrokenReferences(baseTree, overrides) {
+  let kept = overrides
+  const broken = []
+
+  for (;;) {
+    const { tokens } = withOverrides(baseTree, kept)
+    const next = {}
+    let removed = false
+
+    for (const [path, override] of Object.entries(kept)) {
+      const entry = { ...override }
+      for (const side of ['value', 'dark']) {
+        if (typeof entry[side] !== 'string') continue
+        const missing = unresolvedReferences(entry[side], tokens)
+        if (missing.length === 0) continue
+        broken.push({ path, side, value: entry[side], missing })
+        delete entry[side]
+        removed = true
+      }
+
+      if (entry.create && entry.value === undefined) continue
+      if (Object.keys(entry).length > 0) next[path] = entry
+    }
+
+    kept = next
+    if (!removed) return { overrides: kept, broken }
+  }
 }
 
 function nodeAt(tree, path) {
