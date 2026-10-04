@@ -12,7 +12,7 @@ import { mkdtempSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
-import { OPTIONS, optionByName, renderOption, changedOptions } from '../lib/config-surface.mjs'
+import { OPTIONS, optionByName, renderOption, changedOptions, dropStaleOptions } from '../lib/config-surface.mjs'
 import { loadOptions, loadTree } from '../lib/load-fs.mjs'
 import { withOverrides, themeScss, clone } from '../lib/overrides.mjs'
 import { tokensDir, resolveBootstrapSource } from '../lib/config.mjs'
@@ -73,6 +73,27 @@ test('changedOptions reports only what moved, and carries the default it moved f
 
   assert.deepEqual(Object.keys(changed), ['$enable-rounded'])
   assert.equal(changed['$enable-rounded'].base, 'true')
+})
+
+test('changedOptions ignores an option Bootstrap no longer has', () => {
+  const base = { '$enable-rounded': { value: 'true' } }
+  const changed = changedOptions(base, {
+    ...base,
+    '$enable-caret': { value: 'false' }
+  })
+
+  assert.deepEqual(Object.keys(changed), [])
+})
+
+test('dropStaleOptions keeps current options and names the removed ones', () => {
+  const base = { '$enable-rounded': { value: 'true' } }
+  const { options, dropped } = dropStaleOptions(
+    { '$enable-rounded': { value: 'false' }, '$enable-caret': { value: 'false' } },
+    base
+  )
+
+  assert.deepEqual(Object.keys(options), ['$enable-rounded'])
+  assert.deepEqual(dropped, ['$enable-caret'])
 })
 
 test('options reach the exported Sass', () => {
