@@ -76,6 +76,23 @@ test('a user-created token survives migration instead of being dropped as unknow
   assert.deepEqual(result.dropped, [])
 })
 
+test('a created token is never moved by a migration that names its path', () => {
+  const overrides = createHue('acme', '#336699')
+  const result = applyMigrations(overrides, [{ from: 'color.acme.base', to: 'color.other.base' }], doc)
+
+  assert.deepEqual(result.overrides, overrides)
+  assert.deepEqual(result.renamed, [])
+  assert.deepEqual(result.dropped, [])
+})
+
+test('an override beside a created token is kept, not dropped as unknown', () => {
+  const overrides = { ...createHue('acme', '#336699'), 'color.acme.500': { value: '#123456' } }
+  const result = applyMigrations(overrides, [], doc)
+
+  assert.deepEqual(result.overrides, overrides)
+  assert.deepEqual(result.dropped, [])
+})
+
 test('an untouched theme passes through unchanged', () => {
   const overrides = { 'radius.base': { value: '1rem' }, 'spacing.base': { value: '1.25rem' } }
   const result = applyMigrations(overrides, loadMigrations(tokensDir), doc)
