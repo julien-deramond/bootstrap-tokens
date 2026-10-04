@@ -28,7 +28,7 @@
 
 <p align="center">
   <a href="https://julien-deramond.github.io/bootstrap-tokens/">
-    <img src="media/theme-builder.png" alt="The Bootstrap Theme Builder: eight design controls on the left, real Bootstrap components re-theming in light and dark on the right" width="100%">
+    <img src="media/theme-builder.gif" alt="The Bootstrap Theme Builder in motion: picking a teal brand color, rounder corners and a serif typeface re-themes real Bootstrap components in light and dark, then the export dialog shows the Sass, and Reset all returns to the defaults" width="100%">
   </a>
 </p>
 

@@ -180,6 +180,25 @@ that root is the URL the README hands out, and scrapers do not follow its meta r
 find the tags on `/web/`. If the markers go missing the site build fails rather than deploy a
 root that previews as a bare link.
 
+## The README demo
+
+The README opens on a GIF of the app at work, a few choices re-theming real Bootstrap
+components and then the Sass they export. It is recorded by a script for the same reason as the
+link preview: it goes stale as soon as the interface moves.
+
+```bash
+npm run demo    # re-records media/theme-builder.gif, then commit it
+```
+
+It needs Google Chrome or Chromium (`$CHROME`), a full ffmpeg (`$FFMPEG`; `brew install ffmpeg`)
+and Playwright's small ffmpeg build that records the video (`npx playwright-core install ffmpeg`,
+once). The script drives the ordinary dev server at 1280x800 with the intro card dismissed and
+the preview Side by side: teal brand color, Pillowy corners, a Serif typeface, the Export dialog,
+then Reset all, so the loop ends where it starts. There is no text overlay. It encodes at 800 px
+wide and narrows (720, 640, 560) until the file is 2 MB or less, and prints the result.
+Playwright is a dev dependency (`playwright-core`, no bundled browser), never a runtime one, and
+CI does not run the script.
+
 ## Where a theme goes next
 
 The tool saves a `theme.json`. Every CLI command that takes `--theme` reads that file — see
