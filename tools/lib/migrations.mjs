@@ -28,6 +28,10 @@ export function resolvePath(path, migrations) {
   return current
 }
 
+function parentOf(path) {
+  return path.slice(0, path.lastIndexOf('.'))
+}
+
 /**
  * Bring a set of overrides up to date.
  *
@@ -39,8 +43,13 @@ export function applyMigrations(overrides, migrations, doc) {
   const renamed = []
   const dropped = []
 
+  // A token the theme creates belongs to the theme, not to upstream, so no migration may move
+  // it, and what lives beside it (a step of a created scale) is not "gone" just because the
+  // base document has never heard of it.
+  const created = new Set(Object.entries(overrides).filter(([, o]) => o.create).map(([path]) => parentOf(path)))
+
   for (const [path, override] of Object.entries(overrides)) {
-    const target = resolvePath(path, migrations)
+    const target = override.create ? path : resolvePath(path, migrations)
 
     if (target === null) {
       dropped.push({ path, reason: 'removed upstream' })
@@ -55,7 +64,7 @@ export function applyMigrations(overrides, migrations, doc) {
       continue
     }
 
-    if (doc && !override.create && !doc.tokens.has(target)) {
+    if (doc && !override.create && !created.has(parentOf(target)) && !doc.tokens.has(target)) {
       dropped.push({ path, reason: target === path ? 'no longer exists' : `renamed to ${target}, which is also gone` })
       continue
     }
