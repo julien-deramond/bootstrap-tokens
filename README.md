@@ -56,10 +56,24 @@ So this repository holds two things:
   with real Bootstrap components re-theming beside you. It exports Sass byte-identical to what
   you would have hand-written.
 
-```text
-tokens/  (DTCG, source of truth)  ──build──▶  Sass maps · CSS custom properties · resolved JSON
-    ▲                                                        │
-    └────────────sync────── twbs/bootstrap@main ◀──────verify
+```mermaid
+%%{init: {"fontFamily": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace", "flowchart": {"wrappingWidth": 480}, "theme": "base", "themeVariables": {"darkMode": true, "dropShadow": "none", "background": "#0A0C11", "fontFamily": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace", "fontSize": "14px", "primaryColor": "#16181E", "primaryTextColor": "#E6E8EC", "primaryBorderColor": "#292C33", "secondaryColor": "#16181E", "tertiaryColor": "#0A0C11", "lineColor": "#3AB9BF", "textColor": "#E6E8EC", "clusterBkg": "#0A0C11", "clusterBorder": "#292C33", "titleColor": "#8F929A", "edgeLabelBackground": "#0A0C11"}}}%%
+flowchart TB
+  accTitle: The build, verify and sync loop
+  accDescr: tokens is the DTCG source of truth. Build turns it into Sass maps, CSS custom properties and resolved JSON. Verify checks those outputs against twbs/bootstrap@main. Sync brings twbs/bootstrap@main back into tokens.
+
+  subgraph field[" "]
+    direction TB
+    tokens["tokens/ (DTCG, source of truth)"]
+    outputs["Sass maps · CSS custom properties · resolved JSON"]
+    bootstrap["twbs/bootstrap@main"]
+    tokens -- build --> outputs
+    outputs -- verify --> bootstrap
+    bootstrap -- sync --> tokens
+  end
+
+  linkStyle default stroke-width:1.5px,color:#8F929A
+  style field fill:#0A0C11,stroke:#292C33
 ```
 
 > An independent project, not affiliated with or endorsed by the Bootstrap team.
