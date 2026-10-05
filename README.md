@@ -108,7 +108,7 @@ npm ci
 
 [![CI status](https://github.com/julien-deramond/bootstrap-tokens/actions/workflows/ci.yml/badge.svg)](https://github.com/julien-deramond/bootstrap-tokens/actions/workflows/ci.yml)
 
-Tracks Bootstrap `6.0.0-alpha.1`. **1206 tokens**, covering all 64 of upstream's `$*-tokens`
+Tracks Bootstrap `6.0.0-alpha.1`. **1207 tokens**, covering all 64 of upstream's `$*-tokens`
 maps.
 
 `bstokens verify` compiles upstream's `bootstrap.scss` and the configuration exported from
@@ -174,7 +174,7 @@ Sass in the browser and no compile step in the loop: v6 drives everything throug
 properties, so re-declaring them is the whole mechanism.
 
 - **Two modes over one model.** *Design* is eight controls that each move a lot of the system
-  — brand color, radius, density, type, shadow. *All tokens* is all 1206, grouped and
+  — brand color, radius, density, type, shadow. *All tokens* is all 1207, grouped and
   searchable. Both write the same overrides, so switching is lossless.
 - **Light and dark side by side**, as framed artboards on a neutral canvas — a v6 theme is
   always two themes.
@@ -218,7 +218,7 @@ Full flags and workflows: **[`docs/cli.md`](docs/cli.md)**.
 | [`token-inventory.md`](docs/token-inventory.md) | Generated token counts, refreshed by `bstokens build` |
 
 [`PLAN.md`](docs/PLAN.md) and [`ROADMAP.md`](docs/ROADMAP.md) are the maintainer's working
-notes — what's wrong and what's next, and what's done. The **eight findings about Bootstrap
+notes — what's wrong and what's next, and what's done. The **nine findings about Bootstrap
 itself** that this pipeline surfaced are issues labeled
 [`upstream`](https://github.com/julien-deramond/bootstrap-tokens/issues?q=is%3Aissue+label%3Aupstream), each with the compile, diff or browser
 measurement behind it.
