@@ -1,7 +1,7 @@
 name: Scaffold smoke test
 
 # The `vite` template names dependencies this repository does not have — vite, sass,
-# @floating-ui/dom and Bootstrap's `v6-dev` branch — so nothing in the ordinary test run can
+# @floating-ui/dom and Bootstrap's `main` branch — so nothing in the ordinary test run can
 # tell you it still installs and builds. Unit tests assert the file map; only an install
 # proves the project.
 #

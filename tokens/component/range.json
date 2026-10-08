@@ -64,14 +64,16 @@
     },
     "track-fill-bg": {
       "$type": "color",
-      "$value": "{theme-color.primary.base}",
+      "$value": "var(--theme-bg, {theme-color.primary.base})",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--range-track-fill-bg",
           "sassMap": "$range-tokens",
-          "sassKey": "--range-track-fill-bg"
+          "sassKey": "--range-track-fill-bg",
+          "expression": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set."
     },
     "track-disabled-bg": {
       "$type": "color",
@@ -112,14 +114,16 @@
     },
     "thumb-bg": {
       "$type": "color",
-      "$value": "{theme-color.primary.base}",
+      "$value": "var(--theme-bg, {theme-color.primary.base})",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--range-thumb-bg",
           "sassMap": "$range-tokens",
-          "sassKey": "--range-thumb-bg"
+          "sassKey": "--range-thumb-bg",
+          "expression": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set."
     },
     "thumb-border": {
       "$type": "border",
@@ -161,7 +165,7 @@
     },
     "thumb-active-bg": {
       "$type": "color",
-      "$value": "color-mix(in oklch, {theme-color.primary.base} 70%, {bg.body})",
+      "$value": "color-mix(in oklch, var(--theme-bg, {theme-color.primary.base}) 70%, {bg.body})",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--range-thumb-active-bg",
@@ -169,7 +173,8 @@
           "sassKey": "--range-thumb-active-bg",
           "expression": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set."
     },
     "thumb-disabled-bg": {
       "$type": "color",

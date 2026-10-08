@@ -5,5 +5,5 @@ contact_links:
   - name: A bug in Bootstrap itself
     url: https://github.com/twbs/bootstrap/issues
     about: >-
-      Findings about twbs/bootstrap@v6-dev belong upstream. Open one here as well if the
+      Findings about twbs/bootstrap@main belong upstream. Open one here as well if the
       pipeline has to work around it, and link the two.

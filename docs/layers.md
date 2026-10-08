@@ -72,4 +72,4 @@ component they belong to, under a `$extensions` marker naming their selector —
   (`025`, `050`) — the exporter has to reproduce `--gray-025`, so the token path is `gray.025`.
 * The component layer keeps upstream's custom-property names exactly. `--alert-padding-x`
   becomes `alert.padding-x`, and the exporter reverses that mechanically. Renaming would break
-  the "drop into v6-dev" goal for no gain.
+  the "drop into Bootstrap" goal for no gain.

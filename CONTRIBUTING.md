@@ -1,6 +1,6 @@
 # Contributing
 
-Thanks for taking a look. This project tracks a moving target — `twbs/bootstrap@v6-dev` is an
+Thanks for taking a look. This project tracks a moving target — `twbs/bootstrap@main` is an
 alpha — so bug reports about drift are as useful as pull requests.
 
 ## Getting set up
@@ -9,10 +9,10 @@ alpha — so bug reports about drift are as useful as pull requests.
 git clone https://github.com/julien-deramond/bootstrap-tokens.git
 cd bootstrap-tokens
 npm install
-git clone --depth 1 -b v6-dev https://github.com/twbs/bootstrap.git ../bootstrap
+git clone --depth 1 -b main https://github.com/twbs/bootstrap.git ../bootstrap
 ```
 
-Bootstrap 6 is not on npm yet, so a `v6-dev` checkout is what the tooling reads. Point at one
+Bootstrap 6 is not on npm yet, so a `main` checkout is what the tooling reads. Point at one
 elsewhere with `--src <path>`, `$BOOTSTRAP_SRC`, or a `bootstrap-tokens.config.json`
 containing `{ "bootstrapSource": "<path>" }`.
 
@@ -66,7 +66,7 @@ stage label — those issues are about our copy of `tokens/`, not a finding abou
 
 An `upstream` issue outlives the fix it asks for, so it closes on *our* state rather than on
 Bootstrap's. Merging a patch there changes nothing here on its own: `tokens/` is generated
-from `twbs/bootstrap@v6-dev` and only moves when someone re-runs the sync, so until then the
+from `twbs/bootstrap@main` and only moves when someone re-runs the sync, so until then the
 document still mirrors the broken value and the lint rule, `NOT_TOKENS` entry or exporter
 skip that copes with it is still in the tree — usually with the issue number written into it,
 the way [`tools/lib/flatten.mjs`](tools/lib/flatten.mjs) names #14 in the reason it gives for
@@ -199,7 +199,7 @@ your own, never enable auto-merge, and never push to `main` directly.
 ## What tends to need doing
 
 * **Upstream drift.** `npm run sync -- --check` reports it; a nightly workflow opens an issue
-  when `v6-dev` moves. Re-syncing, reviewing the diff and rebuilding is the routine.
+  when `main` moves. Re-syncing, reviewing the diff and rebuilding is the routine.
 * **Unmodeled surface.** `sync --check` also fails when upstream offers a configurable
   variable the document neither models nor lists in `NOT_TOKENS` with a reason.
 * **Findings about upstream.** If the pipeline surfaces a real Bootstrap bug, open an issue

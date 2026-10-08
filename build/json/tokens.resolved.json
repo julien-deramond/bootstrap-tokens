@@ -3220,7 +3220,8 @@
   },
   "range.track-fill-bg": {
     "$type": "color",
-    "$value": "var(--primary-base)",
+    "$value": "var(--theme-bg, var(--primary-base))",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set.",
     "cssVar": "--range-track-fill-bg",
     "sassMap": "$range-tokens"
   },
@@ -3244,7 +3245,8 @@
   },
   "range.thumb-bg": {
     "$type": "color",
-    "$value": "var(--primary-base)",
+    "$value": "var(--theme-bg, var(--primary-base))",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set.",
     "cssVar": "--range-thumb-bg",
     "sassMap": "$range-tokens"
   },
@@ -3268,7 +3270,8 @@
   },
   "range.thumb-active-bg": {
     "$type": "color",
-    "$value": "color-mix(in oklch, var(--primary-base) 70%, var(--bg-body))",
+    "$value": "color-mix(in oklch, var(--theme-bg, var(--primary-base)) 70%, var(--bg-body))",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set.",
     "cssVar": "--range-thumb-active-bg",
     "sassMap": "$range-tokens"
   },

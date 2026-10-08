@@ -1,5 +1,5 @@
 {
-  "$comment": "Bootstrap 6.0.0-alpha1 tokens with no value Figma can hold, and why. Nothing here was guessed at.",
+  "$comment": "Bootstrap 6.0.0-alpha.1 tokens with no value Figma can hold, and why. Nothing here was guessed at.",
   "light": {
     "alert.color": "is the CSS keyword `inherit`",
     "alert.link-color": "is the CSS keyword `inherit`",

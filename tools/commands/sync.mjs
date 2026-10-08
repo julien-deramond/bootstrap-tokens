@@ -42,7 +42,7 @@ export async function sync({ flags }) {
 
   files['meta.json'] = {
     bootstrap: version,
-    branch: 'v6-dev',
+    branch: 'main',
     commit: upstreamCommit(source),
     extractedAt: new Date().toISOString().slice(0, 10),
     tokens: records.length,

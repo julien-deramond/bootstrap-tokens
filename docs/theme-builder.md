@@ -4,7 +4,7 @@ A web app for designing a Bootstrap 6 theme by editing its tokens, with real Boo
 components re-theming beside you.
 
 **[julien-deramond.github.io/bootstrap-tokens](https://julien-deramond.github.io/bootstrap-tokens/)** is the
-deployed build of `main`, redeployed by CI on every push. To run it against your own `v6-dev`
+deployed build of `main`, redeployed by CI on every push. To run it against your own Bootstrap `main`
 checkout:
 
 ```bash
@@ -95,7 +95,7 @@ The export dialog ends where the interesting part starts: a `custom.scss` and fo
 steps, and the steps are where people fall off — the wrong Bootstrap version, no Sass, the
 stylesheet linked but never compiled. **Open in StackBlitz** skips them. One click and the
 theme is a running Vite dev server in a browser tab: Bootstrap's own source Sass compiled
-from `v6-dev`, the theme applied through `@use … with ()`, hot reload on a `styles.scss` edit,
+from `main`, the theme applied through `@use … with ()`, hot reload on a `styles.scss` edit,
 and StackBlitz's own *Download project* as the way out.
 
 The files are exactly the ones `bstokens init --template vite` writes — one generator,
@@ -111,7 +111,7 @@ thrown away inside the click handler. It is a hand-written form POST — `@stack
 be a dependency this repository has managed without, for twenty lines of hidden inputs.
 
 Give it about a minute the first time. The Bootstrap dependency is a ~28 MB tarball of the
-`v6-dev` branch, and the WebContainer downloads it before Vite starts.
+`main` branch, and the WebContainer downloads it before Vite starts.
 
 ### Why not CodePen
 

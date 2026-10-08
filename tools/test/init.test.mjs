@@ -81,13 +81,13 @@ test('the dependency points somewhere that exists, and needs no git to get there
   const pkg = JSON.parse(readFileSync(join(target, 'package.json'), 'utf8'))
 
   /*
-   * A tarball URL rather than `github:twbs/bootstrap#v6-dev`. The `github:` form makes npm
+   * A tarball URL rather than `github:twbs/bootstrap#main`. The `github:` form makes npm
    * shell out to `git`, and StackBlitz's WebContainer has no git binary — the install dies
    * with `npm error syscall spawn git` before anything compiles. Both forms resolve the same
    * branch; only one of them works everywhere this project gets installed.
    */
   assert.match(pkg.dependencies.bootstrap, /^https:\/\/codeload\.github\.com\/twbs\/bootstrap\//)
-  assert.match(pkg.dependencies.bootstrap, /v6-dev$/)
+  assert.match(pkg.dependencies.bootstrap, /main$/)
   assert.doesNotMatch(pkg.dependencies.bootstrap, /^(github:|git\+)/)
 
   assert.ok(pkg.devDependencies.sass, 'nothing to compile with')

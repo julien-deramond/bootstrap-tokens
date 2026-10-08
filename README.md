@@ -56,8 +56,8 @@ So this repository holds two things:
 
 - **The tokens** — Bootstrap 6 lifted into [DTCG format](https://tr.designtokens.org/format/),
   layered primitive → semantic → component, and exported to Sass, CSS, TypeScript, Style
-  Dictionary and Figma. Extracted from [`twbs/bootstrap@v6-dev`](https://github.com/twbs/bootstrap/tree/v6-dev),
-  and checked back against it.
+  Dictionary and Figma. Extracted from [`twbs/bootstrap@main`](https://github.com/twbs/bootstrap/tree/main),
+  and checked back against it. (That branch was called `v6-dev` until 2026-10-08, when Bootstrap 6 became `main`.)
 - **Bootstrap Theme Builder** — a local web app for designing a theme by editing those tokens,
   with real Bootstrap components re-theming beside you. It exports Sass byte-identical to what
   you would have hand-written.
@@ -65,7 +65,7 @@ So this repository holds two things:
 ```text
 tokens/  (DTCG, source of truth)  ──build──▶  Sass maps · CSS custom properties · resolved JSON
     ▲                                                        │
-    └────────────sync────── twbs/bootstrap@v6-dev ◀──────verify
+    └────────────sync────── twbs/bootstrap@main ◀──────verify
 ```
 
 > An independent project, not affiliated with or endorsed by the Bootstrap team.
@@ -88,10 +88,10 @@ cd my-app && npm install && npm start
 
 **Or just consume the tokens** — see [using the tokens](#using-the-tokens).
 
-The rest of the tooling reads a `v6-dev` checkout, because Bootstrap 6 is not on npm yet:
+The rest of the tooling reads a `main` checkout, because Bootstrap 6 is not on npm yet:
 
 ```bash
-git clone --depth 1 -b v6-dev https://github.com/twbs/bootstrap.git ../bootstrap
+git clone --depth 1 -b main https://github.com/twbs/bootstrap.git ../bootstrap
 npm install
 ```
 
@@ -104,7 +104,7 @@ maps.
 
 `bstokens verify` compiles upstream's `bootstrap.scss` and the configuration exported from
 these tokens, and asserts the resulting CSS is identical — today it is, across all 18174
-lines. CI runs that on every push, alongside a nightly job that opens an issue when `v6-dev`
+lines. CI runs that on every push, alongside a nightly job that opens an issue when `main`
 drifts from the committed document.
 
 ## What's included
@@ -134,7 +134,7 @@ import { loadTokens, themeScss, createHue } from 'bootstrap-tokens'
 
 | File | What it is |
 | --- | --- |
-| `scss/_tokens.scss` | every Sass map, `!default`-flagged — a drop-in starting point for `v6-dev` |
+| `scss/_tokens.scss` | every Sass map, `!default`-flagged — a drop-in starting point for Bootstrap 6 |
 | `scss/bootstrap-custom.scss` | a ready-to-compile `@use "bootstrap" with (…)` configuration |
 | `css/tokens.css` | the flat custom-property surface, no Sass required |
 | `json/tokens.resolved.json` | every token with its `$value` resolved to CSS |
@@ -182,12 +182,12 @@ properties, so re-declaring them is the whole mechanism.
 ```bash
 npx bstokens build      # emit Sass, CSS, JSON, TypeScript, Style Dictionary and Figma
 npx bstokens verify     # compile upstream vs. our export, diff the CSS
-npx bstokens sync       # re-extract from a v6-dev checkout into tokens/
+npx bstokens sync       # re-extract from a main checkout into tokens/
 npx bstokens validate   # references, cycles, layer direction, DTCG shape
 npx bstokens report     # contrast and color vision, as Markdown, HTML or JSON
 npx bstokens init       # scaffold a project that compiles a theme (--template sass|vite)
 npx bstokens import     # read an existing custom.scss back into a theme.json
-npx bstokens eject      # write the tokens into v6-dev's own Sass sources (maintainers)
+npx bstokens eject      # write the tokens into Bootstrap's own Sass sources (maintainers)
 ```
 
 Point any of them at a checkout with `--src <path>`, `$BOOTSTRAP_SRC`, or a

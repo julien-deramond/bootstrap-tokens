@@ -32,12 +32,12 @@ import { page } from './sample-page.mjs'
 
 /*
  * Bootstrap 6 is not on npm — the registry has nothing above 5.3.x — so a semver range would
- * fail `npm install` in the very file meant to prove this works. The `v6-dev` branch is the
+ * fail `npm install` in the very file meant to prove this works. The `main` branch is the
  * only way to get v6 today, and it installs cleanly whichever way you name it: twbs/bootstrap
  * ships `scss/**` and a built `js/dist/**`, and defines no prepare script, so there is nothing
  * to build after the download. Override with --bootstrap once a release exists.
  *
- * It is named as a tarball URL rather than as `github:twbs/bootstrap#v6-dev`, which is what
+ * It is named as a tarball URL rather than as `github:twbs/bootstrap#main`, which is what
  * upstream's own example writes and what this repository wrote until Open in StackBlitz went
  * looking for evidence. A `github:` spec makes npm shell out to `git`, and StackBlitz's
  * WebContainer has no git binary — `npm error syscall spawn git`, install over, sandbox dead
@@ -47,7 +47,7 @@ import { page } from './sample-page.mjs'
  * (The archive is the whole repository rather than a packed npm tarball, so it is ~28 MB
  * against ~10 MB. That is the price of not needing git, and it is paid once per install.)
  */
-export const BOOTSTRAP_DEFAULT = 'https://codeload.github.com/twbs/bootstrap/tar.gz/refs/heads/v6-dev'
+export const BOOTSTRAP_DEFAULT = 'https://codeload.github.com/twbs/bootstrap/tar.gz/refs/heads/main'
 
 /*
  * The `sass` scaffold depends on this package so `npm run verify` works without a global
@@ -184,7 +184,7 @@ matter of bumping the dependency.
 
 ## About the Bootstrap dependency
 
-Bootstrap 6 is not published to npm yet, so \`package.json\` points at the \`v6-dev\` branch,
+Bootstrap 6 is not published to npm yet, so \`package.json\` points at the \`main\` branch,
 as a tarball URL rather than a \`github:\` spec — the latter makes npm shell out to \`git\`, which
 is not there in every place a project gets installed. Once there is a release, swap it for a
 version range.
@@ -408,7 +408,7 @@ property it produces with what the Theme Builder previewed.
 
 ## About the dependencies
 
-Bootstrap 6 is not published to npm yet, so \`package.json\` points at the \`v6-dev\` branch,
+Bootstrap 6 is not published to npm yet, so \`package.json\` points at the \`main\` branch,
 as a tarball URL rather than a \`github:\` spec — the latter makes npm shell out to \`git\`, which
 is not there in every place a project gets installed. Once there is a release, swap it for a
 version range.
@@ -444,7 +444,7 @@ function viteProject({ doc, overrides, changed, name, version, bootstrap, themeF
         type: 'module',
         /*
          * How StackBlitz knows what to run once it has installed. Upstream declares the same
-         * field, which is the evidence that a `github:twbs/bootstrap#v6-dev` dependency
+         * field, which is the evidence that a `github:twbs/bootstrap#main` dependency
          * installs inside a WebContainer at all.
          */
         stackblitz: { startCommand: 'npm start' },

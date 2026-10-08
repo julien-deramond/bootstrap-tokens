@@ -40,6 +40,6 @@ body:
     id: version
     attributes:
       label: Version
-      description: Commit of this repo, and of the `twbs/bootstrap@v6-dev` checkout you built against.
+      description: Commit of this repo, and of the `twbs/bootstrap@main` checkout you built against.
     validations:
       required: false

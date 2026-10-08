@@ -16,12 +16,12 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Check out Bootstrap v6-dev
+      - name: Check out Bootstrap main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: twbs/bootstrap
-          ref: v6-dev
-          path: bootstrap-v6-dev
+          ref: main
+          path: bootstrap-main
 
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
@@ -37,11 +37,11 @@ jobs:
       # explicitly decided to ignore. Two token maps went missing for the life of the
       # project before this check existed.
       - name: Check coverage against upstream
-        run: node tools/cli.mjs sync --check --src "$GITHUB_WORKSPACE/bootstrap-v6-dev"
+        run: node tools/cli.mjs sync --check --src "$GITHUB_WORKSPACE/bootstrap-main"
 
       - run: npm test
         env:
-          BOOTSTRAP_SRC: ${{ github.workspace }}/bootstrap-v6-dev
+          BOOTSTRAP_SRC: ${{ github.workspace }}/bootstrap-main
 
       - name: Build
         run: node tools/cli.mjs build
@@ -63,7 +63,7 @@ jobs:
       # The point of the whole pipeline: our export must compile to the same CSS
       # as upstream's own entrypoint.
       - name: Verify byte-identical CSS
-        run: node tools/cli.mjs verify --src "$GITHUB_WORKSPACE/bootstrap-v6-dev"
+        run: node tools/cli.mjs verify --src "$GITHUB_WORKSPACE/bootstrap-main"
 
       # And the maintainer route must reach that same CSS by patching upstream's sources.
       - name: Verify the maintainer export
@@ -79,7 +79,7 @@ jobs:
             }
           }
           JSON
-          node tools/cli.mjs eject --theme /tmp/theme.json --src "$GITHUB_WORKSPACE/bootstrap-v6-dev" --verify
+          node tools/cli.mjs eject --theme /tmp/theme.json --src "$GITHUB_WORKSPACE/bootstrap-main" --verify
 
   # The Theme Builder is a static app that reads the built token document, so the deployable
   # site is just the repository's own shape with the unused parts left out. Gated on `check`:
@@ -108,12 +108,12 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Check out Bootstrap v6-dev
+      - name: Check out Bootstrap main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: twbs/bootstrap
-          ref: v6-dev
-          path: bootstrap-v6-dev
+          ref: main
+          path: bootstrap-main
 
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
@@ -127,7 +127,7 @@ jobs:
 
       # The preview iframe renders real Bootstrap markup against real Bootstrap CSS.
       - name: Compile the preview stylesheet
-        run: node tools/cli.mjs vendor --src "$GITHUB_WORKSPACE/bootstrap-v6-dev"
+        run: node tools/cli.mjs vendor --src "$GITHUB_WORKSPACE/bootstrap-main"
 
       - name: Assemble the site
         run: node tools/cli.mjs site
