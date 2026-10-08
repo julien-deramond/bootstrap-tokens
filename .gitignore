@@ -3,7 +3,7 @@ node_modules/
 .DS_Store
 
 # `bstokens eject` output — a per-run artifact, not a build product
-build/v6-dev/
+build/bootstrap-v6/
 
 # `bstokens probe` output — a browser harness, regenerated on demand
 build/probe.html

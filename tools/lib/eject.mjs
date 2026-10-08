@@ -1,5 +1,5 @@
 /**
- * The maintainer-facing export: rewrite `twbs/bootstrap@v6-dev`'s own Sass sources.
+ * The maintainer-facing export: rewrite `twbs/bootstrap@main`'s own Sass sources.
  *
  * A consumer wants `@use "bootstrap" with (…)`. A maintainer wants the opposite — the
  * project's own files, changed in place, so the result is a normal pull request. That rules

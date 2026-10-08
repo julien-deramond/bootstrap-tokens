@@ -3,7 +3,7 @@
  *
  * Two shapes come out of here:
  *   - a plain module of `$map: (...) !default;` declarations, readable and droppable into
- *     a `v6-dev` checkout as the generated source of its token maps;
+ *     a Bootstrap checkout as the generated source of its token maps;
  *   - a `@use "bootstrap" with (...)` configuration, which is how a real consumer applies
  *     a theme.
  *

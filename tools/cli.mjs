@@ -17,7 +17,7 @@ const COMMANDS = {
 
 const USAGE = `bstokens <command> [options]
 
-  sync       Re-extract tokens from a Bootstrap v6-dev checkout into tokens/
+  sync       Re-extract tokens from a Bootstrap main checkout into tokens/
              --src <path>   the checkout (else $BOOTSTRAP_SRC, else a sibling ../bootstrap)
              --check        report drift without writing, exit 1 if any
 
@@ -52,8 +52,8 @@ const USAGE = `bstokens <command> [options]
 
   eject      Write the tokens back into Bootstrap's own Sass sources, for maintainers
              --theme <f>    a theme.json exported from the chooser
-             --src <path>   the v6-dev checkout to patch
-             --out <dir>    where to write (default build/v6-dev)
+             --src <path>   the main checkout to patch
+             --out <dir>    where to write (default build/bootstrap-v6)
              --in-place     patch the checkout directly
              --verify       compile the patched sources and diff against the consumer route
 
@@ -70,7 +70,7 @@ const USAGE = `bstokens <command> [options]
                                             twbs/examples uses
              --name <n>     the project name
              --force        write into a non-empty directory
-             --bootstrap    the dependency spec (default: the v6-dev branch, since v6 is
+             --bootstrap    the dependency spec (default: the main branch, since v6 is
                             not yet on npm)
 
 Every command that takes --theme applies recorded renames first, then refuses to run if the

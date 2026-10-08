@@ -7,7 +7,7 @@ export const tokensDir = join(repoRoot, 'tokens')
 export const buildDir = join(repoRoot, 'build')
 
 /**
- * Where the Bootstrap v6-dev checkout lives. In order: `--src`, `$BOOTSTRAP_SRC`,
+ * Where the Bootstrap main checkout lives. In order: `--src`, `$BOOTSTRAP_SRC`,
  * `bootstrap-tokens.config.json`, then a few conventional sibling paths.
  */
 export function resolveBootstrapSource(explicit) {
@@ -25,10 +25,10 @@ export function resolveBootstrapSource(explicit) {
   }
 
   throw new Error(
-    'No Bootstrap v6-dev checkout found. Pass --src <path>, set BOOTSTRAP_SRC, or add\n' +
+    'No Bootstrap main checkout found. Pass --src <path>, set BOOTSTRAP_SRC, or add\n' +
       '  { "bootstrapSource": "<path>" }\n' +
       'to bootstrap-tokens.config.json. Clone it with:\n' +
-      '  git clone --depth 1 -b v6-dev https://github.com/twbs/bootstrap.git ../bootstrap'
+      '  git clone --depth 1 -b main https://github.com/twbs/bootstrap.git ../bootstrap'
   )
 }
 

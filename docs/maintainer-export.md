@@ -1,6 +1,6 @@
-# Exporting v6-dev's own sources
+# Exporting Bootstrap's own sources
 
-`bstokens eject` writes the token document back into `twbs/bootstrap@v6-dev`'s Sass files, so
+`bstokens eject` writes the token document back into `twbs/bootstrap@main`'s Sass files, so
 a maintainer can pick values in the chooser and end up with an ordinary pull request.
 
 ```bash
@@ -9,7 +9,7 @@ npx bstokens eject --theme theme.json --src ../bootstrap --in-place
 npx bstokens eject --theme theme.json --src ../bootstrap --verify
 ```
 
-`--in-place` patches the checkout. Without it the patched files land in `build/v6-dev/`,
+`--in-place` patches the checkout. Without it the patched files land in `build/bootstrap-v6/`,
 mirroring `scss/`, ready to copy across.
 
 ## Why it patches instead of regenerating

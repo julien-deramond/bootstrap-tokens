@@ -6,10 +6,10 @@ Every command is also available as an npm script in this repository (`npm run bu
 ## Pointing at a Bootstrap checkout
 
 Bootstrap 6 is not on npm yet, so the commands that read or compile upstream Sass — `sync`,
-`verify`, `vendor`, `eject` — need a `v6-dev` checkout:
+`verify`, `vendor`, `eject` — need a `main` checkout:
 
 ```bash
-git clone --depth 1 -b v6-dev https://github.com/twbs/bootstrap.git ../bootstrap
+git clone --depth 1 -b main https://github.com/twbs/bootstrap.git ../bootstrap
 ```
 
 They look for it in this order: `--src <path>`, `$BOOTSTRAP_SRC`, a `bootstrapSource` entry
@@ -20,7 +20,7 @@ in `bootstrap-tokens.config.json`, then the conventional siblings `../bootstrap`
 
 | Command | What it does |
 | --- | --- |
-| `sync` | Re-extract tokens from a `v6-dev` checkout into `tokens/` |
+| `sync` | Re-extract tokens from a `main` checkout into `tokens/` |
 | `validate` | Check references, cycles, layer direction and DTCG shape |
 | `build` | Emit Sass, CSS, JSON, TypeScript, Style Dictionary and Figma into `build/` |
 | `verify` | Compile upstream and our export, and diff the CSS |
@@ -29,7 +29,7 @@ in `bootstrap-tokens.config.json`, then the conventional siblings `../bootstrap`
 | `vendor` | Compile upstream Bootstrap into `web/vendor/bootstrap.css` for the Theme Builder |
 | `import` | Read an existing `custom.scss` back into a `theme.json` |
 | `init` | Scaffold a project that compiles a theme |
-| `eject` | Write the tokens into `v6-dev`'s own Sass sources (maintainers) |
+| `eject` | Write the tokens into Bootstrap's own Sass sources (maintainers) |
 
 ### `sync` — track upstream
 
@@ -43,7 +43,7 @@ upstream offers that the document neither models nor explicitly ignores. The sec
 one that matters — two token maps went missing for the life of the project before that check
 existed.
 
-A nightly workflow runs it and opens an issue when `v6-dev` moves.
+A nightly workflow runs it and opens an issue when `main` moves.
 
 ### `validate` — check the document
 
@@ -99,7 +99,7 @@ dependencies and scripts, a page that uses the result, and the `theme.json` so y
 it in the Theme Builder later. It also gets `npm run verify`, which compiles the theme against
 the Bootstrap you installed and compares the result with what you previewed.
 
-Because v6 is not on npm, the scaffold depends on the `v6-dev` branch — named as a tarball URL
+Because v6 is not on npm, the scaffold depends on the `main` branch — named as a tarball URL
 rather than a `github:` spec, because the `github:` form makes npm shell out to `git`, which is
 not present everywhere a project gets installed (a browser sandbox, most containers). Both
 resolve the same branch, and it installs cleanly either way: upstream ships `scss/**` and a

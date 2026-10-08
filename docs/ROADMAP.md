@@ -9,7 +9,7 @@ Status legend: ✅ done · 🚧 in progress · ⬜ not started
 
 ## Phase 0 — Knowledge base ✅
 
-* ✅ Read `twbs/bootstrap@v6-dev` Sass source end to end; record the real architecture in
+* ✅ Read `twbs/bootstrap@main` Sass source end to end; record the real architecture in
   [`bootstrap-v6-architecture.md`](./bootstrap-v6-architecture.md).
 * ✅ Decide the DTCG mapping and write down every deviation
   ([`dtcg-conventions.md`](./dtcg-conventions.md)).
@@ -19,7 +19,7 @@ Status legend: ✅ done · 🚧 in progress · ⬜ not started
 
 * ✅ Sass map parser (`tools/lib/sass-parser.mjs`) — paren/quote/interpolation aware,
   handles nested maps.
-* ✅ Extractor `bstokens sync` — reads a `v6-dev` checkout, produces the DTCG tree, and
+* ✅ Extractor `bstokens sync` — reads a `main` checkout, produces the DTCG tree, and
   **diffs** it against `tokens/` so upstream drift is visible.
 * ✅ Primitive layer: colors + tint/shade recipe, spacing, radii, borders, typography,
   layout, z-index, opacity, motion.
@@ -31,11 +31,11 @@ Status legend: ✅ done · 🚧 in progress · ⬜ not started
 ## Phase 2 — Sass export ✅
 
 Two routes out, checked against each other by `verify` and `eject --verify`:
-consumer (`@use … with ()`) and maintainer (patched v6-dev sources).
+consumer (`@use … with ()`) and maintainer (patched Bootstrap sources).
 
 
 * ✅ `bstokens build` emits:
-  * `build/scss/_tokens.scss` — every map, drop-in for `v6-dev`.
+  * `build/scss/_tokens.scss` — every map, drop-in for Bootstrap 6.
   * `build/scss/_overrides.scss` — only the tokens that differ from upstream defaults,
     shaped as `@use "bootstrap/scss/bootstrap" with (…)`.
   * `build/css/tokens.css` — the flat custom-property surface.
@@ -85,7 +85,7 @@ A static page with no build step and no dependencies. `npm run web`.
 * ✅ Export: `custom.scss` (only the keys you touched), runtime `theme.css`, and a
   `theme.json` that imports back into the chooser — each with its own "what to do next".
   Edits persist in `localStorage`.
-* ✅ Maintainer export: `bstokens eject` patches v6-dev's own Sass sources in place, and the
+* ✅ Maintainer export: `bstokens eject` patches Bootstrap's own Sass sources in place, and the
   chooser's fourth export tab shows exactly which declarations will change.
   See [`maintainer-export.md`](./maintainer-export.md).
 * ✅ Share-by-URL: the whole theme packed into the fragment with the platform's own
@@ -108,7 +108,7 @@ A static page with no build step and no dependencies. `npm run web`.
 ## Phase 4 — Upstream-facing polish 🚧
 
 * ✅ CI: validate, test, build-is-current and `verify` on every push; a nightly
-  `sync --check` against `v6-dev` that opens an issue on drift.
+  `sync --check` against `main` that opens an issue on drift.
 * ✅ npm package shape: an explicit `exports` map over `tokens/`, `build/scss/`,
   `build/css/`, `build/json/`, `build/ts/`, `build/style-dictionary/` and `build/figma/`,
   plus `bstokens init`, which scaffolds a project that compiles *and* can verify its own

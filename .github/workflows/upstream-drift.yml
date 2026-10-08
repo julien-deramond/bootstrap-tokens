@@ -1,6 +1,6 @@
 name: Upstream drift
 
-# twbs/bootstrap@v6-dev is a moving alpha. Re-extract nightly and open an issue when the
+# twbs/bootstrap@main is a moving alpha. Re-extract nightly and open an issue when the
 # committed token document no longer matches it, rather than discovering it months later.
 #
 # The issue is a latch on one condition, so it has to clear itself too: the same check that
@@ -34,12 +34,12 @@ jobs:
     steps:
       - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
 
-      - name: Check out Bootstrap v6-dev
+      - name: Check out Bootstrap main
         uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
         with:
           repository: twbs/bootstrap
-          ref: v6-dev
-          path: bootstrap-v6-dev
+          ref: main
+          path: bootstrap-main
 
       - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
         with:
@@ -52,7 +52,7 @@ jobs:
         id: drift
         run: |
           set +e
-          node tools/cli.mjs sync --check --src "$GITHUB_WORKSPACE/bootstrap-v6-dev" > drift.txt 2>&1
+          node tools/cli.mjs sync --check --src "$GITHUB_WORKSPACE/bootstrap-main" > drift.txt 2>&1
           echo "status=$?" >> "$GITHUB_OUTPUT"
           cat drift.txt
 
@@ -85,7 +85,7 @@ jobs:
                   repo,
                   issue_number: issue.number,
                   body: [
-                    `Resolved at ${sha}: \`tokens/\` matches \`twbs/bootstrap@v6-dev\` again.`,
+                    `Resolved at ${sha}: \`tokens/\` matches \`twbs/bootstrap@main\` again.`,
                     '',
                     '```',
                     report,
@@ -104,7 +104,7 @@ jobs:
             }
 
             const body = [
-              'The token document no longer matches `twbs/bootstrap@v6-dev`.',
+              'The token document no longer matches `twbs/bootstrap@main`.',
               '',
               'Run `npm run sync`, review the diff, then `npm run build` and `npm run verify`.',
               '',

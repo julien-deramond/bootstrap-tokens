@@ -1,7 +1,7 @@
 /**
  * `bstokens eject` — write the token document back into Bootstrap's own Sass sources.
  *
- * The output is a v6-dev working tree with the maintainer's values in it, ready to compile
+ * The output is a Bootstrap working tree with the maintainer's values in it, ready to compile
  * and ready to review as a normal diff.
  */
 
@@ -49,7 +49,7 @@ export async function eject({ flags }) {
 
   if (flags.verify) return verifyPatched(source, patched, doc, overrides)
 
-  const target = flags['in-place'] ? source : (flags.out ?? join(buildDir, 'v6-dev'))
+  const target = flags['in-place'] ? source : (flags.out ?? join(buildDir, 'bootstrap-v6'))
   for (const [file, text] of patched) {
     const path = join(target, file)
     mkdirSync(dirname(path), { recursive: true })

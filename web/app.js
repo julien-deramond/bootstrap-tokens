@@ -2064,7 +2064,7 @@ function exportContent() {
   return {
     filename: 'eject.txt',
     note:
-      'For Bootstrap maintainers: this writes the values into v6-dev’s own Sass files, so the ' +
+      'For Bootstrap maintainers: this writes the values into Bootstrap’s own Sass files, so the ' +
       'result is an ordinary pull request rather than a consumer override.',
     text: maintainerExport(version)
   }
@@ -2090,7 +2090,7 @@ function maintainerExport(version) {
     '',
     '    npx bstokens eject --theme theme.json --src ../bootstrap --verify',
     '',
-    '# Drop --in-place to write to build/v6-dev instead of touching the checkout.',
+    '# Drop --in-place to write to build/bootstrap-v6 instead of touching the checkout.',
     ''
   ]
 
