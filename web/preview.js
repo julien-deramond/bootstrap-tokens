@@ -550,12 +550,14 @@ const EMPTY_MARKUP = `
 /** Set by the chooser. Sanitised once per change rather than once per artboard. */
 let markup = ''
 
-const SCENARIOS = {
-  components: (uid) => componentGallery(uid),
-  page: (uid) => section('page', 'A page', page(uid)),
-  states: (uid) => section('states', 'Every state', states(uid)),
-  yours: () => section('yours', 'Your markup', markup || EMPTY_MARKUP)
-}
+/* A Map rather than an object literal, so a scenario name that arrives in a message can only
+   ever pick one of these four — never `constructor` or anything else an object inherits. */
+const SCENARIOS = new Map([
+  ['components', (uid) => componentGallery(uid)],
+  ['page', (uid) => section('page', 'A page', page(uid))],
+  ['states', (uid) => section('states', 'Every state', states(uid))],
+  ['yours', () => section('yours', 'Your markup', markup || EMPTY_MARKUP)]
+])
 
 const componentGallery = (uid) =>
   [
@@ -574,7 +576,7 @@ const componentGallery = (uid) =>
 /** What the artboards render. Set by the chooser; components unless told otherwise. */
 let scenario = 'components'
 
-const sample = (uid) => (SCENARIOS[scenario] ?? SCENARIOS.components)(uid)
+const sample = (uid) => (SCENARIOS.get(scenario) ?? SCENARIOS.get('components'))(uid)
 
 /* -------------------------------------------------------------------------- */
 
@@ -582,6 +584,12 @@ const root = document.getElementById('preview-root')
 const overrides = document.getElementById('token-overrides')
 
 let mode = 'light'
+
+/* What the chooser may ask for. Everything a message carries ends up in markup, so a value
+   is checked against what this file knows how to draw before it is used. */
+const SCHEMES = new Set(['light', 'dark'])
+const MODES = new Set([...SCHEMES, 'split', 'compare'])
+const HUE_NAME = /^[a-z][a-z0-9-]*$/
 
 /** One framed, labeled artboard. `variant` marks the themed side of a comparison. */
 /** Which simulated vision the artboards are drawn through. `normal` means no filter. */
@@ -664,10 +672,17 @@ function syncScrolling() {
 }
 
 window.addEventListener('message', (event) => {
+  // Only the chooser that framed this page drives it.
+  if (event.source !== parent || event.origin !== location.origin) return
+
   const message = event.data
   if (!message || typeof message !== 'object') return
 
-  if (Array.isArray(message.hues) && message.hues.join() !== HUES.join()) {
+  if (
+    Array.isArray(message.hues) &&
+    message.hues.every((hue) => typeof hue === 'string' && HUE_NAME.test(hue)) &&
+    message.hues.join() !== HUES.join()
+  ) {
     HUES = message.hues
     render()
   }
@@ -682,7 +697,7 @@ window.addEventListener('message', (event) => {
     }
   }
 
-  if (message.scenario && message.scenario !== scenario && SCENARIOS[message.scenario]) {
+  if (SCENARIOS.has(message.scenario) && message.scenario !== scenario) {
     scenario = message.scenario
     render()
   }
@@ -694,12 +709,12 @@ window.addEventListener('message', (event) => {
 
   if (typeof message.css === 'string') overrides.textContent = message.css
 
-  if (message.compareScheme && message.compareScheme !== compareScheme) {
+  if (SCHEMES.has(message.compareScheme) && message.compareScheme !== compareScheme) {
     compareScheme = message.compareScheme
     if (mode === 'compare') render()
   }
 
-  if (message.scheme && message.scheme !== mode) {
+  if (MODES.has(message.scheme) && message.scheme !== mode) {
     mode = message.scheme
     render()
   }
@@ -708,4 +723,4 @@ window.addEventListener('message', (event) => {
 })
 
 render()
-parent.postMessage({ ready: true }, '*')
+parent.postMessage({ ready: true }, '/')

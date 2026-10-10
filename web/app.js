@@ -1987,7 +1987,8 @@ function recompute() {
 
 function postToPreview(message) {
   const frame = $('#preview')
-  if (state.previewReady && frame.contentWindow) frame.contentWindow.postMessage(message, '*')
+  // Same origin only: the message carries the visitor's pasted markup and theme.
+  if (state.previewReady && frame.contentWindow) frame.contentWindow.postMessage(message, '/')
 }
 
 /* ------------------------------------------------------------------ export */
@@ -2700,7 +2701,7 @@ function markPreviewReady() {
 }
 
 window.addEventListener('message', (event) => {
-  if (event.data?.ready) markPreviewReady()
+  if (event.source === $('#preview').contentWindow && event.data?.ready) markPreviewReady()
 })
 
 const frame = document.getElementById('preview')
