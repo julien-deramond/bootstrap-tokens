@@ -213,6 +213,8 @@ function reportMovedTokens(files) {
 /** Merge extracted file trees into one, without the duplicate checking the loader does. */
 function mergeShallow(target, source) {
   for (const [key, value] of Object.entries(source)) {
+    // Never a token name, and assigning through one would write onto Object.prototype.
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') continue
     if (value && typeof value === 'object' && value.$value === undefined && target[key]) {
       mergeShallow(target[key], value)
     } else {

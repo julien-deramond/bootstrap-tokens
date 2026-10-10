@@ -1,5 +1,8 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
+import { mkdtempSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
+import { join } from 'node:path'
 
 import { ext, walk } from '../lib/tokens.mjs'
 import { loadTokens } from '../lib/load-fs.mjs'
@@ -85,4 +88,14 @@ test('composite types are used where the value permits', () => {
   assert.equal(doc.tokens.get('decoration.gradient').$type, 'gradient')
   assert.equal(doc.tokens.get('border.body').$type, 'color')
   assert.equal(doc.tokens.get('border.width').$type, 'dimension')
+})
+
+test('a token file cannot write through __proto__', () => {
+  const dir = mkdtempSync(join(tmpdir(), 'bstokens-proto-'))
+  writeFileSync(
+    join(dir, 'hostile.json'),
+    '{ "__proto__": { "polluted": { "$type": "color", "$value": "#000" } } }'
+  )
+  assert.throws(() => loadTokens(dir), /not a usable token or group name/)
+  assert.equal({}.polluted, undefined)
 })

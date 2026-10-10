@@ -31,6 +31,12 @@ function mergeTree(target, source, origin, at = '') {
   for (const [key, value] of Object.entries(source)) {
     const path = at ? `${at}.${key}` : key
 
+    // `JSON.parse` keeps `__proto__` as an ordinary key, and assigning through it would write
+    // onto Object.prototype instead of into the tree. No token or group is called any of these.
+    if (key === '__proto__' || key === 'constructor' || key === 'prototype') {
+      throw new Error(`${origin}: "${path}" is not a usable token or group name`)
+    }
+
     if (key.startsWith('$')) {
       target[key] = value
       continue
