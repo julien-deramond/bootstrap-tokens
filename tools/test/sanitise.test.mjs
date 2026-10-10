@@ -12,13 +12,14 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 import { spawnSync } from 'node:child_process'
-import { mkdtempSync } from 'node:fs'
+import { mkdtempSync, readFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 
 import { probe } from '../commands/probe.mjs'
 import { findChrome } from '../lib/chrome.mjs'
+import { repoRoot } from '../lib/config.mjs'
 
 let chrome = null
 try {
@@ -48,4 +49,20 @@ test('the pasted-markup sanitiser defeats known-hostile input in a real browser'
     const report = /<div id="sanitiser-report">([\s\S]*?)<\/div>\s*<div id="stage">/.exec(dom)
     assert.fail(`${message}\n${report?.[1] ?? '(no detail)'}`)
   }
+})
+
+/*
+ * The second layer: whatever the sanitiser misses still finds no inline script to run, as long
+ * as the preview keeps its policy and keeps every script of its own in a file.
+ */
+test('the preview refuses inline script', () => {
+  const html = readFileSync(join(repoRoot, 'web', 'preview.html'), 'utf8')
+  const policy = /<meta http-equiv="Content-Security-Policy" content="([^"]*)"/.exec(html)?.[1]
+  assert.ok(policy, 'web/preview.html has no Content-Security-Policy meta')
+
+  const scriptSrc = policy.split(';').map((part) => part.trim()).find((part) => part.startsWith('script-src '))
+  assert.equal(scriptSrc, "script-src 'self'")
+
+  // A script element without `src` would be refused by that policy and break the preview.
+  assert.deepEqual(html.match(/<script(?![^>]*\ssrc=)[^>]*>/g) ?? [], [])
 })

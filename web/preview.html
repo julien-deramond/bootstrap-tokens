@@ -3,6 +3,12 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!--
+      No inline script, ever. Pasted markup is cleaned before it gets here (`sanitise.mjs`);
+      this is the second layer, so an event handler or a `javascript:` URL that slips past the
+      cleaning still has nothing to run with. Styles stay open: themes arrive as inline CSS.
+    -->
+    <meta http-equiv="Content-Security-Policy" content="script-src 'self'; object-src 'none'; base-uri 'none'" />
     <title>Preview</title>
     <link rel="stylesheet" href="./vendor/bootstrap.css" />
     <!-- @font-face rules only, for the canvas labels; nothing here can reach Bootstrap. -->
