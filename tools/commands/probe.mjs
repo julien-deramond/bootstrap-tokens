@@ -68,6 +68,12 @@ const HOSTILE_MARKUP = [
   ['an SVG use with a javascript: href', '<svg><use href="javascript:window.__probePwned = true"></use></svg>'],
   ['a javascript: href with leading whitespace and mixed case', '<a href="  JaVaScRiPt:window.__probePwned = true">link</a>'],
   ['an uppercase event-handler attribute', '<div ONCLICK="window.__probePwned = true">text</div>'],
+  ['a javascript: href with a tab inside the scheme', '<a href="java&#9;script:window.__probePwned = true">link</a>'],
+  ['a javascript: href behind a leading control character', '<a href="&#1;javascript:window.__probePwned = true">link</a>'],
+  ['a javascript: formaction', '<form><button formaction="javascript:window.__probePwned = true">go</button></form>'],
+  ['an SVG animate that writes a javascript: href', '<svg><a><animate attributeName="href" values="javascript:window.__probePwned = true"></animate><text>link</text></a></svg>'],
+  ['an SVG set that writes a javascript: href', '<svg><a><set attributeName="xlink:href" to="javascript:window.__probePwned = true"></set><text>link</text></a></svg>'],
+  ['markup that only turns hostile when it is parsed a second time', '<form><math><mtext></form><form><mglyph><style></math><img src onerror="window.__probePwned = true">'],
   ['an iframe', '<iframe src="https://example.invalid"></iframe>'],
   ['a meta refresh', '<meta http-equiv="refresh" content="0;url=https://example.invalid">']
 ]
@@ -227,12 +233,11 @@ for (const [name, markup] of hostileMarkup) {
     .find((attribute) => attribute.name.toLowerCase().startsWith('on'))
   const survivingUrl = [...parsed.querySelectorAll('*')]
     .flatMap((element) => [...element.attributes])
-    .find((attribute) =>
-      ['href', 'src', 'xlink:href', 'action'].includes(attribute.name.toLowerCase()) &&
-      /^\\s*javascript:/i.test(attribute.value)
-    )
+    .find((attribute) => URL_ATTRIBUTES.has(attribute.name.toLowerCase()) && isScriptUrl(attribute.value))
+  const survivingAnimation = [...parsed.querySelectorAll('animate, set')]
+    .find((element) => /href$/i.test(element.getAttribute('attributeName') ?? ''))
 
-  if (survivingElement || survivingHandler || survivingUrl) {
+  if (survivingElement || survivingHandler || survivingUrl || survivingAnimation) {
     sanitiserFailures.push({
       name,
       markup,
@@ -241,7 +246,9 @@ for (const [name, markup] of hostileMarkup) {
         ? \`a <\${survivingElement.tagName.toLowerCase()}> survived\`
         : survivingHandler
           ? \`\${survivingHandler.name} survived\`
-          : \`\${survivingUrl.name}="\${survivingUrl.value}" survived\`
+          : survivingUrl
+            ? \`\${survivingUrl.name}="\${survivingUrl.value}" survived\`
+            : \`an <\${survivingAnimation.localName}> writing \${survivingAnimation.getAttribute('attributeName')} survived\`
     })
   }
 }
