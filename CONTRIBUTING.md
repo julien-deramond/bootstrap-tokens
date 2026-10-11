@@ -25,6 +25,7 @@ npm test           # unit tests
 npm run build      # regenerate build/ and docs/token-inventory.md
 npm run verify     # our export compiles to the same CSS as upstream
 npm run web        # the Theme Builder, on http://localhost:4000
+npm run demo       # re-record media/theme-builder.gif, the README's motion demo
 ```
 
 ## Issues

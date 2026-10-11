@@ -21,11 +21,13 @@
     "web": "node web/dev-server.mjs",
     "site": "node tools/cli.mjs site",
     "og": "node web/og-capture.mjs",
+    "demo": "node web/demo-capture.mjs",
     "test": "node --test \"tools/test/**/*.test.mjs\"",
     "prepublishOnly": "npm run validate && npm run build && npm test",
     "probe": "node tools/cli.mjs probe"
   },
   "devDependencies": {
+    "playwright-core": "^1.63.0",
     "sass": "^1.105.0",
     "style-dictionary": "^5.5.5",
     "typescript": "^7.0.2"
