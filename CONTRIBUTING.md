@@ -36,14 +36,13 @@ are opened here with the `upstream` label, and a maintainer decides whether to
 carry them to `twbs/bootstrap`. Nobody files on another project's tracker on this project's
 behalf.
 
-Every issue carries a type label, plus `ai-submitted` when a machine opened it. Every open
-issue is available to pick up; there is no triage gate.
+Every issue carries a type label. Every open issue is available to pick up; there is no
+triage gate.
 
 
 | | Labels | Who sets them |
 | --- | --- | --- |
 | **What it is** | `bug`, `feature` or `enhancement`, plus `documentation` or `accessibility` where they apply | whoever opens it |
-| **Who opened it** | `ai-submitted` | the agent, on its own issues |
 | **Whose bug it is** | `upstream`, when the defect is in `twbs/bootstrap` rather than here | whoever opens it |
 | **Where it stands upstream** | exactly one of `upstream-found`, `upstream-raised`, `upstream-merged`, `upstream-declined` — on `upstream` issues only | `upstream-found` on open; only a maintainer moves it |
 
@@ -110,7 +109,7 @@ Read this as instructions, not as background.
 * **This repository only.** Never open an issue on `twbs/bootstrap`, however clearly the bug
   belongs to them. Open it here with the `upstream` label, say plainly that the fix belongs
   to Bootstrap, and let a human decide whether to carry it over.
-* **Label it `ai-submitted` and exactly one type label.** An `upstream` finding also gets
+* **Label it with exactly one type label.** An `upstream` finding also gets
   `upstream-found`; the later stage labels are a maintainer's to move.
 * **Write it for a person.** Prose a maintainer can read in a minute, not a transcript of how
   you arrived there. No invented certainty: if you did not compile it, say you did not.
@@ -126,7 +125,7 @@ Opening one:
 ```bash
 gh issue create \
   --title "sync --check misses variables declared inside @if" \
-  --label ai-submitted --label bug \
+  --label bug \
   --body-file /tmp/issue.md
 ```
 
@@ -159,7 +158,7 @@ body covers, in whatever order reads best:
 
 Review new issues as they arrive: decide each is real and make the body good enough to hand
 over. Closing with `wontfix`, `duplicate` or `invalid` is an outcome like any other, and an
-`ai-submitted` issue that is not worth keeping should be closed without ceremony.
+issue an agent opened that is not worth keeping should be closed without ceremony.
 
 ## Before opening a pull request
 
@@ -191,7 +190,7 @@ CI has a chance to fail before the Theme Builder redeploys.
   left out. A reviewer should not have to reconstruct your reasoning from the files.
   `Closes #42` if it finishes an issue, so the issue closes itself on merge.
 * **Labels:** the same type label as the issue it closes — `bug`, `feature`, `enhancement`,
-  `documentation`, `accessibility` — plus `ai-submitted` if an agent wrote it.
+  `documentation`, `accessibility`.
 
 Agents: open the pull request, then stop and ask the maintainer to review it. Never merge
 your own, never enable auto-merge, and never push to `main` directly.

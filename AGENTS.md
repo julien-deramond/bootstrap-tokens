@@ -22,7 +22,6 @@ set. The full lifecycle is in [`CONTRIBUTING.md`](CONTRIBUTING.md).
 
 Label every issue you open with:
 
-* `ai-submitted` — you opened it;
 * exactly one of `bug`, `feature` or `enhancement` (add `documentation` or `accessibility`
   when they apply);
 * `upstream` and `upstream-found`, when the defect is in `twbs/bootstrap` rather than here.
@@ -30,7 +29,7 @@ Label every issue you open with:
 ```bash
 gh issue create \
   --title "…" \
-  --label ai-submitted --label bug \
+  --label bug \
   --body-file <file>
 ```
 
@@ -58,14 +57,14 @@ request, then tell the maintainer it is ready and stop.
 
 ```bash
 git switch -c feat/short-name
-gh pr create --title "feat: …" --body-file <file> --label ai-submitted --label enhancement
+gh pr create --title "feat: …" --body-file <file> --label enhancement
 ```
 
 The description is for the person reviewing it: what changed and why, what it affects beyond
 the obvious, how you verified it, what you deliberately left out, and `Closes #N` when it
 finishes an issue. Prose, not a file-by-file list — the diff already says which files moved.
 
-Label it with the same type label as its issue plus `ai-submitted`. Never enable auto-merge.
+Label it with the same type label as its issue. Never enable auto-merge.
 
 ## Repository rules worth repeating
 
