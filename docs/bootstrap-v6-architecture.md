@@ -1,7 +1,7 @@
 # Bootstrap v6 token architecture (upstream knowledge base)
 
-> Source of truth: [`twbs/bootstrap@main`](https://github.com/twbs/bootstrap/tree/main),
-> version `6.0.0-alpha1`. Docs: <https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/customize/sass/>.
+> Source of truth: the released [`bootstrap@6.0.0-alpha.1`](https://www.npmjs.com/package/bootstrap/v/6.0.0-alpha.1),
+> built from the [`v6.0.0-alpha.1`](https://github.com/twbs/bootstrap/tree/v6.0.0-alpha.1) tag. Docs: <https://v6-dev--twbs-bootstrap.netlify.app/docs/6.0/customize/sass/>.
 >
 > This file records *what upstream does*, so the token definitions in `tokens/` can be
 > checked against it. It is descriptive, not aspirational.

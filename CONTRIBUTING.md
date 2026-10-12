@@ -1,19 +1,20 @@
 # Contributing
 
-Thanks for taking a look. This project tracks a moving target — `twbs/bootstrap@main` is an
-alpha — so bug reports about drift are as useful as pull requests.
+Thanks for taking a look. This project builds against a moving target: Bootstrap 6 is in alpha,
+and each new alpha can rename tokens. Bug reports about drift are as useful as pull requests.
 
 ## Getting set up
 
 ```bash
 git clone https://github.com/julien-deramond/bootstrap-tokens.git
 cd bootstrap-tokens
-npm install
-git clone --depth 1 -b main https://github.com/twbs/bootstrap.git ../bootstrap
+npm ci
 ```
 
-Bootstrap 6 is not on npm yet, so a `main` checkout is what the tooling reads. Point at one
-elsewhere with `--src <path>`, `$BOOTSTRAP_SRC`, or a `bootstrap-tokens.config.json`
+The tooling reads the Bootstrap release `package.json` pins (`bootstrap@6.0.0-alpha.1`), which
+`npm ci` installs into `node_modules/bootstrap`. CI uses the same one. To work against a
+Bootstrap checkout instead, for example `main` while preparing an upstream pull request with
+`eject`, pass `--src <path>`, set `$BOOTSTRAP_SRC`, or add a `bootstrap-tokens.config.json`
 containing `{ "bootstrapSource": "<path>" }`.
 
 Then:
@@ -58,15 +59,16 @@ repository and needs somewhere to point. Deciding whether the
 evidence is strong enough to raise with `twbs/bootstrap` is a maintainer's call; what happens after that is its own
 section below.
 
-The nightly drift latch opens and closes `upstream-drift` issues by itself against one
-condition. Despite the prefix, `upstream-drift` is not a
-stage label — those issues are about our copy of `tokens/`, not a finding about Bootstrap.
+The weekly next-release preview opens and closes `upstream-drift` issues by itself against one
+condition: whether `twbs/bootstrap@main` still gives the same result as the pinned release. Despite the prefix, `upstream-drift` is not a
+stage label — those issues are advance notice for the next Bootstrap bump, not a finding about Bootstrap.
 
 ### The life of an `upstream` finding
 
 An `upstream` issue outlives the fix it asks for, so it closes on *our* state rather than on
 Bootstrap's. Merging a patch there changes nothing here on its own: `tokens/` is generated
-from `twbs/bootstrap@main` and only moves when someone re-runs the sync, so until then the
+from the pinned Bootstrap release and only moves when a release carrying the fix is out and
+someone bumps the version and re-runs the sync, so until then the
 document still mirrors the broken value and the lint rule, `NOT_TOKENS` entry or exporter
 skip that copes with it is still in the tree — usually with the issue number written into it,
 the way [`tools/lib/flatten.mjs`](tools/lib/flatten.mjs) names #14 in the reason it gives for
@@ -85,9 +87,9 @@ or closed, so the label alone says where a finding got to.
 3. **Merged there** — `upstream-merged`. A maintainer swaps `upstream-raised` for
    `upstream-merged` and comments the merge; the issue is waiting on our re-sync, not on
    Bootstrap, and is available again. Beyond that,
-   nothing here happens automatically. The nightly drift latch notices that `tokens/` no
-   longer matches upstream and opens an `upstream-drift` issue; re-syncing is ordinary work
-   from there.
+   nothing here happens automatically. The weekly next-release preview notices that `main`
+   no longer matches the pinned release and opens an `upstream-drift` issue. The re-sync
+   itself waits for the release that carries the fix, and is ordinary work from there.
 4. **Cleared here.** Re-sync `tokens/`, remove whatever existed only because of the defect,
    and rebuild. A guard worth keeping on its own merits — the `color-mix()` weight rule
    catches any bare weight, not only the four in `_navbar.scss` — stays, but the issue number
@@ -198,8 +200,10 @@ your own, never enable auto-merge, and never push to `main` directly.
 
 ## What tends to need doing
 
-* **Upstream drift.** `npm run sync -- --check` reports it; a nightly workflow opens an issue
-  when `main` moves. Re-syncing, reviewing the diff and rebuilding is the routine.
+* **A new Bootstrap release.** Dependabot opens a pull request that bumps `bootstrap` on its
+  own. CI's `sync --check` stays red on it until `npm run sync && npm run build` is committed on
+  top: re-syncing, reviewing the diff and rebuilding is the routine. The weekly preview issue
+  (`upstream-drift`) says ahead of time what that bump will bring.
 * **Unmodeled surface.** `sync --check` also fails when upstream offers a configurable
   variable the document neither models nor lists in `NOT_TOKENS` with a reason.
 * **Findings about upstream.** If the pipeline surfaces a real Bootstrap bug, open an issue

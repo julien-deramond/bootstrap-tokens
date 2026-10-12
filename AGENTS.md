@@ -72,4 +72,7 @@ Label it with the same type label as its issue. Never enable auto-merge.
   `npm run build` and commit the result, or CI fails.
 * `tokens/` is generated from upstream. Fix the extractor in `tools/lib/`, never the output.
 * No runtime dependencies. `sass` and `style-dictionary` stay dev-only.
-* Before pushing: `npm run validate && npm test && npm run build && npm run verify`.
+* `tokens/` is extracted from the Bootstrap release `package.json` pins, installed by `npm ci`
+  into `node_modules/bootstrap`. No Bootstrap checkout is needed, and none is picked up unless
+  you pass `--src` or set `BOOTSTRAP_SRC`; a `main` checkout is for `eject` only.
+* Before pushing: `npm ci && npm run validate && npm test && npm run build && npm run verify`.
