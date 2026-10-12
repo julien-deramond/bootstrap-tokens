@@ -1,14 +1,10 @@
-<p align="center"><picture><source srcset=".github/header.svg" type="image/svg+xml"><img src=".github/header.png" width="830" alt="Bootstrap Tokens: Bootstrap as portable design tokens, and a theme builder that writes them."></picture></p>
+<h1 align="center"><picture><source media="(prefers-color-scheme: dark)" srcset=".github/logo-title-dark.svg"><source media="(prefers-color-scheme: light)" srcset=".github/logo-title-light.svg"><img src=".github/logo-title-light.png" width="527" alt="Bootstrap Tokens"></picture></h1>
 
-<h3 align="center">bootstrap-tokens</h3>
+<p align="center">Bootstrap 6's design system as portable design tokens — and a visual theme builder that writes them.</p>
+
+<p align="center"><a href="https://julien-deramond.github.io/bootstrap-tokens/"><strong>Open the Theme Builder »</strong></a></p>
 
 <p align="center">
-  Bootstrap 6's design system as portable design tokens — and a visual theme builder that
-  writes them.
-  <br>
-  <a href="https://julien-deramond.github.io/bootstrap-tokens/"><strong>Open the Theme Builder »</strong></a>
-  <br>
-  <br>
   <a href="#quick-start">Quick start</a>
   ·
   <a href="docs/theme-builder.md">Theme Builder</a>
@@ -21,9 +17,7 @@
 </p>
 
 <p align="center">
-  <a href="https://github.com/julien-deramond/bootstrap-tokens/actions/workflows/ci.yml"><img src="https://img.shields.io/github/actions/workflow/status/julien-deramond/bootstrap-tokens/ci.yml?branch=main&style=flat&label=CI&labelColor=16181E&color=3AB9BF" alt="CI status"></a>
-  <a href="https://julien-deramond.github.io/bootstrap-tokens/"><img src="https://img.shields.io/badge/theme%20builder-live-3AB9BF?style=flat&labelColor=16181E" alt="Theme Builder, live"></a>
-  <a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-2D7579?style=flat&labelColor=16181E" alt="MIT license"></a>
+  <a href="LICENSE"><img src="https://img.shields.io/github/license/julien-deramond/bootstrap-tokens?style=flat&labelColor=16181E&color=2D7579" alt="Licence: MIT"></a>
 </p>
 
 <p align="center">
