@@ -1,0 +1,182 @@
+name: Next release preview
+
+# Everything else in this repository builds against the Bootstrap release package.json pins.
+# This job looks one step ahead: once a week it runs the same checks against twbs/bootstrap@main,
+# so a change upstream that will break the tokens, the export or the maintainer route is known
+# before the next alpha ships rather than on the day of the bump.
+#
+# It is advance notice, never a gate. It does not run on pull requests, and a difference does
+# not fail the job: it keeps one issue, labelled `upstream-drift`, open and up to date while
+# main differs from the release, and closes it once they agree again.
+#
+# The issue is a latch on one condition, so it has to clear itself too: the same check that
+# opens it closes it, and it runs again as soon as a sync lands on main that could resolve it.
+#
+# Delete this file to stop the preview; nothing else depends on it.
+on:
+  schedule:
+    - cron: '17 5 * * 1'
+  push:
+    branches: [main]
+    paths:
+      - 'tokens/**'
+      - '.github/workflows/next-release-preview.yml'
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  issues: write
+
+# A push and the weekly run can otherwise reconcile the same issue at once, and the loser
+# comments on an issue the winner has already closed. Never cancel: a half-run leaves the
+# issue reflecting a check that did not finish.
+concurrency:
+  group: next-release-preview
+  cancel-in-progress: false
+
+jobs:
+  preview:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Check out Bootstrap main
+        uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          repository: twbs/bootstrap
+          ref: main
+          path: bootstrap-main
+
+      - uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - run: npm ci
+
+      # The three checks CI runs against the release, here against main. Each one runs whatever
+      # the others found, and none of them fails the job: the issue below is the only output.
+      - name: Check main against the release
+        id: preview
+        run: |
+          set +e
+          main="$GITHUB_WORKSPACE/bootstrap-main"
+
+          cat > /tmp/theme.json <<'JSON'
+          {
+            "format": "bootstrap-tokens-theme@1",
+            "overrides": {
+              "color.blue.base": { "value": "oklch(58% 0.19 28)" },
+              "spacing.base": { "value": "1.25rem" },
+              "alert.border-radius": { "value": "{radius.9}" },
+              "theme-color.warning.fg": { "value": "{color.amber.700}", "dark": "{color.amber.300}" }
+            }
+          }
+          JSON
+
+          failed=0
+          run() {
+            local title="$1"; shift
+            local status
+            {
+              printf '## %s\n\n```\n' "$title"
+              "$@" 2>&1
+              status=$?
+              printf '```\n\n'
+            } >> preview.md
+            if [ $status -ne 0 ]; then
+              failed=1
+              echo "::warning::$title differs on main (exit $status)"
+            fi
+          }
+
+          run 'Tokens (sync --check)' node tools/cli.mjs sync --check --src "$main"
+          run 'Byte-identical CSS (verify)' node tools/cli.mjs verify --src "$main"
+          run 'Maintainer export (eject --verify)' node tools/cli.mjs eject --theme /tmp/theme.json --src "$main" --verify
+
+          {
+            echo "commit=$(git -C "$main" rev-parse HEAD)"
+            echo "differs=$failed"
+          } >> "$GITHUB_OUTPUT"
+          cat preview.md
+
+      # Open, update and close all hang off the same lookup, so the issue can only ever
+      # say what this run found.
+      - name: Reconcile the preview issue
+        uses: actions/github-script@3a2844b7e9c422d3c10d287c895573f7108da1b3 # v9.0.0
+        env:
+          DIFFERS: ${{ steps.preview.outputs.differs }}
+          MAIN_COMMIT: ${{ steps.preview.outputs.commit }}
+        with:
+          script: |
+            const fs = require('fs')
+            const pinned = JSON.parse(fs.readFileSync('package.json', 'utf8')).devDependencies.bootstrap
+            const clean = process.env.DIFFERS === '0'
+            const main = (process.env.MAIN_COMMIT || '').slice(0, 8)
+            const owner = context.repo.owner
+            const repo = context.repo.repo
+            const title = `Next release preview: main differs from ${pinned}`
+
+            // An issue body holds 65,536 characters; a large verify diff can run past that.
+            const limit = 60000
+            let report = fs.readFileSync('preview.md', 'utf8').trim()
+            if (report.length > limit) {
+              report = `${report.slice(0, limit)}\n\`\`\`\n\n…cut here. The full report is in the run's log.`
+            }
+            const run = `${context.serverUrl}/${owner}/${repo}/actions/runs/${context.runId}`
+
+            const { data: open } = await github.rest.issues.listForRepo({
+              owner,
+              repo,
+              state: 'open',
+              labels: 'upstream-drift'
+            })
+
+            if (clean) {
+              // Nothing to say when nothing was open: a clean week should be silent.
+              for (const issue of open) {
+                await github.rest.issues.createComment({
+                  owner,
+                  repo,
+                  issue_number: issue.number,
+                  body: `\`twbs/bootstrap@main\` (${main}) agrees with ${pinned} again, as of [this run](${run}).`
+                })
+                await github.rest.issues.update({
+                  owner,
+                  repo,
+                  issue_number: issue.number,
+                  state: 'closed',
+                  state_reason: 'completed'
+                })
+              }
+              return
+            }
+
+            const body = [
+              `\`twbs/bootstrap@main\` (${main}) no longer gives the same result as the release this repository builds against, Bootstrap ${pinned}.`,
+              '',
+              'This is advance notice, not a failure: nothing here changes until the next alpha is out. When it is, bump `bootstrap` in `package.json` (Dependabot opens that pull request), then run `npm run sync`, review the diff, and `npm run build` and `npm run verify`. What the bump will have to deal with is below.',
+              '',
+              `Last checked by [this run](${run}).`,
+              '',
+              report
+            ].join('\n')
+
+            if (open.length > 0) {
+              await github.rest.issues.update({
+                owner,
+                repo,
+                issue_number: open[0].number,
+                title,
+                body
+              })
+              return
+            }
+
+            await github.rest.issues.create({
+              owner,
+              repo,
+              title,
+              body,
+              labels: ['upstream-drift']
+            })
