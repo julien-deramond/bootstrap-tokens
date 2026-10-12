@@ -4,7 +4,7 @@
  */
 @charset "UTF-8";
 /*!
-  * Bootstrap  v6.0.0-alpha1 (https://getbootstrap.com/)
+  * Bootstrap  v6.0.0-alpha.1 (https://getbootstrap.com/)
   * Copyright 2011-2026 The Bootstrap Authors
   * Licensed under MIT (https://github.com/twbs/bootstrap/blob/main/LICENSE)
   */
@@ -978,6 +978,20 @@
   .table-hover > tbody > tr:hover > * {
     --table-color-state: var(--theme-fg, var(--table-hover-color));
     --table-bg-state: color-mix(in srgb, var(--theme-fg, var(--table-color)) var(--table-hover-bg-factor), transparent);
+  }
+  .table-card {
+    margin-bottom: var(--spacer);
+    overflow: hidden;
+    border: var(--border-width) solid var(--border-color-translucent);
+    border-radius: var(--radius-7);
+  }
+  .table-card > .table,
+  .table-card > [class*=table-responsive] > .table {
+    margin-bottom: 0;
+  }
+  .table-card > .table > :not(caption):last-child > *:last-child > *,
+  .table-card > [class*=table-responsive] > .table > :not(caption):last-child > *:last-child > * {
+    border-block-end-width: 0;
   }
   .table-responsive {
     container-type: inline-size;
@@ -3326,6 +3340,9 @@
     display: block;
     padding: 0;
   }
+  .form-control::-webkit-datetime-edit-text {
+    color: var(--control-placeholder-color);
+  }
   .form-control[type=file] {
     overflow: hidden;
   }
@@ -3742,15 +3759,15 @@
     --range-track-cursor: pointer;
     --range-track-bg: var(--bg-3);
     --range-track-border-radius: 1rem;
-    --range-track-fill-bg: var(--primary-base);
+    --range-track-fill-bg: var(--theme-bg, var(--primary-base));
     --range-track-disabled-bg: color-mix(in oklch, var(--bg-4), var(--fg-3));
     --range-thumb-width: 1rem;
     --range-thumb-height: var(--range-thumb-width);
-    --range-thumb-bg: var(--primary-base);
+    --range-thumb-bg: var(--theme-bg, var(--primary-base));
     --range-thumb-border: var(--range-thumb-bg) solid var(--border-color);
     --range-thumb-border-radius: 1rem;
     --range-thumb-box-shadow: 0 1px 2px rgb(0 0 0 / 7.5%), 0 2px 4px rgb(0 0 0 / 7.5%);
-    --range-thumb-active-bg: color-mix(in oklch, var(--primary-base) 70%, var(--bg-body));
+    --range-thumb-active-bg: color-mix(in oklch, var(--theme-bg, var(--primary-base)) 70%, var(--bg-body));
     --range-thumb-disabled-bg: var(--fg-3);
     --range-thumb-transition-property: background-color, border-color, box-shadow;
     --range-thumb-transition-duration: 0.15s;
@@ -3771,10 +3788,10 @@
     background-color: transparent;
   }
   .form-range-input:hover::-webkit-slider-thumb {
-    outline: var(--focus-ring-width) solid color-mix(in oklch, var(--primary-focus-ring), transparent);
+    outline: var(--focus-ring-width) solid color-mix(in oklch, var(--theme-focus-ring, var(--primary-focus-ring)), transparent);
   }
   .form-range-input:hover::-moz-range-thumb {
-    outline: var(--focus-ring-width) solid color-mix(in oklch, var(--primary-focus-ring), transparent);
+    outline: var(--focus-ring-width) solid color-mix(in oklch, var(--theme-focus-ring, var(--primary-focus-ring)), transparent);
   }
   .form-range-input:focus-visible {
     outline: 0;
@@ -3977,6 +3994,10 @@
   .form-floating > .form-control-plaintext::placeholder {
     color: transparent;
   }
+  .form-floating > .form-control:focus::placeholder,
+  .form-floating > .form-control-plaintext:focus::placeholder {
+    color: var(--control-placeholder-color);
+  }
   .form-floating > .form-control:focus, .form-floating > .form-control:not(:placeholder-shown),
   .form-floating > .form-control-plaintext:focus,
   .form-floating > .form-control-plaintext:not(:placeholder-shown) {
@@ -3988,9 +4009,24 @@
     padding-top: var(--form-floating-input-padding-t);
     padding-bottom: var(--form-floating-input-padding-b);
   }
+  .form-floating > .form-control[type=date],
+  .form-floating > .form-control[type=month],
+  .form-floating > .form-control[type=week],
+  .form-floating > .form-control[type=time],
+  .form-floating > .form-control[type=datetime-local],
+  .form-floating > .form-control:is(select) {
+    padding-top: var(--form-floating-input-padding-t);
+    padding-bottom: var(--form-floating-input-padding-b);
+  }
   .form-floating > label:has(~ .form-control:focus),
   .form-floating > label:has(~ .form-control:not(:placeholder-shown)),
-  .form-floating > label:has(~ .form-control-plaintext) {
+  .form-floating > label:has(~ .form-control-plaintext),
+  .form-floating > label:has(~ .form-control[type=date]),
+  .form-floating > label:has(~ .form-control[type=month]),
+  .form-floating > label:has(~ .form-control[type=week]),
+  .form-floating > label:has(~ .form-control[type=time]),
+  .form-floating > label:has(~ .form-control[type=datetime-local]),
+  .form-floating > label:has(~ .form-control:is(select)) {
     transform: var(--form-floating-label-transform);
   }
   .form-floating > label:has(~ .form-control:-webkit-autofill) {
@@ -4015,6 +4051,34 @@
   .form-floating > label:has(~ :disabled),
   .form-floating > label:has(~ .form-control:disabled) {
     color: var(--form-floating-label-disabled-color);
+  }
+  .form-floating-always.form-floating > .form-control,
+  .form-floating-always .form-floating > .form-control {
+    padding-top: var(--form-floating-input-padding-t);
+    padding-bottom: var(--form-floating-input-padding-b);
+  }
+  .form-floating-always.form-floating > .form-control::placeholder, .form-floating-always.form-floating > .form-control:focus::placeholder,
+  .form-floating-always .form-floating > .form-control::placeholder,
+  .form-floating-always .form-floating > .form-control:focus::placeholder {
+    color: var(--control-placeholder-color);
+  }
+  .form-floating-always.form-floating > label,
+  .form-floating-always .form-floating > label {
+    transform: var(--form-floating-label-transform);
+  }
+  .form-floating-always.form-floating > label:has(~ textarea)::after,
+  .form-floating-always .form-floating > label:has(~ textarea)::after {
+    position: absolute;
+    inset: var(--form-floating-padding-y) calc(var(--form-floating-padding-x) * 0.5);
+    z-index: -1;
+    height: var(--form-floating-label-height);
+    content: "";
+    background-color: var(--form-floating-label-bg);
+    border-radius: var(--btn-input-border-radius);
+  }
+  .form-floating-always.form-floating > label:has(~ textarea:disabled)::after,
+  .form-floating-always .form-floating > label:has(~ textarea:disabled)::after {
+    background-color: var(--form-floating-label-disabled-bg);
   }
 }
 @layer components {
@@ -5361,9 +5425,9 @@
     opacity: 0.25;
   }
   .btn-group:where(.btn-group-divider) > [class*=btn-] + [class*=btn-]::before {
+    inset-inline-start: calc(var(--btn-border-width) * -1);
     top: 25%;
     bottom: 25%;
-    left: calc(var(--btn-border-width) * -1);
     width: var(--btn-border-width);
   }
   .btn-group-vertical:where(.btn-group-divider) > [class*=btn-] + [class*=btn-]::before {

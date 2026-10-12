@@ -14,6 +14,12 @@ updates:
       npm:
         patterns:
           - '*'
+        # Bootstrap gets a pull request of its own. A bump changes what tokens/ is extracted
+        # from, so it needs `npm run sync && npm run build` committed on top, and CI's
+        # `sync --check` stays red until that is done. Prereleases are offered without any
+        # setting: the pinned version is itself a prerelease, above the `latest` dist-tag.
+        exclude-patterns:
+          - 'bootstrap'
   - package-ecosystem: 'github-actions'
     directory: '/'
     schedule:

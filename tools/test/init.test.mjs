@@ -13,12 +13,12 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
 import { init } from '../commands/init.mjs'
-import { projectFiles } from '../lib/project.mjs'
+import { BOOTSTRAP_DEFAULT, projectFiles } from '../lib/project.mjs'
 import { withOverrides, clone } from '../lib/overrides.mjs'
 import { loadTree, loadOptions } from '../lib/load-fs.mjs'
 import { index } from '../lib/tokens.mjs'
 import { expandColorScales } from '../lib/color-scale.mjs'
-import { resolveBootstrapSource, tokensDir } from '../lib/config.mjs'
+import { repoRoot, resolveBootstrapSource, tokensDir } from '../lib/config.mjs'
 import { sourceVersion } from '../commands/build.mjs'
 
 const THEME = {
@@ -69,33 +69,38 @@ test('it writes a project that needs nothing but npm install', async () => {
 })
 
 test('the package.json can actually resolve Bootstrap', () => {
-  // A semver range would fail: the npm registry has nothing above Bootstrap 5.x, so a
-  // scaffold pinned to ^6.0.0-alpha1 breaks on install — in the file meant to prove this
-  // all works.
+  // The scaffold's own package.json needs this package to expose its Sass, or `npm run
+  // verify` in the generated project has nothing to read.
   const pkg = JSON.parse(readFileSync(join(process.cwd(), 'package.json'), 'utf8'))
   assert.ok(pkg.exports['./scss'], 'the package does not expose its Sass')
 })
 
-test('the dependency points somewhere that exists, and needs no git to get there', async () => {
+test('the dependency is the pinned release: an exact registry version, no URL, no git', async () => {
   const target = await scaffold()
   const pkg = JSON.parse(readFileSync(join(target, 'package.json'), 'utf8'))
 
   /*
-   * A tarball URL rather than `github:twbs/bootstrap#main`. The `github:` form makes npm
-   * shell out to `git`, and StackBlitz's WebContainer has no git binary — the install dies
-   * with `npm error syscall spawn git` before anything compiles. Both forms resolve the same
-   * branch; only one of them works everywhere this project gets installed.
+   * Exact, so a theme keeps compiling against the release it was previewed on — alphas rename
+   * tokens. And a plain registry version, because a `github:` or `git+` spec makes npm shell
+   * out to `git`, and StackBlitz's WebContainer has no git binary: the install dies with
+   * `npm error syscall spawn git` before anything compiles.
    */
-  assert.match(pkg.dependencies.bootstrap, /^https:\/\/codeload\.github\.com\/twbs\/bootstrap\//)
-  assert.match(pkg.dependencies.bootstrap, /main$/)
-  assert.doesNotMatch(pkg.dependencies.bootstrap, /^(github:|git\+)/)
+  assert.match(pkg.dependencies.bootstrap, /^\d+\.\d+\.\d+(-[0-9A-Za-z.]+)?$/)
+  assert.doesNotMatch(pkg.dependencies.bootstrap, /^(github:|git\+|https?:)/)
 
   assert.ok(pkg.devDependencies.sass, 'nothing to compile with')
   assert.match(pkg.scripts.build, /sass/)
   assert.match(pkg.scripts.watch, /--watch/)
 })
 
-test('a caller can pin the dependency once there is a release', async () => {
+test('generated projects use the same Bootstrap this repository builds against', () => {
+  // project.mjs runs in the browser and cannot read package.json, so the two are written
+  // twice. A Bootstrap bump that updates one and not the other fails here.
+  const pkg = JSON.parse(readFileSync(join(repoRoot, 'package.json'), 'utf8'))
+  assert.equal(BOOTSTRAP_DEFAULT, pkg.devDependencies.bootstrap)
+})
+
+test('a caller can choose another dependency spec', async () => {
   const target = await scaffold({ bootstrap: '^6.0.0' })
   const pkg = JSON.parse(readFileSync(join(target, 'package.json'), 'utf8'))
   assert.equal(pkg.dependencies.bootstrap, '^6.0.0')

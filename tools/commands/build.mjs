@@ -6,7 +6,7 @@ import { cssLiteral } from '../lib/value.mjs'
 import { loadTokens, loadTree } from '../lib/load-fs.mjs'
 import { emitTokensModule, emitUseWith, mapEntries } from '../lib/emit-scss.mjs'
 import { emitTypeScript, emitStyleDictionary, emitTokensStudio } from '../lib/emit-consumers.mjs'
-import { tokensDir, repoRoot } from '../lib/config.mjs'
+import { tokensDir, repoRoot, pinnedBootstrap } from '../lib/config.mjs'
 import { COMPONENTS } from '../lib/sass-targets.mjs'
 
 /** The Bootstrap version the token document was extracted from. */
@@ -14,7 +14,7 @@ export function sourceVersion() {
   try {
     return JSON.parse(readFileSync(join(repoRoot, 'tokens', 'meta.json'), 'utf8')).bootstrap
   } catch {
-    return '6.0.0-alpha1'
+    return pinnedBootstrap() ?? 'unknown'
   }
 }
 

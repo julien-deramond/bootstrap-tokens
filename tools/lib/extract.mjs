@@ -1,5 +1,6 @@
 /**
- * Read a `twbs/bootstrap@main` checkout and lift its token maps into a DTCG tree.
+ * Read Bootstrap's Sass sources (the pinned release, or a checkout) and lift its token maps
+ * into a DTCG tree.
  *
  * Used two ways:
  *   - once, to seed `tokens/` (`bstokens sync --write`)

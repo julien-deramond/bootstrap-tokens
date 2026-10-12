@@ -16,7 +16,7 @@ import { emitUseWith } from '../lib/emit-scss.mjs'
 import { withOverrides, diffResolved, themeCss, themeScss, clone } from '../lib/overrides.mjs'
 import { index } from '../lib/tokens.mjs'
 import { expandColorScales } from '../lib/color-scale.mjs'
-import { resolveBootstrapSource, tokensDir } from '../lib/config.mjs'
+import { describeBootstrapSource, resolveBootstrapSource, tokensDir } from '../lib/config.mjs'
 import { COMPONENTS } from '../lib/sass-targets.mjs'
 import { customProperties, valueOn } from '../lib/css-parse.mjs'
 import { sourceVersion, cssDeclarations } from './build.mjs'
@@ -81,6 +81,10 @@ export async function verify({ flags }) {
   const doc = loadTokens(tokensDir)
   const version = sourceVersion()
 
+  const { line, warning } = describeBootstrapSource(source)
+  console.log(line)
+  if (warning) console.warn(`  warning: ${warning}`)
+
   const theme = themeToVerify(flags.theme, doc)
   // Before compiling anything: a theme that has quietly lost half its overrides would
   // otherwise be reported as verified, which is the one thing this command must never do.
@@ -99,7 +103,7 @@ export async function verify({ flags }) {
     })
   )
 
-  console.log(`Compiling upstream (${source})…`)
+  console.log('Compiling upstream…')
   const upstream = await compile(join(source, 'scss', 'bootstrap.scss'), [source])
 
   console.log('Compiling the exported token configuration…')
