@@ -51,7 +51,7 @@ So this repository holds two things:
 - **The tokens** — Bootstrap 6 lifted into [DTCG format](https://tr.designtokens.org/format/),
   layered primitive → semantic → component, and exported to Sass, CSS, TypeScript, Style
   Dictionary and Figma. Extracted from the released [`bootstrap@6.0.0-alpha.1`](https://www.npmjs.com/package/bootstrap/v/6.0.0-alpha.1)
-  on npm, and checked back against it. A weekly job previews `twbs/bootstrap@main` against that
+  on npm, and checked back against it. A nightly job previews `twbs/bootstrap@main` against that
   release, so changes for the next alpha show up before it ships.
 - **Bootstrap Theme Builder** — a local web app for designing a theme by editing those tokens,
   with real Bootstrap components re-theming beside you. It exports Sass byte-identical to what
@@ -113,7 +113,7 @@ maps.
 
 `bstokens verify` compiles upstream's `bootstrap.scss` and the configuration exported from
 these tokens, and asserts the resulting CSS is identical — today it is, across all 18253
-lines. CI runs that on every push against the pinned release. A weekly job runs the same checks
+lines. CI runs that on every push against the pinned release. A nightly job runs the same checks
 against `twbs/bootstrap@main` and keeps one issue open while it differs, as advance notice for the
 next alpha.
 

@@ -59,7 +59,7 @@ repository and needs somewhere to point. Deciding whether the
 evidence is strong enough to raise with `twbs/bootstrap` is a maintainer's call; what happens after that is its own
 section below.
 
-The weekly next-release preview opens and closes `upstream-drift` issues by itself against one
+The nightly next-release preview opens and closes `upstream-drift` issues by itself against one
 condition: whether `twbs/bootstrap@main` still gives the same result as the pinned release. Despite the prefix, `upstream-drift` is not a
 stage label — those issues are advance notice for the next Bootstrap bump, not a finding about Bootstrap.
 
@@ -87,7 +87,7 @@ or closed, so the label alone says where a finding got to.
 3. **Merged there** — `upstream-merged`. A maintainer swaps `upstream-raised` for
    `upstream-merged` and comments the merge; the issue is waiting on our re-sync, not on
    Bootstrap, and is available again. Beyond that,
-   nothing here happens automatically. The weekly next-release preview notices that `main`
+   nothing here happens automatically. The nightly next-release preview notices that `main`
    no longer matches the pinned release and opens an `upstream-drift` issue. The re-sync
    itself waits for the release that carries the fix, and is ordinary work from there.
 4. **Cleared here.** Re-sync `tokens/`, remove whatever existed only because of the defect,
@@ -202,7 +202,7 @@ your own, never enable auto-merge, and never push to `main` directly.
 
 * **A new Bootstrap release.** Dependabot opens a pull request that bumps `bootstrap` on its
   own. CI's `sync --check` stays red on it until `npm run sync && npm run build` is committed on
-  top: re-syncing, reviewing the diff and rebuilding is the routine. The weekly preview issue
+  top: re-syncing, reviewing the diff and rebuilding is the routine. The nightly preview issue
   (`upstream-drift`) says ahead of time what that bump will bring.
 * **Unmodeled surface.** `sync --check` also fails when upstream offers a configurable
   variable the document neither models nor lists in `NOT_TOKENS` with a reason.

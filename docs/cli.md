@@ -53,7 +53,7 @@ existed.
 for the pinned release, or `"source": "git"` with the branch and commit for a checkout.
 `--check` ignores that provenance and compares only the tokens.
 
-A weekly workflow, `next-release-preview.yml`, runs it against `twbs/bootstrap@main` along with
+A nightly workflow, `next-release-preview.yml`, runs it against `twbs/bootstrap@main` along with
 `verify` and `eject --verify`. It keeps one `upstream-drift` issue open while `main` differs
 from the pinned release, as advance notice for the next alpha, and never fails a pull
 request.

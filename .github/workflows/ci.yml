@@ -22,7 +22,7 @@ jobs:
           cache: npm
 
       # Installs the Bootstrap release package.json pins, which every step below reads from
-      # node_modules/bootstrap. Upstream's main branch is never built here: a weekly job,
+      # node_modules/bootstrap. Upstream's main branch is never built here: a nightly job,
       # next-release-preview.yml, previews it instead.
       - run: npm ci
 

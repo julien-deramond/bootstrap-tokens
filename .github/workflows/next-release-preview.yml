@@ -1,7 +1,7 @@
 name: Next release preview
 
 # Everything else in this repository builds against the Bootstrap release package.json pins.
-# This job looks one step ahead: once a week it runs the same checks against twbs/bootstrap@main,
+# This job looks one step ahead: every night it runs the same checks against twbs/bootstrap@main,
 # so a change upstream that will break the tokens, the export or the maintainer route is known
 # before the next alpha ships rather than on the day of the bump.
 #
@@ -10,16 +10,17 @@ name: Next release preview
 # main differs from the release, and closes it once they agree again.
 #
 # The issue is a latch on one condition, so it has to clear itself too: the same check that
-# opens it closes it, and it runs again as soon as a sync lands on main that could resolve it.
+# opens it closes it, and it runs again as soon as a change lands on main that could resolve it.
 #
 # Delete this file to stop the preview; nothing else depends on it.
 on:
   schedule:
-    - cron: '17 5 * * 1'
+    - cron: '17 5 * * *'
   push:
     branches: [main]
     paths:
       - 'tokens/**'
+      - 'tools/**'
       - '.github/workflows/next-release-preview.yml'
   workflow_dispatch:
 
@@ -27,7 +28,7 @@ permissions:
   contents: read
   issues: write
 
-# A push and the weekly run can otherwise reconcile the same issue at once, and the loser
+# A push and the nightly run can otherwise reconcile the same issue at once, and the loser
 # comments on an issue the winner has already closed. Never cancel: a half-run leaves the
 # issue reflecting a check that did not finish.
 concurrency:
@@ -133,7 +134,7 @@ jobs:
             })
 
             if (clean) {
-              // Nothing to say when nothing was open: a clean week should be silent.
+              // Nothing to say when nothing was open: a clean night should be silent.
               for (const issue of open) {
                 await github.rest.issues.createComment({
                   owner,
