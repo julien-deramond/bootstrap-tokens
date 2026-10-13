@@ -50,8 +50,9 @@ So this repository holds two things:
 
 - **The tokens** — Bootstrap 6 lifted into [DTCG format](https://tr.designtokens.org/format/),
   layered primitive → semantic → component, and exported to Sass, CSS, TypeScript, Style
-  Dictionary and Figma. Extracted from [`twbs/bootstrap@main`](https://github.com/twbs/bootstrap/tree/main),
-  and checked back against it. (That branch was called `v6-dev` until 2026-10-08, when Bootstrap 6 became `main`.)
+  Dictionary and Figma. Extracted from the released [`bootstrap@6.0.0-alpha.1`](https://www.npmjs.com/package/bootstrap/v/6.0.0-alpha.1)
+  on npm, and checked back against it. A nightly job previews `twbs/bootstrap@main` against that
+  release, so changes for the next alpha show up before it ships.
 - **Bootstrap Theme Builder** — a local web app for designing a theme by editing those tokens,
   with real Bootstrap components re-theming beside you. It exports Sass byte-identical to what
   you would have hand-written.
@@ -60,13 +61,13 @@ So this repository holds two things:
 %%{init: {"fontFamily": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace", "flowchart": {"wrappingWidth": 480}, "theme": "base", "themeVariables": {"darkMode": true, "dropShadow": "none", "background": "#0A0C11", "fontFamily": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace", "fontSize": "14px", "primaryColor": "#16181E", "primaryTextColor": "#E6E8EC", "primaryBorderColor": "#292C33", "secondaryColor": "#16181E", "tertiaryColor": "#0A0C11", "lineColor": "#3AB9BF", "textColor": "#E6E8EC", "clusterBkg": "#0A0C11", "clusterBorder": "#292C33", "titleColor": "#8F929A", "edgeLabelBackground": "#0A0C11"}}}%%
 flowchart TB
   accTitle: The build, verify and sync loop
-  accDescr: tokens is the DTCG source of truth. Build turns it into Sass maps, CSS custom properties and resolved JSON. Verify checks those outputs against twbs/bootstrap@main. Sync brings twbs/bootstrap@main back into tokens.
+  accDescr: tokens is the DTCG source of truth. Build turns it into Sass maps, CSS custom properties and resolved JSON. Verify checks those outputs against the pinned bootstrap@6.0.0-alpha.1. Sync reads the pinned bootstrap@6.0.0-alpha.1 back into tokens.
 
   subgraph field[" "]
     direction TB
     tokens["tokens/ (DTCG, source of truth)"]
     outputs["Sass maps · CSS custom properties · resolved JSON"]
-    bootstrap["twbs/bootstrap@main"]
+    bootstrap["bootstrap@6.0.0-alpha.1"]
     tokens -- build --> outputs
     outputs -- verify --> bootstrap
     bootstrap -- sync --> tokens
@@ -96,24 +97,25 @@ cd my-app && npm install && npm start
 
 **Or just consume the tokens** — see [using the tokens](#using-the-tokens).
 
-The rest of the tooling reads a `main` checkout, because Bootstrap 6 is not on npm yet:
+The rest of the tooling reads the Bootstrap release `package.json` pins, which `npm ci`
+installs into `node_modules/bootstrap`:
 
 ```bash
-git clone --depth 1 -b main https://github.com/twbs/bootstrap.git ../bootstrap
-npm install
+npm ci
 ```
 
 ## Status
 
 [![CI status](https://github.com/julien-deramond/bootstrap-tokens/actions/workflows/ci.yml/badge.svg)](https://github.com/julien-deramond/bootstrap-tokens/actions/workflows/ci.yml)
 
-Tracks Bootstrap `6.0.0-alpha1`. **1206 tokens**, covering all 64 of upstream's `$*-tokens`
+Tracks Bootstrap `6.0.0-alpha.1`. **1206 tokens**, covering all 64 of upstream's `$*-tokens`
 maps.
 
 `bstokens verify` compiles upstream's `bootstrap.scss` and the configuration exported from
-these tokens, and asserts the resulting CSS is identical — today it is, across all 18174
-lines. CI runs that on every push, alongside a nightly job that opens an issue when `main`
-drifts from the committed document.
+these tokens, and asserts the resulting CSS is identical — today it is, across all 18253
+lines. CI runs that on every push against the pinned release. A nightly job runs the same checks
+against `twbs/bootstrap@main` and keeps one issue open while it differs, as advance notice for the
+next alpha.
 
 ## What's included
 
@@ -160,7 +162,7 @@ Bootstrap with your values, and what resolving cannot do.
 ## Theme Builder
 
 **[julien-deramond.github.io/bootstrap-tokens](https://julien-deramond.github.io/bootstrap-tokens/)** — the
-deployed build of `main`. To run it against your own checkout instead:
+deployed build of `main`. To run it locally instead:
 
 ```bash
 npm run vendor   # compile upstream Bootstrap into web/vendor/bootstrap.css (once)
@@ -190,7 +192,7 @@ properties, so re-declaring them is the whole mechanism.
 ```bash
 npx bstokens build      # emit Sass, CSS, JSON, TypeScript, Style Dictionary and Figma
 npx bstokens verify     # compile upstream vs. our export, diff the CSS
-npx bstokens sync       # re-extract from a main checkout into tokens/
+npx bstokens sync       # re-extract from Bootstrap's Sass into tokens/
 npx bstokens validate   # references, cycles, layer direction, DTCG shape
 npx bstokens report     # contrast and color vision, as Markdown, HTML or JSON
 npx bstokens init       # scaffold a project that compiles a theme (--template sass|vite)
@@ -198,8 +200,9 @@ npx bstokens import     # read an existing custom.scss back into a theme.json
 npx bstokens eject      # write the tokens into Bootstrap's own Sass sources (maintainers)
 ```
 
-Point any of them at a checkout with `--src <path>`, `$BOOTSTRAP_SRC`, or a
-`bootstrap-tokens.config.json`. Full flags and workflows: **[`docs/cli.md`](docs/cli.md)**.
+They read the pinned release in `node_modules/bootstrap`. Point any of them at a Bootstrap
+checkout instead with `--src <path>`, `$BOOTSTRAP_SRC`, or a `bootstrap-tokens.config.json`.
+Full flags and workflows: **[`docs/cli.md`](docs/cli.md)**.
 
 ## Documentation
 

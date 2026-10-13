@@ -3,24 +3,30 @@
 Every command is also available as an npm script in this repository (`npm run build`,
 `npm run verify`, …). `npx bstokens --help` prints the full flag list.
 
-## Pointing at a Bootstrap checkout
+## Which Bootstrap the commands read
 
-Bootstrap 6 is not on npm yet, so the commands that read or compile upstream Sass — `sync`,
-`verify`, `vendor`, `eject` — need a `main` checkout:
+The commands that read or compile upstream Sass (`sync`, `verify`, `vendor`, `eject`) use the
+Bootstrap release `package.json` pins as a devDependency, `bootstrap@6.0.0-alpha.1`. `npm ci`
+installs it into `node_modules/bootstrap`, and CI uses the same one.
+
+They look for a source in this order: `--src <path>`, `$BOOTSTRAP_SRC`, a `bootstrapSource`
+entry in `bootstrap-tokens.config.json`, then `node_modules/bootstrap`. Nothing else is picked
+up on its own, so a `main` clone sitting next to this repository is only used when you name it.
+`sync` and `verify` print which Bootstrap they read, and warn when it isn't the pinned version.
+
+A `main` checkout is still useful for two things: `eject`, to prepare a pull request for
+Bootstrap itself, and a look at what the next alpha will change.
 
 ```bash
-git clone --depth 1 -b main https://github.com/twbs/bootstrap.git ../bootstrap
+git clone --depth 1 -b main https://github.com/twbs/bootstrap.git /tmp/bootstrap-main
+npx bstokens sync --check --src /tmp/bootstrap-main
 ```
-
-They look for it in this order: `--src <path>`, `$BOOTSTRAP_SRC`, a `bootstrapSource` entry
-in `bootstrap-tokens.config.json`, then the conventional siblings `../bootstrap`,
-`vendor/bootstrap` and `node_modules/bootstrap`.
 
 ## Commands
 
 | Command | What it does |
 | --- | --- |
-| `sync` | Re-extract tokens from a `main` checkout into `tokens/` |
+| `sync` | Re-extract tokens from Bootstrap's Sass into `tokens/` |
 | `validate` | Check references, cycles, layer direction and DTCG shape |
 | `build` | Emit Sass, CSS, JSON, TypeScript, Style Dictionary and Figma into `build/` |
 | `verify` | Compile upstream and our export, and diff the CSS |
@@ -43,7 +49,14 @@ upstream offers that the document neither models nor explicitly ignores. The sec
 one that matters — two token maps went missing for the life of the project before that check
 existed.
 
-A nightly workflow runs it and opens an issue when `main` moves.
+`tokens/meta.json` records where the document came from: `"source": "npm"` and the version
+for the pinned release, or `"source": "git"` with the branch and commit for a checkout.
+`--check` ignores that provenance and compares only the tokens.
+
+A nightly workflow, `next-release-preview.yml`, runs it against `twbs/bootstrap@main` along with
+`verify` and `eject --verify`. It keeps one `upstream-drift` issue open while `main` differs
+from the pinned release, as advance notice for the next alpha, and never fails a pull
+request.
 
 ### `validate` — check the document
 
@@ -99,12 +112,12 @@ dependencies and scripts, a page that uses the result, and the `theme.json` so y
 it in the Theme Builder later. It also gets `npm run verify`, which compiles the theme against
 the Bootstrap you installed and compares the result with what you previewed.
 
-Because v6 is not on npm, the scaffold depends on the `main` branch — named as a tarball URL
-rather than a `github:` spec, because the `github:` form makes npm shell out to `git`, which is
-not present everywhere a project gets installed (a browser sandbox, most containers). Both
-resolve the same branch, and it installs cleanly either way: upstream ships `scss/**` and a
-built `js/dist/**`, and defines no prepare script. Pass `--bootstrap` to pin a release once one
-exists, and `--force` to write into a non-empty directory.
+The scaffold depends on the exact Bootstrap release this repository builds against
+(`bootstrap@6.0.0-alpha.1`), from the npm registry. Exact, because an alpha can rename the
+variables a theme sets. And from the registry, because that installs without `git`, which isn't
+there everywhere a project gets installed (a browser sandbox, most containers). Pass
+`--bootstrap` to name another dependency spec, and `--force` to write into a non-empty
+directory.
 
 #### `--template` — which kind of project
 
@@ -152,6 +165,9 @@ Builder can open.
 npx bstokens eject --theme theme.json --src ../bootstrap --in-place
 npx bstokens eject --theme theme.json --src ../bootstrap --verify
 ```
+
+`--src` names your Bootstrap clone, usually on `main`, since the result is meant to become a
+pull request there. Without it, `eject` reads the pinned release, which is enough for `--verify`.
 
 Patches values in place rather than regenerating files, so four token edits give four changed
 lines and every comment, `!default`, symbolic expression and `scss-docs` marker survives.

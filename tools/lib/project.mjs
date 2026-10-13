@@ -31,32 +31,30 @@ import { changedOptions } from './config-surface.mjs'
 import { page } from './sample-page.mjs'
 
 /*
- * Bootstrap 6 is not on npm — the registry has nothing above 5.3.x — so a semver range would
- * fail `npm install` in the very file meant to prove this works. The `main` branch is the
- * only way to get v6 today, and it installs cleanly whichever way you name it: twbs/bootstrap
- * ships `scss/**` and a built `js/dist/**`, and defines no prepare script, so there is nothing
- * to build after the download. Override with --bootstrap once a release exists.
+ * The Bootstrap 6 release this repository builds against, as an exact version: the same one
+ * `package.json` pins as a devDependency, so a generated project compiles against exactly what
+ * `sync` extracted and `verify` checked. A test holds the two together, because this file
+ * runs in the browser and cannot read `package.json` itself — a Bootstrap bump that forgets
+ * this line goes red rather than shipping scaffolds a release behind.
  *
- * It is named as a tarball URL rather than as `github:twbs/bootstrap#main`, which is what
- * upstream's own example writes and what this repository wrote until Open in StackBlitz went
- * looking for evidence. A `github:` spec makes npm shell out to `git`, and StackBlitz's
- * WebContainer has no git binary — `npm error syscall spawn git`, install over, sandbox dead
- * on arrival. codeload serves the same branch as a plain tarball over HTTPS, which npm fetches
- * itself. Same commit, same contents, one fewer thing that has to exist on the machine.
+ * Exact rather than a range. `^6.0.0-alpha.1` would let npm pick up a later alpha, and alphas
+ * rename tokens; a theme exported today should keep compiling the way it was previewed.
  *
- * (The archive is the whole repository rather than a packed npm tarball, so it is ~28 MB
- * against ~10 MB. That is the price of not needing git, and it is paid once per install.)
+ * A registry version also installs anywhere: npm fetches the packed tarball over HTTPS, with
+ * no git binary needed, so StackBlitz's WebContainer installs it as readily as a laptop does.
+ * Until v6 reached npm this was a codeload tarball of the `main` branch for that reason.
  */
-export const BOOTSTRAP_DEFAULT = 'https://codeload.github.com/twbs/bootstrap/tar.gz/refs/heads/main'
+export const BOOTSTRAP_DEFAULT = '6.0.0-alpha.1'
 
 /*
  * The `sass` scaffold depends on this package so `npm run verify` works without a global
- * install. Pinned to the repository for the same reason Bootstrap is: there is no published
- * release yet, and a semver range that resolves to nothing fails at `npm install` — in the
- * very feature meant to prove the export works.
+ * install. Pinned to the repository because this package has no published release yet, and a
+ * semver range that resolves to nothing fails at `npm install` — in the very feature meant to
+ * prove the export works.
  *
- * A `github:` spec is fine here, unlike Bootstrap's: this dependency only appears in the
- * `sass` template, which is installed on a developer's machine, where git exists.
+ * A `github:` spec makes npm shell out to `git`, which StackBlitz's WebContainer does not
+ * have. That is fine here: this dependency only appears in the `sass` template, which is
+ * installed on a developer's machine, where git exists.
  */
 export const BOOTSTRAP_TOKENS_DEFAULT = 'github:julien-deramond/bootstrap-tokens'
 
@@ -184,10 +182,10 @@ matter of bumping the dependency.
 
 ## About the Bootstrap dependency
 
-Bootstrap 6 is not published to npm yet, so \`package.json\` points at the \`main\` branch,
-as a tarball URL rather than a \`github:\` spec — the latter makes npm shell out to \`git\`, which
-is not there in every place a project gets installed. Once there is a release, swap it for a
-version range.
+\`package.json\` pins Bootstrap to an exact version: the release this theme was built and
+checked against. Bootstrap 6 is still in alpha, and an alpha can rename the variables a theme
+sets, so a version range could quietly pull in one where some of your values no longer apply.
+To move to a newer release, change the version, run \`npm install\`, then \`npm run verify\`.
 `
 
 function sassProject({ doc, overrides, changed, name, version, bootstrap, themeFile }) {
@@ -408,10 +406,11 @@ property it produces with what the Theme Builder previewed.
 
 ## About the dependencies
 
-Bootstrap 6 is not published to npm yet, so \`package.json\` points at the \`main\` branch,
-as a tarball URL rather than a \`github:\` spec — the latter makes npm shell out to \`git\`, which
-is not there in every place a project gets installed. Once there is a release, swap it for a
-version range.
+\`package.json\` pins Bootstrap to an exact version: the release this theme was built and
+checked against. Bootstrap 6 is still in alpha, and an alpha can rename the variables a theme
+sets, so a version range could quietly pull in one where some of your values no longer apply.
+To move to a newer release, change the version, run \`npm install\`, then the \`verify\` command
+above.
 
 \`@floating-ui/dom\` is not optional: v6 externalises positioning, so menus, tooltips and
 popovers need it at runtime.
@@ -443,9 +442,8 @@ function viteProject({ doc, overrides, changed, name, version, bootstrap, themeF
         // See VITE_CONFIG: upstream leaves this off and pays a Vite 8 deprecation warning.
         type: 'module',
         /*
-         * How StackBlitz knows what to run once it has installed. Upstream declares the same
-         * field, which is the evidence that a `github:twbs/bootstrap#main` dependency
-         * installs inside a WebContainer at all.
+         * How StackBlitz knows what to run once it has installed. Upstream's own example
+         * declares the same field.
          */
         stackblitz: { startCommand: 'npm start' },
         scripts: { start: 'vite', build: 'vite build' },

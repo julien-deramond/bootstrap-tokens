@@ -1,5 +1,5 @@
 import { execFileSync } from 'node:child_process'
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, readFileSync, realpathSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { extract } from '../lib/extract.mjs'
@@ -10,28 +10,57 @@ import { detectRenames, migrationFingerprint } from '../lib/migrations.mjs'
 import { ext, walk } from '../lib/tokens.mjs'
 import { index } from '../lib/tokens.mjs'
 import { expandColorScales } from '../lib/color-scale.mjs'
-import { resolveBootstrapSource, tokensDir } from '../lib/config.mjs'
+import { describeBootstrapSource, resolveBootstrapSource, tokensDir } from '../lib/config.mjs'
 import { compileUpstream, includedMaps } from '../lib/declared.mjs'
 import { selectorDrift } from '../lib/selectors.mjs'
 import { COMPONENTS } from '../lib/sass-targets.mjs'
 
 /**
- * The upstream commit the token document was extracted from, when git can tell us.
+ * Where the extracted Bootstrap came from, for `meta.json`.
  *
- * `stdio: pipe` because a source that is not a git checkout — a tarball, a vendored copy —
- * is an ordinary situation, and letting git's "fatal: not a git repository" through to the
- * terminal makes a successful sync look like it went wrong.
+ * Two shapes. The pinned release in `node_modules/bootstrap` — the default — is recorded as
+ * `{ source: 'npm' }`: the version already names it exactly, and there is no commit to give.
+ * A git checkout passed with `--src` is recorded with its branch and commit, read from the
+ * checkout rather than assumed.
+ *
+ * The toplevel test is what keeps the two apart. `node_modules/bootstrap` sits inside this
+ * repository, so `git -C` there walks up and answers with *this* repository's HEAD — a real
+ * commit, of the wrong project. A source only counts as a checkout when git's toplevel is the
+ * source itself.
+ *
+ * `stdio: pipe` because a source that is not a git checkout — the npm package, a tarball, a
+ * vendored copy — is an ordinary situation, and letting git's "fatal: not a git repository"
+ * through to the terminal makes a successful sync look like it went wrong.
  */
-function upstreamCommit(source) {
-  try {
-    return execFileSync('git', ['-C', source, 'rev-parse', 'HEAD'], {
-      encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'ignore']
-    }).trim()
-  } catch {
-    return null
+export function provenance(source) {
+  const git = (...args) => {
+    try {
+      return execFileSync('git', ['-C', source, ...args], {
+        encoding: 'utf8',
+        stdio: ['ignore', 'pipe', 'ignore']
+      }).trim()
+    } catch {
+      return null
+    }
+  }
+
+  const toplevel = git('rev-parse', '--show-toplevel')
+  if (!toplevel || realpathSync(toplevel) !== realpathSync(source)) return { source: 'npm', commit: null }
+
+  const branch = git('rev-parse', '--abbrev-ref', 'HEAD')
+  return {
+    source: 'git',
+    // A detached checkout — a tag, a CI checkout of a SHA — has no branch to name.
+    ...(branch && branch !== 'HEAD' ? { branch } : {}),
+    commit: git('rev-parse', 'HEAD')
   }
 }
+
+/** Where meta.json says the tokens came from, in one phrase. */
+const describe = (meta) =>
+  meta.source === 'npm' || (!meta.source && !meta.commit)
+    ? `the npm release ${meta.bootstrap}`
+    : `${meta.branch ?? 'a checkout'} at ${String(meta.commit).slice(0, 8)}`
 
 export async function sync({ flags }) {
   const source = resolveBootstrapSource(flags.src)
@@ -40,10 +69,10 @@ export async function sync({ flags }) {
   const { files, warnings, version, records } = extract(source)
   const compiled = await compileUpstream(source)
 
+  const origin = provenance(source)
   files['meta.json'] = {
     bootstrap: version,
-    branch: 'main',
-    commit: upstreamCommit(source),
+    ...origin,
     extractedAt: new Date().toISOString().slice(0, 10),
     tokens: records.length,
     // Everything Bootstrap declares, token maps and runtime helpers alike. Recorded here
@@ -53,31 +82,36 @@ export async function sync({ flags }) {
   }
 
   /*
-   * `extractedAt` is when this run happened and `commit` is which checkout it ran against.
-   * Neither says anything about the tokens, so neither is drift — but both change on every
-   * run, which would make `--check` fail on the first day after a sync and stay failed. In
-   * check mode they are carried over from the committed file so the comparison is about
-   * content. Anything else in meta.json — the version, the token count, the set of custom
-   * properties Bootstrap declares — is a fact about upstream and is compared normally.
+   * `extractedAt` is when this run happened, and `source`, `branch` and `commit` say what it
+   * ran against. None of them says anything about the tokens, so none of them is drift — but
+   * they change from run to run, and from the pinned release to a `main` checkout, which would
+   * make `--check` fail on the first day after a sync, or on every preview of the next
+   * release. In check mode they are carried over from the committed file so the comparison is
+   * about content. Anything else in meta.json — the version, the token count, the set of
+   * custom properties Bootstrap declares — is a fact about upstream and is compared normally.
    */
   if (check) {
     const path = join(tokensDir, 'meta.json')
     if (existsSync(path)) {
       const previous = JSON.parse(readFileSync(path, 'utf8'))
-      files['meta.json'].extractedAt = previous.extractedAt
-      files['meta.json'].commit = previous.commit
-      const head = upstreamCommit(source)
-      if (head !== previous.commit) {
-        console.log(
-          head
-            ? `Upstream is at ${head.slice(0, 8)}, document says ${String(previous.commit).slice(0, 8)}.`
-            : 'This source is not a git checkout, so the recorded commit is left as it is.'
-        )
+      const current = { bootstrap: version, ...origin }
+      const { bootstrap, tokens, declaredCustomProperties } = files['meta.json']
+      const carried = ['source', 'branch', 'commit', 'extractedAt'].filter((key) => key in previous)
+      files['meta.json'] = {
+        bootstrap,
+        ...Object.fromEntries(carried.map((key) => [key, previous[key]])),
+        tokens,
+        declaredCustomProperties
+      }
+      if (describe(current) !== describe(previous)) {
+        console.log(`Checking ${describe(current)}; the document was extracted from ${describe(previous)}.`)
       }
     }
   }
 
-  console.log(`Bootstrap ${version} at ${source}`)
+  const { line, warning } = describeBootstrapSource(source)
+  console.log(line)
+  if (warning) console.warn(`  warning: ${warning}`)
   console.log(`Extracted ${records.length} tokens into ${Object.keys(files).length} files.`)
 
   for (const warning of warnings) console.warn(`  warning: ${warning}`)

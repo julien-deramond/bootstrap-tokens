@@ -12,6 +12,11 @@ npx bstokens eject --theme theme.json --src ../bootstrap --verify
 `--in-place` patches the checkout. Without it the patched files land in `build/bootstrap-v6/`,
 mirroring `scss/`, ready to copy across.
 
+This is the one command where a `main` checkout is the normal source rather than the pinned
+release in `node_modules/bootstrap`. A pull request for Bootstrap has to apply to `main` as it is
+today, and `main` can already differ from the last alpha. Without `--src`, `eject` reads the
+pinned release, which is what CI's `--verify` run uses.
+
 ## Why it patches instead of regenerating
 
 The obvious implementation is to render each Sass map from the token document and overwrite

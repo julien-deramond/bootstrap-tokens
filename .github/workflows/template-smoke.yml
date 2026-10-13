@@ -1,15 +1,15 @@
 name: Scaffold smoke test
 
-# The `vite` template names dependencies this repository does not have — vite, sass,
-# @floating-ui/dom and Bootstrap's `main` branch — so nothing in the ordinary test run can
-# tell you it still installs and builds. Unit tests assert the file map; only an install
-# proves the project.
+# The `vite` template names dependencies this repository does not have — vite and
+# @floating-ui/dom — and both templates install Bootstrap from the registry at the version
+# package.json pins, so nothing in the ordinary test run can tell you they still install and
+# build. Unit tests assert the file map; only an install proves the project.
 #
-# Weekly and on demand rather than on every push: it downloads a ~28 MB tarball and a Vite
-# toolchain, and nothing about it is the reviewer's business on an unrelated change. It does
-# run on a change that touches the generator, on the branch and again on main, because that is
-# the change that breaks it — and a template that stopped installing is worth knowing about
-# while the diff is still open rather than after it lands.
+# Weekly and on demand rather than on every push: it downloads a Vite toolchain, and nothing
+# about it is the reviewer's business on an unrelated change. It does run on a change that
+# touches the generator, or package.json where the pinned Bootstrap lives, on the branch and
+# again on main, because that is the change that breaks it — and a template that stopped
+# installing is worth knowing about while the diff is still open rather than after it lands.
 on:
   schedule:
     - cron: '41 5 * * 1'
@@ -21,12 +21,14 @@ on:
       - 'tools/lib/project.mjs'
       - 'tools/lib/sample-page.mjs'
       - 'tools/commands/init.mjs'
+      - 'package.json'
       - '.github/workflows/template-smoke.yml'
   pull_request:
     paths:
       - 'tools/lib/project.mjs'
       - 'tools/lib/sample-page.mjs'
       - 'tools/commands/init.mjs'
+      - 'package.json'
       - '.github/workflows/template-smoke.yml'
   workflow_dispatch:
 

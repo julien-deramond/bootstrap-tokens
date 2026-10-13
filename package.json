@@ -1,7 +1,7 @@
 {
   "name": "bootstrap-tokens",
   "version": "0.1.0",
-  "description": "Bootstrap Theme Builder \u2014 design a Bootstrap 6 theme visually and export it to Sass, byte-identical to hand-written config. Built on an open DTCG token pipeline for Bootstrap 6.",
+  "description": "Bootstrap Theme Builder — design a Bootstrap 6 theme visually and export it to Sass, byte-identical to hand-written config. Built on an open DTCG token pipeline for Bootstrap 6.",
   "type": "module",
   "license": "MIT",
   "engines": {
@@ -27,6 +27,7 @@
     "probe": "node tools/cli.mjs probe"
   },
   "devDependencies": {
+    "bootstrap": "6.0.0-alpha.1",
     "playwright-core": "^1.63.0",
     "sass": "^1.105.1",
     "style-dictionary": "^5.6.0",

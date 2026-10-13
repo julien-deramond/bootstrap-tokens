@@ -17,8 +17,9 @@ const COMMANDS = {
 
 const USAGE = `bstokens <command> [options]
 
-  sync       Re-extract tokens from a Bootstrap main checkout into tokens/
-             --src <path>   the checkout (else $BOOTSTRAP_SRC, else a sibling ../bootstrap)
+  sync       Re-extract tokens from Bootstrap's Sass into tokens/
+             --src <path>   a Bootstrap checkout (else $BOOTSTRAP_SRC, else
+                            node_modules/bootstrap, the pinned release)
              --check        report drift without writing, exit 1 if any
 
   validate   Check the token document: references, cycles, layering, DTCG shape
@@ -30,7 +31,7 @@ const USAGE = `bstokens <command> [options]
              --import <p>   import path used in the generated @use (default bootstrap/scss/bootstrap)
 
   verify     Compile upstream Bootstrap and our export, and diff the CSS
-             --src <path>   the checkout to compile against
+             --src <path>   the Bootstrap to compile against (default as for sync)
              --theme <f>    also check that this theme.json compiles to the values the
                             chooser previewed (default: a built-in fixture)
 
@@ -45,14 +46,15 @@ const USAGE = `bstokens <command> [options]
                             (default never)
 
   vendor     Compile upstream Bootstrap into web/vendor/bootstrap.css for the chooser
-             --src <path>   the checkout to compile
+             --src <path>   the Bootstrap to compile (default as for sync)
 
   site       Assemble the Theme Builder into a static site, ready to deploy
              --out <dir>    where to write it (default build/site)
 
   eject      Write the tokens back into Bootstrap's own Sass sources, for maintainers
              --theme <f>    a theme.json exported from the chooser
-             --src <path>   the main checkout to patch
+             --src <path>   the Bootstrap checkout to patch (a main clone, to prepare
+                            an upstream pull request)
              --out <dir>    where to write (default build/bootstrap-v6)
              --in-place     patch the checkout directly
              --verify       compile the patched sources and diff against the consumer route
@@ -70,8 +72,8 @@ const USAGE = `bstokens <command> [options]
                                             twbs/examples uses
              --name <n>     the project name
              --force        write into a non-empty directory
-             --bootstrap    the dependency spec (default: the main branch, since v6 is
-                            not yet on npm)
+             --bootstrap    the dependency spec (default: the release this repository
+                            pins)
 
 Every command that takes --theme applies recorded renames first, then refuses to run if the
 theme still names a token that does not exist — silently dropping an override is how a theme

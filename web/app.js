@@ -2008,7 +2008,9 @@ function exportContent() {
           : 'Nothing is overridden yet, so this is stock Bootstrap.',
       steps: [
         'Save it as <code>scss/custom.scss</code> in your project.',
-        'Install what it needs: <code>npm i bootstrap@6</code> and <code>npm i -D sass</code>.',
+        // The exact release: a range like `bootstrap@6` never matches a prerelease, so it
+        // fails with "No matching version" for as long as v6 is in alpha.
+        `Install what it needs: <code>npm i bootstrap@${/^\d+\.\d+\.\d+/.test(version) ? version : 'next'}</code> and <code>npm i -D sass</code>.`,
         'Compile it: <code>npx sass scss/custom.scss css/app.css</code>.',
         'Link <code>css/app.css</code> instead of Bootstrap’s own stylesheet.'
       ],
