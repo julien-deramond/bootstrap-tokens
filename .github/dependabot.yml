@@ -2,13 +2,16 @@ version: 2
 updates:
   - package-ecosystem: 'npm'
     directory: '/'
+    # Daily so a new Bootstrap release gets its pull request the morning after it ships. The
+    # cooldown still holds every other package back a week, so they don't come any sooner.
     schedule:
-      interval: 'weekly'
-      day: 'monday'
+      interval: 'daily'
       time: '05:00'
       timezone: 'Europe/Paris'
     cooldown:
       default-days: 7
+      exclude:
+        - 'bootstrap'
     open-pull-requests-limit: 20
     groups:
       npm:
