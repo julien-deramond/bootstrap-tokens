@@ -8,6 +8,11 @@
  * something it cannot represent — rather than silently snapping them back to a preset.
  */
 
+import { ext, authoredValue } from '../tools/lib/tokens.mjs'
+import { withOverrides } from '../tools/lib/overrides.mjs'
+import { auditContrast } from '../tools/lib/contrast.mjs'
+import { audit } from '../tools/lib/report.mjs'
+
 /** Bootstrap's own sixteen hues, in its order. */
 export const HUES = [
   'blue', 'indigo', 'violet', 'purple', 'pink', 'red', 'orange', 'amber',
@@ -232,4 +237,117 @@ export function selectedOption(dial, read) {
       Object.entries(option.values).every(([path, value]) => String(read(path)) === String(value))
     ) ?? null
   )
+}
+
+/* -------------------------------------------------------------------------- */
+
+/** Every step of a color scale, lightest first. */
+export const SCALE_STOPS = ['025', '050', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950', '975']
+
+/** The poles a `contrast` sub-key chooses between, darkest and lightest first. */
+export const NEUTRAL_CANDIDATES = ['{color.gray.975}', '{color.gray.900}', '{color.white}', '{color.black}']
+
+/** Every other step of the same hue, ordered by how far it is from where we are. */
+export function sameHueCandidates(hue, stop) {
+  const from = SCALE_STOPS.indexOf(stop)
+  if (from === -1) return NEUTRAL_CANDIDATES
+
+  return SCALE_STOPS.map((candidate, index) => ({ candidate, distance: Math.abs(index - from) }))
+    .filter(({ distance }) => distance > 0)
+    .sort((a, b) => a.distance - b.distance)
+    .map(({ candidate }) => `{color.${hue}.${candidate}}`)
+}
+
+/**
+ * Put back the contrast a set of dial positions broke, without changing how it looks.
+ *
+ * A hue dial repoints a role step for step, which is right for blue and wrong for a hue whose
+ * 600 is too light to read on white (amber), whose 500 is too light for the link color (brown),
+ * or whose 400 drops below AA once the link hover darkens it on a dark page (indigo). Only the
+ * pairs these overrides broke are touched: a pair Bootstrap already ships failing stays
+ * Bootstrap's. Each one gets the smallest move that keeps the hue:
+ *
+ * - text on a role's fill (`contrast`) moves to the nearest neutral that reads;
+ * - role text on the page (`fg`, `fg-emphasis`) moves along its own scale;
+ * - a link drawn with the role's fill color switches to the role's text color, the variant
+ *   made to be read on the page, and only then does that color move along its scale.
+ *
+ * Returns whole override entries to merge over `overrides`, so `{ ...overrides, ...fixes }`
+ * is the repaired theme.
+ */
+export function repairContrast(tree, base, overrides) {
+  const fixes = {}
+  const theme = () => ({ ...overrides, ...fixes })
+
+  // A move can unsettle another pair (a darker fg is also a darker link), so look again.
+  for (let round = 0; round < 3; round++) {
+    const broken = audit(withOverrides(tree, theme()), base).filter((row) => !row.wcag.ok && !row.inherited)
+    if (broken.length === 0) break
+
+    for (const row of broken) {
+      const current = theme()
+      // An earlier fix in this round may have settled it already (one value, both schemes).
+      if (readable(tree, current, row)) continue
+
+      const doc = withOverrides(tree, current)
+      const patch = movesFor(row, doc).find((move) => readable(tree, { ...current, ...patched(current, move) }, row))
+      if (patch) Object.assign(fixes, patched(current, patch))
+    }
+  }
+
+  return fixes
+}
+
+/** The side of a token a scheme reads: its dark value in dark mode, when it has one. */
+function sideOf(doc, path, mode) {
+  const token = doc.tokens.get(path)
+  const side = mode === 'dark' && ext(token).dark !== undefined ? 'dark' : 'value'
+  return { side, value: String(authoredValue(token, side) ?? '').trim() }
+}
+
+/** Patches to try for one failing pair, in the order of how little they change. */
+function movesFor(row, doc) {
+  if (/^theme-color\.[\w-]+\.contrast$/.test(row.path)) {
+    const { side, value } = sideOf(doc, row.path, row.mode)
+    return NEUTRAL_CANDIDATES.filter((candidate) => candidate !== value).map((candidate) => ({
+      [row.path]: { [side]: candidate }
+    }))
+  }
+
+  if (/^theme-color\.[\w-]+\.(fg|fg-emphasis)$/.test(row.path)) return alongScale(doc, row.path, row.mode)
+
+  if (row.path === 'type.link.color' || row.path === 'type.link.hover-color') {
+    const { side, value } = sideOf(doc, 'type.link.color', row.mode)
+    const role = /^\{theme-color\.([\w-]+)\.(base|fg)\}$/.exec(value)
+    if (!role) return []
+
+    const text = `theme-color.${role[1]}.fg`
+    const toText = role[2] === 'base' ? { 'type.link.color': { [side]: `{${text}}` } } : {}
+    const steps = alongScale(doc, text, row.mode).map((step) => ({ ...toText, ...step }))
+    return role[2] === 'base' ? [toText, ...steps] : steps
+  }
+
+  return []
+}
+
+/** The same token on every other step of its scale, nearest first. */
+function alongScale(doc, path, mode) {
+  const { side, value } = sideOf(doc, path, mode)
+  const step = /^\{color\.([\w-]+)\.(\w+)\}$/.exec(value)
+  if (!step || !SCALE_STOPS.includes(step[2])) return []
+
+  return sameHueCandidates(step[1], step[2]).map((candidate) => ({ [path]: { [side]: candidate } }))
+}
+
+/** The entries of `theme` a patch changes, with the patch laid over each. */
+function patched(theme, patch) {
+  return Object.fromEntries(
+    Object.entries(patch).map(([path, entry]) => [path, { ...(theme[path] ?? {}), ...entry }])
+  )
+}
+
+/** Whether the pair `row` measured passes AA under `theme`. */
+function readable(tree, theme, row) {
+  const found = auditContrast(withOverrides(tree, theme), { mode: row.mode }).find((pair) => pair.path === row.path)
+  return found?.wcag.ok === true
 }
