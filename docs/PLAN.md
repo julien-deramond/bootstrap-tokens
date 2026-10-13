@@ -180,10 +180,17 @@ Still to do: DTCG `$deprecated`, once a token is actually deprecated rather than
 
 ### B1. Verify the path people actually use · ✅ **done**
 
-`verify` now compiles a partial theme export and asserts every previewed custom property
-matches the compiled value, **at the selector it is declared on**. That last part matters:
-comparing by property name alone gives false failures, because upstream re-declares some
-properties under `[data-bs-theme]`.
+`verify` now compiles a partial theme export and asserts every token's custom property
+matches what the preview paints, **in every page context**. That last part matters. Comparing
+by property name alone gives false failures, because upstream re-declares some properties
+under `[data-bs-theme]`. Comparing at the selector a property is declared on, which this
+check first did, misses the rule that shadows it on a real page. `--shadow-strength` passed
+that way while every page with `data-bs-theme="light"` got upstream's `1`. The
+check now models the cascade (`tools/lib/css-cascade.mjs`) and probes each property on the
+element that reads it, OS light and dark, with and without `data-bs-theme` on the page and on
+the element. Wider viewports and modifier classes only warn: the preview applies a component
+override to every variant, while the Sass export leaves variants on Bootstrap's values, and
+that gap belongs to the preview.
 
 It found a real bug on its first run — see [issue #12](https://github.com/julien-deramond/bootstrap-tokens/issues/12). `--shadow-strength`
 is pinned by upstream at `[data-bs-theme="light"]` as well as for dark, so a token override
