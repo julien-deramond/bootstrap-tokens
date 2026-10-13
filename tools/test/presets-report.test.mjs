@@ -11,7 +11,7 @@ import { mkdtempSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 
-import { loadTree } from '../lib/load-fs.mjs'
+import { loadTree, loadTokens } from '../lib/load-fs.mjs'
 import { index, authoredValue } from '../lib/tokens.mjs'
 import { expandColorScales } from '../lib/color-scale.mjs'
 import { flattenColors } from '../lib/flatten.mjs'
@@ -19,10 +19,11 @@ import { hexToRgb, contrastRatio } from '../lib/color.mjs'
 import { clone } from '../lib/overrides.mjs'
 import { tokensDir } from '../lib/config.mjs'
 import { report } from '../commands/report.mjs'
-import { DIALS, PRESETS, hueOfRole, repointRole } from '../../web/easy.js'
+import { DIALS, PRESETS, hueOfRole, repointRole, repairContrast } from '../../web/easy.js'
 
 const { tree } = loadTree(tokensDir)
 const doc = index(expandColorScales(clone(tree)))
+const base = loadTokens(tokensDir)
 const read = (path, side = 'value') => authoredValue(doc.tokens.get(path), side)
 const { colors } = flattenColors(doc)
 const work = mkdtempSync(join(tmpdir(), 'bstokens-presets-'))
@@ -53,7 +54,7 @@ function presetOverrides(preset) {
     if (option) Object.assign(overrides, option.values)
   }
 
-  return overrides
+  return { ...overrides, ...repairContrast(tree, base, overrides) }
 }
 
 /** Run the report command on a theme with the given gates, quietly; returns its exit code. */
@@ -73,16 +74,8 @@ async function gate(name, overrides, failOn) {
   }
 }
 
-/**
- * These presets do fail the gate today (found when this test was added): "soft" regresses the
- * dark-mode link hover color (4.37:1 on indigo) and "editorial" introduces four AA failures
- * (amber accent and brown primary). They are marked `todo` so they stay visible without
- * blocking CI. Fix the preset (or its hue) and remove the entry; do not widen this list.
- */
-const KNOWN_FAILING = new Set(['soft', 'editorial'])
-
 for (const preset of PRESETS) {
-  test(`preset "${preset.id}" introduces no contrast or status-color defects`, { todo: KNOWN_FAILING.has(preset.id) }, async () => {
+  test(`preset "${preset.id}" introduces no contrast or status-color defects`, async () => {
     const overrides = presetOverrides(preset)
     for (const failOn of ['introduced', 'vision']) {
       assert.equal(await gate(preset.id, overrides, failOn), 0, `${preset.id} fails --fail-on ${failOn}`)
@@ -96,4 +89,23 @@ test('the gate catches a preset made low-contrast', async () => {
     'theme-color.primary.contrast': { value: '{color.yellow.300}' }
   }
   assert.equal(await gate('low-contrast', overrides, 'introduced'), 1)
+})
+
+test('the contrast repair leaves what Bootstrap ships alone', () => {
+  // Stock blue already misses AA on its link and button text; that is Bootstrap's to answer for.
+  assert.deepEqual(repairContrast(tree, base, {}), {})
+})
+
+test('the contrast repair keeps every preset on the hues it picked', () => {
+  for (const preset of PRESETS) {
+    const overrides = presetOverrides(preset)
+    const allowed = new Set(['gray', 'white', 'black', ...Object.values(preset.dials)])
+    for (const [path, entry] of Object.entries(overrides)) {
+      for (const value of [entry.value, entry.dark]) {
+        for (const [, hue] of String(value ?? '').matchAll(/\{color\.([\w-]+)[.}]/g)) {
+          assert.ok(allowed.has(hue), `${preset.id}: ${path} uses ${hue}`)
+        }
+      }
+    }
+  }
 })

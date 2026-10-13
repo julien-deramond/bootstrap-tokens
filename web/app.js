@@ -27,7 +27,19 @@ import {
 import { sourceEdits } from '../tools/lib/source-value.mjs'
 import { unresolvedReferences } from '../tools/lib/value.mjs'
 import { projectFiles } from '../tools/lib/project.mjs'
-import { DIALS, PRESETS, HUES, availableHues, addedHues, hueOfRole, repointRole, selectedOption } from './easy.js'
+import {
+  DIALS,
+  PRESETS,
+  HUES,
+  NEUTRAL_CANDIDATES,
+  availableHues,
+  addedHues,
+  hueOfRole,
+  repointRole,
+  repairContrast,
+  sameHueCandidates,
+  selectedOption
+} from './easy.js'
 import { OPTIONS, changedOptions, dropStaleOptions, optionByName } from '../tools/lib/config-surface.mjs'
 import { importScss } from '../tools/lib/import-scss.mjs'
 import { applyMigrations } from '../tools/lib/migrations.mjs'
@@ -834,6 +846,8 @@ function dialTokens() {
     for (const key of ['base', 'fg', 'fg-emphasis', 'bg', 'bg-subtle', 'bg-muted', 'border', 'focus-ring', 'contrast']) {
       paths.add(`theme-color.${dial.role}.${key}`)
     }
+    // The contrast repair can point links at primary's text color; a preset owns that too.
+    if (dial.role === 'primary') paths.add('type.link.color')
     const hue = hueOfRole(state.doc, dial.role, read)
     if (hue) paths.add(`color.${hue}.base`)
   }
@@ -1142,6 +1156,10 @@ function renderPresets() {
 /**
  * A preset clears every dial-owned token before applying its own, so it is a *state*, not a
  * merge — and the whole thing is one history entry, so one undo takes you back.
+ *
+ * A hue that suits the preset can still miss AA on a step Bootstrap picked for blue, so the
+ * contrast it breaks is repaired before anything is applied: still one entry, and a preset
+ * never hands back a theme the report would fail.
  */
 function applyPreset(preset) {
   const values = {}
@@ -1159,6 +1177,7 @@ function applyPreset(preset) {
     if (option) Object.assign(values, option.values)
   }
 
+  Object.assign(values, repairContrast(state.baseTree, state.baseDoc, { ...state.overrides, ...values }))
   applyValues(values, { focus: 'buttons' })
 }
 
@@ -1576,8 +1595,6 @@ function renderSimpleFooter() {
 
 /* ------------------------------------------------------------ contrast fix */
 
-const SCALE_STOPS = ['025', '050', '100', '200', '300', '400', '500', '600', '700', '800', '900', '950', '975']
-
 /**
  * The nearest value that would pass, for a color pair that does not.
  *
@@ -1608,20 +1625,6 @@ function suggestContrastFix(path, partnerPath, side) {
   }
 
   return null
-}
-
-/** The poles a `contrast` sub-key chooses between, darkest and lightest first. */
-const NEUTRAL_CANDIDATES = ['{color.gray.975}', '{color.gray.900}', '{color.white}', '{color.black}']
-
-/** Every other step of the same hue, ordered by how far it is from where we are. */
-function sameHueCandidates(hue, stop) {
-  const from = SCALE_STOPS.indexOf(stop)
-  if (from === -1) return NEUTRAL_CANDIDATES
-
-  return SCALE_STOPS.map((candidate, index) => ({ candidate, distance: Math.abs(index - from) }))
-    .filter(({ distance }) => distance > 0)
-    .sort((a, b) => a.distance - b.distance)
-    .map(({ candidate }) => `{color.${hue}.${candidate}}`)
 }
 
 function candidateCss(reference) {
