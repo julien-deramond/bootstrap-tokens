@@ -134,6 +134,10 @@
   --motion-duration-fade: 900ms;
   /* From the first stroke to the fade: five staggered strokes plus one draw-in. */
   --motion-duration-fade-delay: 3850ms;
+  /* Feedback to what someone does (hover, focus, press, copy): a colour, border or opacity change, every time it happens. */
+  --motion-duration-feedback: 150ms;
+  /* Something opening: a disclosure's content fades in. It takes its space at once and closes at once. */
+  --motion-duration-open: 200ms;
   /* One scanline pass on reveal, then it stops. */
   --motion-duration-scan: 4000ms;
   /* The mark's quarter disc turns a quarter, once, on reveal (Missing Tile, 2026-09-23). */
