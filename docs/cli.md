@@ -88,6 +88,34 @@ compares every custom property with what the Theme Builder previewed — "it loo
 the tool" and "it compiles to this" are different claims, and only the second survives a
 dependency bump.
 
+The theme check compares what a page gets, not what a selector declares. It puts the preview's
+stylesheet (compiled Bootstrap plus the Theme Builder's unlayered overrides, the same rules
+`theme.css` ships) next to the compiled `custom.scss`. Then it asks both which value of every
+token's custom property reaches the element that reads it. That follows `@layer` order,
+specificity, source order, `prefers-color-scheme` and inheritance, so a later rule that shadows
+a value shows up. Each property is probed on `<html>` or on an element built from its
+component's selector, in six page contexts: OS light or dark, with `data-bs-theme` light, dark
+or absent on `<html>`. It's probed again with `data-bs-theme` light and dark on the element
+itself, which is how Bootstrap's dark navbar works. Any difference there fails, and the
+message names both values and the selector that won on each side:
+
+```text
+--shadow-strength (elevation.strength) on <html data-bs-theme="light">: preview .5 from [data-bs-theme="light"], compiled 1 from [data-bs-theme=light]
+```
+
+Two kinds of difference only warn. The first shows only at a wider viewport (the widths come
+from the stylesheets' own media queries). The second shows only under a modifier class that
+re-declares a component's properties, such as `.btn-solid`, `.pagination-sm` or `.chip.active`.
+Both come from the preview, not from the export. The Theme Builder paints its overrides
+unlayered, so they beat every variant rule Bootstrap keeps in its components layer, while
+`custom.scss` lands inside that layer and the variants keep Bootstrap's values. Editing the
+button text color, for example, changes every solid, outline and link button in the preview,
+and none of them in the compiled theme.
+
+The model has limits. Selectors with pseudo-classes other than `:root`, pseudo-elements, `+`
+or `~` never match a probe. `@supports`, `@container` and media features other than color
+scheme and width count as false. `var()` isn't substituted, so two values compare as written.
+
 ### `report` — contrast and color vision
 
 ```bash
