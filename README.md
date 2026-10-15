@@ -85,24 +85,27 @@ flowchart TB
 install — it runs in the browser, and every push to `main` redeploys it.
 
 **Start a project** from a theme it exported — or skip the terminal entirely and press
-*Open in StackBlitz* in the export dialog, which boots the same project in a browser tab:
+*Open in StackBlitz* in the export dialog, which boots the same project in a browser tab.
+The CLI is not published to npm yet, so run it from a clone of this repository:
 
 ```bash
-npx bstokens init my-theme --theme theme.json
-cd my-theme && npm install && npm run watch
+git clone https://github.com/julien-deramond/bootstrap-tokens.git
+cd bootstrap-tokens && npm ci
 
-npx bstokens init my-app --theme theme.json --template vite   # Vite, with Bootstrap's JS
-cd my-app && npm install && npm start
+npx bstokens init ../my-theme --theme theme.json
+cd ../my-theme && npm install && npm run watch
+
+npx bstokens init ../my-app --theme theme.json --template vite   # Vite, with Bootstrap's JS
+cd ../my-app && npm install && npm start
 ```
+
+Inside the clone, `npx bstokens …` runs the local `tools/cli.mjs` (`node tools/cli.mjs …`
+does the same). Every `npx bstokens` command below assumes that.
 
 **Or just consume the tokens** — see [using the tokens](#using-the-tokens).
 
-The rest of the tooling reads the Bootstrap release `package.json` pins, which `npm ci`
-installs into `node_modules/bootstrap`:
-
-```bash
-npm ci
-```
+The tooling reads the Bootstrap release `package.json` pins, which `npm ci` installs into
+`node_modules/bootstrap`.
 
 ## Status
 
@@ -188,6 +191,8 @@ properties, so re-declaring them is the whole mechanism.
 **[`docs/theme-builder.md`](docs/theme-builder.md)** is the full tour.
 
 ## Commands
+
+Run these from a clone of this repository, after `npm ci`.
 
 ```bash
 npx bstokens build      # emit Sass, CSS, JSON, TypeScript, Style Dictionary and Figma
