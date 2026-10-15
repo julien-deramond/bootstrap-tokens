@@ -87,7 +87,11 @@
         "sassMap": "$navbar-dark-tokens",
         "selector": ".navbar[data-bs-theme=dark]",
         "source": "scss/_navbar.scss",
-        "variantOf": "navbar"
+        "variantOf": "navbar",
+        "cascade": {
+          "layer": "components",
+          "rule": ".navbar[data-bs-theme=dark]"
+        }
       }
     }
   }

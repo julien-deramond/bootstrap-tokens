@@ -81,7 +81,11 @@
         "sassMap": "$nav-pills-tokens",
         "selector": ".nav-pills",
         "source": "scss/_nav.scss",
-        "variantOf": "nav"
+        "variantOf": "nav",
+        "cascade": {
+          "layer": "components",
+          "rule": ".nav-pills"
+        }
       }
     }
   }

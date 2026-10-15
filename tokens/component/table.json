@@ -10,7 +10,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--table-cell-padding-y",
           "sassMap": "$table-tokens",
-          "sassKey": "--table-cell-padding-y"
+          "sassKey": "--table-cell-padding-y",
+          "redeclared": [
+            {
+              "selector": ".table-sm > :not(caption) > * > *",
+              "value": ".25rem"
+            }
+          ]
         }
       }
     },
@@ -24,7 +30,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--table-cell-padding-x",
           "sassMap": "$table-tokens",
-          "sassKey": "--table-cell-padding-x"
+          "sassKey": "--table-cell-padding-x",
+          "redeclared": [
+            {
+              "selector": ".table-sm > :not(caption) > * > *",
+              "value": ".25rem"
+            }
+          ]
         }
       }
     },
@@ -217,7 +229,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$table-tokens",
         "selector": ".table",
-        "source": "scss/content/_tables.scss"
+        "source": "scss/content/_tables.scss",
+        "cascade": {
+          "layer": "content",
+          "rule": ".table"
+        }
       }
     }
   }

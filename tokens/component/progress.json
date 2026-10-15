@@ -108,7 +108,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$progress-tokens",
         "selector": ".progress",
-        "source": "scss/_progress.scss"
+        "source": "scss/_progress.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".progress, .progress-stacked"
+        }
       }
     }
   }

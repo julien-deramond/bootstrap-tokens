@@ -1195,6 +1195,19 @@ summary.health-group-heading::marker { font-size: .5625rem; }
   line-height: 1.45;
 }
 
+/* Which variants re-declare an edited property. An explanation, not a problem: the compiled
+   theme does the same, so it reads quieter than a finding. */
+.token-variants {
+  grid-column: 1 / -1;
+  margin: .375rem 0 0;
+  padding: .4rem .55rem;
+  border-radius: 6px;
+  background: color-mix(in oklab, var(--accent) 7%, var(--surface));
+  color: var(--ink);
+  font-size: .75rem;
+  line-height: 1.45;
+}
+
 /* --- brand type --------------------------------------------------------- */
 
 /* Chakra Petch for what names things — section labels, headings, buttons, tabs — and

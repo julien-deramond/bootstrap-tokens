@@ -125,7 +125,13 @@
           "cssVar": "--chip-color",
           "sassMap": "$chip-tokens",
           "sassKey": "--chip-color",
-          "expression": true
+          "expression": true,
+          "redeclared": [
+            {
+              "selector": ".chip.active",
+              "value": "var(--chip-selected-color)"
+            }
+          ]
         }
       },
       "$description": "Follows the `.theme-*` class on an ancestor through `--theme-fg`, and uses the fallback only when no theme class is set."
@@ -138,7 +144,21 @@
           "cssVar": "--chip-bg",
           "sassMap": "$chip-tokens",
           "sassKey": "--chip-bg",
-          "expression": true
+          "expression": true,
+          "redeclared": [
+            {
+              "selector": ".chip:hover",
+              "value": "var(--theme-bg-muted, var(--bg-3))"
+            },
+            {
+              "selector": ".chip.active",
+              "value": "var(--chip-selected-bg)"
+            },
+            {
+              "selector": ".chip.active:hover",
+              "value": "var(--chip-selected-bg)"
+            }
+          ]
         }
       },
       "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg-subtle`, and uses the fallback only when no theme class is set."
@@ -151,7 +171,13 @@
           "cssVar": "--chip-border-color",
           "sassMap": "$chip-tokens",
           "sassKey": "--chip-border-color",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".chip.active",
+              "value": "var(--chip-selected-border-color)"
+            }
+          ]
         }
       }
     },
@@ -199,7 +225,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$chip-tokens",
         "selector": ".chip",
-        "source": "scss/_chip.scss"
+        "source": "scss/_chip.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".chip"
+        }
       }
     }
   }

@@ -28,7 +28,11 @@
         "sassMap": "$placeholder-wave-tokens",
         "selector": ".placeholder-wave",
         "source": "scss/_placeholder.scss",
-        "variantOf": "placeholder"
+        "variantOf": "placeholder",
+        "cascade": {
+          "layer": "components",
+          "rule": ".placeholder-wave"
+        }
       }
     }
   }

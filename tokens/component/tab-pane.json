@@ -43,7 +43,11 @@
         "sassMap": "$tab-pane-tokens",
         "selector": ".tab-content > .tab-pane",
         "source": "scss/_nav.scss",
-        "variantOf": "nav"
+        "variantOf": "nav",
+        "cascade": {
+          "layer": "components",
+          "rule": ".tab-content > .tab-pane"
+        }
       }
     }
   }

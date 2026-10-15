@@ -105,7 +105,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$stepper-tokens",
         "selector": ".stepper",
-        "source": "scss/_stepper.scss"
+        "source": "scss/_stepper.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".stepper"
+        }
       }
     }
   }

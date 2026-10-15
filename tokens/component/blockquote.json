@@ -97,7 +97,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$blockquote-tokens",
         "selector": ".blockquote",
-        "source": "scss/content/_blockquote.scss"
+        "source": "scss/content/_blockquote.scss",
+        "cascade": {
+          "layer": "content",
+          "rule": ".blockquote"
+        }
       }
     }
   }

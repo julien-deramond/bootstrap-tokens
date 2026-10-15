@@ -74,7 +74,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$thumbnail-tokens",
         "selector": ".img-thumbnail",
-        "source": "scss/content/_images.scss"
+        "source": "scss/content/_images.scss",
+        "cascade": {
+          "layer": "content",
+          "rule": ".img-thumbnail"
+        }
       }
     }
   }

@@ -186,7 +186,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$form-floating-tokens",
         "selector": ".form-floating",
-        "source": "scss/forms/_floating-labels.scss"
+        "source": "scss/forms/_floating-labels.scss",
+        "cascade": {
+          "layer": "forms",
+          "rule": ".form-floating"
+        }
       }
     }
   }

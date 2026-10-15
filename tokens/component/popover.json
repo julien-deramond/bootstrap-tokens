@@ -273,7 +273,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$popover-tokens",
         "selector": ".popover",
-        "source": "scss/_popover.scss"
+        "source": "scss/_popover.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".popover"
+        }
       }
     }
   }

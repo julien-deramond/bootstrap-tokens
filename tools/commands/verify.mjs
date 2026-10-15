@@ -184,10 +184,11 @@ function verifyCssExport(upstreamCss, doc) {
  * Compile a partial export and assert that a page using it gets what the chooser previewed.
  *
  * Preview and export share a resolver, but they take different routes to CSS: the preview
- * resolves in JavaScript and paints unlayered rules over compiled Bootstrap, the export hands
- * symbolic values to Sass and lets Bootstrap place them inside its layers. Two bugs have
- * already shipped where those routes disagreed — `--spacer`, which upstream used to hardcode,
- * and `--shadow-strength`, which upstream re-declares under `[data-bs-theme]`.
+ * resolves in JavaScript and adds rules after compiled Bootstrap, the export hands symbolic
+ * values to Sass and lets Bootstrap place them inside its own rules. Three bugs have already
+ * shipped where those routes disagreed — `--spacer`, which upstream used to hardcode,
+ * `--shadow-strength`, which upstream re-declares under `[data-bs-theme]`, and every
+ * component variant, which the preview's unlayered overrides used to beat (issue #100).
  *
  * The second one passed this check for a long time, because it compared each property at the
  * selector it is declared on, and that selector was right. What was wrong was a later rule
@@ -214,8 +215,8 @@ async function verifyPartial(source, work, theme, upstreamCss) {
   console.log(`\nCompiling ${theme.name} as a partial theme export…`)
   const compiled = sass.compile(entry, { loadPaths: [source], style: 'expanded', sourceMap: false }).css
 
-  // Exactly what web/preview.html paints: compiled Bootstrap, then the unlayered
-  // #token-overrides style. theme.css ships the same rules.
+  // Exactly what web/preview.html paints: compiled Bootstrap, then the #token-overrides
+  // style, in Bootstrap's layers. theme.css ships the same rules.
   const reference = `${upstreamCss}\n${themeCss(diffResolved(base, themed))}`
 
   const result = comparePreview(reference, compiled, themed)
@@ -237,18 +238,18 @@ const PAGES = ['light', 'dark'].flatMap((os) =>
  * Every token with a CSS variable is probed where it is read — global tokens on `<html>`,
  * component tokens on an element built from the component's selector — in each of the six
  * page contexts, and again with `data-bs-theme` light and dark on the element itself, which
- * is how Bootstrap documents a dark navbar. A difference there is a failure.
+ * is how Bootstrap documents a dark navbar. Then the plain element again in the same page
+ * contexts at every wider viewport width a media query on a custom property starts at, and
+ * the component under each modifier class either stylesheet re-declares its properties for
+ * (`.btn-solid`, `.pagination-sm`, `.chip.active`…). Any difference is a failure.
  *
- * Two more families of probe only warn: the plain element in the same page contexts at
- * every wider viewport width a media query on a custom property starts at, and the
- * component under each modifier class either stylesheet re-declares its properties for
- * (`.btn-solid`, `.pagination-sm`, `.chip.active`…). The preview paints its
- * overrides unlayered, so they beat those modifiers, while the Sass export lands in the
- * layer where the modifiers win. That is a gap in the preview rather than in the export, and
- * failing on it would turn every theme that edits a component token red.
+ * The last two used to only warn, while the preview painted its overrides unlayered and so
+ * beat every modifier the compiled theme leaves alone. It now lands in Bootstrap's layers and
+ * repeats the rules that must keep winning, so a difference there is a bug like any other.
  *
- * Returns `{ failures, warnings, counts }`; each difference carries the property, its token
- * path, where it was probed, and the value and winning selector on each side.
+ * Returns `{ failures, counts }`; each difference carries the property, its token path, where
+ * it was probed, its kind (`theme`, `width` or `modifier`), and the value and winning
+ * selector on each side.
  */
 export function comparePreview(referenceCss, compiledCss, doc, { baseline = BASELINE_WIDTH } = {}) {
   const reference = parseCascade(referenceCss)
@@ -257,7 +258,6 @@ export function comparePreview(referenceCss, compiledCss, doc, { baseline = BASE
   const widths = [...new Set([...reference.widths, ...compiled.widths])].filter((width) => width > baseline)
 
   const failures = []
-  const warnings = []
   const counts = { properties: 0, comparisons: 0, widths, modifiers: 0, extra: 0 }
 
   // Two tokens can share a custom property on the same element — `navbar.color` and
@@ -304,13 +304,13 @@ export function comparePreview(referenceCss, compiledCss, doc, { baseline = BASE
     }
   }
 
-  // What warns: the plain element at wider widths, and the element under its modifiers.
+  // Then the plain element at wider widths, and the element under its modifiers.
   for (const target of targets) {
     const plain = target.nodes.at(-1).root ? [] : target.nodes
     for (const page of PAGES) {
       for (const token of target.tokens) {
         if (failedAt(token.cssVar, target.label, page)) continue
-        for (const width of widths) probe(warnings, 'width', token, target.label, plain, page, width)
+        for (const width of widths) probe(failures, 'width', token, target.label, plain, page, width)
       }
     }
 
@@ -319,13 +319,13 @@ export function comparePreview(referenceCss, compiledCss, doc, { baseline = BASE
       for (const page of PAGES) {
         for (const token of target.tokens) {
           if (failedAt(token.cssVar, target.label, page)) continue
-          probe(warnings, 'modifier', token, modifier.label, modifier.nodes, page, baseline)
+          probe(failures, 'modifier', token, modifier.label, modifier.nodes, page, baseline)
         }
       }
     }
   }
 
-  return { failures, warnings, counts }
+  return { failures, counts }
 }
 
 const keyOf = (cssVar, label, page, width) => [cssVar, label, page.os, page.attribute, width].join('|')
@@ -517,30 +517,19 @@ export function describeDifferences(differences) {
 
 const clip = (value) => (value.length > 90 ? `${value.slice(0, 87)}…` : value)
 
-function reportPreview({ failures, warnings, counts }, name) {
+function reportPreview({ failures, counts }, name) {
   const number = (n) => n.toLocaleString('en-US')
   const scope =
     `${number(counts.properties)} properties, each on the element that reads it in ${PAGES.length} page contexts, ` +
     `bare and with data-bs-theme light and dark on it (${number(counts.comparisons)} comparisons at ${BASELINE_WIDTH}px)`
   const extra =
-    `  Also compared at ${counts.widths.length} wider ${counts.widths.length === 1 ? 'width' : 'widths'} and under ` +
+    `${counts.widths.length} wider ${counts.widths.length === 1 ? 'width' : 'widths'} and under ` +
     `${counts.modifiers} modifier ${counts.modifiers === 1 ? 'selector' : 'selectors'} ` +
-    `(${number(counts.extra)} comparisons), which only warn.`
-
-  if (warnings.length > 0) {
-    const lines = describeDifferences(warnings)
-    console.warn(
-      `\n⚠ ${lines.length} ${lines.length === 1 ? 'difference shows' : 'differences show'} only at a wider ` +
-        'viewport or under a modifier class. The preview paints a component override on every variant, ' +
-        'while the compiled Sass leaves variants on Bootstrap’s own values. These do not fail verify:'
-    )
-    for (const line of lines.slice(0, 15)) console.warn(`  ${line}`)
-    if (lines.length > 15) console.warn(`  …and ${lines.length - 15} more.`)
-  }
+    `(${number(counts.extra)} comparisons)`
 
   if (failures.length === 0) {
     console.log(`✓ ${upperFirst(name)} compiles to what the preview paints: ${scope}.`)
-    console.log(extra)
+    console.log(`  Also at ${extra}.`)
     return 0
   }
 
@@ -548,7 +537,7 @@ function reportPreview({ failures, warnings, counts }, name) {
   const properties = new Set(failures.map(({ property }) => property)).size
   console.error(
     `\n✗ ${properties} ${properties === 1 ? 'property compiles' : 'properties compile'} to something other than ` +
-      `what the preview paints, over ${scope}:`
+      `what the preview paints, over ${scope}, and at ${extra}:`
   )
   for (const line of lines.slice(0, 20)) console.error(`  ${line}`)
   if (lines.length > 20) console.error(`  …and ${lines.length - 20} more.`)

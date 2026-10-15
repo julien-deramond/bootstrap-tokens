@@ -39,7 +39,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$figure-tokens",
         "selector": ".figure",
-        "source": "scss/content/_images.scss"
+        "source": "scss/content/_images.scss",
+        "cascade": {
+          "layer": "content",
+          "rule": ".figure"
+        }
       }
     }
   }

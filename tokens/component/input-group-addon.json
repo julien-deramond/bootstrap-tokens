@@ -82,7 +82,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$input-group-addon-tokens",
         "selector": ".input-group",
-        "source": "scss/forms/_input-group.scss"
+        "source": "scss/forms/_input-group.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".input-group"
+        }
       }
     }
   }

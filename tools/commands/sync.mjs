@@ -11,7 +11,8 @@ import { ext, walk } from '../lib/tokens.mjs'
 import { index } from '../lib/tokens.mjs'
 import { expandColorScales } from '../lib/color-scale.mjs'
 import { describeBootstrapSource, resolveBootstrapSource, tokensDir } from '../lib/config.mjs'
-import { compileUpstream, includedMaps } from '../lib/declared.mjs'
+import { compileUpstream, compileProbe, includedMaps } from '../lib/declared.mjs'
+import { annotateCascade, probedTokens } from '../lib/redeclared.mjs'
 import { selectorDrift } from '../lib/selectors.mjs'
 import { COMPONENTS } from '../lib/sass-targets.mjs'
 
@@ -68,6 +69,13 @@ export async function sync({ flags }) {
 
   const { files, warnings, version, records } = extract(source)
   const compiled = await compileUpstream(source)
+
+  // Where each component map sits in Bootstrap's layers, and which later rules re-declare its
+  // properties: what theme.css and the preview need to land where custom.scss lands.
+  const probe = await compileProbe(source, treeOf(files), probedTokens(files))
+  if (probe) {
+    for (const problem of annotateCascade(files, probe.css, probe.tokenOf)) warnings.push(problem)
+  }
 
   const origin = provenance(source)
   files['meta.json'] = {
@@ -214,13 +222,7 @@ function reportMovedTokens(files) {
     return false
   }
 
-  // Rebuild the extracted tree the way the loader would see it.
-  const tree = {}
-  for (const [name, content] of Object.entries(files)) {
-    if (name === 'meta.json' || name.startsWith('config/')) continue
-    Object.assign(tree, mergeShallow(tree, content))
-  }
-  const extracted = index(expandColorScales(JSON.parse(JSON.stringify(tree))))
+  const extracted = index(expandColorScales(treeOf(files)))
 
   const { candidates, unmatched } = detectRenames(
     migrationFingerprint(walk(committed.tree), ext),
@@ -242,6 +244,16 @@ function reportMovedTokens(files) {
   )
 
   return true
+}
+
+/** The extracted files as one tree, the way the loader would see it, sharing nothing with them. */
+function treeOf(files) {
+  const tree = {}
+  for (const [name, content] of Object.entries(files)) {
+    if (name === 'meta.json' || name.startsWith('config/')) continue
+    Object.assign(tree, mergeShallow(tree, content))
+  }
+  return JSON.parse(JSON.stringify(tree))
 }
 
 /** Merge extracted file trees into one, without the duplicate checking the loader does. */

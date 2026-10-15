@@ -209,7 +209,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$datepicker-tokens",
         "selector": "[data-vc=calendar]",
-        "source": "scss/_datepicker.scss"
+        "source": "scss/_datepicker.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": "[data-vc=calendar]"
+        }
       }
     }
   }

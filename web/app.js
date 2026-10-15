@@ -23,7 +23,8 @@ import {
   createHue,
   createRole,
   validateNewName,
-  pathsOfAddition
+  pathsOfAddition,
+  redeclaredNote
 } from '../tools/lib/overrides.mjs'
 import { sourceEdits } from '../tools/lib/source-value.mjs'
 import { unresolvedReferences } from '../tools/lib/value.mjs'
@@ -673,6 +674,16 @@ function renderToken(path) {
     const note = document.createElement('p')
     note.className = 'token-finding'
     note.textContent = `Bootstrap drops this value: ${finding[0]} Editing it changes nothing, here or in your project.`
+    controls.append(note)
+  }
+
+  // An edit that reaches plain `.btn` and not `.btn-solid` looks broken unless it says so.
+  // custom.scss behaves the same, so this explains the result rather than warning about it.
+  const variants = isChanged(path) ? redeclaredNote(token, path) : null
+  if (variants) {
+    const note = document.createElement('p')
+    note.className = 'token-variants'
+    note.textContent = variants
     controls.append(note)
   }
 
@@ -2030,10 +2041,11 @@ function exportContent() {
     const css = themeCss(diffResolved(state.baseDoc, state.doc), { prefix: SHIPPED_PREFIX })
     return {
       filename: 'theme.css',
-      note: 'No build step. Load it after Bootstrap’s stylesheet and it re-themes at runtime.',
+      note:
+        'No build step. Load it after Bootstrap’s stylesheet and it re-themes at runtime. Its rules go into Bootstrap’s own layers, so they reach what custom.scss reaches and nothing more.',
       steps: [
         'Save it next to your HTML.',
-        'Add it <em>after</em> Bootstrap: <code>&lt;link href="theme.css" rel="stylesheet"&gt;</code>.'
+        'Add it <em>after</em> Bootstrap: <code>&lt;link href="theme.css" rel="stylesheet"&gt;</code>. Loaded first, it would set the order of Bootstrap’s layers before Bootstrap does.'
       ],
       text: css || '/* Nothing overridden yet. */\n'
     }

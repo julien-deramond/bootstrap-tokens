@@ -10,7 +10,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--check-size",
           "sassMap": "$check-tokens",
-          "sassKey": "--check-size"
+          "sassKey": "--check-size",
+          "redeclared": [
+            {
+              "selector": ".check-sm",
+              "value": "1rem"
+            },
+            {
+              "selector": ".check-lg",
+              "value": "1.5rem"
+            }
+          ]
         }
       }
     },
@@ -24,7 +34,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--check-margin-block",
           "sassMap": "$check-tokens",
-          "sassKey": "--check-margin-block"
+          "sassKey": "--check-margin-block",
+          "redeclared": [
+            {
+              "selector": ".check-lg",
+              "value": ".375rem"
+            }
+          ]
         }
       }
     },
@@ -35,7 +51,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--check-bg",
           "sassMap": "$check-tokens",
-          "sassKey": "--check-bg"
+          "sassKey": "--check-bg",
+          "redeclared": [
+            {
+              "selector": ".check:disabled",
+              "value": "var(--check-disabled-bg)"
+            }
+          ]
         }
       }
     },
@@ -176,7 +198,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$check-tokens",
         "selector": ".check",
-        "source": "scss/forms/_check.scss"
+        "source": "scss/forms/_check.scss",
+        "cascade": {
+          "layer": "forms",
+          "rule": ".check"
+        }
       }
     }
   }

@@ -143,6 +143,28 @@ test('@keyframes and @starting-style declare nothing on an element', () => {
   assert.equal(valueOf(css, '--x'), undefined)
 })
 
+test('each declaration knows its rule and the at-rules around it; conditional ones are kept apart', () => {
+  const css = `
+    .a, .b { --x: 1; }
+    .a { --x: 2; }
+    @media (width >= 1024px) { .a { --x: 3; } }
+    @container (width >= 576px) { .a { --x: 4; } }
+    @keyframes spin { from { --x: 5; } }
+  `
+  const sheet = parseCascade(css)
+  const [a, b, again, wide] = sheet.byProperty.get('--x')
+  assert.equal(a.rule, b.rule, 'one rule for the whole selector list')
+  assert.notEqual(again.rule, a.rule)
+  assert.deepEqual(wide.at, ['@media (width >= 1024px)'])
+  assert.equal(sheet.byProperty.get('--x').length, 4)
+
+  // Never a probe's winner, but still a rule someone may have to reproduce.
+  assert.deepEqual(
+    sheet.conditional.map(({ selector, value, at }) => [selector, value, at]),
+    [['.a', '4', ['@container (width >= 576px)']]]
+  )
+})
+
 test('elementsFor builds the elements a component selector describes', () => {
   assert.deepEqual(elementsFor('.tab-content > .tab-pane'), [
     { tag: null, classes: ['tab-content'], attributes: {}, root: false },

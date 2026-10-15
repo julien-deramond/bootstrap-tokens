@@ -86,7 +86,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$btn-close-tokens",
         "selector": ".btn-close",
-        "source": "scss/buttons/_close.scss"
+        "source": "scss/buttons/_close.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".btn-close"
+        }
       }
     }
   }

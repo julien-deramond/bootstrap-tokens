@@ -7,7 +7,13 @@
           "cssVar": "--transition-collapse-property",
           "sassMap": "$collapse-tokens",
           "sassKey": "--transition-collapse-property",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".collapse.collapse-horizontal",
+              "value": "inline-size, display"
+            }
+          ]
         }
       }
     },
@@ -42,7 +48,10 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$collapse-tokens",
         "selector": ".collapse",
-        "source": "scss/_transitions.scss"
+        "source": "scss/_transitions.scss",
+        "cascade": {
+          "rule": ".collapse"
+        }
       }
     }
   }

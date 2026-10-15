@@ -24,7 +24,60 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--dialog-width",
           "sassMap": "$dialog-tokens",
-          "sassKey": "--dialog-width"
+          "sassKey": "--dialog-width",
+          "redeclared": [
+            {
+              "selector": ".dialog-sm",
+              "value": "280px"
+            },
+            {
+              "selector": ".dialog-lg",
+              "value": "800px"
+            },
+            {
+              "selector": ".dialog-xl",
+              "value": "1140px"
+            },
+            {
+              "selector": ".dialog-fullscreen",
+              "value": "100vw"
+            },
+            {
+              "selector": ".sm-down\\:dialog-fullscreen",
+              "at": [
+                "@media (width < 576px)"
+              ],
+              "value": "100vw"
+            },
+            {
+              "selector": ".md-down\\:dialog-fullscreen",
+              "at": [
+                "@media (width < 768px)"
+              ],
+              "value": "100vw"
+            },
+            {
+              "selector": ".lg-down\\:dialog-fullscreen",
+              "at": [
+                "@media (width < 1024px)"
+              ],
+              "value": "100vw"
+            },
+            {
+              "selector": ".xl-down\\:dialog-fullscreen",
+              "at": [
+                "@media (width < 1280px)"
+              ],
+              "value": "100vw"
+            },
+            {
+              "selector": ".\\32 xl-down\\:dialog-fullscreen",
+              "at": [
+                "@media (width < 1536px)"
+              ],
+              "value": "100vw"
+            }
+          ]
         }
       }
     },
@@ -38,7 +91,48 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--dialog-margin",
           "sassMap": "$dialog-tokens",
-          "sassKey": "--dialog-margin"
+          "sassKey": "--dialog-margin",
+          "redeclared": [
+            {
+              "selector": ".dialog-fullscreen",
+              "value": "0"
+            },
+            {
+              "selector": ".sm-down\\:dialog-fullscreen",
+              "at": [
+                "@media (width < 576px)"
+              ],
+              "value": "0"
+            },
+            {
+              "selector": ".md-down\\:dialog-fullscreen",
+              "at": [
+                "@media (width < 768px)"
+              ],
+              "value": "0"
+            },
+            {
+              "selector": ".lg-down\\:dialog-fullscreen",
+              "at": [
+                "@media (width < 1024px)"
+              ],
+              "value": "0"
+            },
+            {
+              "selector": ".xl-down\\:dialog-fullscreen",
+              "at": [
+                "@media (width < 1280px)"
+              ],
+              "value": "0"
+            },
+            {
+              "selector": ".\\32 xl-down\\:dialog-fullscreen",
+              "at": [
+                "@media (width < 1536px)"
+              ],
+              "value": "0"
+            }
+          ]
         }
       }
     },
@@ -82,7 +176,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--dialog-border-width",
           "sassMap": "$dialog-tokens",
-          "sassKey": "--dialog-border-width"
+          "sassKey": "--dialog-border-width",
+          "redeclared": [
+            {
+              "selector": ".dialog-fullscreen",
+              "value": "0"
+            }
+          ]
         }
       }
     },
@@ -93,7 +193,48 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--dialog-border-radius",
           "sassMap": "$dialog-tokens",
-          "sassKey": "--dialog-border-radius"
+          "sassKey": "--dialog-border-radius",
+          "redeclared": [
+            {
+              "selector": ".dialog-fullscreen",
+              "value": "0"
+            },
+            {
+              "selector": ".sm-down\\:dialog-fullscreen",
+              "at": [
+                "@media (width < 576px)"
+              ],
+              "value": "0"
+            },
+            {
+              "selector": ".md-down\\:dialog-fullscreen",
+              "at": [
+                "@media (width < 768px)"
+              ],
+              "value": "0"
+            },
+            {
+              "selector": ".lg-down\\:dialog-fullscreen",
+              "at": [
+                "@media (width < 1024px)"
+              ],
+              "value": "0"
+            },
+            {
+              "selector": ".xl-down\\:dialog-fullscreen",
+              "at": [
+                "@media (width < 1280px)"
+              ],
+              "value": "0"
+            },
+            {
+              "selector": ".\\32 xl-down\\:dialog-fullscreen",
+              "at": [
+                "@media (width < 1536px)"
+              ],
+              "value": "0"
+            }
+          ]
         }
       }
     },
@@ -262,7 +403,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$dialog-tokens",
         "selector": ".dialog",
-        "source": "scss/_dialog.scss"
+        "source": "scss/_dialog.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".dialog"
+        }
       }
     }
   }

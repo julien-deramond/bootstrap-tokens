@@ -12,6 +12,7 @@ import { emitUseWith } from './emit-scss.mjs'
 import { SCALARS, COMPONENTS } from './sass-targets.mjs'
 import { PINNED_SELECTORS } from './curation.mjs'
 import { cssLiteral, unresolvedReferences } from './value.mjs'
+import { selectorsOf } from './redeclared.mjs'
 
 const scalarByPath = new Map(SCALARS.map((s) => [s.path, s.sassVar]))
 const selectorByMap = new Map(COMPONENTS.map((c) => [c.sassMap, c.selector]))
@@ -146,11 +147,48 @@ export function diffResolved(base, next) {
         cssVar: meta.cssVar,
         sassMap: meta.sassMap,
         value: after,
-        pinnedModes: meta.pinnedModes ?? null
+        pinnedModes: meta.pinnedModes ?? null,
+        cascade: cascadeOf(next.tree, path, meta.sassMap),
+        redeclared: redeclaredIn(next, meta.redeclared)
       })
     }
   }
   return changes
+}
+
+/**
+ * Where a component token's map sits in Bootstrap's cascade, as `sync` recorded it on the
+ * component group: `{ layer, rule }`, or null for a global token or an unknown map.
+ * See tools/lib/redeclared.mjs.
+ */
+function cascadeOf(tree, path, sassMap) {
+  if (!sassMap) return null
+  const group = ext(tree[path.split('.')[0]])
+  return group.sassMap === sassMap && group.cascade ? group.cascade : null
+}
+
+/**
+ * The later rules that re-declare a token, each with the value it has in this document: a
+ * rule another token writes takes that token's value, edited or not. A token Bootstrap leaves
+ * null writes nothing until a theme sets it, so its rule is left out.
+ */
+function redeclaredIn(doc, entries) {
+  if (!entries) return null
+  const out = []
+  for (const entry of entries) {
+    if (!entry.token) {
+      out.push(entry)
+      continue
+    }
+    let value = null
+    try {
+      value = cssLiteral(doc.cssValueOf(entry.token))
+    } catch {
+      value = null
+    }
+    if (value != null && value !== 'null') out.push({ ...entry, value })
+  }
+  return out
 }
 
 /** Group changed declarations by the selector they belong on. */
@@ -167,10 +205,20 @@ export function declarationsBySelector(changes) {
 /**
  * A stylesheet that layers the changed custom properties over compiled Bootstrap.
  *
+ * It has to land where `custom.scss` lands, and `custom.scss` edits Bootstrap's own rule in
+ * place: same layer, same selector list, same position. So each component override goes in
+ * the layer its map is emitted in, on that rule's selectors, and is followed by every later
+ * rule of that layer that re-declares the property, with Bootstrap's value, in Bootstrap's
+ * order. Without them the override, coming last, would beat `.btn-solid`, `.chip.active` or
+ * the wide-screen `.prose` rule, which the compiled theme leaves alone. Global tokens stay
+ * unlayered, as Bootstrap declares them. Load the result after Bootstrap's stylesheet: the
+ * layer order is the one Bootstrap declares first.
+ *
  * `scope` confines the whole thing to one subtree, which is what makes a before/after view
  * possible: the same page rendered twice, themed on one side and stock on the other. Custom
  * properties inherit, so declaring them on a wrapper themes everything inside it and nothing
- * outside.
+ * outside. Component rules are scoped with `:where()`, which adds no specificity, so a
+ * Bootstrap rule that beats the override on the page still beats it in the scoped copy.
  *
  * `prefix` renames every custom property the way Bootstrap's build does. Its Sass declares
  * `--link-color`, and a PostCSS step (`postcss-prefix-custom-properties`) turns that into
@@ -183,9 +231,21 @@ export function themeCss(changes, { scope = null, prefix = '' } = {}) {
 
   const rename = prefixer(prefix)
   const blocks = []
-  for (const [selector, declarations] of declarationsBySelector(changes)) {
-    const body = declarations.map(([name, value]) => `  ${rename.name(name)}: ${rename.value(value)};`).join('\n')
-    blocks.push(`${scoped(selector, scope)} {\n${body}\n}`)
+  for (const [selector, declarations] of declarationsBySelector(changes.filter((change) => !change.cascade))) {
+    blocks.push(ruleOf(scoped(selector, scope), declarations, rename))
+  }
+
+  const byLayer = new Map()
+  for (const change of changes) {
+    if (!change.cascade) continue
+    const layer = change.cascade.layer ?? ''
+    if (!byLayer.has(layer)) byLayer.set(layer, [])
+    byLayer.get(layer).push(change)
+  }
+
+  for (const [layer, layered] of byLayer) {
+    const rules = layerRules(layered, scope, rename)
+    blocks.push(...(layer ? [`@layer ${layer} {\n${indent(rules.join('\n\n'))}\n}`] : rules))
   }
 
   blocks.push(...reassertPinned(changes, scope, rename))
@@ -210,11 +270,126 @@ function prefixer(prefix) {
   return { name, value }
 }
 
+/**
+ * One layer's overrides, then the later rules that must keep winning over them.
+ *
+ * The cascade is per property, so only the order among one property's rules matters. Two
+ * edits can share a property — `navbar.color` on `.navbar` and `navbar-dark.navbar-color` on
+ * the dark navbar — and then the later one is among the earlier one's repeated rules: it is
+ * repeated there with its new value, in its place, rather than with Bootstrap's.
+ */
+function layerRules(changes, scope, rename) {
+  const bases = new Map()
+  for (const change of changes) {
+    const { rule, at = [] } = change.cascade
+    const key = JSON.stringify([rule, at])
+    if (!bases.has(key)) bases.set(key, { rule, at, declarations: new Map() })
+    bases.get(key).declarations.set(change.cssVar, change.value)
+  }
+  const rules = [...bases.values()].map(({ rule, at, declarations }) =>
+    wrap(at, ruleOf(scopedList(rule, scope), [...declarations], rename))
+  )
+
+  const byProperty = new Map()
+  for (const change of changes) {
+    if (!byProperty.has(change.cssVar)) byProperty.set(change.cssVar, [])
+    byProperty.get(change.cssVar).push(change)
+  }
+
+  const repeats = []
+  for (const [property, shared] of byProperty) {
+    const covered = new Set(
+      shared.flatMap(({ path, redeclared }) =>
+        (redeclared ?? []).map(({ token }) => token).filter((token) => token && token !== path)
+      )
+    )
+    for (const change of shared) {
+      if (covered.has(change.path)) continue
+      for (const { selector, at = [], value } of change.redeclared ?? []) {
+        repeats.push(wrap(at, ruleOf(scopedList(selector, scope), [[property, value]], rename)))
+      }
+    }
+  }
+
+  if (repeats.length === 0) return rules
+  return [
+    ...rules,
+    `/* Bootstrap re-declares ${repeats.length === 1 ? 'this property in a later rule' : 'these properties in later rules'} of this layer. Repeated here, ${repeats.length === 1 ? 'it keeps' : 'they keep'} winning, as ${repeats.length === 1 ? 'it does' : 'they do'} in a compiled custom.scss. */\n${repeats[0]}`,
+    ...repeats.slice(1)
+  ]
+}
+
+const ruleOf = (selector, declarations, rename) =>
+  `${selector} {\n${declarations.map(([name, value]) => `  ${rename.name(name)}: ${rename.value(value)};`).join('\n')}\n}`
+
+/** `@media`, `@container`… around a rule, outermost first. */
+const wrap = (at, rule) => at.reduceRight((inner, prelude) => `${prelude} {\n${indent(inner)}\n}`, rule)
+
 /** `:root` becomes the wrapper itself; everything else becomes a descendant of it. */
 function scoped(selector, scope) {
   if (!scope) return selector
   return selector === ':root' ? scope : `${scope} ${selector}`
 }
+
+/** A rule's selector list, each one confined to `scope` without changing its specificity. */
+function scopedList(list, scope) {
+  if (!scope) return list
+  const out = selectorsOf(list).map((selector) =>
+    selector === ':root' || selector === ':host' ? scope : `:where(${scope}) ${selector}`
+  )
+  return [...new Set(out)].join(', ')
+}
+
+/**
+ * What the Theme Builder says under an edited token (`token`, found at `path`) that later
+ * Bootstrap rules re-declare, so an edit that reaches plain `.btn` and not `.btn-solid` does
+ * not look broken. Null when nothing re-declares it.
+ */
+export function redeclaredNote(token, path) {
+  const meta = ext(token)
+  // A second rule the same map is written in takes the edit too: nothing to explain there.
+  const entries = (meta.redeclared ?? []).filter(({ token: owner }) => owner !== path)
+  if (entries.length === 0) return null
+
+  const labels = []
+  const states = []
+  const owners = []
+  for (const { selector, at = [], token: owner } of entries) {
+    const plain = []
+    for (const one of selectorsOf(selector)) {
+      // `:hover`, `:active`… are states of an element listed anyway, not variants of their own.
+      const state = /(?:^|[^\\]):([\w-]+)/.exec(one)
+      if (state && state[1] !== 'root') {
+        if (!states.includes(state[1])) states.push(state[1])
+        continue
+      }
+      const condition = at.map((prelude) => prelude.replace(/^@media\s+/, '').replace(/^@/, '')).join(' and ')
+      plain.push(`${unescaped(one)}${condition ? ` when ${condition}` : ''}`)
+    }
+    for (const label of plain) if (!labels.includes(label)) labels.push(label)
+    if (owner && plain.length > 0) owners.push(`To change ${listOf(plain)} too, edit ${owner}.`)
+  }
+
+  const shown = labels.slice(0, 5)
+  const more = labels.length - shown.length
+  const named = more > 0 ? `${shown.join(', ')} and ${more} more` : listOf(shown)
+  const pseudo = listOf(states.map((state) => `:${state}`))
+  const where =
+    labels.length === 0
+      ? `on ${pseudo}`
+      : `on ${named}${states.length > 0 ? `, and on ${pseudo}` : ''}`
+
+  return [
+    `Bootstrap sets ${meta.cssVar} again ${where}, so this edit does not reach ${labels.length + states.length === 1 ? 'it' : 'them'}, here or in your compiled theme.`,
+    ...new Set(owners)
+  ].join(' ')
+}
+
+const listOf = (items) => (items.length < 2 ? items.join('') : `${items.slice(0, -1).join(', ')} and ${items.at(-1)}`)
+
+/** `.sm\:navbar-expand` as someone would type it in a class attribute: `.sm:navbar-expand`. */
+const unescaped = (selector) =>
+  selector.replace(/\\([0-9a-fA-F]{1,6})\s?/g, (_, hex) => String.fromCodePoint(Number.parseInt(hex, 16))).replace(/\\(.)/g, '$1')
 
 /**
  * Re-declare the tokens Bootstrap pins per color scheme, at the selectors it pins them on.
@@ -262,7 +437,7 @@ export function unexpressible(doc, overrides) {
   return out
 }
 
-const indent = (text) => text.split('\n').map((line) => `  ${line}`).join('\n')
+const indent = (text) => text.split('\n').map((line) => (line ? `  ${line}` : line)).join('\n')
 
 /**
  * The Sass maps an export has to carry. Derived from what the user *edited*, not from what

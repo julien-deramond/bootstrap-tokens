@@ -10,7 +10,16 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--content-font-size",
           "sassMap": "$prose-tokens",
-          "sassKey": "--content-font-size"
+          "sassKey": "--content-font-size",
+          "redeclared": [
+            {
+              "selector": ".prose",
+              "at": [
+                "@media (width >= 1024px)"
+              ],
+              "value": "var(--font-size-md)"
+            }
+          ]
         }
       }
     },
@@ -21,7 +30,16 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--content-line-height",
           "sassMap": "$prose-tokens",
-          "sassKey": "--content-line-height"
+          "sassKey": "--content-line-height",
+          "redeclared": [
+            {
+              "selector": ".prose",
+              "at": [
+                "@media (width >= 1024px)"
+              ],
+              "value": "1.625"
+            }
+          ]
         }
       }
     },
@@ -54,7 +72,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$prose-tokens",
         "selector": ".prose",
-        "source": "scss/content/_prose.scss"
+        "source": "scss/content/_prose.scss",
+        "cascade": {
+          "layer": "content",
+          "rule": ".prose"
+        }
       }
     }
   }

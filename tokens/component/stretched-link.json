@@ -16,7 +16,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$stretched-link-tokens",
         "selector": ".stretched-link",
-        "source": "scss/helpers/_stretched-link.scss"
+        "source": "scss/helpers/_stretched-link.scss",
+        "cascade": {
+          "layer": "helpers",
+          "rule": ".stretched-link"
+        }
       }
     }
   }

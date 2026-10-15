@@ -155,6 +155,15 @@ cover.
 * **An export carries only the keys you changed.** `defaults()` merges key by key, so
   editing one shadow gives you a three-line `$root-tokens`, not all 67 entries. Nested maps
   merge one level deep, so a changed sub-key carries its whole role — but only that role.
+* **An edit reaches what `custom.scss` reaches.** Bootstrap re-declares many component
+  properties on its variants: `.btn-solid` sets its own `--btn-color`, `.chip.active` its own
+  `--chip-bg`, and `.prose` its own `--content-font-size` from 1024px wide. A compiled theme
+  leaves those alone, and so do the preview and `theme.css`: their rules go into Bootstrap's
+  own layers and repeat the later rules that must keep winning. An edited token says which
+  variants it doesn't reach, and which token does when there is one (`navbar-dark.navbar-color`
+  for the dark navbar). That also means `theme.css` loads after Bootstrap's stylesheet, as
+  the export says. Loaded first, it would set the order of Bootstrap's layers before
+  Bootstrap does.
 * **A field takes any CSS.** A literal (`1.25rem`), a token reference (`{radius.9}`), or a
   raw custom property (`var(--radius-9)`) all work; references keep the link, literals break
   it.

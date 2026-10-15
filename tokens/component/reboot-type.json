@@ -109,7 +109,10 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$type-tokens",
         "selector": ":root",
-        "source": "scss/content/_reboot.scss"
+        "source": "scss/content/_reboot.scss",
+        "cascade": {
+          "rule": ":root, :host"
+        }
       }
     }
   }

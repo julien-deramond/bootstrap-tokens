@@ -7,7 +7,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--toast-zindex",
           "sassMap": "$toast-tokens",
-          "sassKey": "--toast-zindex"
+          "sassKey": "--toast-zindex",
+          "redeclared": [
+            {
+              "selector": ".toast-container",
+              "value": "var(--z-toast)"
+            }
+          ]
         }
       }
     },
@@ -218,7 +224,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$toast-tokens",
         "selector": ".toast",
-        "source": "scss/_toasts.scss"
+        "source": "scss/_toasts.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".toast"
+        }
       }
     }
   }

@@ -89,8 +89,8 @@ the tool" and "it compiles to this" are different claims, and only the second su
 dependency bump.
 
 The theme check compares what a page gets, not what a selector declares. It puts the preview's
-stylesheet (compiled Bootstrap plus the Theme Builder's unlayered overrides, the same rules
-`theme.css` ships) next to the compiled `custom.scss`. Then it asks both which value of every
+stylesheet (compiled Bootstrap plus the Theme Builder's overrides, the same rules `theme.css`
+ships) next to the compiled `custom.scss`. Then it asks both which value of every
 token's custom property reaches the element that reads it. That follows `@layer` order,
 specificity, source order, `prefers-color-scheme` and inheritance, so a later rule that shadows
 a value shows up. Each property is probed on `<html>` or on an element built from its
@@ -103,14 +103,21 @@ message names both values and the selector that won on each side:
 --shadow-strength (elevation.strength) on <html data-bs-theme="light">: preview .5 from [data-bs-theme="light"], compiled 1 from [data-bs-theme=light]
 ```
 
-Two kinds of difference only warn. The first shows only at a wider viewport (the widths come
-from the stylesheets' own media queries). The second shows only under a modifier class that
-re-declares a component's properties, such as `.btn-solid`, `.pagination-sm` or `.chip.active`.
-Both come from the preview, not from the export. The Theme Builder paints its overrides
-unlayered, so they beat every variant rule Bootstrap keeps in its components layer, while
-`custom.scss` lands inside that layer and the variants keep Bootstrap's values. Editing the
-button text color, for example, changes every solid, outline and link button in the preview,
-and none of them in the compiled theme.
+It then probes each component again at every wider viewport the stylesheets' own media queries
+start at, and under every modifier class that re-declares one of its properties, such as
+`.btn-solid`, `.pagination-sm` or `.chip.active`. A difference there fails too. Editing the
+button text color has to change plain `.btn` and leave solid, outline and link buttons alone,
+in the preview as in the compiled theme.
+
+That works because the preview and `theme.css` land where `custom.scss` lands. `custom.scss`
+changes the rule Bootstrap writes each token map in, so the rule keeps its layer and its place,
+and later rules of that layer still win over it. The overrides go into the same layer
+(`@layer components`, `@layer content`…), on the same selector list, followed by copies of every
+later rule of that layer that sets the same property, with Bootstrap's value. `sync` records the
+layer and those later rules in the token document (`cascade` on each component group,
+`redeclared` on each token), from a compile where every token carries a probe value, so it knows
+each rule a map writes, including a second `@include` such as `.form-control-plaintext`. Global
+tokens stay unlayered, as Bootstrap declares them.
 
 The model has limits. Selectors with pseudo-classes other than `:root`, pseudo-elements, `+`
 or `~` never match a probe. `@supports`, `@container` and media features other than color

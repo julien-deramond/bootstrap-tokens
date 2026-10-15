@@ -214,7 +214,10 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$drawer-tokens",
         "selector": ".drawer",
-        "source": "scss/_drawer.scss"
+        "source": "scss/_drawer.scss",
+        "cascade": {
+          "rule": ".drawer, .\\32 xl\\:drawer, .xl\\:drawer, .lg\\:drawer, .md\\:drawer, .sm\\:drawer"
+        }
       }
     }
   }

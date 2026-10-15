@@ -44,7 +44,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$form-adorn-tokens",
         "selector": ".form-adorn",
-        "source": "scss/forms/_form-adorn.scss"
+        "source": "scss/forms/_form-adorn.scss",
+        "cascade": {
+          "layer": "forms",
+          "rule": ".form-adorn"
+        }
       }
     }
   }

@@ -21,7 +21,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--strength-height",
           "sassMap": "$strength-tokens",
-          "sassKey": "--strength-height"
+          "sassKey": "--strength-height",
+          "redeclared": [
+            {
+              "selector": ".strength-bar",
+              "token": "strength.height"
+            }
+          ]
         }
       }
     },
@@ -35,7 +41,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--strength-gap",
           "sassMap": "$strength-tokens",
-          "sassKey": "--strength-gap"
+          "sassKey": "--strength-gap",
+          "redeclared": [
+            {
+              "selector": ".strength-bar",
+              "token": "strength.gap"
+            }
+          ]
         }
       }
     },
@@ -49,7 +61,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--strength-margin-top",
           "sassMap": "$strength-tokens",
-          "sassKey": "--strength-margin-top"
+          "sassKey": "--strength-margin-top",
+          "redeclared": [
+            {
+              "selector": ".strength-bar",
+              "token": "strength.margin-top"
+            }
+          ]
         }
       }
     },
@@ -60,7 +78,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--strength-border-radius",
           "sassMap": "$strength-tokens",
-          "sassKey": "--strength-border-radius"
+          "sassKey": "--strength-border-radius",
+          "redeclared": [
+            {
+              "selector": ".strength-bar",
+              "token": "strength.border-radius"
+            }
+          ]
         }
       }
     },
@@ -71,7 +95,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--strength-bg",
           "sassMap": "$strength-tokens",
-          "sassKey": "--strength-bg"
+          "sassKey": "--strength-bg",
+          "redeclared": [
+            {
+              "selector": ".strength-bar",
+              "token": "strength.bg"
+            }
+          ]
         }
       }
     },
@@ -82,7 +112,49 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--strength-color",
           "sassMap": "$strength-tokens",
-          "sassKey": "--strength-color"
+          "sassKey": "--strength-color",
+          "redeclared": [
+            {
+              "selector": ".strength[data-bs-strength=weak]",
+              "value": "var(--strength-weak-color)"
+            },
+            {
+              "selector": ".strength[data-bs-strength=fair]",
+              "value": "var(--strength-fair-color)"
+            },
+            {
+              "selector": ".strength[data-bs-strength=good]",
+              "value": "var(--strength-good-color)"
+            },
+            {
+              "selector": ".strength[data-bs-strength=strong]",
+              "value": "var(--strength-strong-color)"
+            },
+            {
+              "selector": ".strength-bar",
+              "token": "strength.color"
+            },
+            {
+              "selector": ".strength-bar",
+              "value": "transparent"
+            },
+            {
+              "selector": ".strength-bar[data-bs-strength=weak]",
+              "value": "var(--strength-weak-color)"
+            },
+            {
+              "selector": ".strength-bar[data-bs-strength=fair]",
+              "value": "var(--strength-fair-color)"
+            },
+            {
+              "selector": ".strength-bar[data-bs-strength=good]",
+              "value": "var(--strength-good-color)"
+            },
+            {
+              "selector": ".strength-bar[data-bs-strength=strong]",
+              "value": "var(--strength-strong-color)"
+            }
+          ]
         }
       }
     },
@@ -93,7 +165,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--strength-weak-color",
           "sassMap": "$strength-tokens",
-          "sassKey": "--strength-weak-color"
+          "sassKey": "--strength-weak-color",
+          "redeclared": [
+            {
+              "selector": ".strength-bar",
+              "token": "strength.weak-color"
+            }
+          ]
         }
       }
     },
@@ -104,7 +182,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--strength-fair-color",
           "sassMap": "$strength-tokens",
-          "sassKey": "--strength-fair-color"
+          "sassKey": "--strength-fair-color",
+          "redeclared": [
+            {
+              "selector": ".strength-bar",
+              "token": "strength.fair-color"
+            }
+          ]
         }
       }
     },
@@ -115,7 +199,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--strength-good-color",
           "sassMap": "$strength-tokens",
-          "sassKey": "--strength-good-color"
+          "sassKey": "--strength-good-color",
+          "redeclared": [
+            {
+              "selector": ".strength-bar",
+              "token": "strength.good-color"
+            }
+          ]
         }
       }
     },
@@ -126,7 +216,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--strength-strong-color",
           "sassMap": "$strength-tokens",
-          "sassKey": "--strength-strong-color"
+          "sassKey": "--strength-strong-color",
+          "redeclared": [
+            {
+              "selector": ".strength-bar",
+              "token": "strength.strong-color"
+            }
+          ]
         }
       }
     },
@@ -135,7 +231,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$strength-tokens",
         "selector": ".strength",
-        "source": "scss/forms/_strength.scss"
+        "source": "scss/forms/_strength.scss",
+        "cascade": {
+          "layer": "forms",
+          "rule": ".strength"
+        }
       }
     }
   }

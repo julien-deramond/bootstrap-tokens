@@ -64,7 +64,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$form-text-tokens",
         "selector": ".form-text",
-        "source": "scss/forms/_form-text.scss"
+        "source": "scss/forms/_form-text.scss",
+        "cascade": {
+          "layer": "forms",
+          "rule": ".form-text"
+        }
       }
     }
   }

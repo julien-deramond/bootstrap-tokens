@@ -113,6 +113,15 @@ table above's shapes.
     "sassMap":    "$alert-tokens",      // which upstream Sass map owns this token
     "sassVar":    "$blue",              // upstream Sass variable, for primitives that have one
     "selector":   ".navbar[data-bs-theme=dark]", // where a variant map is emitted
+    "cascade":    { "layer": "components", "rule": ".btn, .btn-link, …" }, // on a component group:
+                                        // the layer and full selector list of the rule the map
+                                        // is written in, recorded by `sync` from a compile
+    "redeclared": [                     // later rules of that layer that set the same property,
+      { "selector": ".btn-solid", "value": "var(--theme-contrast)" },  // in source order;
+      { "selector": ".prose", "at": ["@media (width >= 1024px)"], "value": "…" },
+      { "selector": ".btn-link", "token": "button-link.btn-color" }    // one a token map writes
+    ],                                  // theme.css repeats them after an override (issue #100)
+    "pinnedModes": { "dark": "2.4", "light": null }, // re-declared per color scheme outside any map
     "private":    true,                 // participates in resolution, emits no custom property
 
     // --- semantics ---

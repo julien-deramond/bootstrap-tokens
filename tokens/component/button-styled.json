@@ -98,7 +98,11 @@
         "sassMap": "$button-styled-tokens",
         "selector": ".btn-styled",
         "source": "scss/buttons/_button.scss",
-        "variantOf": "btn"
+        "variantOf": "btn",
+        "cascade": {
+          "layer": "components",
+          "rule": ".btn-styled"
+        }
       }
     }
   }

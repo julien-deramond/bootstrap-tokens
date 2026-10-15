@@ -31,7 +31,10 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$fade-tokens",
         "selector": ".fade",
-        "source": "scss/_transitions.scss"
+        "source": "scss/_transitions.scss",
+        "cascade": {
+          "rule": ".fade"
+        }
       }
     }
   }

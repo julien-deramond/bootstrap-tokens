@@ -192,7 +192,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$list-group-tokens",
         "selector": ".list-group",
-        "source": "scss/_list-group.scss"
+        "source": "scss/_list-group.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".list-group"
+        }
       }
     }
   }
