@@ -2298,7 +2298,7 @@ function migrate(overrides, options = {}) {
 
   // A value naming a token that does not exist would be counted as a change yet missing from
   // custom.scss and theme.css, so it is refused here, as the field refuses it when typed.
-  const { overrides: migrated, broken } = withoutBrokenReferences(renamedOverrides, state.baseTree)
+  const { overrides: migrated, broken } = withoutBrokenReferences(state.baseTree, renamedOverrides)
 
   // Options have no rename table: one upstream removed is simply gone, and exporting it would
   // make the Sass fail to compile (`with ()` rejects a variable that is not declared).
