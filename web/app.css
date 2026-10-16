@@ -72,6 +72,8 @@ body {
   gap: 1rem;
   align-items: center;
   justify-content: space-between;
+  flex-wrap: wrap;
+  row-gap: .5rem;
   padding: .5rem .875rem;
   background: var(--surface);
   border-block-end: 1px solid var(--line);
@@ -97,7 +99,7 @@ body {
    more buttons in this row, so anchoring the popover to its own wrapper — instead of to
    this full-width row — let it run off the left edge of the viewport once the row got
    narrow enough to wrap. */
-.topbar-actions { position: relative; display: flex; gap: .5rem; align-items: center; }
+.topbar-actions { position: relative; display: flex; flex-wrap: wrap; gap: .5rem; align-items: center; }
 
 .health {
   font-size: .6875rem;
@@ -197,7 +199,7 @@ body {
 
 body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem) minmax(20rem, 1fr); }
 
-.panel, .preview { min-height: 0; display: flex; flex-direction: column; }
+.panel, .preview { min-width: 0; min-height: 0; display: flex; flex-direction: column; }
 /* The panel is chrome and the preview is content, so the panel casts onto the canvas
    rather than merely sitting next to it behind a hairline. */
 .panel {
@@ -210,7 +212,7 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 
 /* The mode switch governs this panel, so it sits on it — not next to the preview's own
    scheme switch, where two identical segmented controls read as one setting. */
-.panel-tabs { display: flex; gap: .25rem; padding: .5rem .75rem 0; border-block-end: 1px solid var(--line); }
+.panel-tabs { display: flex; min-width: 0; gap: .25rem; padding: .5rem .75rem 0; border-block-end: 1px solid var(--line); }
 
 .panel-tabs button {
   font: inherit;
@@ -742,14 +744,12 @@ body[data-mode="advanced"] .layout { grid-template-columns: minmax(30rem, 54rem)
 }
 
 @media (width < 34rem) {
-  .topbar { flex-wrap: wrap; row-gap: .5rem; }
   .brand-sub { display: none; }
   /* Room runs out before the bar wraps a second time, and the mark alone still says where
      the link goes, so the word goes first. */
   .repo-label { display: none; }
-  /* The actions alone are wider than a phone, and a row that cannot wrap widens the whole
-     page and pushes Export off-screen — so let them break onto a second line. */
-  .topbar-actions { inline-size: 100%; flex-wrap: wrap; justify-content: flex-end; }
+  /* The actions alone are wider than a phone: take the full row, so Export stays on screen. */
+  .topbar-actions { inline-size: 100%; justify-content: flex-end; }
   .token { grid-template-columns: 1fr; }
 }
 
