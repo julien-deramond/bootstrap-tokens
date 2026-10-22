@@ -33,6 +33,8 @@
   --color-illustration-violet: var(--palette-violet-400);
   /* Rules, borders, dividers. */
   --color-line: var(--palette-neutral-void-line);
+  /* A line the reader needs to see a shape: a diagram box outline, an axis, a separator that splits meaning. 3:1 or more on bg and on panel (WCAG 2.2 1.4.11), darker than muted so the words still lead. Never text. */
+  --color-line-strong: var(--palette-neutral-void-edge);
   /* Secondary text, labels, captions. AA on bg and on panel. */
   --color-muted: var(--palette-neutral-ash);
   /* Text on a gold fill. */
@@ -179,6 +181,8 @@
   --palette-neutral-pewter: #c4c7cd;
   /* The field. Every surface in the brand sits on it; assets that live on other people's surfaces carry it with them. */
   --palette-neutral-void: #0a0c11;
+  /* A line the reader needs: a diagram box, an axis. 3.9:1 on the field, 3.5:1 on a panel, under the secondary text. */
+  --palette-neutral-void-edge: #6c6f76;
   /* Hairlines, borders, dividers, the gutter grid. */
   --palette-neutral-void-line: #292c33;
   /* Panels: cards, code blocks, docs chrome, status strips. One step up from the field. */
