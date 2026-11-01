@@ -82,5 +82,8 @@
   ],
   "sass": "build/scss/_tokens.scss",
   "style": "build/css/tokens.css",
-  "types": "build/ts/tokens.d.ts"
+  "types": "build/ts/tokens.d.ts",
+  "overrides": {
+    "minimatch": "^11.0.1"
+  }
 }
