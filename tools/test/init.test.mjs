@@ -63,7 +63,7 @@ function filesOn(target) {
 test('it writes a project that needs nothing but npm install', async () => {
   const target = await scaffold()
 
-  for (const file of ['scss/custom.scss', 'package.json', 'index.html', 'README.md', 'theme.json', '.gitignore']) {
+  for (const file of ['scss/custom.scss', 'package.json', 'index.html', 'README.md', 'theme.json', 'postcss.config.mjs', '.gitignore']) {
     assert.ok(existsSync(join(target, file)), `${file} is missing`)
   }
 })
@@ -91,6 +91,28 @@ test('the dependency is the pinned release: an exact registry version, no URL, n
   assert.ok(pkg.devDependencies.sass, 'nothing to compile with')
   assert.match(pkg.scripts.build, /sass/)
   assert.match(pkg.scripts.watch, /--watch/)
+})
+
+test('both templates add the bs- prefix Bootstrap’s JavaScript reads', async () => {
+  /*
+   * Bootstrap's Sass says `--range-fill`, its build turns that into `--bs-range-fill`, and its
+   * JavaScript writes `--bs-range-fill`. A project that compiles the Sass and stops ships a
+   * range whose fill never moves, so the step has to run on every build, watch included.
+   */
+  const call = "prefixCustomProperties({ prefix: 'bs-', ignore: [/^--bs-/, /^--bd-/] })"
+
+  const sass = filesOn(await scaffold())
+  const sassPkg = JSON.parse(sass['package.json'])
+  assert.ok(sass['postcss.config.mjs'].includes(call))
+  assert.match(sassPkg.scripts.build, /&& postcss css\/app\.css --replace/)
+  assert.match(sassPkg.scripts.watch, /--exec "npm run build"/)
+  for (const dep of ['postcss', 'postcss-cli', 'postcss-prefix-custom-properties', 'nodemon']) {
+    assert.ok(sassPkg.devDependencies[dep], `${dep} is missing`)
+  }
+
+  const vite = filesOn(await scaffold({ template: 'vite' }))
+  assert.ok(vite['vite.config.js'].includes(`plugins: [${call}]`))
+  assert.ok(JSON.parse(vite['package.json']).devDependencies['postcss-prefix-custom-properties'])
 })
 
 test('generated projects use the same Bootstrap this repository builds against', () => {

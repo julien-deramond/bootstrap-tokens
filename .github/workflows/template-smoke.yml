@@ -100,9 +100,17 @@ jobs:
           echo "Checking $css ($(wc -c < "$css") bytes)"
 
           # `-e`, because every pattern here starts with `--` and grep would read it as a flag.
-          for expected in '--radius-5:\s*0*\.5rem' '--primary-bg:\s*var\(--green-500\)'; do
+          # The names carry `bs-`: both templates run Bootstrap's prefix step after Sass.
+          for expected in '--bs-radius-5:\s*0*\.5rem' '--bs-primary-bg:\s*var\(--bs-green-500\)'; do
             if ! grep -Eq -e "$expected" "$css"; then
               echo "::error::$expected is missing — the theme did not survive the build"
               exit 1
             fi
           done
+
+          # And the prefix step itself ran: Bootstrap's JavaScript writes `--bs-range-fill`, so
+          # a stylesheet that still reads the bare name has a range whose fill never moves.
+          if ! grep -Eq -e 'var\(--bs-range-fill' "$css" || grep -Eq -e 'var\(--range-fill' "$css"; then
+            echo "::error::the range fill isn't read as --bs-range-fill — the prefix step didn't run"
+            exit 1
+          fi
