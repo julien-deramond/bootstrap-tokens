@@ -38,7 +38,48 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-link-padding-x",
           "sassMap": "$navbar-nav-tokens",
-          "sassKey": "--nav-link-padding-x"
+          "sassKey": "--nav-link-padding-x",
+          "redeclared": [
+            {
+              "selector": ".navbar-expand .navbar-nav",
+              "value": "var(--navbar-nav-link-padding-x)"
+            },
+            {
+              "selector": ".sm\\:navbar-expand .navbar-nav",
+              "at": [
+                "@container (width >= 576px)"
+              ],
+              "value": "var(--navbar-nav-link-padding-x)"
+            },
+            {
+              "selector": ".md\\:navbar-expand .navbar-nav",
+              "at": [
+                "@container (width >= 768px)"
+              ],
+              "value": "var(--navbar-nav-link-padding-x)"
+            },
+            {
+              "selector": ".lg\\:navbar-expand .navbar-nav",
+              "at": [
+                "@container (width >= 1024px)"
+              ],
+              "value": "var(--navbar-nav-link-padding-x)"
+            },
+            {
+              "selector": ".xl\\:navbar-expand .navbar-nav",
+              "at": [
+                "@container (width >= 1280px)"
+              ],
+              "value": "var(--navbar-nav-link-padding-x)"
+            },
+            {
+              "selector": ".\\32 xl\\:navbar-expand .navbar-nav",
+              "at": [
+                "@container (width >= 1536px)"
+              ],
+              "value": "var(--navbar-nav-link-padding-x)"
+            }
+          ]
         }
       }
     },
@@ -145,7 +186,11 @@
         "sassMap": "$navbar-nav-tokens",
         "selector": ".navbar-nav",
         "source": "scss/_navbar.scss",
-        "variantOf": "navbar"
+        "variantOf": "navbar",
+        "cascade": {
+          "layer": "components",
+          "rule": ".navbar-nav"
+        }
       }
     }
   }

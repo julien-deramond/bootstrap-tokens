@@ -195,7 +195,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--menu-item-hover-bg",
           "sassMap": "$menu-tokens",
-          "sassKey": "--menu-item-hover-bg"
+          "sassKey": "--menu-item-hover-bg",
+          "redeclared": [
+            {
+              "selector": ".menu-translucent",
+              "value": "light-dark(var(--menu-item-hover-bg-light), var(--menu-item-hover-bg-dark))"
+            }
+          ]
         }
       }
     },
@@ -217,7 +223,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--menu-item-active-bg",
           "sassMap": "$menu-tokens",
-          "sassKey": "--menu-item-active-bg"
+          "sassKey": "--menu-item-active-bg",
+          "redeclared": [
+            {
+              "selector": ".menu-translucent",
+              "value": "light-dark(var(--menu-item-active-bg-light), var(--menu-item-active-bg-dark))"
+            }
+          ]
         }
       }
     },
@@ -402,7 +414,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$menu-tokens",
         "selector": ".menu",
-        "source": "scss/_menu.scss"
+        "source": "scss/_menu.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".menu"
+        }
       }
     }
   }

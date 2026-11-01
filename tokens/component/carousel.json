@@ -21,7 +21,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--carousel-indicator-bg",
           "sassMap": "$carousel-tokens",
-          "sassKey": "--carousel-indicator-bg"
+          "sassKey": "--carousel-indicator-bg",
+          "redeclared": [
+            {
+              "selector": ".carousel-overlay",
+              "value": "light-dark(var(--white), var(--black))"
+            }
+          ]
         }
       }
     },
@@ -258,7 +264,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$carousel-tokens",
         "selector": ".carousel",
-        "source": "scss/_carousel.scss"
+        "source": "scss/_carousel.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".carousel"
+        }
       }
     }
   }

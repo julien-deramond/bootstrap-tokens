@@ -14,6 +14,8 @@ import { readdirSync, readFileSync, statSync } from 'node:fs'
 import { join } from 'node:path'
 
 import { customProperties } from './css-parse.mjs'
+import { withOverrides, themeScss } from './overrides.mjs'
+import { probeOverrides } from './redeclared.mjs'
 
 const DECLARATION = /(--[\w-]+)\s*:/g
 
@@ -32,6 +34,28 @@ export async function compileUpstream(source) {
     declared: [...new Set([...css.matchAll(DECLARATION)].map((match) => match[1]))].sort(),
     declarations: customProperties(css)
   }
+}
+
+/**
+ * Compile Bootstrap with every token in `paths` set to a probe value, so each declaration a
+ * token map writes can be told from the ones Bootstrap writes itself. See
+ * `tools/lib/redeclared.mjs`. Returns `{ css, tokenOf }`, or `null` without a Sass compiler.
+ */
+export async function compileProbe(source, tree, paths) {
+  let sass
+  try {
+    sass = await import('sass')
+  } catch {
+    return null
+  }
+
+  const { overrides, tokenOf } = probeOverrides(paths)
+  const scss = themeScss(withOverrides(tree, overrides), overrides, {
+    version: 'probe',
+    importPath: join(source, 'scss', 'bootstrap')
+  })
+  const { css } = sass.compileString(scss, { loadPaths: [source] })
+  return { css, tokenOf }
 }
 
 /**

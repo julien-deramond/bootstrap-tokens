@@ -7,7 +7,21 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-min-height",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-min-height"
+          "sassKey": "--control-min-height",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-min-height"
+            },
+            {
+              "selector": ".form-control-sm",
+              "value": "var(--btn-input-sm-min-height)"
+            },
+            {
+              "selector": ".form-control-lg",
+              "value": "var(--btn-input-lg-min-height)"
+            }
+          ]
         }
       }
     },
@@ -18,7 +32,21 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-padding-y",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-padding-y"
+          "sassKey": "--control-padding-y",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-padding-y"
+            },
+            {
+              "selector": ".form-control-sm",
+              "value": "var(--btn-input-sm-padding-y)"
+            },
+            {
+              "selector": ".form-control-lg",
+              "value": "var(--btn-input-lg-padding-y)"
+            }
+          ]
         }
       }
     },
@@ -29,7 +57,21 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-padding-x",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-padding-x"
+          "sassKey": "--control-padding-x",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-padding-x"
+            },
+            {
+              "selector": ".form-control-sm",
+              "value": "var(--btn-input-sm-padding-x)"
+            },
+            {
+              "selector": ".form-control-lg",
+              "value": "var(--btn-input-lg-padding-x)"
+            }
+          ]
         }
       }
     },
@@ -40,7 +82,21 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-font-size",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-font-size"
+          "sassKey": "--control-font-size",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-font-size"
+            },
+            {
+              "selector": ".form-control-sm",
+              "value": "var(--btn-input-sm-font-size)"
+            },
+            {
+              "selector": ".form-control-lg",
+              "value": "var(--btn-input-lg-font-size)"
+            }
+          ]
         }
       }
     },
@@ -51,7 +107,21 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-line-height",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-line-height"
+          "sassKey": "--control-line-height",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-line-height"
+            },
+            {
+              "selector": ".form-control-sm",
+              "value": "var(--btn-input-sm-line-height)"
+            },
+            {
+              "selector": ".form-control-lg",
+              "value": "var(--btn-input-lg-line-height)"
+            }
+          ]
         }
       }
     },
@@ -62,7 +132,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-fg",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-fg"
+          "sassKey": "--control-fg",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-fg"
+            },
+            {
+              "selector": ".chip-input",
+              "token": "chip-input.control-fg"
+            }
+          ]
         }
       }
     },
@@ -73,7 +153,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-bg",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-bg"
+          "sassKey": "--control-bg",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-bg"
+            },
+            {
+              "selector": ".chip-input",
+              "token": "chip-input.control-bg"
+            }
+          ]
         }
       }
     },
@@ -84,7 +174,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-border-width",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-border-width"
+          "sassKey": "--control-border-width",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-border-width"
+            },
+            {
+              "selector": ".chip-input",
+              "token": "chip-input.control-border-width"
+            }
+          ]
         }
       }
     },
@@ -95,7 +195,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-border-color",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-border-color"
+          "sassKey": "--control-border-color",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-border-color"
+            },
+            {
+              "selector": ".chip-input",
+              "token": "chip-input.control-border-color"
+            }
+          ]
         }
       }
     },
@@ -106,7 +216,25 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-border-radius",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-border-radius"
+          "sassKey": "--control-border-radius",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-border-radius"
+            },
+            {
+              "selector": ".form-control-sm",
+              "value": "var(--btn-input-sm-border-radius)"
+            },
+            {
+              "selector": ".form-control-lg",
+              "value": "var(--btn-input-lg-border-radius)"
+            },
+            {
+              "selector": ".chip-input",
+              "token": "chip-input.control-border-radius"
+            }
+          ]
         }
       }
     },
@@ -117,7 +245,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-box-shadow",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-box-shadow"
+          "sassKey": "--control-box-shadow",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-box-shadow"
+            }
+          ]
         }
       }
     },
@@ -128,7 +262,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-action-bg",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-action-bg"
+          "sassKey": "--control-action-bg",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-action-bg"
+            }
+          ]
         }
       }
     },
@@ -139,7 +279,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-action-hover-bg",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-action-hover-bg"
+          "sassKey": "--control-action-hover-bg",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-action-hover-bg"
+            }
+          ]
         }
       }
     },
@@ -150,7 +296,13 @@
           "cssVar": "--control-transition-property",
           "sassMap": "$form-control-tokens",
           "sassKey": "--control-transition-property",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-transition-property"
+            }
+          ]
         }
       }
     },
@@ -164,7 +316,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-transition-duration",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-transition-duration"
+          "sassKey": "--control-transition-duration",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-transition-duration"
+            }
+          ]
         }
       }
     },
@@ -176,7 +334,13 @@
           "cssVar": "--control-transition-timing",
           "sassMap": "$form-control-tokens",
           "sassKey": "--control-transition-timing",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-transition-timing"
+            }
+          ]
         }
       }
     },
@@ -187,7 +351,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-placeholder-color",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-placeholder-color"
+          "sassKey": "--control-placeholder-color",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-placeholder-color"
+            }
+          ]
         }
       }
     },
@@ -198,7 +368,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-disabled-color",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-disabled-color"
+          "sassKey": "--control-disabled-color",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-disabled-color"
+            }
+          ]
         }
       }
     },
@@ -209,7 +385,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-disabled-bg",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-disabled-bg"
+          "sassKey": "--control-disabled-bg",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-disabled-bg"
+            }
+          ]
         }
       }
     },
@@ -220,7 +402,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--control-disabled-border-color",
           "sassMap": "$form-control-tokens",
-          "sassKey": "--control-disabled-border-color"
+          "sassKey": "--control-disabled-border-color",
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-disabled-border-color"
+            }
+          ]
         }
       }
     },
@@ -232,7 +420,13 @@
           "cssVar": "--control-select-bg",
           "sassMap": "$form-control-tokens",
           "sassKey": "--control-select-bg",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-select-bg"
+            }
+          ]
         }
       }
     },
@@ -244,7 +438,13 @@
           "cssVar": "--control-select-bg-position",
           "sassMap": "$form-control-tokens",
           "sassKey": "--control-select-bg-position",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-select-bg-position"
+            }
+          ]
         }
       }
     },
@@ -256,7 +456,13 @@
           "cssVar": "--control-select-bg-size",
           "sassMap": "$form-control-tokens",
           "sassKey": "--control-select-bg-size",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-select-bg-size"
+            }
+          ]
         }
       }
     },
@@ -268,7 +474,13 @@
           "cssVar": "--control-select-bg-dark",
           "sassMap": "$form-control-tokens",
           "sassKey": "--control-select-bg-dark",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".form-control-plaintext",
+              "token": "form-control.control-select-bg-dark"
+            }
+          ]
         }
       }
     },
@@ -277,7 +489,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$form-control-tokens",
         "selector": ".form-control",
-        "source": "scss/forms/_form-control.scss"
+        "source": "scss/forms/_form-control.scss",
+        "cascade": {
+          "layer": "forms",
+          "rule": ".form-control"
+        }
       }
     }
   }

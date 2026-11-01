@@ -7,7 +7,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--pagination-min-height",
           "sassMap": "$pagination-tokens",
-          "sassKey": "--pagination-min-height"
+          "sassKey": "--pagination-min-height",
+          "redeclared": [
+            {
+              "selector": ".pagination-sm",
+              "value": "var(--btn-input-sm-min-height)"
+            },
+            {
+              "selector": ".pagination-lg",
+              "value": "var(--btn-input-lg-min-height)"
+            }
+          ]
         }
       }
     },
@@ -18,7 +28,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--pagination-padding-x",
           "sassMap": "$pagination-tokens",
-          "sassKey": "--pagination-padding-x"
+          "sassKey": "--pagination-padding-x",
+          "redeclared": [
+            {
+              "selector": ".pagination-sm",
+              "value": "var(--btn-input-sm-padding-x)"
+            },
+            {
+              "selector": ".pagination-lg",
+              "value": "var(--btn-input-lg-padding-x)"
+            }
+          ]
         }
       }
     },
@@ -29,7 +49,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--pagination-padding-y",
           "sassMap": "$pagination-tokens",
-          "sassKey": "--pagination-padding-y"
+          "sassKey": "--pagination-padding-y",
+          "redeclared": [
+            {
+              "selector": ".pagination-sm",
+              "value": "var(--btn-input-sm-padding-y)"
+            },
+            {
+              "selector": ".pagination-lg",
+              "value": "var(--btn-input-lg-padding-y)"
+            }
+          ]
         }
       }
     },
@@ -40,7 +70,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--pagination-font-size",
           "sassMap": "$pagination-tokens",
-          "sassKey": "--pagination-font-size"
+          "sassKey": "--pagination-font-size",
+          "redeclared": [
+            {
+              "selector": ".pagination-sm",
+              "value": "var(--btn-input-sm-font-size)"
+            },
+            {
+              "selector": ".pagination-lg",
+              "value": "var(--btn-input-lg-font-size)"
+            }
+          ]
         }
       }
     },
@@ -95,7 +135,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--pagination-border-radius",
           "sassMap": "$pagination-tokens",
-          "sassKey": "--pagination-border-radius"
+          "sassKey": "--pagination-border-radius",
+          "redeclared": [
+            {
+              "selector": ".pagination-sm",
+              "value": "var(--btn-input-sm-border-radius)"
+            },
+            {
+              "selector": ".pagination-lg",
+              "value": "var(--btn-input-lg-border-radius)"
+            }
+          ]
         }
       }
     },
@@ -209,7 +259,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$pagination-tokens",
         "selector": ".pagination",
-        "source": "scss/_pagination.scss"
+        "source": "scss/_pagination.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".pagination"
+        }
       }
     }
   }

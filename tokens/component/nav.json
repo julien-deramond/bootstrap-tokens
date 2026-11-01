@@ -10,7 +10,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-gap",
           "sassMap": "$nav-tokens",
-          "sassKey": "--nav-gap"
+          "sassKey": "--nav-gap",
+          "redeclared": [
+            {
+              "selector": ".nav-underline",
+              "token": "nav-underline.nav-gap"
+            },
+            {
+              "selector": ".navbar-nav",
+              "token": "navbar-nav.nav-gap"
+            }
+          ]
         }
       }
     },
@@ -24,7 +34,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-link-gap",
           "sassMap": "$nav-tokens",
-          "sassKey": "--nav-link-gap"
+          "sassKey": "--nav-link-gap",
+          "redeclared": [
+            {
+              "selector": ".navbar-nav",
+              "token": "navbar-nav.nav-link-gap"
+            }
+          ]
         }
       }
     },
@@ -60,7 +76,52 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-link-padding-x",
           "sassMap": "$nav-tokens",
-          "sassKey": "--nav-link-padding-x"
+          "sassKey": "--nav-link-padding-x",
+          "redeclared": [
+            {
+              "selector": ".navbar-nav",
+              "token": "navbar-nav.nav-link-padding-x"
+            },
+            {
+              "selector": ".navbar-expand .navbar-nav",
+              "value": "var(--navbar-nav-link-padding-x)"
+            },
+            {
+              "selector": ".sm\\:navbar-expand .navbar-nav",
+              "at": [
+                "@container (width >= 576px)"
+              ],
+              "value": "var(--navbar-nav-link-padding-x)"
+            },
+            {
+              "selector": ".md\\:navbar-expand .navbar-nav",
+              "at": [
+                "@container (width >= 768px)"
+              ],
+              "value": "var(--navbar-nav-link-padding-x)"
+            },
+            {
+              "selector": ".lg\\:navbar-expand .navbar-nav",
+              "at": [
+                "@container (width >= 1024px)"
+              ],
+              "value": "var(--navbar-nav-link-padding-x)"
+            },
+            {
+              "selector": ".xl\\:navbar-expand .navbar-nav",
+              "at": [
+                "@container (width >= 1280px)"
+              ],
+              "value": "var(--navbar-nav-link-padding-x)"
+            },
+            {
+              "selector": ".\\32 xl\\:navbar-expand .navbar-nav",
+              "at": [
+                "@container (width >= 1536px)"
+              ],
+              "value": "var(--navbar-nav-link-padding-x)"
+            }
+          ]
         }
       }
     },
@@ -74,7 +135,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-link-padding-y",
           "sassMap": "$nav-tokens",
-          "sassKey": "--nav-link-padding-y"
+          "sassKey": "--nav-link-padding-y",
+          "redeclared": [
+            {
+              "selector": ".navbar-nav",
+              "token": "navbar-nav.nav-link-padding-y"
+            }
+          ]
         }
       }
     },
@@ -85,7 +152,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-link-color",
           "sassMap": "$nav-tokens",
-          "sassKey": "--nav-link-color"
+          "sassKey": "--nav-link-color",
+          "redeclared": [
+            {
+              "selector": ".navbar-nav",
+              "token": "navbar-nav.nav-link-color"
+            }
+          ]
         }
       }
     },
@@ -96,7 +169,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-link-hover-color",
           "sassMap": "$nav-tokens",
-          "sassKey": "--nav-link-hover-color"
+          "sassKey": "--nav-link-hover-color",
+          "redeclared": [
+            {
+              "selector": ".navbar-nav",
+              "token": "navbar-nav.nav-link-hover-color"
+            }
+          ]
         }
       }
     },
@@ -107,7 +186,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-link-hover-bg",
           "sassMap": "$nav-tokens",
-          "sassKey": "--nav-link-hover-bg"
+          "sassKey": "--nav-link-hover-bg",
+          "redeclared": [
+            {
+              "selector": ".navbar-nav",
+              "token": "navbar-nav.nav-link-hover-bg"
+            }
+          ]
         }
       }
     },
@@ -118,7 +203,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-link-active-color",
           "sassMap": "$nav-tokens",
-          "sassKey": "--nav-link-active-color"
+          "sassKey": "--nav-link-active-color",
+          "redeclared": [
+            {
+              "selector": ".navbar-nav",
+              "token": "navbar-nav.nav-link-active-color"
+            }
+          ]
         }
       }
     },
@@ -129,7 +220,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-link-active-bg",
           "sassMap": "$nav-tokens",
-          "sassKey": "--nav-link-active-bg"
+          "sassKey": "--nav-link-active-bg",
+          "redeclared": [
+            {
+              "selector": ".nav-underline",
+              "token": "nav-underline.nav-link-active-bg"
+            },
+            {
+              "selector": ".navbar-nav",
+              "token": "navbar-nav.nav-link-active-bg"
+            }
+          ]
         }
       }
     },
@@ -140,7 +241,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-link-disabled-color",
           "sassMap": "$nav-tokens",
-          "sassKey": "--nav-link-disabled-color"
+          "sassKey": "--nav-link-disabled-color",
+          "redeclared": [
+            {
+              "selector": ".navbar-nav",
+              "token": "navbar-nav.nav-link-disabled-color"
+            }
+          ]
         }
       }
     },
@@ -151,7 +258,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-link-border-width",
           "sassMap": "$nav-tokens",
-          "sassKey": "--nav-link-border-width"
+          "sassKey": "--nav-link-border-width",
+          "redeclared": [
+            {
+              "selector": ".navbar-nav",
+              "token": "navbar-nav.nav-link-border-width"
+            }
+          ]
         }
       }
     },
@@ -197,7 +310,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$nav-tokens",
         "selector": ".nav",
-        "source": "scss/_nav.scss"
+        "source": "scss/_nav.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".nav"
+        }
       }
     }
   }

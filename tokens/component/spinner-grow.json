@@ -31,7 +31,16 @@
           "cssVar": "--spinner-animation-speed",
           "sassMap": "$spinner-grow-tokens",
           "sassKey": "--spinner-animation-speed",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".spinner-border, .spinner-grow",
+              "at": [
+                "@media (prefers-reduced-motion: reduce)"
+              ],
+              "value": "1.5s"
+            }
+          ]
         }
       }
     },
@@ -63,7 +72,11 @@
         "sassMap": "$spinner-grow-tokens",
         "selector": ".spinner-grow",
         "source": "scss/_spinner.scss",
-        "variantOf": "spinner-border"
+        "variantOf": "spinner-border",
+        "cascade": {
+          "layer": "components",
+          "rule": ".spinner-grow"
+        }
       }
     }
   }

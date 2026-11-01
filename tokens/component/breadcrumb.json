@@ -173,7 +173,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$breadcrumb-tokens",
         "selector": ".breadcrumb",
-        "source": "scss/_breadcrumb.scss"
+        "source": "scss/_breadcrumb.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".breadcrumb"
+        }
       }
     }
   }

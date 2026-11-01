@@ -10,11 +10,13 @@
 import test from 'node:test'
 import assert from 'node:assert/strict'
 
+import { join } from 'node:path'
+
 import { loadTree } from '../lib/load-fs.mjs'
-import { withOverrides, diffResolved, themeCss, clone } from '../lib/overrides.mjs'
+import { withOverrides, diffResolved, themeCss, themeScss, clone } from '../lib/overrides.mjs'
 import { index } from '../lib/tokens.mjs'
 import { expandColorScales } from '../lib/color-scale.mjs'
-import { tokensDir } from '../lib/config.mjs'
+import { tokensDir, resolveBootstrapSource } from '../lib/config.mjs'
 import { comparePreview, describeDifferences } from '../commands/verify.mjs'
 
 const { tree } = loadTree(tokensDir)
@@ -55,9 +57,8 @@ test('the companion block custom.scss carries makes the same theme pass', () => 
   const { themed, reference } = preview(shadowUpstream(1), { 'elevation.strength': { value: '.5' } })
   const compiled = `${shadowUpstream('.5')}\n[data-bs-theme="light"] { --shadow-strength: .5; }\n`
 
-  const { failures, warnings, counts } = comparePreview(reference, compiled, themed)
+  const { failures, counts } = comparePreview(reference, compiled, themed)
   assert.deepEqual(failures, [])
-  assert.deepEqual(warnings, [])
   assert.ok(counts.properties > 1000, 'every token is compared, not only the changed one')
 })
 
@@ -77,6 +78,52 @@ test('an export that changes more than the preview showed fails too', () => {
   assert.ok(failures.some(({ property }) => property === '--body-font-size'))
 })
 
+let source = null
+try {
+  source = resolveBootstrapSource()
+} catch {
+  /* no Bootstrap to compile — the tests on its real output are skipped */
+}
+
+/** Compiled Bootstrap, and the same Bootstrap compiled with a theme's custom.scss. */
+async function compileBoth(overrides) {
+  const sass = await import('sass')
+  const themed = withOverrides(tree, overrides)
+  const options = { loadPaths: [source], style: 'expanded' }
+  const upstream = sass.compile(join(source, 'scss', 'bootstrap.scss'), options).css
+  const scss = themeScss(themed, overrides, { version: 'test', importPath: join(source, 'scss', 'bootstrap') })
+  return { themed, upstream, compiled: sass.compileString(scss, options).css }
+}
+
+/** The four edits issue #100 reported, each re-declared by variants or a wider viewport. */
+const VARIANTS = {
+  'btn.color': { value: 'red' },
+  'chip.bg': { value: 'red' },
+  'navbar.color': { value: 'red' },
+  'prose.content-font-size': { value: '99px' }
+}
+
+test('component edits reach the variants custom.scss reaches, and no others', { skip: !source }, async () => {
+  const { themed, upstream, compiled } = await compileBoth(VARIANTS)
+  const reference = `${upstream}\n${themeCss(diffResolved(base, themed))}`
+
+  const { failures, counts } = comparePreview(reference, compiled, themed)
+  assert.deepEqual(describeDifferences(failures), [])
+  assert.ok(counts.modifiers > 50, 'modifier classes are compared')
+  assert.ok(counts.widths.includes(1024), 'the wide-screen prose rule is compared')
+})
+
+test('overrides painted unlayered, as the preview once did, fail on variants and wide screens', { skip: !source }, async () => {
+  const { themed, upstream, compiled } = await compileBoth(VARIANTS)
+  const unlayered = `.btn { --btn-color: red; }\n.chip { --chip-bg: red; }\n.navbar { --navbar-color: red; }\n.prose { --content-font-size: 99px; }`
+
+  const lines = describeDifferences(comparePreview(`${upstream}\n${unlayered}`, compiled, themed).failures)
+  assert.ok(lines.some((line) => line.startsWith('--btn-color (btn.color) on <div class="btn btn-solid">')))
+  assert.ok(lines.some((line) => line.startsWith('--chip-bg (chip.bg) on <div class="active chip">')))
+  assert.ok(lines.some((line) => /^--navbar-color \(.*navbar\.color.*\) on <div class="navbar" data-bs-theme="dark">/.test(line)))
+  assert.ok(lines.some((line) => /^--content-font-size \(prose\.content-font-size\) on <div class="prose">.* at .*1024.*px wide/.test(line)))
+})
+
 /** Bootstrap's shape for components: the base, a dark variant, modifiers, a wide-screen rule. */
 const componentUpstream = (color) => `
 @layer components;
@@ -91,32 +138,9 @@ const componentUpstream = (color) => `
 }
 `
 
-test('a navbar color fails on the dark navbar; button modifiers and wide prose only warn', () => {
-  const overrides = {
-    'navbar.color': { value: 'red' },
-    'btn.color': { value: 'red' },
-    'prose.content-font-size': { value: '1.25rem' }
-  }
-  const { themed, reference } = preview(componentUpstream('gray'), overrides)
-  const compiled = componentUpstream('red')
-
-  const { failures, warnings } = comparePreview(reference, compiled, themed)
-
-  const failing = describeDifferences(failures)
-  assert.equal(failing.length, 1)
-  assert.match(failing[0], /^--navbar-color \(.*navbar\.color.*\) on <div class="navbar" data-bs-theme="dark">, in every page context: preview red from \.navbar, compiled white from \.navbar\[data-bs-theme=dark\]$/)
-
-  const warning = describeDifferences(warnings)
-  assert.ok(warning.some((line) => line.startsWith('--btn-color (btn.color) on <div class="btn btn-solid">')))
-  assert.ok(warning.some((line) => /^--content-font-size \(prose\.content-font-size\) on <div class="prose">.* at 1024px wide/.test(line)))
-  // `:hover` is not something a probe can be in.
-  assert.ok(!warning.some((line) => line.includes('hover')))
-})
-
 test('identical stylesheets compare clean', () => {
   const css = `${shadowUpstream(1)}\n${componentUpstream('gray')}`
-  const { failures, warnings, counts } = comparePreview(css, css, base)
+  const { failures, counts } = comparePreview(css, css, base)
   assert.deepEqual(failures, [])
-  assert.deepEqual(warnings, [])
   assert.ok(counts.comparisons > counts.properties)
 })

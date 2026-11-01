@@ -212,7 +212,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$card-tokens",
         "selector": ".card",
-        "source": "scss/_card.scss"
+        "source": "scss/_card.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".card"
+        }
       }
     }
   }

@@ -31,17 +31,25 @@
 /**
  * Read a stylesheet into the custom property declarations it makes.
  *
- * Returns `{ declarations, byProperty, registered, widths }`: `byProperty` maps a property
- * name to its declarations in source order, `registered` maps a property named by
+ * Returns `{ declarations, byProperty, conditional, registered, widths }`: `byProperty` maps
+ * a property name to its declarations in source order, `registered` maps a property named by
  * `@property` to `{ inherits, initial }`, and `widths` lists the viewport widths (in px) that
  * some `@media` condition on a custom property turns on.
+ *
+ * Each declaration carries `rule`, which tells apart the rules a selector list shares, and
+ * `at`, the preludes of the `@media` and other conditional rules around it, outermost first.
+ * Declarations under `@supports`, `@container` or `@starting-style` never win a probe, so
+ * they stay out of `byProperty`; `conditional` keeps them, for whoever has to reproduce a
+ * stylesheet's rules rather than evaluate them.
  */
 export function parseCascade(css) {
   const text = stripComments(String(css))
   const layers = new LayerOrder()
   const declarations = []
+  const conditional = []
   const registered = new Map()
   const frames = []
+  const rules = { count: 0 }
   let buffer = ''
   let order = 0
 
@@ -66,7 +74,9 @@ export function parseCascade(css) {
       return
     }
 
-    if (frame.type !== 'style' || !frame.live) return
+    if (frame.type !== 'style') return
+    // Inside `@keyframes` or `@font-face`, a "declaration" is not one on any element.
+    if (!frame.live && !frames.every((one) => one.type !== 'dead' || one.kept)) return
 
     const declaration = /^(--[^\s:]+)\s*:([\s\S]*)$/.exec(statement)
     if (!declaration) return
@@ -77,9 +87,11 @@ export function parseCascade(css) {
 
     const layer = currentLayer(frames)
     const media = frames.filter((one) => one.type === 'media').map((one) => one.query)
+    const wrappers = frames.filter((one) => one.prelude).map((one) => one.prelude)
+    const list = frame.live ? declarations : conditional
 
     for (const selector of frame.selectors) {
-      declarations.push({
+      list.push({
         property: declaration[1],
         value,
         important,
@@ -87,6 +99,8 @@ export function parseCascade(css) {
         compiled: selector,
         layer,
         media,
+        at: wrappers,
+        rule: frame.rule,
         order: order++
       })
     }
@@ -121,7 +135,7 @@ export function parseCascade(css) {
     }
 
     if (ch === '{') {
-      frames.push(openFrame(buffer.trim(), frames, layers))
+      frames.push(openFrame(buffer.trim(), frames, layers, rules))
       buffer = ''
       continue
     }
@@ -144,10 +158,13 @@ export function parseCascade(css) {
     byProperty.get(declaration.property).push(declaration)
   }
 
-  return { declarations, byProperty, registered, widths: widthsOf(declarations) }
+  return { declarations, byProperty, conditional, registered, widths: widthsOf(declarations) }
 }
 
-function openFrame(prelude, frames, layers) {
+/** At-rules whose content still applies to elements, just not always: worth reproducing. */
+const KEPT = new Set(['supports', 'container', 'starting-style'])
+
+function openFrame(prelude, frames, layers, rules) {
   const parent = frames.at(-1)
   const live = !frames.some((frame) => frame.type === 'dead')
 
@@ -161,12 +178,12 @@ function openFrame(prelude, frames, layers) {
       layers.register(outer, own)
       return { type: 'layer', path: [...outer, ...own.split('.')] }
     }
-    if (keyword === 'media') return { type: 'media', query: rest.trim() }
+    if (keyword === 'media') return { type: 'media', query: rest.trim(), prelude: `@media ${rest.trim()}` }
     if (keyword === 'property') return { type: 'property', name: rest.trim(), descriptors: {} }
     // `@supports`, `@container`, `@starting-style`, `@keyframes`, `@font-face`, `@scope`…
     // Whatever they declare is either conditional on something a probe cannot know, or not
     // a declaration on an element at all.
-    return { type: 'dead' }
+    return { type: 'dead', kept: KEPT.has(keyword), prelude: prelude.replace(/\s+/g, ' ') }
   }
 
   const parentSelectors = parent?.type === 'style' ? parent.selectors : null
@@ -176,7 +193,7 @@ function openFrame(prelude, frames, layers) {
     .flatMap((part) => (parentSelectors ? parentSelectors.map((outer) => nest(outer.text, part)) : [part]))
     .map(compileSelector)
 
-  return { type: 'style', selectors, live }
+  return { type: 'style', selectors, live, rule: rules.count++ }
 }
 
 /** CSS nesting, in case it ever reaches compiled output: `&` is the parent, else a descendant. */

@@ -145,7 +145,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$alert-tokens",
         "selector": ".alert",
-        "source": "scss/_alert.scss"
+        "source": "scss/_alert.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".alert"
+        }
       }
     }
   }

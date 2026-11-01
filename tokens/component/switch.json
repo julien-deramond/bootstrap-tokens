@@ -10,7 +10,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--switch-height",
           "sassMap": "$switch-tokens",
-          "sassKey": "--switch-height"
+          "sassKey": "--switch-height",
+          "redeclared": [
+            {
+              "selector": ".switch-sm",
+              "value": "1rem"
+            },
+            {
+              "selector": ".switch-lg",
+              "value": "1.5rem"
+            }
+          ]
         }
       }
     },
@@ -50,7 +60,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--switch-margin-block",
           "sassMap": "$switch-tokens",
-          "sassKey": "--switch-margin-block"
+          "sassKey": "--switch-margin-block",
+          "redeclared": [
+            {
+              "selector": ".switch-lg",
+              "value": ".375rem"
+            }
+          ]
         }
       }
     },
@@ -83,7 +99,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--switch-bg",
           "sassMap": "$switch-tokens",
-          "sassKey": "--switch-bg"
+          "sassKey": "--switch-bg",
+          "redeclared": [
+            {
+              "selector": ".switch:has(input:disabled:not(:checked))",
+              "value": "var(--switch-disabled-bg)"
+            }
+          ]
         }
       }
     },
@@ -116,7 +138,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--switch-indicator-bg",
           "sassMap": "$switch-tokens",
-          "sassKey": "--switch-indicator-bg"
+          "sassKey": "--switch-indicator-bg",
+          "redeclared": [
+            {
+              "selector": ".switch:has(input:disabled:not(:checked))",
+              "value": "var(--switch-disabled-indicator-bg)"
+            }
+          ]
         }
       }
     },
@@ -204,7 +232,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$switch-tokens",
         "selector": ".switch",
-        "source": "scss/forms/_switch.scss"
+        "source": "scss/forms/_switch.scss",
+        "cascade": {
+          "layer": "forms",
+          "rule": ".switch"
+        }
       }
     }
   }

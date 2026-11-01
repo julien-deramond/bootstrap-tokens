@@ -10,7 +10,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--accordion-padding-x",
           "sassMap": "$accordion-tokens",
-          "sassKey": "--accordion-padding-x"
+          "sassKey": "--accordion-padding-x",
+          "redeclared": [
+            {
+              "selector": ".accordion-sm",
+              "value": ".875rem"
+            }
+          ]
         }
       }
     },
@@ -24,7 +30,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--accordion-padding-y",
           "sassMap": "$accordion-tokens",
-          "sassKey": "--accordion-padding-y"
+          "sassKey": "--accordion-padding-y",
+          "redeclared": [
+            {
+              "selector": ".accordion-sm",
+              "value": ".625rem"
+            }
+          ]
         }
       }
     },
@@ -154,7 +166,13 @@
           "cssVar": "--accordion-border-radius",
           "sassMap": "$accordion-tokens",
           "sassKey": "--accordion-border-radius",
-          "expression": true
+          "expression": true,
+          "redeclared": [
+            {
+              "selector": ".accordion-sm",
+              "value": "var(--radius-5)"
+            }
+          ]
         }
       }
     },
@@ -165,7 +183,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--accordion-gap",
           "sassMap": "$accordion-tokens",
-          "sassKey": "--accordion-gap"
+          "sassKey": "--accordion-gap",
+          "redeclared": [
+            {
+              "selector": ".accordion-gap",
+              "value": "var(--spacer-2)"
+            }
+          ]
         }
       }
     },
@@ -255,7 +279,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$accordion-tokens",
         "selector": ".accordion",
-        "source": "scss/_accordion.scss"
+        "source": "scss/_accordion.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".accordion"
+        }
       }
     }
   }

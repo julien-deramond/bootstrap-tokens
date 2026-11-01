@@ -173,7 +173,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$tooltip-tokens",
         "selector": ".tooltip",
-        "source": "scss/_tooltip.scss"
+        "source": "scss/_tooltip.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".tooltip"
+        }
       }
     }
   }

@@ -7,7 +7,21 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--btn-gap",
           "sassMap": "$button-tokens",
-          "sassKey": "--btn-gap"
+          "sassKey": "--btn-gap",
+          "redeclared": [
+            {
+              "selector": ".btn-xs, .btn-group-xs > [class*=btn-]",
+              "value": "var(--btn-input-xs-gap)"
+            },
+            {
+              "selector": ".btn-sm, .btn-group-sm > [class*=btn-]",
+              "value": "var(--btn-input-sm-gap)"
+            },
+            {
+              "selector": ".btn-lg, .btn-group-lg > [class*=btn-]",
+              "value": "var(--btn-input-lg-gap)"
+            }
+          ]
         }
       }
     },
@@ -18,7 +32,21 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--btn-min-height",
           "sassMap": "$button-tokens",
-          "sassKey": "--btn-min-height"
+          "sassKey": "--btn-min-height",
+          "redeclared": [
+            {
+              "selector": ".btn-xs, .btn-group-xs > [class*=btn-]",
+              "value": "var(--btn-input-xs-min-height)"
+            },
+            {
+              "selector": ".btn-sm, .btn-group-sm > [class*=btn-]",
+              "value": "var(--btn-input-sm-min-height)"
+            },
+            {
+              "selector": ".btn-lg, .btn-group-lg > [class*=btn-]",
+              "value": "var(--btn-input-lg-min-height)"
+            }
+          ]
         }
       }
     },
@@ -29,7 +57,21 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--btn-padding-x",
           "sassMap": "$button-tokens",
-          "sassKey": "--btn-padding-x"
+          "sassKey": "--btn-padding-x",
+          "redeclared": [
+            {
+              "selector": ".btn-xs, .btn-group-xs > [class*=btn-]",
+              "value": "var(--btn-input-xs-padding-x)"
+            },
+            {
+              "selector": ".btn-sm, .btn-group-sm > [class*=btn-]",
+              "value": "var(--btn-input-sm-padding-x)"
+            },
+            {
+              "selector": ".btn-lg, .btn-group-lg > [class*=btn-]",
+              "value": "var(--btn-input-lg-padding-x)"
+            }
+          ]
         }
       }
     },
@@ -40,7 +82,21 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--btn-padding-y",
           "sassMap": "$button-tokens",
-          "sassKey": "--btn-padding-y"
+          "sassKey": "--btn-padding-y",
+          "redeclared": [
+            {
+              "selector": ".btn-xs, .btn-group-xs > [class*=btn-]",
+              "value": "var(--btn-input-xs-padding-y)"
+            },
+            {
+              "selector": ".btn-sm, .btn-group-sm > [class*=btn-]",
+              "value": "var(--btn-input-sm-padding-y)"
+            },
+            {
+              "selector": ".btn-lg, .btn-group-lg > [class*=btn-]",
+              "value": "var(--btn-input-lg-padding-y)"
+            }
+          ]
         }
       }
     },
@@ -51,7 +107,21 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--btn-font-size",
           "sassMap": "$button-tokens",
-          "sassKey": "--btn-font-size"
+          "sassKey": "--btn-font-size",
+          "redeclared": [
+            {
+              "selector": ".btn-xs, .btn-group-xs > [class*=btn-]",
+              "value": "var(--btn-input-xs-font-size)"
+            },
+            {
+              "selector": ".btn-sm, .btn-group-sm > [class*=btn-]",
+              "value": "var(--btn-input-sm-font-size)"
+            },
+            {
+              "selector": ".btn-lg, .btn-group-lg > [class*=btn-]",
+              "value": "var(--btn-input-lg-font-size)"
+            }
+          ]
         }
       }
     },
@@ -62,7 +132,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--btn-font-weight",
           "sassMap": "$button-tokens",
-          "sassKey": "--btn-font-weight"
+          "sassKey": "--btn-font-weight",
+          "redeclared": [
+            {
+              "selector": ".btn-link",
+              "token": "button-link.btn-font-weight"
+            }
+          ]
         }
       }
     },
@@ -73,7 +149,21 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--btn-line-height",
           "sassMap": "$button-tokens",
-          "sassKey": "--btn-line-height"
+          "sassKey": "--btn-line-height",
+          "redeclared": [
+            {
+              "selector": ".btn-xs, .btn-group-xs > [class*=btn-]",
+              "value": "var(--btn-input-xs-line-height)"
+            },
+            {
+              "selector": ".btn-sm, .btn-group-sm > [class*=btn-]",
+              "value": "var(--btn-input-sm-line-height)"
+            },
+            {
+              "selector": ".btn-lg, .btn-group-lg > [class*=btn-]",
+              "value": "var(--btn-input-lg-line-height)"
+            }
+          ]
         }
       }
     },
@@ -84,7 +174,29 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--btn-color",
           "sassMap": "$button-tokens",
-          "sassKey": "--btn-color"
+          "sassKey": "--btn-color",
+          "redeclared": [
+            {
+              "selector": ".btn-solid",
+              "value": "var(--theme-contrast)"
+            },
+            {
+              "selector": ".btn-outline",
+              "value": "var(--theme-fg)"
+            },
+            {
+              "selector": ".btn-subtle",
+              "value": "var(--theme-fg)"
+            },
+            {
+              "selector": ".btn-text",
+              "value": "var(--theme-fg)"
+            },
+            {
+              "selector": ".btn-link",
+              "token": "button-link.btn-color"
+            }
+          ]
         }
       }
     },
@@ -118,7 +230,29 @@
           "cssVar": "--btn-border-color",
           "sassMap": "$button-tokens",
           "sassKey": "--btn-border-color",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".btn-solid",
+              "value": "var(--theme-bg)"
+            },
+            {
+              "selector": ".btn-outline",
+              "value": "var(--theme-border)"
+            },
+            {
+              "selector": ".btn-subtle",
+              "value": "transparent"
+            },
+            {
+              "selector": ".btn-text",
+              "value": "transparent"
+            },
+            {
+              "selector": ".btn-link",
+              "token": "button-link.btn-border-color"
+            }
+          ]
         }
       }
     },
@@ -129,7 +263,21 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--btn-border-radius",
           "sassMap": "$button-tokens",
-          "sassKey": "--btn-border-radius"
+          "sassKey": "--btn-border-radius",
+          "redeclared": [
+            {
+              "selector": ".btn-xs, .btn-group-xs > [class*=btn-]",
+              "value": "var(--btn-input-xs-border-radius)"
+            },
+            {
+              "selector": ".btn-sm, .btn-group-sm > [class*=btn-]",
+              "value": "var(--btn-input-sm-border-radius)"
+            },
+            {
+              "selector": ".btn-lg, .btn-group-lg > [class*=btn-]",
+              "value": "var(--btn-input-lg-border-radius)"
+            }
+          ]
         }
       }
     },
@@ -141,7 +289,21 @@
           "cssVar": "--btn-hover-border-color",
           "sassMap": "$button-tokens",
           "sassKey": "--btn-hover-border-color",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".btn-solid:hover",
+              "value": "oklch(from var(--theme-bg) calc(l * .95) calc(c * 1.1) h)"
+            },
+            {
+              "selector": ".btn-outline:hover",
+              "value": "oklch(from var(--theme-bg) calc(l * .95) calc(c * 1.1) h)"
+            },
+            {
+              "selector": ".btn-link",
+              "token": "button-link.btn-hover-border-color"
+            }
+          ]
         }
       }
     },
@@ -198,7 +360,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$button-tokens",
         "selector": ".btn",
-        "source": "scss/buttons/_button.scss"
+        "source": "scss/buttons/_button.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".btn, .btn-link, .btn-icon, .btn-solid, .btn-outline, .btn-subtle, .btn-text"
+        }
       }
     }
   }

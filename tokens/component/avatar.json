@@ -10,7 +10,25 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--avatar-size",
           "sassMap": "$avatar-tokens",
-          "sassKey": "--avatar-size"
+          "sassKey": "--avatar-size",
+          "redeclared": [
+            {
+              "selector": ".avatar-xs, .avatar-stack-xs > .avatar",
+              "value": "1.5rem"
+            },
+            {
+              "selector": ".avatar-sm, .avatar-stack-sm > .avatar",
+              "value": "2rem"
+            },
+            {
+              "selector": ".avatar-lg, .avatar-stack-lg > .avatar",
+              "value": "3rem"
+            },
+            {
+              "selector": ".avatar-xl, .avatar-stack-xl > .avatar",
+              "value": "4rem"
+            }
+          ]
         }
       }
     },
@@ -36,7 +54,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--avatar-border-width",
           "sassMap": "$avatar-tokens",
-          "sassKey": "--avatar-border-width"
+          "sassKey": "--avatar-border-width",
+          "redeclared": [
+            {
+              "selector": ".avatar-lg, .avatar-stack-lg > .avatar",
+              "value": "3px"
+            },
+            {
+              "selector": ".avatar-xl, .avatar-stack-xl > .avatar",
+              "value": "4px"
+            }
+          ]
         }
       }
     },
@@ -83,7 +111,21 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--avatar-status-size",
           "sassMap": "$avatar-tokens",
-          "sassKey": "--avatar-status-size"
+          "sassKey": "--avatar-status-size",
+          "redeclared": [
+            {
+              "selector": ".avatar-xs, .avatar-stack-xs > .avatar",
+              "value": "0.625rem"
+            },
+            {
+              "selector": ".avatar-lg, .avatar-stack-lg > .avatar",
+              "value": "1rem"
+            },
+            {
+              "selector": ".avatar-xl, .avatar-stack-xl > .avatar",
+              "value": "1.25rem"
+            }
+          ]
         }
       }
     },
@@ -140,7 +182,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$avatar-tokens",
         "selector": ".avatar",
-        "source": "scss/_avatar.scss"
+        "source": "scss/_avatar.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".avatar"
+        }
       }
     }
   }

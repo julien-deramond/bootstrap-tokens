@@ -116,7 +116,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$chip-input-tokens",
         "selector": ".chip-input",
-        "source": "scss/forms/_chip-input.scss"
+        "source": "scss/forms/_chip-input.scss",
+        "cascade": {
+          "layer": "forms",
+          "rule": ".chip-input"
+        }
       }
     }
   }

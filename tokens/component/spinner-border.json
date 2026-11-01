@@ -8,7 +8,17 @@
           "cssVar": "--spinner-width",
           "sassMap": "$spinner-border-tokens",
           "sassKey": "--spinner-width",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".spinner-sm",
+              "value": ".75em"
+            },
+            {
+              "selector": ".spinner-grow",
+              "token": "spinner-grow.spinner-width"
+            }
+          ]
         }
       }
     },
@@ -20,7 +30,17 @@
           "cssVar": "--spinner-height",
           "sassMap": "$spinner-border-tokens",
           "sassKey": "--spinner-height",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".spinner-sm",
+              "value": ".75em"
+            },
+            {
+              "selector": ".spinner-grow",
+              "token": "spinner-grow.spinner-height"
+            }
+          ]
         }
       }
     },
@@ -43,7 +63,20 @@
           "cssVar": "--spinner-animation-speed",
           "sassMap": "$spinner-border-tokens",
           "sassKey": "--spinner-animation-speed",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".spinner-grow",
+              "token": "spinner-grow.spinner-animation-speed"
+            },
+            {
+              "selector": ".spinner-border, .spinner-grow",
+              "at": [
+                "@media (prefers-reduced-motion: reduce)"
+              ],
+              "value": "1.5s"
+            }
+          ]
         }
       }
     },
@@ -54,7 +87,13 @@
           "cssVar": "--spinner-animation-timing-function",
           "sassMap": "$spinner-border-tokens",
           "sassKey": "--spinner-animation-timing-function",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".spinner-grow",
+              "token": "spinner-grow.spinner-animation-timing-function"
+            }
+          ]
         }
       }
     },
@@ -65,7 +104,13 @@
           "cssVar": "--spinner-animation-name",
           "sassMap": "$spinner-border-tokens",
           "sassKey": "--spinner-animation-name",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".spinner-grow",
+              "token": "spinner-grow.spinner-animation-name"
+            }
+          ]
         }
       }
     },
@@ -74,7 +119,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$spinner-border-tokens",
         "selector": ".spinner-border",
-        "source": "scss/_spinner.scss"
+        "source": "scss/_spinner.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".spinner-border"
+        }
       }
     }
   }

@@ -53,7 +53,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$hover-lift-tokens",
         "selector": ".hover-lift",
-        "source": "scss/helpers/_hover-lift.scss"
+        "source": "scss/helpers/_hover-lift.scss",
+        "cascade": {
+          "layer": "helpers",
+          "rule": ".hover-lift"
+        }
       }
     }
   }

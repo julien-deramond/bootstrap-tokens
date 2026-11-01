@@ -20,7 +20,13 @@
           "cssVar": "--badge-padding-x",
           "sassMap": "$badge-tokens",
           "sassKey": "--badge-padding-x",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".badge-lg",
+              "value": "1rem"
+            }
+          ]
         }
       }
     },
@@ -32,7 +38,13 @@
           "cssVar": "--badge-padding-y",
           "sassMap": "$badge-tokens",
           "sassKey": "--badge-padding-y",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".badge-lg",
+              "value": ".5rem"
+            }
+          ]
         }
       }
     },
@@ -67,7 +79,17 @@
           "cssVar": "--badge-color",
           "sassMap": "$badge-tokens",
           "sassKey": "--badge-color",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".badge-subtle",
+              "value": "var(--theme-fg)"
+            },
+            {
+              "selector": ".badge-outline",
+              "value": "var(--theme-fg)"
+            }
+          ]
         }
       }
     },
@@ -78,7 +100,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--badge-bg",
           "sassMap": "$badge-tokens",
-          "sassKey": "--badge-bg"
+          "sassKey": "--badge-bg",
+          "redeclared": [
+            {
+              "selector": ".badge-subtle",
+              "value": "var(--theme-bg-subtle)"
+            },
+            {
+              "selector": ".badge-outline",
+              "value": "transparent"
+            }
+          ]
         }
       }
     },
@@ -101,7 +133,17 @@
           "cssVar": "--badge-border-color",
           "sassMap": "$badge-tokens",
           "sassKey": "--badge-border-color",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".badge-subtle",
+              "value": "transparent"
+            },
+            {
+              "selector": ".badge-outline",
+              "value": "var(--theme-border)"
+            }
+          ]
         }
       }
     },
@@ -121,7 +163,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$badge-tokens",
         "selector": ".badge",
-        "source": "scss/_badge.scss"
+        "source": "scss/_badge.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".badge"
+        }
       }
     }
   }

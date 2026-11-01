@@ -70,7 +70,17 @@
           "cssVar": "--range-track-fill-bg",
           "sassMap": "$range-tokens",
           "sassKey": "--range-track-fill-bg",
-          "expression": true
+          "expression": true,
+          "redeclared": [
+            {
+              "selector": ".form-range-input:disabled::-webkit-slider-runnable-track",
+              "value": "var(--range-track-disabled-bg)"
+            },
+            {
+              "selector": ".form-range-input:disabled::-moz-range-track",
+              "value": "var(--range-track-disabled-bg)"
+            }
+          ]
         }
       },
       "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set."
@@ -265,7 +275,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$range-tokens",
         "selector": ".form-range",
-        "source": "scss/forms/_form-range.scss"
+        "source": "scss/forms/_form-range.scss",
+        "cascade": {
+          "layer": "forms",
+          "rule": ".form-range"
+        }
       }
     }
   }

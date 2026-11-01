@@ -30,7 +30,13 @@
           "cssVar": "--btn-bg",
           "sassMap": "$button-link-tokens",
           "sassKey": "--btn-bg",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".navbar-toggler",
+              "value": "transparent"
+            }
+          ]
         }
       }
     },
@@ -65,7 +71,13 @@
           "cssVar": "--btn-hover-bg",
           "sassMap": "$button-link-tokens",
           "sassKey": "--btn-hover-bg",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".navbar-toggler",
+              "value": "var(--bg-2)"
+            }
+          ]
         }
       }
     },
@@ -145,7 +157,11 @@
         "sassMap": "$button-link-tokens",
         "selector": ".btn-link",
         "source": "scss/buttons/_button.scss",
-        "variantOf": "btn"
+        "variantOf": "btn",
+        "cascade": {
+          "layer": "components",
+          "rule": ".btn-link"
+        }
       }
     }
   }

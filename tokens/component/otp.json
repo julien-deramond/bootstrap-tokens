@@ -7,7 +7,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--otp-size",
           "sassMap": "$otp-tokens",
-          "sassKey": "--otp-size"
+          "sassKey": "--otp-size",
+          "redeclared": [
+            {
+              "selector": ".otp-sm",
+              "value": "var(--btn-input-sm-min-height)"
+            },
+            {
+              "selector": ".otp-lg",
+              "value": "var(--btn-input-lg-min-height)"
+            }
+          ]
         }
       }
     },
@@ -18,7 +28,17 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--otp-font-size",
           "sassMap": "$otp-tokens",
-          "sassKey": "--otp-font-size"
+          "sassKey": "--otp-font-size",
+          "redeclared": [
+            {
+              "selector": ".otp-sm",
+              "value": "var(--btn-input-sm-font-size)"
+            },
+            {
+              "selector": ".otp-lg",
+              "value": "var(--btn-input-lg-font-size)"
+            }
+          ]
         }
       }
     },
@@ -76,7 +96,25 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--otp-slot-border-color",
           "sassMap": "$otp-tokens",
-          "sassKey": "--otp-slot-border-color"
+          "sassKey": "--otp-slot-border-color",
+          "redeclared": [
+            {
+              "selector": ".otp.is-valid .otp-slot",
+              "value": "var(--success-border)"
+            },
+            {
+              "selector": "[data-bs-validate~=valid] .otp:user-valid .otp-slot",
+              "value": "var(--success-border)"
+            },
+            {
+              "selector": ".otp.is-invalid .otp-slot",
+              "value": "var(--danger-border)"
+            },
+            {
+              "selector": "[data-bs-validate] .otp:user-invalid .otp-slot",
+              "value": "var(--danger-border)"
+            }
+          ]
         }
       }
     },
@@ -96,7 +134,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$otp-tokens",
         "selector": ".otp",
-        "source": "scss/forms/_otp-input.scss"
+        "source": "scss/forms/_otp-input.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".otp"
+        }
       }
     }
   }

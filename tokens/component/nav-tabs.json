@@ -84,7 +84,11 @@
         "sassMap": "$nav-tabs-tokens",
         "selector": ".nav-tabs",
         "source": "scss/_nav.scss",
-        "variantOf": "nav"
+        "variantOf": "nav",
+        "cascade": {
+          "layer": "components",
+          "rule": ".nav-tabs"
+        }
       }
     }
   }

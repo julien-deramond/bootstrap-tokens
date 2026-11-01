@@ -10,7 +10,13 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--nav-gap",
           "sassMap": "$nav-underline-tokens",
-          "sassKey": "--nav-gap"
+          "sassKey": "--nav-gap",
+          "redeclared": [
+            {
+              "selector": ".navbar-nav",
+              "token": "navbar-nav.nav-gap"
+            }
+          ]
         }
       }
     },
@@ -22,7 +28,13 @@
           "cssVar": "--nav-link-active-bg",
           "sassMap": "$nav-underline-tokens",
           "sassKey": "--nav-link-active-bg",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".navbar-nav",
+              "token": "navbar-nav.nav-link-active-bg"
+            }
+          ]
         }
       }
     },
@@ -57,7 +69,11 @@
         "sassMap": "$nav-underline-tokens",
         "selector": ".nav-underline",
         "source": "scss/_nav.scss",
-        "variantOf": "nav"
+        "variantOf": "nav",
+        "cascade": {
+          "layer": "components",
+          "rule": ".nav-underline"
+        }
       }
     }
   }

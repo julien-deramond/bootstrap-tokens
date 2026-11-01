@@ -27,7 +27,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$placeholder-tokens",
         "selector": ".placeholder",
-        "source": "scss/_placeholder.scss"
+        "source": "scss/_placeholder.scss",
+        "cascade": {
+          "layer": "components",
+          "rule": ".placeholder"
+        }
       }
     }
   }

@@ -40,7 +40,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$reboot-mark-tokens",
         "selector": "mark",
-        "source": "scss/content/_reboot.scss"
+        "source": "scss/content/_reboot.scss",
+        "cascade": {
+          "layer": "reboot",
+          "rule": "mark, .mark"
+        }
       }
     }
   }
