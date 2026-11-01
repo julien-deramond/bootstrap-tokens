@@ -72,6 +72,12 @@ const SASS_VERSION = '^1.93.0'
  * names (`--bs-range-fill`, `--bs-carousel-interval`, `--bs-breakpoint-md`), and so do the
  * docs, so a project that compiles the Sass and stops there gets a range whose fill never
  * moves and a nav whose `collapseBelow` is ignored. Versions as twbs/bootstrap pins them.
+ *
+ * `bs-` is a default, not Bootstrap's: a Sass build has no prefix unless its PostCSS config
+ * adds one. It's here only because Bootstrap's JavaScript hard-codes it
+ * (julien-deramond/bootstrap-tokens#119). Once that issue is fixed upstream and the
+ * JavaScript follows whatever prefix the CSS has, remove this step, its dependencies and the
+ * export's prefix steps, so generated projects go back to Sass's own output.
  */
 const POSTCSS_VERSION = '^8.5.31'
 const POSTCSS_CLI_VERSION = '^12.0.0'
@@ -85,7 +91,8 @@ export const PREFIX_PLUGIN_CALL = "prefixCustomProperties({ prefix: 'bs-', ignor
 export const POSTCSS_CONFIG = `import prefixCustomProperties from 'postcss-prefix-custom-properties'
 
 // Bootstrap's own build step: --range-fill in the Sass becomes --bs-range-fill in the CSS,
-// the name Bootstrap's JavaScript and docs use.
+// the name Bootstrap's JavaScript and docs use. The prefix is yours to change or remove, but
+// Bootstrap's JavaScript currently expects bs-: its range, carousel and nav overflow need it.
 export default {
   plugins: [${PREFIX_PLUGIN_CALL}]
 }
@@ -193,6 +200,10 @@ A build is two steps, as in Bootstrap's own. Sass compiles \`scss/custom.scss\`,
 the \`bs-\` prefix to every custom property (\`postcss.config.mjs\`). Bootstrap's JavaScript and
 docs use the prefixed names, so without it a range input's fill wouldn't move and
 \`var(--bs-body-font-family)\` would be empty.
+
+The prefix is yours. Change \`prefix\` in \`postcss.config.mjs\`, or drop the step, and Sass's
+own output has none. Bootstrap's JavaScript currently expects \`bs-\`, though, so its range,
+carousel and nav overflow only work with it.
 
 \`npm run verify\` is the one worth knowing about. It compiles this theme against the Bootstrap
 you actually installed and compares every custom property it produces with what the chooser
@@ -421,7 +432,9 @@ export default {
   css: {
     postcss: {
       // Bootstrap's own build step: --range-fill in the Sass becomes --bs-range-fill in the
-      // CSS, the name Bootstrap's JavaScript and docs use.
+      // CSS, the name Bootstrap's JavaScript and docs use. The prefix is yours to change or
+      // remove, but Bootstrap's JavaScript currently expects bs-: its range, carousel and
+      // nav overflow need it.
       plugins: [${PREFIX_PLUGIN_CALL}]
     }
   }
@@ -476,9 +489,11 @@ above.
 \`@floating-ui/dom\` is not optional: v6 externalises positioning, so menus, tooltips and
 popovers need it at runtime.
 
-\`postcss-prefix-custom-properties\` isn't optional either. Bootstrap's Sass writes its custom
-properties without a prefix and its own build adds \`bs-\`, the names its JavaScript and docs
-use. \`vite.config.js\` runs the same step.
+\`postcss-prefix-custom-properties\` adds the \`bs-\` prefix, as Bootstrap's own build does.
+Bootstrap's Sass writes its custom properties without one, but its JavaScript and docs use the
+prefixed names. \`vite.config.js\` runs the step, and the prefix there is yours to change or
+remove. Bootstrap's JavaScript currently expects \`bs-\`, though, so its range, carousel and nav
+overflow only work with it.
 `
 
 function viteProject({ doc, overrides, changed, name, version, bootstrap, themeFile }) {

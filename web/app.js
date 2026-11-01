@@ -2013,6 +2013,7 @@ function exportContent() {
         // fails with "No matching version" for as long as v6 is in alpha.
         `Install what it needs: <code>npm i bootstrap@${/^\d+\.\d+\.\d+/.test(version) ? version : 'next'}</code> and <code>npm i -D sass postcss postcss-cli postcss-prefix-custom-properties</code>.`,
         // Bootstrap's build adds `bs-` after Sass, and its JavaScript reads the prefixed names.
+        // A default kept for that JavaScript only: see PREFIX_PLUGIN_CALL for when it goes.
         `Save Bootstrap’s prefix step as <code>postcss.config.mjs</code>: <code>import prefixCustomProperties from 'postcss-prefix-custom-properties'; export default { plugins: [${PREFIX_PLUGIN_CALL}] }</code>.`,
         'Compile it, then add the prefix: <code>npx sass scss/custom.scss css/app.css</code> and <code>npx postcss css/app.css --replace --no-map</code>.',
         'Link <code>css/app.css</code> instead of Bootstrap’s own stylesheet.'
