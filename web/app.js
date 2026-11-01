@@ -27,7 +27,7 @@ import {
 } from '../tools/lib/overrides.mjs'
 import { sourceEdits } from '../tools/lib/source-value.mjs'
 import { unresolvedReferences } from '../tools/lib/value.mjs'
-import { projectFiles } from '../tools/lib/project.mjs'
+import { projectFiles, PREFIX_PLUGIN_CALL } from '../tools/lib/project.mjs'
 import {
   DIALS,
   PRESETS,
@@ -2011,8 +2011,10 @@ function exportContent() {
         'Save it as <code>scss/custom.scss</code> in your project.',
         // The exact release: a range like `bootstrap@6` never matches a prerelease, so it
         // fails with "No matching version" for as long as v6 is in alpha.
-        `Install what it needs: <code>npm i bootstrap@${/^\d+\.\d+\.\d+/.test(version) ? version : 'next'}</code> and <code>npm i -D sass</code>.`,
-        'Compile it: <code>npx sass scss/custom.scss css/app.css</code>.',
+        `Install what it needs: <code>npm i bootstrap@${/^\d+\.\d+\.\d+/.test(version) ? version : 'next'}</code> and <code>npm i -D sass postcss postcss-cli postcss-prefix-custom-properties</code>.`,
+        // Bootstrap's build adds `bs-` after Sass, and its JavaScript reads the prefixed names.
+        `Save Bootstrap’s prefix step as <code>postcss.config.mjs</code>: <code>import prefixCustomProperties from 'postcss-prefix-custom-properties'; export default { plugins: [${PREFIX_PLUGIN_CALL}] }</code>.`,
+        'Compile it, then add the prefix: <code>npx sass scss/custom.scss css/app.css</code> and <code>npx postcss css/app.css --replace --no-map</code>.',
         'Link <code>css/app.css</code> instead of Bootstrap’s own stylesheet.'
       ],
       text: themeScss(state.doc, state.overrides, {
