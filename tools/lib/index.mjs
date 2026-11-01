@@ -14,6 +14,7 @@ export {
   withOverrides,
   diffResolved,
   themeCss,
+  SHIPPED_PREFIX,
   themeScss,
   themeJson,
   mapsTouched,

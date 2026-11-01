@@ -171,18 +171,43 @@ export function declarationsBySelector(changes) {
  * possible: the same page rendered twice, themed on one side and stock on the other. Custom
  * properties inherit, so declaring them on a wrapper themes everything inside it and nothing
  * outside.
+ *
+ * `prefix` renames every custom property the way Bootstrap's build does. Its Sass declares
+ * `--link-color`, and a PostCSS step (`postcss-prefix-custom-properties`) turns that into
+ * `--bs-link-color` in the shipped `dist/css`. The preview paints over CSS compiled straight
+ * from Sass, so it leaves the names bare; the downloadable theme.css is loaded after the
+ * shipped stylesheet, so it passes `SHIPPED_PREFIX`, or it would declare properties nothing reads.
  */
-export function themeCss(changes, { scope = null } = {}) {
+export function themeCss(changes, { scope = null, prefix = '' } = {}) {
   if (changes.length === 0) return ''
 
+  const rename = prefixer(prefix)
   const blocks = []
   for (const [selector, declarations] of declarationsBySelector(changes)) {
-    const body = declarations.map(([name, value]) => `  ${name}: ${value};`).join('\n')
+    const body = declarations.map(([name, value]) => `  ${rename.name(name)}: ${rename.value(value)};`).join('\n')
     blocks.push(`${scoped(selector, scope)} {\n${body}\n}`)
   }
 
-  blocks.push(...reassertPinned(changes, scope))
+  blocks.push(...reassertPinned(changes, scope, rename))
   return `${blocks.join('\n\n')}\n`
+}
+
+/** The prefix `dist/css/bootstrap.css` carries on every custom property (twbs/bootstrap `build/postcss.config.mjs`). */
+export const SHIPPED_PREFIX = 'bs-'
+
+/** Upstream's PostCSS step leaves names that already carry `--bs-` or `--bd-` (the docs' own) alone. */
+const UNPREFIXED = /^--(?:bs|bd)-/
+
+/**
+ * The renaming `postcss-prefix-custom-properties` applies: a declared custom property, and
+ * the first argument of every `var()` in a value, so `var(--link-color)` follows the
+ * declaration it points at.
+ */
+function prefixer(prefix) {
+  const name = (property) => (prefix && !UNPREFIXED.test(property) ? `--${prefix}${property.slice(2)}` : property)
+  const value = (text) =>
+    prefix ? String(text).replace(/\bvar\((\s*)(--[\w-]+)/g, (_, space, property) => `var(${space}${name(property)}`) : text
+  return { name, value }
 }
 
 /** `:root` becomes the wrapper itself; everything else becomes a descendant of it. */
@@ -199,7 +224,7 @@ function scoped(selector, scope) {
  * carrying an explicit `data-bs-theme` — which is every page this tool previews.
  * See PINNED_MODES in curation.mjs.
  */
-function reassertPinned(changes, scope = null) {
+function reassertPinned(changes, scope = null, rename = prefixer('')) {
   const blocks = []
 
   for (const change of changes) {
@@ -213,7 +238,7 @@ function reassertPinned(changes, scope = null) {
           ? scope
           : `${scope}${selector}`
         : selector
-      const rule = `${target} {\n  ${change.cssVar}: ${value};\n}`
+      const rule = `${target} {\n  ${rename.name(change.cssVar)}: ${rename.value(value)};\n}`
       blocks.push(media ? `@media ${media} {\n${indent(rule)}\n}` : rule)
     }
   }
