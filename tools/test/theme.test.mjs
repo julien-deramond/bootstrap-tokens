@@ -15,6 +15,7 @@ import {
   withoutBrokenReferences,
   themeScss,
   themeCss,
+  SHIPPED_PREFIX,
   diffResolved,
   mapsTouched,
   changedKeysOf,
@@ -79,6 +80,28 @@ test('the runtime CSS lands on the right selectors', () => {
   const css = themeCss(diffResolved(base, themed))
   assert.match(css, /:root \{[\s\S]*--blue-500: oklch\(58% 0\.19 28\)/)
   assert.match(css, /\.alert \{[\s\S]*--alert-border-radius: var\(--radius-9\)/)
+})
+
+test('the downloadable theme.css uses the names Bootstrap ships, references included', () => {
+  // dist/css/bootstrap.css says `--bs-link-hover-color`, never `--link-hover-color` (#117).
+  const css = themeCss(diffResolved(base, themed), { prefix: SHIPPED_PREFIX })
+  assert.match(css, /:root \{[\s\S]*--bs-blue-500: oklch\(58% 0\.19 28\)/)
+  assert.match(css, /\.alert \{[\s\S]*--bs-alert-border-radius: var\(--bs-radius-9\)/)
+  assert.doesNotMatch(css, /(?:^|\s|\()--(?!bs-)[\w-]+/m)
+
+  // The [data-bs-theme] re-declarations of a pinned token are renamed too.
+  const pinned = { 'elevation.strength': { value: '1.5' } }
+  const pinnedCss = themeCss(diffResolved(base, withOverrides(tree, pinned)), { prefix: SHIPPED_PREFIX })
+  assert.match(pinnedCss, /\[data-bs-theme="light"\] \{\n {2}--bs-shadow-strength: 1\.5;\n\}/)
+  assert.doesNotMatch(pinnedCss, /--shadow-strength/)
+})
+
+test('the prefix skips names that already carry one, as upstream’s PostCSS step does', () => {
+  const css = themeCss(
+    [{ cssVar: '--bs-already', sassMap: null, value: 'var(--bd-docs) var( --gap, var(--bs-x))', pinnedModes: null }],
+    { prefix: SHIPPED_PREFIX }
+  )
+  assert.equal(css, ':root {\n  --bs-already: var(--bd-docs) var( --bs-gap, var(--bs-x));\n}\n')
 })
 
 let source = null

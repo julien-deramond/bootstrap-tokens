@@ -16,6 +16,7 @@ import {
   withoutBrokenReferences,
   diffResolved,
   themeCss,
+  SHIPPED_PREFIX,
   themeScss,
   themeJson,
   mapsTouched,
@@ -2022,7 +2023,8 @@ function exportContent() {
   }
 
   if (state.exportTab === 'css') {
-    const css = themeCss(diffResolved(state.baseDoc, state.doc))
+    // Loaded after Bootstrap's shipped stylesheet, whose build prefixes every custom property.
+    const css = themeCss(diffResolved(state.baseDoc, state.doc), { prefix: SHIPPED_PREFIX })
     return {
       filename: 'theme.css',
       note: 'No build step. Load it after Bootstrap’s stylesheet and it re-themes at runtime.',
