@@ -29,7 +29,7 @@
   "devDependencies": {
     "bootstrap": "6.0.0-alpha.1",
     "playwright-core": "^1.65.0",
-    "sass": "^1.108.0",
+    "sass": "^1.108.2",
     "style-dictionary": "^5.8.0",
     "typescript": "^7.0.2"
   },
