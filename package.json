@@ -27,7 +27,7 @@
     "probe": "node tools/cli.mjs probe"
   },
   "devDependencies": {
-    "bootstrap": "6.0.0-alpha.1",
+    "bootstrap": "6.0.0-alpha.2",
     "playwright-core": "^1.65.1",
     "sass": "^1.108.2",
     "style-dictionary": "^5.8.0",
