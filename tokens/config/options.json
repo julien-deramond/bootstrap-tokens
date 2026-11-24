@@ -29,6 +29,12 @@
     "file": "scss/_config.scss",
     "description": "Honors `prefers-reduced-motion`. Leave this on: turning it off overrides an accessibility preference the reader set deliberately."
   },
+  "$enable-forced-colors": {
+    "value": "true",
+    "kind": "flag",
+    "file": "scss/_config.scss",
+    "description": "Adds the styles that keep components usable in forced colors mode, such as Windows high contrast themes. Leave this on: turning it off breaks components for readers who rely on it."
+  },
   "$enable-smooth-scroll": {
     "value": "false",
     "kind": "flag",
@@ -113,6 +119,12 @@
     "file": "scss/forms/_strength.scss",
     "description": "The names of the password strength meter’s levels, weakest first."
   },
+  "$strength-text-colors": {
+    "value": "( weak: var(--danger-fg-emphasis), fair: var(--warning-fg-emphasis), good: var(--info-fg-emphasis), strong: var(--success-fg-emphasis) )",
+    "kind": "map",
+    "file": "scss/forms/_strength.scss",
+    "description": "The text color of the password strength label at each level. Keep its keys in step with `$strength-levels`."
+  },
   "$avatar-sizes": {
     "value": "( \"xs\": ( size: 1.5rem, status-size: .625rem, ), \"sm\": ( size: 2rem, ), \"lg\": ( size: 3rem, status-size: 1rem, border-width: 3px, ), \"xl\": ( size: 4rem, status-size: 1.25rem, border-width: 4px, ), )",
     "kind": "map",
@@ -120,7 +132,7 @@
     "description": "Which avatar size classes are generated, and how big each one is."
   },
   "$dialog-sizes": {
-    "value": "( sm: 280px, lg: 800px, xl: 1140px, )",
+    "value": "( sm: 280px, lg: 800px, xl: 1140px, 2xl: 1440px, )",
     "kind": "map",
     "file": "scss/_dialog.scss",
     "description": "Which dialog size classes are generated, and the max-width of each."

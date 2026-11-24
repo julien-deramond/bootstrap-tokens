@@ -69,18 +69,6 @@
         }
       }
     },
-    "navbar-toggler-border-color": {
-      "$type": "color",
-      "$value": "color-mix(in oklch, {color.white} 10%, transparent)",
-      "$extensions": {
-        "dev.bootstrap.tokens": {
-          "cssVar": "--navbar-toggler-border-color",
-          "sassMap": "$navbar-dark-tokens",
-          "sassKey": "--navbar-toggler-border-color",
-          "expression": true
-        }
-      }
-    },
     "$description": "Tokens emitted on `.navbar[data-bs-theme=dark]`.",
     "$extensions": {
       "dev.bootstrap.tokens": {

@@ -50,7 +50,7 @@ So this repository holds two things:
 
 - **The tokens** — Bootstrap 6 lifted into [DTCG format](https://tr.designtokens.org/format/),
   layered primitive → semantic → component, and exported to Sass, CSS, TypeScript, Style
-  Dictionary and Figma. Extracted from the released [`bootstrap@6.0.0-alpha.1`](https://www.npmjs.com/package/bootstrap/v/6.0.0-alpha.1)
+  Dictionary and Figma. Extracted from the released [`bootstrap@6.0.0-alpha.2`](https://www.npmjs.com/package/bootstrap/v/6.0.0-alpha.2)
   on npm, and checked back against it. A nightly job previews `twbs/bootstrap@main` against that
   release, so changes for the next alpha show up before it ships.
 - **Bootstrap Theme Builder** — a local web app for designing a theme by editing those tokens,
@@ -61,13 +61,13 @@ So this repository holds two things:
 %%{init: {"fontFamily": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace", "flowchart": {"wrappingWidth": 480}, "theme": "base", "themeVariables": {"darkMode": true, "dropShadow": "none", "background": "#0A0C11", "fontFamily": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace", "fontSize": "14px", "primaryColor": "#16181E", "primaryTextColor": "#E6E8EC", "primaryBorderColor": "#292C33", "secondaryColor": "#16181E", "tertiaryColor": "#0A0C11", "lineColor": "#3AB9BF", "textColor": "#E6E8EC", "clusterBkg": "#0A0C11", "clusterBorder": "#292C33", "titleColor": "#8F929A", "edgeLabelBackground": "#0A0C11"}}}%%
 flowchart TB
   accTitle: The build, verify and sync loop
-  accDescr: tokens is the DTCG source of truth. Build turns it into Sass maps, CSS custom properties and resolved JSON. Verify checks those outputs against the pinned bootstrap@6.0.0-alpha.1. Sync reads the pinned bootstrap@6.0.0-alpha.1 back into tokens.
+  accDescr: tokens is the DTCG source of truth. Build turns it into Sass maps, CSS custom properties and resolved JSON. Verify checks those outputs against the pinned bootstrap@6.0.0-alpha.2. Sync reads the pinned bootstrap@6.0.0-alpha.2 back into tokens.
 
   subgraph field[" "]
     direction TB
     tokens["tokens/ (DTCG, source of truth)"]
     outputs["Sass maps · CSS custom properties · resolved JSON"]
-    bootstrap["bootstrap@6.0.0-alpha.1"]
+    bootstrap["bootstrap@6.0.0-alpha.2"]
     tokens -- build --> outputs
     outputs -- verify --> bootstrap
     bootstrap -- sync --> tokens
@@ -111,11 +111,11 @@ The tooling reads the Bootstrap release `package.json` pins, which `npm ci` inst
 
 [![CI status](https://github.com/julien-deramond/bootstrap-tokens/actions/workflows/ci.yml/badge.svg)](https://github.com/julien-deramond/bootstrap-tokens/actions/workflows/ci.yml)
 
-Tracks Bootstrap `6.0.0-alpha.1`. **1207 tokens**, covering all 64 of upstream's `$*-tokens`
+Tracks Bootstrap `6.0.0-alpha.2`. **1208 tokens**, covering all 64 of upstream's `$*-tokens`
 maps.
 
 `bstokens verify` compiles upstream's `bootstrap.scss` and the configuration exported from
-these tokens, and asserts the resulting CSS is identical — today it is, across all 18253
+these tokens, and asserts the resulting CSS is identical — today it is, across all 19403
 lines. CI runs that on every push against the pinned release. A nightly job runs the same checks
 against `twbs/bootstrap@main` and keeps one issue open while it differs, as advance notice for the
 next alpha.
@@ -177,7 +177,7 @@ Sass in the browser and no compile step in the loop: v6 drives everything throug
 properties, so re-declaring them is the whole mechanism.
 
 - **Two modes over one model.** *Design* is eight controls that each move a lot of the system
-  — brand color, radius, density, type, shadow. *All tokens* is all 1207, grouped and
+  — brand color, radius, density, type, shadow. *All tokens* is all 1208, grouped and
   searchable. Both write the same overrides, so switching is lossless.
 - **Light and dark side by side**, as framed artboards on a neutral canvas — a v6 theme is
   always two themes.

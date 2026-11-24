@@ -151,7 +151,7 @@
       },
       "font-size": {
         "$type": "dimension",
-        "$value": "95%",
+        "$value": ".875em",
         "$extensions": {
           "dev.bootstrap.tokens": {
             "cssVar": "--code-font-size",

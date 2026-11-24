@@ -35,6 +35,18 @@
         }
       }
     },
+    "divider-margin-x": {
+      "$type": "dimension",
+      "$value": "calc({breadcrumb.link-padding-x} / 4)",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--breadcrumb-divider-margin-x",
+          "sassMap": "$breadcrumb-tokens",
+          "sassKey": "--breadcrumb-divider-margin-x",
+          "expression": true
+        }
+      }
+    },
     "divider-color": {
       "$type": "color",
       "$value": "{fg.4}",

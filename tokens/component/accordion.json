@@ -177,19 +177,13 @@
       }
     },
     "gap": {
-      "$type": "number",
-      "$value": 0,
+      "$type": "dimension",
+      "$value": "{spacing.2}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--accordion-gap",
           "sassMap": "$accordion-tokens",
-          "sassKey": "--accordion-gap",
-          "redeclared": [
-            {
-              "selector": ".accordion-gap",
-              "value": "var(--spacer-2)"
-            }
-          ]
+          "sassKey": "--accordion-gap"
         }
       }
     },

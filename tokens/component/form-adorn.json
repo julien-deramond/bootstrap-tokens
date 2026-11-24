@@ -3,7 +3,7 @@
     "gap": {
       "$type": "dimension",
       "$value": {
-        "value": 0.375,
+        "value": 0.5,
         "unit": "rem"
       },
       "$extensions": {

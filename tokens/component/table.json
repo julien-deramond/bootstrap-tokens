@@ -142,18 +142,6 @@
         }
       }
     },
-    "striped-bg": {
-      "$type": "color",
-      "$value": "color-mix(in srgb, {table.color} {table.striped-bg-factor}, transparent)",
-      "$extensions": {
-        "dev.bootstrap.tokens": {
-          "cssVar": "--table-striped-bg",
-          "sassMap": "$table-tokens",
-          "sassKey": "--table-striped-bg",
-          "expression": true
-        }
-      }
-    },
     "active-color": {
       "$type": "color",
       "$value": "{table.color}",
@@ -177,18 +165,6 @@
         }
       }
     },
-    "active-bg": {
-      "$type": "color",
-      "$value": "color-mix(in srgb, {table.color} {table.active-bg-factor}, transparent)",
-      "$extensions": {
-        "dev.bootstrap.tokens": {
-          "cssVar": "--table-active-bg",
-          "sassMap": "$table-tokens",
-          "sassKey": "--table-active-bg",
-          "expression": true
-        }
-      }
-    },
     "hover-color": {
       "$type": "color",
       "$value": "{table.color}",
@@ -209,18 +185,6 @@
           "sassMap": "$table-tokens",
           "sassKey": "--table-hover-bg-factor",
           "css": true
-        }
-      }
-    },
-    "hover-bg": {
-      "$type": "color",
-      "$value": "color-mix(in srgb, {table.color} {table.hover-bg-factor}, transparent)",
-      "$extensions": {
-        "dev.bootstrap.tokens": {
-          "cssVar": "--table-hover-bg",
-          "sassMap": "$table-tokens",
-          "sassKey": "--table-hover-bg",
-          "expression": true
         }
       }
     },

@@ -78,8 +78,8 @@
     "sassMap": "$accordion-tokens"
   },
   "accordion.gap": {
-    "$type": "number",
-    "$value": "0",
+    "$type": "dimension",
+    "$value": "var(--spacer-2)",
     "cssVar": "--accordion-gap",
     "sassMap": "$accordion-tokens"
   },
@@ -153,6 +153,12 @@
     "$type": "color",
     "$value": "inherit",
     "cssVar": "--alert-color",
+    "sassMap": "$alert-tokens"
+  },
+  "alert.border-width": {
+    "$type": "dimension",
+    "$value": "var(--border-width)",
+    "cssVar": "--alert-border-width",
     "sassMap": "$alert-tokens"
   },
   "alert.border-color": {
@@ -390,6 +396,12 @@
     "cssVar": "--breadcrumb-border-radius",
     "sassMap": "$breadcrumb-tokens"
   },
+  "breadcrumb.divider-margin-x": {
+    "$type": "dimension",
+    "$value": "calc(var(--breadcrumb-link-padding-x) / 4)",
+    "cssVar": "--breadcrumb-divider-margin-x",
+    "sassMap": "$breadcrumb-tokens"
+  },
   "breadcrumb.divider-color": {
     "$type": "color",
     "$value": "var(--fg-4)",
@@ -464,7 +476,7 @@
   },
   "btn-close.color": {
     "$type": "color",
-    "$value": "inherit",
+    "$value": "var(--fg-body)",
     "cssVar": "--btn-close-color",
     "sassMap": "$btn-close-tokens"
   },
@@ -974,7 +986,7 @@
   },
   "check.border-radius": {
     "$type": "dimension",
-    "$value": "var(--radius-5)",
+    "$value": "33%",
     "cssVar": "--check-border-radius",
     "sassMap": "$check-tokens"
   },
@@ -1004,13 +1016,13 @@
   },
   "check.indeterminate-bg": {
     "$type": "color",
-    "$value": "var(--control-checked-bg)",
+    "$value": "var(--check-checked-bg)",
     "cssVar": "--check-indeterminate-bg",
     "sassMap": "$check-tokens"
   },
   "check.indeterminate-border-color": {
     "$type": "color",
-    "$value": "var(--control-checked-border-color)",
+    "$value": "var(--check-checked-border-color)",
     "cssVar": "--check-indeterminate-border-color",
     "sassMap": "$check-tokens"
   },
@@ -1037,60 +1049,6 @@
     "$value": "var(--control-disabled-opacity)",
     "cssVar": "--check-disabled-opacity",
     "sassMap": "$check-tokens"
-  },
-  "chip-input.padding-y": {
-    "$type": "dimension",
-    "$value": ".75rem",
-    "cssVar": "--chip-input-padding-y",
-    "sassMap": "$chip-input-tokens"
-  },
-  "chip-input.padding-x": {
-    "$type": "dimension",
-    "$value": ".75rem",
-    "cssVar": "--chip-input-padding-x",
-    "sassMap": "$chip-input-tokens"
-  },
-  "chip-input.gap": {
-    "$type": "dimension",
-    "$value": ".375rem",
-    "cssVar": "--chip-input-gap",
-    "sassMap": "$chip-input-tokens"
-  },
-  "chip-input.ghost-min-width": {
-    "$type": "dimension",
-    "$value": "5rem",
-    "cssVar": "--chip-input-ghost-min-width",
-    "sassMap": "$chip-input-tokens"
-  },
-  "chip-input.control-fg": {
-    "$type": "color",
-    "$value": "var(--btn-input-fg)",
-    "cssVar": "--control-fg",
-    "sassMap": "$chip-input-tokens"
-  },
-  "chip-input.control-bg": {
-    "$type": "color",
-    "$value": "var(--btn-input-bg)",
-    "cssVar": "--control-bg",
-    "sassMap": "$chip-input-tokens"
-  },
-  "chip-input.control-border-width": {
-    "$type": "dimension",
-    "$value": "var(--border-width)",
-    "cssVar": "--control-border-width",
-    "sassMap": "$chip-input-tokens"
-  },
-  "chip-input.control-border-color": {
-    "$type": "color",
-    "$value": "var(--border-color)",
-    "cssVar": "--control-border-color",
-    "sassMap": "$chip-input-tokens"
-  },
-  "chip-input.control-border-radius": {
-    "$type": "dimension",
-    "$value": "var(--radius-5)",
-    "cssVar": "--control-border-radius",
-    "sassMap": "$chip-input-tokens"
   },
   "chip.height": {
     "$type": "dimension",
@@ -1205,6 +1163,84 @@
     "cssVar": "--transition-collapse-timing",
     "sassMap": "$collapse-tokens"
   },
+  "combobox-control.padding-y": {
+    "$type": "dimension",
+    "$value": "var(--btn-input-padding-y)",
+    "cssVar": "--combobox-control-padding-y",
+    "sassMap": "$combobox-control-tokens"
+  },
+  "combobox-control.padding-x": {
+    "$type": "dimension",
+    "$value": "var(--btn-input-padding-x)",
+    "cssVar": "--combobox-control-padding-x",
+    "sassMap": "$combobox-control-tokens"
+  },
+  "combobox-control.gap": {
+    "$type": "dimension",
+    "$value": ".25rem",
+    "cssVar": "--combobox-control-gap",
+    "sassMap": "$combobox-control-tokens"
+  },
+  "combobox-control.chip-height": {
+    "$type": "dimension",
+    "$value": "calc(var(--control-min-height) - 2 * var(--combobox-control-padding-y) - 2 * var(--control-border-width))",
+    "cssVar": "--combobox-control-chip-height",
+    "sassMap": "$combobox-control-tokens"
+  },
+  "combobox-control.control-min-height": {
+    "$type": "dimension",
+    "$value": "var(--btn-input-min-height)",
+    "cssVar": "--control-min-height",
+    "sassMap": "$combobox-control-tokens"
+  },
+  "combobox-control.control-font-size": {
+    "$type": "dimension",
+    "$value": "var(--btn-input-font-size)",
+    "cssVar": "--control-font-size",
+    "sassMap": "$combobox-control-tokens"
+  },
+  "combobox-control.control-line-height": {
+    "$type": "dimension",
+    "$value": "var(--btn-input-line-height)",
+    "cssVar": "--control-line-height",
+    "sassMap": "$combobox-control-tokens"
+  },
+  "combobox-control.ghost-min-width": {
+    "$type": "dimension",
+    "$value": "5rem",
+    "cssVar": "--combobox-control-ghost-min-width",
+    "sassMap": "$combobox-control-tokens"
+  },
+  "combobox-control.control-fg": {
+    "$type": "color",
+    "$value": "var(--btn-input-fg)",
+    "cssVar": "--control-fg",
+    "sassMap": "$combobox-control-tokens"
+  },
+  "combobox-control.control-bg": {
+    "$type": "color",
+    "$value": "var(--btn-input-bg)",
+    "cssVar": "--control-bg",
+    "sassMap": "$combobox-control-tokens"
+  },
+  "combobox-control.control-border-width": {
+    "$type": "dimension",
+    "$value": "var(--border-width)",
+    "cssVar": "--control-border-width",
+    "sassMap": "$combobox-control-tokens"
+  },
+  "combobox-control.control-border-color": {
+    "$type": "color",
+    "$value": "var(--border-color)",
+    "cssVar": "--control-border-color",
+    "sassMap": "$combobox-control-tokens"
+  },
+  "combobox-control.control-border-radius": {
+    "$type": "dimension",
+    "$value": "var(--radius-5)",
+    "cssVar": "--control-border-radius",
+    "sassMap": "$combobox-control-tokens"
+  },
   "datepicker.padding": {
     "$type": "dimension",
     "$value": "1rem",
@@ -1253,6 +1289,24 @@
     "cssVar": "--datepicker-font-size",
     "sassMap": "$datepicker-tokens"
   },
+  "datepicker.transition-property": {
+    "$type": null,
+    "$value": "opacity, transform",
+    "cssVar": "--datepicker-transition-property",
+    "sassMap": "$datepicker-tokens"
+  },
+  "datepicker.transition-duration": {
+    "$type": "duration",
+    "$value": ".15s",
+    "cssVar": "--datepicker-transition-duration",
+    "sassMap": "$datepicker-tokens"
+  },
+  "datepicker.transition-timing": {
+    "$type": "cubicBezier",
+    "$value": "var(--transition-timing-overlay)",
+    "cssVar": "--datepicker-transition-timing",
+    "sassMap": "$datepicker-tokens"
+  },
   "datepicker.min-width": {
     "$type": "dimension",
     "$value": "280px",
@@ -1267,7 +1321,7 @@
   },
   "datepicker.header-font-weight": {
     "$type": "fontWeight",
-    "$value": "600",
+    "$value": "var(--font-weight-semibold)",
     "cssVar": "--datepicker-header-font-weight",
     "sassMap": "$datepicker-tokens"
   },
@@ -1285,13 +1339,15 @@
   },
   "datepicker.day-selected-bg": {
     "$type": "color",
-    "$value": "var(--primary-bg)",
+    "$value": "var(--theme-bg, var(--primary-bg))",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set.",
     "cssVar": "--datepicker-day-selected-bg",
     "sassMap": "$datepicker-tokens"
   },
   "datepicker.day-selected-color": {
     "$type": "color",
-    "$value": "var(--primary-contrast)",
+    "$value": "var(--theme-contrast, var(--primary-contrast))",
+    "$description": "Follows the `.theme-*` class on an ancestor through `--theme-contrast`, and uses the fallback only when no theme class is set.",
     "cssVar": "--datepicker-day-selected-color",
     "sassMap": "$datepicker-tokens"
   },
@@ -1359,6 +1415,12 @@
     "$type": "dimension",
     "$value": "var(--radius-7)",
     "cssVar": "--dialog-border-radius",
+    "sassMap": "$dialog-tokens"
+  },
+  "dialog.inner-border-radius": {
+    "$type": "dimension",
+    "$value": "calc(var(--dialog-border-radius) - var(--dialog-border-width))",
+    "cssVar": "--dialog-inner-border-radius",
     "sassMap": "$dialog-tokens"
   },
   "dialog.box-shadow": {
@@ -1553,18 +1615,6 @@
     "cssVar": "--drawer-title-line-height",
     "sassMap": "$drawer-tokens"
   },
-  "drawer.backdrop-bg": {
-    "$type": "color",
-    "$value": "color-mix(in oklch, var(--bg-body) 25%, transparent)",
-    "cssVar": "--drawer-backdrop-bg",
-    "sassMap": "$drawer-tokens"
-  },
-  "drawer.backdrop-blur": {
-    "$type": "dimension",
-    "$value": "8px",
-    "cssVar": "--drawer-backdrop-blur",
-    "sassMap": "$drawer-tokens"
-  },
   "fade.transition-fade-duration": {
     "$type": "duration",
     "$value": ".15s",
@@ -1597,7 +1647,7 @@
   },
   "form-adorn.gap": {
     "$type": "dimension",
-    "$value": ".375rem",
+    "$value": ".5rem",
     "cssVar": "--form-adorn-gap",
     "sassMap": "$form-adorn-tokens"
   },
@@ -1876,12 +1926,6 @@
     "$value": "null",
     "cssVar": "--label-color",
     "sassMap": "$form-label-tokens"
-  },
-  "form-text.margin-top": {
-    "$type": "dimension",
-    "$value": ".25rem",
-    "cssVar": "--form-text-margin-top",
-    "sassMap": "$form-text-tokens"
   },
   "form-text.font-size": {
     "$type": "dimension",
@@ -2199,6 +2243,18 @@
     "$type": "color",
     "$value": "var(--bg-1)",
     "cssVar": "--menu-item-hover-bg",
+    "sassMap": "$menu-tokens"
+  },
+  "menu.item-focus-color": {
+    "$type": "color",
+    "$value": "light-dark(var(--white), var(--gray-900))",
+    "cssVar": "--menu-item-focus-color",
+    "sassMap": "$menu-tokens"
+  },
+  "menu.item-focus-bg": {
+    "$type": "color",
+    "$value": "light-dark(var(--gray-700), var(--gray-200))",
+    "cssVar": "--menu-item-focus-bg",
     "sassMap": "$menu-tokens"
   },
   "menu.item-active-color": {
@@ -2531,12 +2587,6 @@
     "cssVar": "--navbar-brand-hover-color",
     "sassMap": "$navbar-dark-tokens"
   },
-  "navbar-dark.navbar-toggler-border-color": {
-    "$type": "color",
-    "$value": "color-mix(in oklch, var(--white) 10%, transparent)",
-    "cssVar": "--navbar-toggler-border-color",
-    "sassMap": "$navbar-dark-tokens"
-  },
   "navbar-nav.nav-gap": {
     "$type": "dimension",
     "$value": ".25rem",
@@ -2685,42 +2735,6 @@
     "$type": "dimension",
     "$value": ".75rem",
     "cssVar": "--navbar-nav-link-padding-x",
-    "sassMap": "$navbar-tokens"
-  },
-  "navbar.toggler-width": {
-    "$type": "dimension",
-    "$value": "2rem",
-    "cssVar": "--navbar-toggler-width",
-    "sassMap": "$navbar-tokens"
-  },
-  "navbar.toggler-padding-y": {
-    "$type": "dimension",
-    "$value": ".25rem",
-    "cssVar": "--navbar-toggler-padding-y",
-    "sassMap": "$navbar-tokens"
-  },
-  "navbar.toggler-padding-x": {
-    "$type": "dimension",
-    "$value": ".75rem",
-    "cssVar": "--navbar-toggler-padding-x",
-    "sassMap": "$navbar-tokens"
-  },
-  "navbar.toggler-font-size": {
-    "$type": "dimension",
-    "$value": "var(--font-size-lg)",
-    "cssVar": "--navbar-toggler-font-size",
-    "sassMap": "$navbar-tokens"
-  },
-  "navbar.toggler-border-color": {
-    "$type": "color",
-    "$value": "color-mix(in oklch, var(--fg-body) 15%, transparent)",
-    "cssVar": "--navbar-toggler-border-color",
-    "sassMap": "$navbar-tokens"
-  },
-  "navbar.toggler-border-radius": {
-    "$type": "dimension",
-    "$value": "var(--radius-5)",
-    "cssVar": "--navbar-toggler-border-radius",
     "sassMap": "$navbar-tokens"
   },
   "navbar.toggler-transition": {
@@ -3214,8 +3228,14 @@
   },
   "range.track-border-radius": {
     "$type": "dimension",
-    "$value": "1rem",
+    "$value": "var(--radius-pill)",
     "cssVar": "--range-track-border-radius",
+    "sassMap": "$range-tokens"
+  },
+  "range.track-box-shadow": {
+    "$type": "shadow",
+    "$value": "var(--box-shadow-inset)",
+    "cssVar": "--range-track-box-shadow",
     "sassMap": "$range-tokens"
   },
   "range.track-fill-bg": {
@@ -3223,6 +3243,12 @@
     "$value": "var(--theme-bg, var(--primary-base))",
     "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set.",
     "cssVar": "--range-track-fill-bg",
+    "sassMap": "$range-tokens"
+  },
+  "range.track-fill-direction": {
+    "$type": null,
+    "$value": "to right",
+    "cssVar": "--range-track-fill-direction",
     "sassMap": "$range-tokens"
   },
   "range.track-disabled-bg": {
@@ -3258,7 +3284,7 @@
   },
   "range.thumb-border-radius": {
     "$type": "dimension",
-    "$value": "1rem",
+    "$value": "var(--radius-pill)",
     "cssVar": "--range-thumb-border-radius",
     "sassMap": "$range-tokens"
   },
@@ -3331,7 +3357,7 @@
   },
   "reboot-kbd.kbd-font-size": {
     "$type": "dimension",
-    "$value": "var(--font-size-xs)",
+    "$value": ".75em",
     "cssVar": "--kbd-font-size",
     "sassMap": "$reboot-kbd-tokens"
   },
@@ -3796,12 +3822,6 @@
     "cssVar": "--table-striped-bg-factor",
     "sassMap": "$table-tokens"
   },
-  "table.striped-bg": {
-    "$type": "color",
-    "$value": "color-mix(in srgb, var(--table-color) var(--table-striped-bg-factor), transparent)",
-    "cssVar": "--table-striped-bg",
-    "sassMap": "$table-tokens"
-  },
   "table.active-color": {
     "$type": "color",
     "$value": "var(--table-color)",
@@ -3814,12 +3834,6 @@
     "cssVar": "--table-active-bg-factor",
     "sassMap": "$table-tokens"
   },
-  "table.active-bg": {
-    "$type": "color",
-    "$value": "color-mix(in srgb, var(--table-color) var(--table-active-bg-factor), transparent)",
-    "cssVar": "--table-active-bg",
-    "sassMap": "$table-tokens"
-  },
   "table.hover-color": {
     "$type": "color",
     "$value": "var(--table-color)",
@@ -3830,12 +3844,6 @@
     "$type": "color",
     "$value": "7.5%",
     "cssVar": "--table-hover-bg-factor",
-    "sassMap": "$table-tokens"
-  },
-  "table.hover-bg": {
-    "$type": "color",
-    "$value": "color-mix(in srgb, var(--table-color) var(--table-hover-bg-factor), transparent)",
-    "cssVar": "--table-hover-bg",
     "sassMap": "$table-tokens"
   },
   "thumbnail.padding": {
@@ -7325,7 +7333,7 @@
   },
   "type.code.font-size": {
     "$type": "dimension",
-    "$value": "95%",
+    "$value": ".875em",
     "$description": "Code size relative to its surrounding text, so inline code does not tower over the line.",
     "cssVar": "--code-font-size",
     "sassMap": "$root-tokens"

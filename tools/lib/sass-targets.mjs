@@ -100,21 +100,17 @@ export const COMPONENTS = [
   { name: 'check', sassMap: '$check-tokens', file: 'scss/forms/_check.scss', selector: '.check' },
   { name: 'chip', sassMap: '$chip-tokens', file: 'scss/_chip.scss', selector: '.chip' },
   { name: 'collapse', sassMap: '$collapse-tokens', file: 'scss/_transitions.scss', selector: '.collapse' },
-  { name: 'chip-input', sassMap: '$chip-input-tokens', file: 'scss/forms/_chip-input.scss', selector: '.chip-input' },
-  { name: 'datepicker', sassMap: '$datepicker-tokens', file: 'scss/_datepicker.scss', selector: '[data-vc=calendar]' },
+  { name: 'combobox-control', sassMap: '$combobox-control-tokens', file: 'scss/forms/_combobox-control.scss', selector: '.combobox-control' },
+  { name: 'datepicker', sassMap: '$datepicker-tokens', file: 'scss/forms/_datepicker.scss', selector: '[data-vc=calendar]' },
   { name: 'dialog', sassMap: '$dialog-tokens', file: 'scss/_dialog.scss', selector: '.dialog' },
   { name: 'drawer', sassMap: '$drawer-tokens', file: 'scss/_drawer.scss', selector: '.drawer' },
-  // `inert`: upstream defines the map and never `@include`s it, so none of its values ever
-  // reach CSS. Kept because `@use … with ()` still accepts it and a maintainer editing the
-  // sources needs to see it — but skipped when emitting CSS, since upstream emits nothing.
-  // See issue #16.
-  { name: 'drawer-backdrop', sassMap: '$drawer-backdrop-tokens', file: 'scss/_drawer.scss', selector: '.drawer', variantOf: 'drawer', inert: true },
+  { name: 'drawer-backdrop', sassMap: '$drawer-backdrop-tokens', file: 'scss/_drawer.scss', selector: '.drawer', variantOf: 'drawer' },
   { name: 'fade', sassMap: '$fade-tokens', file: 'scss/_transitions.scss', selector: '.fade' },
   { name: 'figure', sassMap: '$figure-tokens', file: 'scss/content/_images.scss', selector: '.figure' },
   { name: 'form-adorn', sassMap: '$form-adorn-tokens', file: 'scss/forms/_form-adorn.scss', selector: '.form-adorn' },
   { name: 'form-control', sassMap: '$form-control-tokens', file: 'scss/forms/_form-control.scss', selector: '.form-control' },
   { name: 'form-floating', sassMap: '$form-floating-tokens', file: 'scss/forms/_floating-labels.scss', selector: '.form-floating' },
-  { name: 'form-label', sassMap: '$form-label-tokens', file: 'scss/forms/_labels.scss', selector: '.form-label', inert: true },
+  { name: 'form-label', sassMap: '$form-label-tokens', file: 'scss/forms/_labels.scss', selector: '.form-label' },
   { name: 'form-text', sassMap: '$form-text-tokens', file: 'scss/forms/_form-text.scss', selector: '.form-text' },
   { name: 'hover-lift', sassMap: '$hover-lift-tokens', file: 'scss/helpers/_hover-lift.scss', selector: '.hover-lift' },
   { name: 'icon-link', sassMap: '$icon-link-tokens', file: 'scss/helpers/_icon-link.scss', selector: '.icon-link' },

@@ -34,13 +34,7 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--check-margin-block",
           "sassMap": "$check-tokens",
-          "sassKey": "--check-margin-block",
-          "redeclared": [
-            {
-              "selector": ".check-lg",
-              "value": ".375rem"
-            }
-          ]
+          "sassKey": "--check-margin-block"
         }
       }
     },
@@ -74,12 +68,13 @@
     },
     "border-radius": {
       "$type": "dimension",
-      "$value": "{radius.5}",
+      "$value": "33%",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--check-border-radius",
           "sassMap": "$check-tokens",
-          "sassKey": "--check-border-radius"
+          "sassKey": "--check-border-radius",
+          "css": true
         }
       }
     },
@@ -129,7 +124,7 @@
     },
     "indeterminate-bg": {
       "$type": "color",
-      "$value": "{control.checked-bg}",
+      "$value": "{check.checked-bg}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--check-indeterminate-bg",
@@ -140,7 +135,7 @@
     },
     "indeterminate-border-color": {
       "$type": "color",
-      "$value": "{control.checked-border-color}",
+      "$value": "{check.checked-border-color}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--check-indeterminate-border-color",

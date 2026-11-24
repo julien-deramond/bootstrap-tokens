@@ -228,7 +228,7 @@ function setMode(mode) {
  * knowing its Bootstrap name.
  */
 const COMPONENT_GROUPS = [
-  { title: 'Forms', names: ['form-control', 'form-label', 'form-text', 'form-adorn', 'form-floating', 'check', 'radio', 'switch', 'range', 'input-group-addon', 'chip-input', 'otp', 'strength'] },
+  { title: 'Forms', names: ['form-control', 'form-label', 'form-text', 'form-adorn', 'form-floating', 'check', 'radio', 'switch', 'range', 'input-group-addon', 'combobox-control', 'otp', 'strength'] },
   { title: 'Actions', names: ['btn', 'button-link', 'button-styled', 'btn-close', 'icon-link'] },
   { title: 'Navigation', names: ['nav', 'nav-tabs', 'nav-pills', 'nav-underline', 'tab-pane', 'navbar', 'navbar-dark', 'navbar-nav', 'breadcrumb', 'pagination', 'menu', 'stepper'] },
   { title: 'Feedback', names: ['alert', 'badge', 'chip', 'progress', 'spinner-border', 'spinner-grow', 'placeholder', 'placeholder-wave', 'toast', 'tooltip', 'popover'] },

@@ -11,7 +11,7 @@ cd bootstrap-tokens
 npm ci
 ```
 
-The tooling reads the Bootstrap release `package.json` pins (`bootstrap@6.0.0-alpha.1`), which
+The tooling reads the Bootstrap release `package.json` pins (`bootstrap@6.0.0-alpha.2`), which
 `npm ci` installs into `node_modules/bootstrap`. CI uses the same one. To work against a
 Bootstrap checkout instead, for example `main` while preparing an upstream pull request with
 `eject`, pass `--src <path>`, set `$BOOTSTRAP_SRC`, or add a `bootstrap-tokens.config.json`

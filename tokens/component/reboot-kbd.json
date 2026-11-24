@@ -27,12 +27,13 @@
     },
     "kbd-font-size": {
       "$type": "dimension",
-      "$value": "{font-size.xs}",
+      "$value": ".75em",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--kbd-font-size",
           "sassMap": "$reboot-kbd-tokens",
-          "sassKey": "--kbd-font-size"
+          "sassKey": "--kbd-font-size",
+          "css": true
         }
       }
     },

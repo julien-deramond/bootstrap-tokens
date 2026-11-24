@@ -16,13 +16,12 @@
     },
     "color": {
       "$type": "color",
-      "$value": "inherit",
+      "$value": "{fg.body}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--btn-close-color",
           "sassMap": "$btn-close-tokens",
-          "sassKey": "--btn-close-color",
-          "css": true
+          "sassKey": "--btn-close-color"
         }
       }
     },

@@ -70,6 +70,12 @@ export const OPTIONS = [
     describe: 'Honors `prefers-reduced-motion`. Leave this on: turning it off overrides an accessibility preference the reader set deliberately.'
   },
   {
+    name: '$enable-forced-colors',
+    kind: 'flag',
+    group: 'Appearance',
+    describe: 'Adds the styles that keep components usable in forced colors mode, such as Windows high contrast themes. Leave this on: turning it off breaks components for readers who rely on it.'
+  },
+  {
     name: '$enable-smooth-scroll',
     kind: 'flag',
     group: 'Motion',
@@ -155,6 +161,12 @@ export const OPTIONS = [
     kind: 'sequence',
     group: 'Appearance',
     describe: 'The names of the password strength meter’s levels, weakest first.'
+  },
+  {
+    name: '$strength-text-colors',
+    kind: 'map',
+    group: 'Appearance',
+    describe: 'The text color of the password strength label at each level. Keep its keys in step with `$strength-levels`.'
   },
 
   {

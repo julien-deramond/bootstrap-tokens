@@ -147,15 +147,15 @@
           "expression": true,
           "redeclared": [
             {
-              "selector": ".chip:hover",
-              "value": "var(--theme-bg-muted, var(--bg-3))"
-            },
-            {
               "selector": ".chip.active",
               "value": "var(--chip-selected-bg)"
             },
             {
-              "selector": ".chip.active:hover",
+              "selector": ".chip:is(:any-link, button, [role=button], [role=link]):not(:disabled, .disabled, [aria-disabled=true]):hover, :is(:any-link, button, [role=button], [role=link]):not(:disabled, .disabled, [aria-disabled=true]) .chip:hover, .combobox-control > .chip:hover",
+              "value": "var(--theme-bg-muted, var(--bg-3))"
+            },
+            {
+              "selector": ".chip:is(:any-link, button, [role=button], [role=link]):not(:disabled, .disabled, [aria-disabled=true]).active:hover, :is(:any-link, button, [role=button], [role=link]):not(:disabled, .disabled, [aria-disabled=true]) .chip.active:hover, .combobox-control > .chip.active:hover",
               "value": "var(--chip-selected-bg)"
             }
           ]

@@ -44,21 +44,38 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--range-track-bg",
           "sassMap": "$range-tokens",
-          "sassKey": "--range-track-bg"
+          "sassKey": "--range-track-bg",
+          "redeclared": [
+            {
+              "selector": ".form-range-input",
+              "at": [
+                "@media (forced-colors: active)"
+              ],
+              "value": "Canvas"
+            }
+          ]
         }
       }
     },
     "track-border-radius": {
       "$type": "dimension",
-      "$value": {
-        "value": 1,
-        "unit": "rem"
-      },
+      "$value": "{radius.pill}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--range-track-border-radius",
           "sassMap": "$range-tokens",
           "sassKey": "--range-track-border-radius"
+        }
+      }
+    },
+    "track-box-shadow": {
+      "$type": "shadow",
+      "$value": "{shadow.inset}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-track-box-shadow",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-track-box-shadow"
         }
       }
     },
@@ -73,6 +90,13 @@
           "expression": true,
           "redeclared": [
             {
+              "selector": ".form-range-input",
+              "at": [
+                "@media (forced-colors: active)"
+              ],
+              "value": "Highlight"
+            },
+            {
               "selector": ".form-range-input:disabled::-webkit-slider-runnable-track",
               "value": "var(--range-track-disabled-bg)"
             },
@@ -85,6 +109,23 @@
       },
       "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set."
     },
+    "track-fill-direction": {
+      "$value": "to right",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--range-track-fill-direction",
+          "sassMap": "$range-tokens",
+          "sassKey": "--range-track-fill-direction",
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".form-range:dir(rtl)",
+              "value": "to left"
+            }
+          ]
+        }
+      }
+    },
     "track-disabled-bg": {
       "$type": "color",
       "$value": "color-mix(in oklch, {bg.4}, {fg.3})",
@@ -93,7 +134,16 @@
           "cssVar": "--range-track-disabled-bg",
           "sassMap": "$range-tokens",
           "sassKey": "--range-track-disabled-bg",
-          "expression": true
+          "expression": true,
+          "redeclared": [
+            {
+              "selector": ".form-range-input",
+              "at": [
+                "@media (forced-colors: active)"
+              ],
+              "value": "GrayText"
+            }
+          ]
         }
       }
     },
@@ -130,7 +180,16 @@
           "cssVar": "--range-thumb-bg",
           "sassMap": "$range-tokens",
           "sassKey": "--range-thumb-bg",
-          "expression": true
+          "expression": true,
+          "redeclared": [
+            {
+              "selector": ".form-range-input",
+              "at": [
+                "@media (forced-colors: active)"
+              ],
+              "value": "ButtonText"
+            }
+          ]
         }
       },
       "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set."
@@ -149,10 +208,7 @@
     },
     "thumb-border-radius": {
       "$type": "dimension",
-      "$value": {
-        "value": 1,
-        "unit": "rem"
-      },
+      "$value": "{radius.pill}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--range-thumb-border-radius",
@@ -181,7 +237,16 @@
           "cssVar": "--range-thumb-active-bg",
           "sassMap": "$range-tokens",
           "sassKey": "--range-thumb-active-bg",
-          "expression": true
+          "expression": true,
+          "redeclared": [
+            {
+              "selector": ".form-range-input",
+              "at": [
+                "@media (forced-colors: active)"
+              ],
+              "value": "Highlight"
+            }
+          ]
         }
       },
       "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set."
@@ -193,7 +258,16 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--range-thumb-disabled-bg",
           "sassMap": "$range-tokens",
-          "sassKey": "--range-thumb-disabled-bg"
+          "sassKey": "--range-thumb-disabled-bg",
+          "redeclared": [
+            {
+              "selector": ".form-range-input",
+              "at": [
+                "@media (forced-colors: active)"
+              ],
+              "value": "GrayText"
+            }
+          ]
         }
       }
     },

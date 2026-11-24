@@ -44,7 +44,44 @@
           "cssVar": "--drawer-height",
           "sassMap": "$drawer-tokens",
           "sassKey": "--drawer-height",
-          "css": true
+          "css": true,
+          "redeclared": [
+            {
+              "selector": ".sm\\:drawer",
+              "at": [
+                "@media (width >= 576px)"
+              ],
+              "value": "auto"
+            },
+            {
+              "selector": ".md\\:drawer",
+              "at": [
+                "@media (width >= 768px)"
+              ],
+              "value": "auto"
+            },
+            {
+              "selector": ".lg\\:drawer",
+              "at": [
+                "@media (width >= 1024px)"
+              ],
+              "value": "auto"
+            },
+            {
+              "selector": ".xl\\:drawer",
+              "at": [
+                "@media (width >= 1280px)"
+              ],
+              "value": "auto"
+            },
+            {
+              "selector": ".\\32 xl\\:drawer",
+              "at": [
+                "@media (width >= 1536px)"
+              ],
+              "value": "auto"
+            }
+          ]
         }
       }
     },
@@ -99,7 +136,44 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--drawer-border-width",
           "sassMap": "$drawer-tokens",
-          "sassKey": "--drawer-border-width"
+          "sassKey": "--drawer-border-width",
+          "redeclared": [
+            {
+              "selector": ".sm\\:drawer",
+              "at": [
+                "@media (width >= 576px)"
+              ],
+              "value": "0"
+            },
+            {
+              "selector": ".md\\:drawer",
+              "at": [
+                "@media (width >= 768px)"
+              ],
+              "value": "0"
+            },
+            {
+              "selector": ".lg\\:drawer",
+              "at": [
+                "@media (width >= 1024px)"
+              ],
+              "value": "0"
+            },
+            {
+              "selector": ".xl\\:drawer",
+              "at": [
+                "@media (width >= 1280px)"
+              ],
+              "value": "0"
+            },
+            {
+              "selector": ".\\32 xl\\:drawer",
+              "at": [
+                "@media (width >= 1536px)"
+              ],
+              "value": "0"
+            }
+          ]
         }
       }
     },
@@ -183,32 +257,6 @@
         }
       }
     },
-    "backdrop-bg": {
-      "$type": "color",
-      "$value": "color-mix(in oklch, {bg.body} 25%, transparent)",
-      "$extensions": {
-        "dev.bootstrap.tokens": {
-          "cssVar": "--drawer-backdrop-bg",
-          "sassMap": "$drawer-tokens",
-          "sassKey": "--drawer-backdrop-bg",
-          "expression": true
-        }
-      }
-    },
-    "backdrop-blur": {
-      "$type": "dimension",
-      "$value": {
-        "value": 8,
-        "unit": "px"
-      },
-      "$extensions": {
-        "dev.bootstrap.tokens": {
-          "cssVar": "--drawer-backdrop-blur",
-          "sassMap": "$drawer-tokens",
-          "sassKey": "--drawer-backdrop-blur"
-        }
-      }
-    },
     "$description": "Tokens emitted on `.drawer`.",
     "$extensions": {
       "dev.bootstrap.tokens": {
@@ -216,6 +264,7 @@
         "selector": ".drawer",
         "source": "scss/_drawer.scss",
         "cascade": {
+          "layer": "components",
           "rule": ".drawer, .\\32 xl\\:drawer, .xl\\:drawer, .lg\\:drawer, .md\\:drawer, .sm\\:drawer"
         }
       }
