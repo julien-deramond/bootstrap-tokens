@@ -91,6 +91,42 @@
         }
       }
     },
+    "transition-property": {
+      "$value": "\"opacity, transform\"",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-transition-property",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-transition-property",
+          "css": true
+        }
+      }
+    },
+    "transition-duration": {
+      "$type": "duration",
+      "$value": {
+        "value": 0.15,
+        "unit": "s"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-transition-duration",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-transition-duration"
+        }
+      }
+    },
+    "transition-timing": {
+      "$type": "cubicBezier",
+      "$value": "{motion.timing-overlay}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--datepicker-transition-timing",
+          "sassMap": "$datepicker-tokens",
+          "sassKey": "--datepicker-transition-timing"
+        }
+      }
+    },
     "min-width": {
       "$type": "dimension",
       "$value": {
@@ -118,7 +154,7 @@
     },
     "header-font-weight": {
       "$type": "fontWeight",
-      "$value": 600,
+      "$value": "{font-weight.semibold}",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--datepicker-header-font-weight",
@@ -151,25 +187,29 @@
     },
     "day-selected-bg": {
       "$type": "color",
-      "$value": "{theme-color.primary.bg}",
+      "$value": "var(--theme-bg, {theme-color.primary.bg})",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--datepicker-day-selected-bg",
           "sassMap": "$datepicker-tokens",
-          "sassKey": "--datepicker-day-selected-bg"
+          "sassKey": "--datepicker-day-selected-bg",
+          "expression": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-bg`, and uses the fallback only when no theme class is set."
     },
     "day-selected-color": {
       "$type": "color",
-      "$value": "{theme-color.primary.contrast}",
+      "$value": "var(--theme-contrast, {theme-color.primary.contrast})",
       "$extensions": {
         "dev.bootstrap.tokens": {
           "cssVar": "--datepicker-day-selected-color",
           "sassMap": "$datepicker-tokens",
-          "sassKey": "--datepicker-day-selected-color"
+          "sassKey": "--datepicker-day-selected-color",
+          "expression": true
         }
-      }
+      },
+      "$description": "Follows the `.theme-*` class on an ancestor through `--theme-contrast`, and uses the fallback only when no theme class is set."
     },
     "day-today-bg": {
       "$type": "color",
@@ -209,7 +249,7 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$datepicker-tokens",
         "selector": "[data-vc=calendar]",
-        "source": "scss/_datepicker.scss",
+        "source": "scss/forms/_datepicker.scss",
         "cascade": {
           "layer": "components",
           "rule": "[data-vc=calendar]"

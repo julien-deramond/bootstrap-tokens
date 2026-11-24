@@ -27,7 +27,7 @@
   },
   "dark": {
     "alert.bg": "#0f1214", "btn.color": "#f1f2f3", "card.bg": "#080a0c",
-    "dialog.backdrop-bg": "#000000a6", "drawer.backdrop-bg": "#080a0c40",
+    "dialog.backdrop-bg": "#000000a6",
     "navbar.color": "#abb2b8", "progress.bg": "#171a1d", "prose.heading-color": "#ffffff",
     "reboot-mark.mark-bg": "#403000", "tooltip.bg": "#f1f2f3",
     "color.blue.025": "#f0f8ff", "color.blue.050": "#e6f4ff", "color.blue.100": "#cce9ff",

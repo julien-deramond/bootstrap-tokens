@@ -1,0 +1,166 @@
+{
+  "combobox-control": {
+    "padding-y": {
+      "$type": "dimension",
+      "$value": "{control.field.padding-y}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--combobox-control-padding-y",
+          "sassMap": "$combobox-control-tokens",
+          "sassKey": "--combobox-control-padding-y"
+        }
+      }
+    },
+    "padding-x": {
+      "$type": "dimension",
+      "$value": "{control.field.padding-x}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--combobox-control-padding-x",
+          "sassMap": "$combobox-control-tokens",
+          "sassKey": "--combobox-control-padding-x"
+        }
+      }
+    },
+    "gap": {
+      "$type": "dimension",
+      "$value": {
+        "value": 0.25,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--combobox-control-gap",
+          "sassMap": "$combobox-control-tokens",
+          "sassKey": "--combobox-control-gap"
+        }
+      }
+    },
+    "chip-height": {
+      "$type": "dimension",
+      "$value": "calc({combobox-control.control-min-height} - 2 * {combobox-control.padding-y} - 2 * {combobox-control.control-border-width})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--combobox-control-chip-height",
+          "sassMap": "$combobox-control-tokens",
+          "sassKey": "--combobox-control-chip-height",
+          "expression": true
+        }
+      }
+    },
+    "control-min-height": {
+      "$type": "dimension",
+      "$value": "{control.field.min-height}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-min-height",
+          "sassMap": "$combobox-control-tokens",
+          "sassKey": "--control-min-height"
+        }
+      }
+    },
+    "control-font-size": {
+      "$type": "dimension",
+      "$value": "{control.field.font-size}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-font-size",
+          "sassMap": "$combobox-control-tokens",
+          "sassKey": "--control-font-size"
+        }
+      }
+    },
+    "control-line-height": {
+      "$type": "dimension",
+      "$value": "{control.field.line-height}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-line-height",
+          "sassMap": "$combobox-control-tokens",
+          "sassKey": "--control-line-height"
+        }
+      }
+    },
+    "ghost-min-width": {
+      "$type": "dimension",
+      "$value": {
+        "value": 5,
+        "unit": "rem"
+      },
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--combobox-control-ghost-min-width",
+          "sassMap": "$combobox-control-tokens",
+          "sassKey": "--combobox-control-ghost-min-width"
+        }
+      }
+    },
+    "control-fg": {
+      "$type": "color",
+      "$value": "{control.field.fg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-fg",
+          "sassMap": "$combobox-control-tokens",
+          "sassKey": "--control-fg"
+        }
+      }
+    },
+    "control-bg": {
+      "$type": "color",
+      "$value": "{control.field.bg}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-bg",
+          "sassMap": "$combobox-control-tokens",
+          "sassKey": "--control-bg"
+        }
+      }
+    },
+    "control-border-width": {
+      "$type": "dimension",
+      "$value": "{border.width}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-border-width",
+          "sassMap": "$combobox-control-tokens",
+          "sassKey": "--control-border-width"
+        }
+      }
+    },
+    "control-border-color": {
+      "$type": "color",
+      "$value": "{border.color}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-border-color",
+          "sassMap": "$combobox-control-tokens",
+          "sassKey": "--control-border-color"
+        }
+      }
+    },
+    "control-border-radius": {
+      "$type": "dimension",
+      "$value": "{radius.5}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--control-border-radius",
+          "sassMap": "$combobox-control-tokens",
+          "sassKey": "--control-border-radius"
+        }
+      }
+    },
+    "$description": "Tokens emitted on `.combobox-control`.",
+    "$extensions": {
+      "dev.bootstrap.tokens": {
+        "sassMap": "$combobox-control-tokens",
+        "selector": ".combobox-control",
+        "source": "scss/forms/_combobox-control.scss",
+        "cascade": {
+          "layer": "forms",
+          "rule": ".combobox-control"
+        }
+      }
+    }
+  }
+}

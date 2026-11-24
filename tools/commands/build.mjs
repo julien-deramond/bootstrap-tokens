@@ -26,10 +26,10 @@ export function cssDeclarations(doc) {
   const maps = mapEntries(doc)
   for (const [mapName, entries] of maps) {
     const component = COMPONENTS.find((c) => c.sassMap === mapName)
-    // A map upstream never includes emits nothing upstream, and must emit nothing here:
-    // `$drawer-backdrop-tokens` sets `--drawer-backdrop-bg: var(--bg-body)`, which written
-    // out lands after `$drawer-tokens`' `color-mix(… 25%, transparent)` and makes the
-    // backdrop fully opaque. See issue #16.
+    // A map upstream never includes emits nothing upstream, and must emit nothing here.
+    // Written out anyway, its values can land after the ones upstream does emit: in
+    // Bootstrap 6.0.0-alpha.1, `$drawer-backdrop-tokens` made the drawer backdrop fully
+    // opaque that way. See issue #16.
     if (component?.inert) continue
 
     for (const entry of entries) {

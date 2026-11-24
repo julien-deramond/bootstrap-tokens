@@ -60,13 +60,7 @@
         "dev.bootstrap.tokens": {
           "cssVar": "--switch-margin-block",
           "sassMap": "$switch-tokens",
-          "sassKey": "--switch-margin-block",
-          "redeclared": [
-            {
-              "selector": ".switch-lg",
-              "value": ".375rem"
-            }
-          ]
+          "sassKey": "--switch-margin-block"
         }
       }
     },
@@ -143,6 +137,10 @@
             {
               "selector": ".switch:has(input:disabled:not(:checked))",
               "value": "var(--switch-disabled-indicator-bg)"
+            },
+            {
+              "selector": ".switch:has(input:checked)",
+              "value": "var(--switch-checked-indicator-bg)"
             }
           ]
         }

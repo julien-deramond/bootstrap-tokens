@@ -205,6 +205,30 @@
         }
       }
     },
+    "item-focus-color": {
+      "$type": "color",
+      "$value": "{color.white}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-item-focus-color",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-item-focus-color",
+          "dark": "{color.gray.900}"
+        }
+      }
+    },
+    "item-focus-bg": {
+      "$type": "color",
+      "$value": "{color.gray.700}",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--menu-item-focus-bg",
+          "sassMap": "$menu-tokens",
+          "sassKey": "--menu-item-focus-bg",
+          "dark": "{color.gray.200}"
+        }
+      }
+    },
     "item-active-color": {
       "$type": "color",
       "$value": "{theme-color.primary.contrast}",

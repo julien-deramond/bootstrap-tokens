@@ -20,6 +20,10 @@
             {
               "selector": ".form-control-lg",
               "value": "var(--btn-input-lg-min-height)"
+            },
+            {
+              "selector": ".combobox-control",
+              "token": "combobox-control.control-min-height"
             }
           ]
         }
@@ -95,6 +99,10 @@
             {
               "selector": ".form-control-lg",
               "value": "var(--btn-input-lg-font-size)"
+            },
+            {
+              "selector": ".combobox-control",
+              "token": "combobox-control.control-font-size"
             }
           ]
         }
@@ -120,6 +128,10 @@
             {
               "selector": ".form-control-lg",
               "value": "var(--btn-input-lg-line-height)"
+            },
+            {
+              "selector": ".combobox-control",
+              "token": "combobox-control.control-line-height"
             }
           ]
         }
@@ -139,8 +151,8 @@
               "token": "form-control.control-fg"
             },
             {
-              "selector": ".chip-input",
-              "token": "chip-input.control-fg"
+              "selector": ".combobox-control",
+              "token": "combobox-control.control-fg"
             }
           ]
         }
@@ -160,8 +172,8 @@
               "token": "form-control.control-bg"
             },
             {
-              "selector": ".chip-input",
-              "token": "chip-input.control-bg"
+              "selector": ".combobox-control",
+              "token": "combobox-control.control-bg"
             }
           ]
         }
@@ -181,8 +193,8 @@
               "token": "form-control.control-border-width"
             },
             {
-              "selector": ".chip-input",
-              "token": "chip-input.control-border-width"
+              "selector": ".combobox-control",
+              "token": "combobox-control.control-border-width"
             }
           ]
         }
@@ -202,8 +214,8 @@
               "token": "form-control.control-border-color"
             },
             {
-              "selector": ".chip-input",
-              "token": "chip-input.control-border-color"
+              "selector": ".combobox-control",
+              "token": "combobox-control.control-border-color"
             }
           ]
         }
@@ -231,8 +243,8 @@
               "value": "var(--btn-input-lg-border-radius)"
             },
             {
-              "selector": ".chip-input",
-              "token": "chip-input.control-border-radius"
+              "selector": ".combobox-control",
+              "token": "combobox-control.control-border-radius"
             }
           ]
         }

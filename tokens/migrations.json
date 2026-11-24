@@ -44,6 +44,46 @@
     {
       "from": "calendar.day-disabled-color",
       "to": "datepicker.day-disabled-color"
+    },
+    {
+      "from": "chip-input.padding-y",
+      "to": "combobox-control.padding-y"
+    },
+    {
+      "from": "chip-input.padding-x",
+      "to": "combobox-control.padding-x"
+    },
+    {
+      "from": "chip-input.gap",
+      "to": "combobox-control.gap"
+    },
+    {
+      "from": "chip-input.ghost-min-width",
+      "to": "combobox-control.ghost-min-width"
+    },
+    {
+      "from": "chip-input.control-fg",
+      "to": "combobox-control.control-fg"
+    },
+    {
+      "from": "chip-input.control-bg",
+      "to": "combobox-control.control-bg"
+    },
+    {
+      "from": "chip-input.control-border-width",
+      "to": "combobox-control.control-border-width"
+    },
+    {
+      "from": "chip-input.control-border-color",
+      "to": "combobox-control.control-border-color"
+    },
+    {
+      "from": "chip-input.control-border-radius",
+      "to": "combobox-control.control-border-radius"
+    },
+    {
+      "from": "drawer.backdrop-blur",
+      "to": "drawer-backdrop.blur"
     }
   ]
 }

@@ -39,6 +39,10 @@
               "value": "1140px"
             },
             {
+              "selector": ".dialog-2xl",
+              "value": "1440px"
+            },
+            {
               "selector": ".dialog-fullscreen",
               "value": "100vw"
             },
@@ -235,6 +239,18 @@
               "value": "0"
             }
           ]
+        }
+      }
+    },
+    "inner-border-radius": {
+      "$type": "dimension",
+      "$value": "calc({dialog.border-radius} - {dialog.border-width})",
+      "$extensions": {
+        "dev.bootstrap.tokens": {
+          "cssVar": "--dialog-inner-border-radius",
+          "sassMap": "$dialog-tokens",
+          "sassKey": "--dialog-inner-border-radius",
+          "expression": true
         }
       }
     },

@@ -1,11 +1,10 @@
 {
-  "$comment": "Bootstrap 6.0.0-alpha.1 tokens with no value Figma can hold, and why. Nothing here was guessed at.",
+  "$comment": "Bootstrap 6.0.0-alpha.2 tokens with no value Figma can hold, and why. Nothing here was guessed at.",
   "light": {
     "alert.color": "is the CSS keyword `inherit`",
     "alert.link-color": "is the CSS keyword `inherit`",
     "badge.color": "is the CSS keyword `inherit`",
     "bg.inherit": "is the CSS keyword `inherit`",
-    "btn-close.color": "is the CSS keyword `inherit`",
     "card.cap-color": "is the CSS keyword `inherit`",
     "card.color": "is the CSS keyword `inherit`",
     "card.subtitle-color": "is the CSS keyword `inherit`",
@@ -39,7 +38,6 @@
     "alert.link-color": "is the CSS keyword `inherit`",
     "badge.color": "is the CSS keyword `inherit`",
     "bg.inherit": "is the CSS keyword `inherit`",
-    "btn-close.color": "is the CSS keyword `inherit`",
     "card.cap-color": "is the CSS keyword `inherit`",
     "card.color": "is the CSS keyword `inherit`",
     "card.subtitle-color": "is the CSS keyword `inherit`",

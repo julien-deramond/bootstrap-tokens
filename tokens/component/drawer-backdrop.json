@@ -43,7 +43,11 @@
         "sassMap": "$drawer-backdrop-tokens",
         "selector": ".drawer",
         "source": "scss/_drawer.scss",
-        "variantOf": "drawer"
+        "variantOf": "drawer",
+        "cascade": {
+          "layer": "components",
+          "rule": ".drawer, .\\32 xl\\:drawer, .xl\\:drawer, .lg\\:drawer, .md\\:drawer, .sm\\:drawer"
+        }
       }
     }
   }

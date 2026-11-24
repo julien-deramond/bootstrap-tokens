@@ -6,7 +6,7 @@ Every command is also available as an npm script in this repository (`npm run bu
 ## Which Bootstrap the commands read
 
 The commands that read or compile upstream Sass (`sync`, `verify`, `vendor`, `eject`) use the
-Bootstrap release `package.json` pins as a devDependency, `bootstrap@6.0.0-alpha.1`. `npm ci`
+Bootstrap release `package.json` pins as a devDependency, `bootstrap@6.0.0-alpha.2`. `npm ci`
 installs it into `node_modules/bootstrap`, and CI uses the same one.
 
 They look for a source in this order: `--src <path>`, `$BOOTSTRAP_SRC`, a `bootstrapSource`
@@ -148,7 +148,7 @@ it in the Theme Builder later. It also gets `npm run verify`, which compiles the
 the Bootstrap you installed and compares the result with what you previewed.
 
 The scaffold depends on the exact Bootstrap release this repository builds against
-(`bootstrap@6.0.0-alpha.1`), from the npm registry. Exact, because an alpha can rename the
+(`bootstrap@6.0.0-alpha.2`), from the npm registry. Exact, because an alpha can rename the
 variables a theme sets. And from the registry, because that installs without `git`, which isn't
 there everywhere a project gets installed (a browser sandbox, most containers). Pass
 `--bootstrap` to name another dependency spec, and `--force` to write into a non-empty

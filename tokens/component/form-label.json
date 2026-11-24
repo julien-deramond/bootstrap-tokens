@@ -64,7 +64,11 @@
       "dev.bootstrap.tokens": {
         "sassMap": "$form-label-tokens",
         "selector": ".form-label",
-        "source": "scss/forms/_labels.scss"
+        "source": "scss/forms/_labels.scss",
+        "cascade": {
+          "layer": "forms",
+          "rule": ".form-label, .col-form-label"
+        }
       }
     }
   }

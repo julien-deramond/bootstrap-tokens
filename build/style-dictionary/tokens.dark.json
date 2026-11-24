@@ -5,6 +5,16 @@
       "$value": "rgb(0 0 0 / 65%)"
     }
   },
+  "menu": {
+    "item-focus-color": {
+      "$type": "color",
+      "$value": "{color.gray.900}"
+    },
+    "item-focus-bg": {
+      "$type": "color",
+      "$value": "{color.gray.200}"
+    }
+  },
   "prose": {
     "heading-color": {
       "$type": "color",

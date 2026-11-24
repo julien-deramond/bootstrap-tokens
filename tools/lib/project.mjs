@@ -37,14 +37,14 @@ import { page } from './sample-page.mjs'
  * runs in the browser and cannot read `package.json` itself — a Bootstrap bump that forgets
  * this line goes red rather than shipping scaffolds a release behind.
  *
- * Exact rather than a range. `^6.0.0-alpha.1` would let npm pick up a later alpha, and alphas
+ * Exact rather than a range. `^6.0.0-alpha.2` would let npm pick up a later alpha, and alphas
  * rename tokens; a theme exported today should keep compiling the way it was previewed.
  *
  * A registry version also installs anywhere: npm fetches the packed tarball over HTTPS, with
  * no git binary needed, so StackBlitz's WebContainer installs it as readily as a laptop does.
  * Until v6 reached npm this was a codeload tarball of the `main` branch for that reason.
  */
-export const BOOTSTRAP_DEFAULT = '6.0.0-alpha.1'
+export const BOOTSTRAP_DEFAULT = '6.0.0-alpha.2'
 
 /*
  * The `sass` scaffold depends on this package so `npm run verify` works without a global

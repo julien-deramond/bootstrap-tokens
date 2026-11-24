@@ -176,10 +176,10 @@ const forms = (uid) => section(
       </div>
 
       <label class="form-label mt" for="chips-${uid}">Skills</label>
-      <div class="chip-input">
+      <div class="combobox-control">
         <span class="chip">JavaScript</span>
         <span class="chip">Sass<button type="button" class="chip-dismiss" aria-label="Remove"></button></span>
-        <input type="text" class="form-control" id="chips-${uid}" placeholder="Add one…" />
+        <input type="text" class="form-ghost" id="chips-${uid}" placeholder="Add one…" />
       </div>
 
       <label class="form-label mt" for="password-${uid}">Password</label>

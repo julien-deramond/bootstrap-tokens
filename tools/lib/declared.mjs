@@ -62,8 +62,8 @@ export async function compileProbe(source, tree, paths) {
  * Maps that are defined, documented and `!default`-configurable, and never `@include`d.
  *
  * Nothing they contain reaches CSS, so configuring one does nothing at all — silently, which
- * is the worst way for a documented configuration point to fail. Two of Bootstrap's sixty-two
- * are like this today; see issue #16.
+ * is the worst way for a documented configuration point to fail. Bootstrap 6.0.0-alpha.1 had
+ * two, `$drawer-backdrop-tokens` and `$form-label-tokens`; alpha.2 includes both. See issue #16.
  */
 export function includedMaps(source) {
   const scss = join(source, 'scss')
@@ -77,10 +77,13 @@ export function includedMaps(source) {
   }
   walk(scss)
 
+  // The argument can merge maps, as `_drawer.scss` does with
+  // `tokens(defaults($drawer-backdrop-tokens, $drawer-tokens))`: every map named inside the
+  // call reaches CSS, not only one passed on its own.
   const included = new Set()
   for (const file of files) {
-    for (const [, name] of readFileSync(file, 'utf8').matchAll(/@include\s+tokens\(\s*(\$[\w-]+)/g)) {
-      included.add(name)
+    for (const [, args] of readFileSync(file, 'utf8').matchAll(/@include\s+tokens\(([^;]*)\)\s*;/g)) {
+      for (const [name] of args.matchAll(/\$[\w-]+-tokens\b/g)) included.add(name)
     }
   }
   return included
