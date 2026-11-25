@@ -58,7 +58,7 @@ So this repository holds two things:
   you would have hand-written.
 
 ```mermaid
-%%{init: {"fontFamily": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace", "flowchart": {"wrappingWidth": 480}, "theme": "base", "themeVariables": {"darkMode": true, "dropShadow": "none", "background": "#0A0C11", "fontFamily": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace", "fontSize": "14px", "primaryColor": "#16181E", "primaryTextColor": "#E6E8EC", "primaryBorderColor": "#292C33", "secondaryColor": "#16181E", "tertiaryColor": "#0A0C11", "lineColor": "#3AB9BF", "textColor": "#E6E8EC", "clusterBkg": "#0A0C11", "clusterBorder": "#292C33", "titleColor": "#8F929A", "edgeLabelBackground": "#0A0C11"}}}%%
+%%{init: {"fontFamily": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace", "flowchart": {"wrappingWidth": 480}, "theme": "base", "themeVariables": {"darkMode": true, "dropShadow": "none", "background": "#0A0C11", "fontFamily": "ui-monospace, SFMono-Regular, Menlo, Consolas, monospace", "fontSize": "14px", "primaryColor": "#16181E", "primaryTextColor": "#E6E8EC", "primaryBorderColor": "#6C6F76", "secondaryColor": "#16181E", "tertiaryColor": "#0A0C11", "lineColor": "#3AB9BF", "textColor": "#E6E8EC", "clusterBkg": "#0A0C11", "clusterBorder": "#292C33", "titleColor": "#8F929A", "edgeLabelBackground": "#0A0C11"}}}%%
 flowchart TB
   accTitle: The build, verify and sync loop
   accDescr: tokens is the DTCG source of truth. Build turns it into Sass maps, CSS custom properties and resolved JSON. Verify checks those outputs against the pinned bootstrap@6.0.0-alpha.2. Sync reads the pinned bootstrap@6.0.0-alpha.2 back into tokens.
